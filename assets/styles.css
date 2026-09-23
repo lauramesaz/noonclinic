@@ -1058,3 +1058,5 @@ td.nn { color: var(--bone); }
 .banda, .banda.delgada { border-radius: 6px !important; }
 .puntos > *, .mosaico details, .acordeon details, .paso .txt, .lista, .tarjeta, .miedo, .dato, .resumen, .recibo { border-radius: var(--r) !important; }
 .ico { border-radius: 4px; background: var(--acento-suave); color: var(--burgundy); }
+.hamb { border-radius: 4px !important; }
+@media (max-width: 720px) { .ceja { letter-spacing: .16em; font-size: 11.5px; } .ceja::before { width: 28px; } }
