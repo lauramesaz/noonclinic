@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agenda tu valoración · noon Clinic</title>
-<meta name="description" content="Todo empieza con tu cita de valoración con nuestros cirujanos. Agéndala por WhatsApp.">
+<meta name="description" content="Todo empieza con tu valoración con nuestros especialistas. Agéndala por WhatsApp.">
 <meta name="theme-color" content="#120d0a">
 <link rel="icon" href="assets/favicon.png">
 <script>document.documentElement.className="js"</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/noon.css?v=1790188077">
+<link rel="stylesheet" href="assets/noon.css?v=1790188974">
 </head>
 <body>
 <header class="cab">
@@ -20,9 +20,10 @@
   <a class="agendar" href="valoracion">Agendar</a>
 </header>
 <div class="menu" id="menu" hidden>
-  <div class="menu-in">
-    <div class="menu-col"><p class="ceja">Procedimientos</p><nav class="grande"><a href="mamoplastia-de-aumento">Mamoplastia de aumento</a><a href="mastopexia-con-implantes">Mastopexia con implantes</a><a href="mastopexia-sin-implantes">Mastopexia sin implantes</a><a href="lipo">Lipo</a></nav></div>
-    <div class="menu-col"><p class="ceja">noon Clinic</p><nav><a href="cirugias">Procedimientos</a><a href="todo-incluido">Qué incluye</a><a href="seguridad">Seguridad</a><a href="tu-proceso">Tu proceso</a><a href="formas-de-pago">Pagos</a><a href="otra-ciudad">Si vienes de lejos</a><a href="nosotros">Nosotros</a><a href="preguntas-frecuentes">Preguntas</a></nav>
+  <div class="menu-in tres">
+    <div class="menu-col"><p class="ceja"><a href="cirugia-plastica">Cirugía plástica</a></p><nav class="grande"><a href="cirugia-plastica#rostro">Rostro</a><a href="cirugia-plastica#senos">Senos</a><a href="cirugia-plastica#cuerpo">Contorno corporal</a><a href="cirugia-plastica#combinadas">Combinadas e íntima</a></nav></div>
+    <div class="menu-col"><p class="ceja"><a href="medicina-estetica">Medicina estética</a></p><nav class="grande"><a href="medicina-estetica#inyectables">Inyectables</a><a href="medicina-estetica#piel">Piel</a><a href="medicina-estetica#tecnologias">Tecnologías</a><a href="medicina-estetica#bienestar">Bienestar</a></nav></div>
+    <div class="menu-col"><p class="ceja">noon Clinic</p><nav><a href="especialistas">Especialistas</a><a href="seguridad">Seguridad</a><a href="tu-proceso">Tu proceso</a><a href="formas-de-pago">Pagos</a><a href="otra-ciudad">Si vienes de lejos</a><a href="preguntas-frecuentes">Preguntas</a></nav>
       <a class="boton" href="valoracion">Agendar valoración</a></div>
   </div>
 </div>
@@ -30,12 +31,12 @@
 <section class="hero medio"><div class="capa" style="background-image:url(assets/noon/seda-oscura.jpg)"></div><div class="hero-in">
   <p class="ceja rev">Primer paso</p><h1 class="rev">Tu valoración.</h1><p class="sub rev">Una conversación clínica empieza por entender qué quieres preservar.</p>
 </div></section><section class="valoracion">
-  <div class="texto rev"><p class="ceja">Valor de la cita</p><p class="precio">$200.000</p><ul class="lineas"><li class="rev"><b>Consulta con nuestros cirujanos</b><span>Examen, medidas y un plan pensado para ti.</span></li><li class="rev"><b>Respuestas honestas</b><span>Qué se puede lograr, qué no, y si eres candidata.</span></li><li class="rev"><b>Orden de exámenes</b><span>Sales con lo que necesitas para el siguiente paso.</span></li></ul><div class="nota-tc rev"><p>El valor de la cita ($200.000) no se descuenta de la cirugía y no se devuelve en ningún caso.</p><a href="terminos-y-condiciones">Leer términos y condiciones</a></div></div>
+  <div class="texto rev"><p class="ceja">Qué pasa en tu valoración</p><h2 class="h-val">Una conversación, no una venta.</h2><ul class="lineas"><li class="rev"><b>Te escuchamos</b><span>Qué quieres lograr y qué quieres preservar.</span></li><li class="rev"><b>Te examinamos</b><span>Con el especialista del área.</span></li><li class="rev"><b>Respuestas honestas</b><span>Qué se puede lograr, qué no, y si eres candidata.</span></li><li class="rev"><b>Tu plan por escrito</b><span>Procedimiento, tiempos, cuidados y presupuesto.</span></li></ul><div class="nota-tc rev"><p>La valoración no se abona al procedimiento y su valor no se devuelve.</p><a href="terminos-y-condiciones">Leer términos y condiciones</a></div></div>
   <form class="form rev" id="form-valoracion" data-wa="573217591330">
     <p class="ceja">Agenda por WhatsApp</p><h2>Empieza aquí</h2>
     <p class="sub">Tres datos y se abre WhatsApp con tu mensaje listo.</p>
     <label>Tu nombre<input id="nombre" name="nombre" required autocomplete="given-name"></label>
-    <label>Procedimiento que te interesa<select id="cirugia" name="cirugia"><option data-slug="mamoplastia-de-aumento">Mamoplastia de aumento</option><option data-slug="mastopexia-con-implantes">Mastopexia con implantes</option><option data-slug="mastopexia-sin-implantes">Mastopexia sin implantes</option><option data-slug="lipo">Lipo</option><option>Aún no estoy segura</option></select></label>
+    <label>¿Qué te interesa?<select id="cirugia" name="cirugia"><optgroup label="Cirugía plástica"><option data-slug="blefaroplastia">Blefaroplastia</option><option data-slug="rinoplastia">Rinoplastia</option><option data-slug="lifting-facial">Lifting facial y de cuello</option><option data-slug="bichectomia">Bichectomía</option><option data-slug="mentoplastia">Mentoplastia</option><option data-slug="otoplastia">Otoplastia</option><option data-slug="lipopapada">Lipopapada</option><option data-slug="mamoplastia-de-aumento">Mamoplastia de aumento</option><option data-slug="mastopexia">Mastopexia</option><option data-slug="mamoplastia-de-reduccion">Mamoplastia de reducción</option><option data-slug="recambio-de-implantes">Recambio o retiro de implantes</option><option data-slug="ginecomastia">Ginecomastia</option><option data-slug="liposuccion">Liposucción y lipoescultura</option><option data-slug="lipotransferencia-glutea">Lipotransferencia glútea</option><option data-slug="abdominoplastia">Abdominoplastia</option><option data-slug="mini-abdominoplastia">Mini abdominoplastia</option><option data-slug="braquioplastia">Braquioplastia</option><option data-slug="lifting-de-muslos">Lifting de muslos</option><option data-slug="cirugia-post-bariatrica">Cirugía tras gran pérdida de peso</option><option data-slug="mommy-makeover">Mommy makeover</option><option data-slug="labioplastia">Labioplastia</option></optgroup><optgroup label="Medicina estética"><option data-slug="toxina-botulinica">Toxina botulínica</option><option data-slug="acido-hialuronico">Ácido hialurónico</option><option data-slug="bioestimuladores">Bioestimuladores de colágeno</option><option data-slug="hilos-tensores">Hilos tensores</option><option data-slug="skinboosters">Skinboosters</option><option data-slug="plasma-rico-en-plaquetas">Plasma rico en plaquetas</option><option data-slug="peelings">Peelings químicos</option><option data-slug="microagujas">Microagujas</option><option data-slug="limpieza-facial-medica">Limpieza facial médica</option><option data-slug="manchas-y-melasma">Manchas y melasma</option><option data-slug="laser">Láser</option><option data-slug="depilacion-laser">Depilación láser</option><option data-slug="hifu">HIFU</option><option data-slug="radiofrecuencia">Radiofrecuencia</option><option data-slug="tratamientos-corporales">Tratamientos corporales</option><option data-slug="sueroterapia">Sueroterapia</option><option data-slug="manejo-medico-del-peso">Manejo médico del peso</option><option data-slug="nutricion">Nutrición</option></optgroup><option>Aún no estoy segura</option></select></label>
     <label>Ciudad donde vives<input id="ciudad" name="ciudad" required autocomplete="address-level2"></label>
     <button class="boton lleno" type="submit">Continuar en WhatsApp</button>
     <p class="legal">Al escribirnos aceptas nuestros <a href="terminos-y-condiciones">términos y condiciones</a>. Este formulario no guarda tus datos.</p>
@@ -45,17 +46,18 @@
 <footer class="pie">
   <div class="pie-in">
     <a class="logo" href="./"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
-    <p class="lema">Estética con criterio.</p>
-    <div class="pie-cols">
-      <div><p class="ceja">Procedimientos</p><a href="mamoplastia-de-aumento">Mamoplastia de aumento</a><a href="mastopexia-con-implantes">Mastopexia con implantes</a><a href="mastopexia-sin-implantes">Mastopexia sin implantes</a><a href="lipo">Lipo</a></div>
-      <div><p class="ceja">Información</p><a href="todo-incluido">Qué incluye</a><a href="seguridad">Seguridad</a><a href="tu-proceso">Tu proceso</a><a href="formas-de-pago">Pagos</a><a href="otra-ciudad">Si vienes de lejos</a><a href="preguntas-frecuentes">Preguntas</a></div>
-      <div><p class="ceja">Contacto</p><a href="https://wa.me/573217591330?text=Hola%2C%20quiero%20agendar%20mi%20cita%20de%20valoraci%C3%B3n%20en%20noon%20Clinic." target="_blank" rel="noopener">WhatsApp +57 321 7591330</a><a href="valoracion">Agendar valoración</a><a href="nosotros">Nosotros</a></div>
+    <p class="lema">Cirugía plástica y medicina estética, con criterio.</p>
+    <div class="pie-cols cuatro">
+      <div><p class="ceja">Cirugía plástica</p><a href="cirugia-plastica#rostro">Rostro</a><a href="cirugia-plastica#senos">Senos</a><a href="cirugia-plastica#cuerpo">Contorno corporal</a><a href="cirugia-plastica#combinadas">Combinadas e íntima</a><a href="cirugia-plastica">Todas las cirugías</a></div>
+      <div><p class="ceja">Medicina estética</p><a href="medicina-estetica#inyectables">Inyectables</a><a href="medicina-estetica#piel">Piel</a><a href="medicina-estetica#tecnologias">Tecnologías</a><a href="medicina-estetica#bienestar">Bienestar</a><a href="medicina-estetica">Todos los tratamientos</a></div>
+      <div><p class="ceja">La clínica</p><a href="especialistas">Especialistas</a><a href="seguridad">Seguridad</a><a href="tu-proceso">Tu proceso</a><a href="formas-de-pago">Pagos</a><a href="otra-ciudad">Si vienes de lejos</a><a href="preguntas-frecuentes">Preguntas</a></div>
+      <div><p class="ceja">Contacto</p><a href="https://wa.me/573217591330?text=Hola%2C%20quiero%20agendar%20mi%20cita%20de%20valoraci%C3%B3n%20en%20noon%20Clinic." target="_blank" rel="noopener">WhatsApp +57 321 7591330</a><a href="valoracion">Agendar valoración</a></div>
     </div>
     <a class="boton champan" href="terminos-y-condiciones">Términos y condiciones</a>
-    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Toda cirugía tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>
+    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>
   </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="assets/noon.js?v=1790188077" defer></script>
+<script src="assets/noon.js?v=1790188974" defer></script>
 </body>
 </html>
