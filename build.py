@@ -83,7 +83,8 @@ def pagina(archivo, titulo, descripcion, cuerpo):
     <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Toda cirugía tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>
   </div>
 </footer>
-<script src="assets/noon.js?v=%(v)s"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="assets/noon.js?v=%(v)s" defer></script>
 </body>
 </html>
 """ % {"titulo": escape(titulo + (" · noon Clinic" if archivo != "index.html" else "")), "desc": escape(descripcion), "cuerpo": cuerpo,
@@ -100,7 +101,7 @@ def pagina(archivo, titulo, descripcion, cuerpo):
 # ---------------------------------------------------------------- piezas
 def hero(fondo, ceja, titulo, sub="", alto="medio", extra=""):
     tono = " sobre-claro" if fondo in CLARO else ""
-    return '''<section class="hero %s%s" style="background-image:url(%s)"><div class="hero-in">
+    return '''<section class="hero %s%s"><div class="capa" style="background-image:url(%s)"></div><div class="hero-in">
   <p class="ceja rev">%s</p><h1 class="rev">%s</h1>%s%s
 </div></section>''' % (alto, tono, img(fondo), ceja, titulo, '<p class="sub rev">%s</p>' % sub if sub else "", extra)
 
@@ -143,7 +144,7 @@ def cierre(titulo="Tu valoración", texto=None, boton=None, fondo="seda-clara", 
     boton = boton or '<a class="boton lleno" href="valoracion.html%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (
         "?cx=" + cx["slug"] if cx else "", wa("Hola, quiero agendar mi valoración%s." % (" para " + cx["nombre"].lower() if cx else "")))
     tono = " sobre-claro" if fondo in CLARO else ""
-    return '<section class="cierre%s" style="background-image:url(%s)"><div class="caja"><p class="ceja rev">noon Clinic</p><h2 class="rev">%s</h2><p class="sub rev">%s</p><div class="botones rev">%s</div>%s</div></section>' % (
+    return '<section class="cierre%s"><div class="capa" style="background-image:url(%s)"></div><div class="caja"><p class="ceja rev">noon Clinic</p><h2 class="rev">%s</h2><p class="sub rev">%s</p><div class="botones rev">%s</div>%s</div></section>' % (
         tono, img(fondo), titulo, texto, boton, nota)
 
 
@@ -177,7 +178,7 @@ def tiles(lista=None):
 # ================================================================ INICIO
 pagina("index.html", "noon Clinic · Cirugía plástica con criterio",
        "Mamoplastia, mastopexia y lipo con un solo precio que lo incluye todo: cirujano, quirófano en Q2, póliza y bomba de dolor. Agenda tu valoración.",
-       '''<section class="hero completo portada" style="background-image:url(%s)"><div class="hero-in">
+       '''<section class="hero completo portada"><div class="capa" style="background-image:url(%s)"></div><canvas class="seda-viva" aria-hidden="true"></canvas><div class="hero-in">
   <img class="logo-hero rev" src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295">
   <p class="ceja rev">Estética con criterio</p>
   <p class="sub rev">Cirugía plástica · Médicos especializados · Decisiones personales</p>
@@ -188,7 +189,7 @@ pagina("index.html", "noon Clinic · Cirugía plástica con criterio",
        + dividir("foto-consulta", '''<p class="ceja">Todo incluido</p><h2>Sin letra pequeña.</h2>
 <p class="sub">El precio que ves es el precio que pagas. Dentro de él:</p>%s<a class="enlace" href="todo-incluido.html">Ver qué incluye cada procedimiento</a>''' % lineas([
            ("Cirujano plástico e instrumentador",), ("Quirófano en " + SEDE_QX,), ("Póliza de complicaciones",), ("Bomba de dolor",), ("Prenda posquirúrgica",)]))
-       + '''<section class="foto-frase" style="background-image:url(%s)"><div class="caja"><p class="ceja rev">Seguridad</p><p class="grande rev">Un buen precio nunca debería costarte tu tranquilidad.</p><a class="boton rev" href="seguridad.html">Cómo cuidamos tu cirugía</a></div></section>''' % img("foto-espera")
+       + '''<section class="foto-frase"><div class="capa" style="background-image:url(%s)"></div><div class="caja"><p class="ceja rev">Seguridad</p><p class="grande rev">Un buen precio nunca debería costarte tu tranquilidad.</p><a class="boton rev" href="seguridad.html">Cómo cuidamos tu cirugía</a></div></section>''' % img("foto-espera")
        + seccion("Tu proceso", "Tres pasos.", '<ol class="pasos">%s</ol>' % "".join(
            '<li class="rev"><span class="n">%s</span><b>%s</b><span>%s</span></li>' % x for x in [
                ("I", "Valoración", "Nuestros cirujanos te examinan y te dicen qué es para ti. %s." % VALORACION),

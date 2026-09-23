@@ -331,3 +331,65 @@ body { font-weight: 400; }
   .filtro, .plegable summary { padding: 12px 0; }
 }
 .datos .ceja, .tile .ir, .bajar, .lineas .enlace { font-size: 11.5px; }
+
+/* ================= v2.1 · MOVIMIENTO PREMIUM ================= */
+/* capas de fondo separadas: permiten parallax y un zoom lento "respirando" */
+.hero, .foto-frase, .cierre { background-image: none !important; }
+.capa { position: absolute; inset: -8% 0; z-index: -2; background: center / cover no-repeat; will-change: transform; transform: translate3d(0, var(--py, 0px), 0) scale(1.06); }
+.hero .capa { animation: respirar 22s ease-in-out infinite alternate; }
+@keyframes respirar { from { background-position: 50% 50%; } to { background-position: 54% 44%; } }
+.seda-viva { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; opacity: 0; transition: opacity 2s ease; }
+.seda-viva.lista { opacity: 1; }
+.hero-in { will-change: transform, opacity; }
+
+/* títulos que aparecen palabra por palabra, como una revelación editorial */
+.partido.rev { opacity: 1; transform: none; }
+.partido .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .02em .12em; margin: 0 -.02em -.12em; }
+.partido .wi { display: inline-block; transform: translate3d(0, 110%, 0) rotate(2deg); transform-origin: left bottom; transition: transform 1.3s cubic-bezier(.16, .84, .24, 1); transition-delay: calc(var(--i) * 55ms + 80ms); }
+.partido.on .wi { transform: none; }
+.captura .partido .wi { transform: none !important; transition: none !important; }
+
+/* el logo de la portada entra con calma */
+.js .portada .logo-hero.rev { transform: translateY(18px) scale(.985); filter: blur(8px); transition: opacity 2s var(--ease), transform 2.2s var(--ease), filter 2s var(--ease); }
+.js .portada .logo-hero.rev.on { transform: none; filter: none; }
+.js .portada .ceja.rev { transition-delay: .6s; }
+.js .portada .sub.rev { transition-delay: .9s; }
+
+/* procedimientos: la imagen sigue suavemente al mouse */
+.tile-img { inset: -4%; transform: translate3d(calc(var(--mx, 0) * -14px), calc(var(--my, 0) * -14px), 0) scale(1); transition: transform 1.4s cubic-bezier(.16, .84, .24, 1); }
+.tile:hover .tile-img { transform: translate3d(calc(var(--mx, 0) * -14px), calc(var(--my, 0) * -14px), 0) scale(1.06); }
+.tile .ir { position: relative; border-bottom-color: transparent; }
+.tile .ir::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: currentColor; transform-origin: left; transform: scaleX(.35); transition: transform .8s var(--ease); }
+.tile:hover .ir::after { transform: scaleX(1); }
+.tile .nom { transition: transform 1s var(--ease); }
+.tile:hover .nom { transform: translateX(8px); }
+
+/* enlaces y botones: subrayado que se dibuja */
+.enlace { border-bottom: 0; position: relative; }
+.enlace::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform-origin: right; transition: transform .7s var(--ease); }
+.enlace:hover::before { transform: scaleX(0); transform-origin: left; animation: redibujar .7s .35s var(--ease) forwards; }
+@keyframes redibujar { from { transform: scaleX(0); transform-origin: left; } to { transform: scaleX(1); transform-origin: left; } }
+.boton { position: relative; overflow: hidden; isolation: isolate; }
+
+/* listas: las filas se iluminan al pasar */
+.lineas li, .tiempo li { transition: padding-left .6s var(--ease), color .4s; }
+@media (hover: hover) { .lineas li:hover, .tiempo li:hover { padding-left: 10px; } }
+
+/* transición suave entre páginas (navegadores que la soportan) */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: 450ms cubic-bezier(.4, 0, .2, 1) both salir; }
+::view-transition-new(root) { animation: 700ms cubic-bezier(.2, .7, .1, 1) both entrar; }
+@keyframes salir { to { opacity: 0; } }
+@keyframes entrar { from { opacity: 0; } }
+
+/* Lenis (scroll suave) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .capa { animation: none; } .partido .wi { transform: none; transition: none; }
+  .seda-viva { display: none; } .tile-img { transition: none; }
+}
+.foto-frase, .cierre, .hero { overflow: hidden; }
+html, body { overflow-x: clip; }
