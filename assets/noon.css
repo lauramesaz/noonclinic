@@ -468,3 +468,7 @@ html, body { overflow-x: clip; }
 }
 .captura .esp-ficha { min-height: 830px; } .captura .esp-ficha figure { max-height: 830px; }
 .frase.media { padding-block: clamp(90px, 11vw, 160px); } .frase.media .grande { font-size: clamp(26px, 3vw, 44px); line-height: 1.22; max-width: 980px; }
+h1, h2, .grande { overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
+.valoracion > * { min-width: 0; }
+.form select, .form input { width: 100%; min-width: 0; }
+@media (max-width: 380px) { .hero h1 { font-size: 36px; } .cierre h2 { font-size: 36px; } }
