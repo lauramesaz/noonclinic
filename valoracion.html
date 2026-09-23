@@ -3,61 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agenda tu cita de valoración · noon Clinic</title>
+<title>Agenda tu valoración · noon Clinic</title>
 <meta name="description" content="Todo empieza con tu cita de valoración con nuestros cirujanos. Agéndala por WhatsApp.">
-<meta name="theme-color" content="#F2EFE8">
+<meta name="theme-color" content="#120d0a">
 <link rel="icon" href="assets/favicon.png">
 <script>document.documentElement.className="js"</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=1790184334">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/noon.css?v=1790186319">
 </head>
 <body>
-<header class="cab"><div class="barra">
-  <a class="marca" href="./"><img src="assets/logo-noon.png" alt="noon Clinic" width="900" height="295"></a>
-  <button class="hamb" aria-label="Abrir menú" aria-expanded="false">☰</button>
-  <nav class="nav">
-    <div class="desple"><button class="grupo" type="button">Cirugías ▾</button>
-      <div class="menu"><a href="mamoplastia-de-aumento">Mamoplastia de aumento <span>$10.900.000</span></a><a href="mastopexia-con-implantes">Mastopexia con implantes <span>$17.900.000</span></a><a href="mastopexia-sin-implantes">Mastopexia sin implantes <span>$15.900.000</span></a><a href="lipo">Lipo <span>$18.900.000</span></a><a href="cirugias">Comparar las 4 promos <span>→</span></a></div></div>
-    <a href="todo-incluido">Qué incluye</a><a href="seguridad">Seguridad</a><a href="tu-proceso">Proceso</a><a href="formas-de-pago">Pagos</a><a href="preguntas-frecuentes">Preguntas</a>
-    <a class="btn pri ch" href="valoracion">Quiero mi valoración</a>
-  </nav>
-</div></header>
+<header class="cab">
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="rayas" aria-hidden="true"></span><span class="txt">Menú</span></button>
+  <a class="logo" href="./" aria-label="noon Clinic, inicio"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295"></a>
+  <a class="agendar" href="valoracion">Agendar</a>
+</header>
+<div class="menu" id="menu" hidden>
+  <div class="menu-in">
+    <div class="menu-col"><p class="ceja">Procedimientos</p><nav class="grande"><a href="mamoplastia-de-aumento">Mamoplastia de aumento</a><a href="mastopexia-con-implantes">Mastopexia con implantes</a><a href="mastopexia-sin-implantes">Mastopexia sin implantes</a><a href="lipo">Lipo</a></nav></div>
+    <div class="menu-col"><p class="ceja">noon Clinic</p><nav><a href="cirugias">Procedimientos</a><a href="todo-incluido">Qué incluye</a><a href="seguridad">Seguridad</a><a href="tu-proceso">Tu proceso</a><a href="formas-de-pago">Pagos</a><a href="otra-ciudad">Si vienes de lejos</a><a href="nosotros">Nosotros</a><a href="preguntas-frecuentes">Preguntas</a></nav>
+      <a class="boton" href="valoracion">Agendar valoración</a></div>
+  </div>
+</div>
 <main>
-<section class="hero interna"><div class="cont"><p class="migas"><a href="./">Inicio</a> &nbsp;/&nbsp; Valoración</p><span hidden>Primer paso</span><h1>Todo empieza con <em>tu cita de valoración</em></h1><p class="bajada">Nuestros cirujanos te examinan, resuelven tus dudas y te dicen qué cirugía es para ti.</p></div></section>
-<section class="sec pegada"><div class="cont dos">
-  <div class="ver">
-    <div class="valor"><small>Valor de la cita</small>$200.000</div>
-    <div style="margin-top:28px"><ul class="lista"><li><div><b>Consulta con nuestros cirujanos</b><span>Examen, medidas y un plan pensado para tu cuerpo.</span></div></li><li><div><b>Respuestas honestas</b><span>Qué se puede lograr, qué no, y si eres candidata.</span></div></li><li><div><b>Orden de exámenes</b><span>Sales con lo que necesitas para dar el siguiente paso.</span></div></li></ul></div>
-    <div style="margin-top:24px"><div class="tc-caja"><div><span class="tc-ceja">Importante · léelo antes de pagar</span><h2>La cita no se devuelve ni se abona</h2><p>El valor de la cita ($200.000) no se descuenta de la cirugía y no se devuelve en ningún caso.</p></div><a class="btn tc" href="terminos-y-condiciones">Leer términos y condiciones →</a></div></div>
-  </div>
-  <form class="tarjeta ver" id="form-valoracion" data-wa="573217591330">
-    <div class="progreso"><div class="on">1 · Escríbenos<br>(30 segundos)</div><div>2 · Tu valoración</div><div>3 · Tu fecha de cirugía</div></div>
-    <h2 style="font-size:30px">Empieza por aquí</h2>
-    <p style="margin-bottom:14px">Tres datos y se abre WhatsApp con tu mensaje listo.</p>
-    <div class="campo"><label for="nombre">Tu nombre</label><input id="nombre" name="nombre" required autocomplete="given-name"></div>
-    <div class="campo"><label for="cirugia">Cirugía que te interesa</label><select id="cirugia" name="cirugia"><option data-slug="mamoplastia-de-aumento">Mamoplastia de aumento</option><option data-slug="mastopexia-con-implantes">Mastopexia con implantes</option><option data-slug="mastopexia-sin-implantes">Mastopexia sin implantes</option><option data-slug="lipo">Lipo</option><option>Aún no estoy segura</option></select></div>
-    <div class="campo"><label for="ciudad">Ciudad donde vives</label><input id="ciudad" name="ciudad" required autocomplete="address-level2"></div>
-    <button class="btn pri" type="submit">Quiero mi valoración →</button>
-    <p class="legal grande">Al escribirnos aceptas nuestros <a href="terminos-y-condiciones">términos y condiciones</a>.</p>
-    <p class="legal">Este formulario no guarda tus datos: solo arma tu mensaje.</p>
+<section class="hero medio" style="background-image:url(assets/noon/seda-oscura.jpg)"><div class="hero-in">
+  <p class="ceja rev">Primer paso</p><h1 class="rev">Tu valoración.</h1><p class="sub rev">Una conversación clínica empieza por entender qué quieres preservar.</p>
+</div></section><section class="valoracion">
+  <div class="texto rev"><p class="ceja">Valor de la cita</p><p class="precio">$200.000</p><ul class="lineas"><li class="rev"><b>Consulta con nuestros cirujanos</b><span>Examen, medidas y un plan pensado para ti.</span></li><li class="rev"><b>Respuestas honestas</b><span>Qué se puede lograr, qué no, y si eres candidata.</span></li><li class="rev"><b>Orden de exámenes</b><span>Sales con lo que necesitas para el siguiente paso.</span></li></ul><div class="nota-tc rev"><p>El valor de la cita ($200.000) no se descuenta de la cirugía y no se devuelve en ningún caso.</p><a href="terminos-y-condiciones">Leer términos y condiciones</a></div></div>
+  <form class="form rev" id="form-valoracion" data-wa="573217591330">
+    <p class="ceja">Agenda por WhatsApp</p><h2>Empieza aquí</h2>
+    <p class="sub">Tres datos y se abre WhatsApp con tu mensaje listo.</p>
+    <label>Tu nombre<input id="nombre" name="nombre" required autocomplete="given-name"></label>
+    <label>Procedimiento que te interesa<select id="cirugia" name="cirugia"><option data-slug="mamoplastia-de-aumento">Mamoplastia de aumento</option><option data-slug="mastopexia-con-implantes">Mastopexia con implantes</option><option data-slug="mastopexia-sin-implantes">Mastopexia sin implantes</option><option data-slug="lipo">Lipo</option><option>Aún no estoy segura</option></select></label>
+    <label>Ciudad donde vives<input id="ciudad" name="ciudad" required autocomplete="address-level2"></label>
+    <button class="boton lleno" type="submit">Continuar en WhatsApp</button>
+    <p class="legal">Al escribirnos aceptas nuestros <a href="terminos-y-condiciones">términos y condiciones</a>. Este formulario no guarda tus datos.</p>
   </form>
-</div></section>
-
+</section>
 </main>
-
-<footer class="pie"><div class="cont">
-  <div class="cols">
-    <div><a class="marca" href="./"><img src="assets/logo-noon.png" alt="noon Clinic" width="900" height="295"></a><p class="bajada" style="font-size:15px;margin-top:14px;max-width:340px">Promos de cirugía plástica con un solo precio: lo que ves es lo que pagas.</p><a class="btn ch" style="display:inline-flex;margin-top:8px" href="https://wa.me/573217591330?text=Hola%2C%20quiero%20agendar%20mi%20cita%20de%20valoraci%C3%B3n." target="_blank" rel="noopener">WhatsApp +57 321 7591330</a></div>
-    <div><h4>Cirugías</h4><a href="mamoplastia-de-aumento">Mamoplastia de aumento</a><a href="mastopexia-con-implantes">Mastopexia con implantes</a><a href="mastopexia-sin-implantes">Mastopexia sin implantes</a><a href="lipo">Lipo</a><a href="cirugias">Comparar promos</a></div>
-    <div><h4>Información</h4><a href="todo-incluido">Qué incluye tu precio</a><a href="formas-de-pago">Formas de pago</a><a href="otra-ciudad">Vienes de otra ciudad</a><a href="nosotros">Nosotros</a><a href="preguntas-frecuentes">Preguntas frecuentes</a></div>
+<footer class="pie">
+  <div class="pie-in">
+    <a class="logo" href="./"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
+    <p class="lema">Estética con criterio.</p>
+    <div class="pie-cols">
+      <div><p class="ceja">Procedimientos</p><a href="mamoplastia-de-aumento">Mamoplastia de aumento</a><a href="mastopexia-con-implantes">Mastopexia con implantes</a><a href="mastopexia-sin-implantes">Mastopexia sin implantes</a><a href="lipo">Lipo</a></div>
+      <div><p class="ceja">Información</p><a href="todo-incluido">Qué incluye</a><a href="seguridad">Seguridad</a><a href="tu-proceso">Tu proceso</a><a href="formas-de-pago">Pagos</a><a href="otra-ciudad">Si vienes de lejos</a><a href="preguntas-frecuentes">Preguntas</a></div>
+      <div><p class="ceja">Contacto</p><a href="https://wa.me/573217591330?text=Hola%2C%20quiero%20agendar%20mi%20cita%20de%20valoraci%C3%B3n%20en%20noon%20Clinic." target="_blank" rel="noopener">WhatsApp +57 321 7591330</a><a href="valoracion">Agendar valoración</a><a href="nosotros">Nosotros</a></div>
+    </div>
+    <a class="boton champan" href="terminos-y-condiciones">Términos y condiciones</a>
+    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Toda cirugía tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>
   </div>
-  <a class="btn tc" href="terminos-y-condiciones">Términos y condiciones →</a>
-  <p class="fin">La información de este sitio es orientativa y no reemplaza una consulta médica. Toda cirugía tiene riesgos y los resultados varían de una persona a otra.</p>
-</div></footer>
-
-<nav class="tabs" aria-label="Navegación rápida"><a href="./" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>Inicio</a><a href="cirugias" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v4M12 16v4M4 12h4M16 12h4M7 7l2 2M15 15l2 2M17 7l-2 2M9 15l-2 2"/></svg>Cirugías</a><a href="valoracion" class="centro-tab"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Agendar</a><a href="todo-incluido" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>Incluye</a><a href="preguntas-frecuentes" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 10a3 3 0 1 1 4 3c-1 .5-1 1-1 2M12 18v.5"/></svg>Dudas</a></nav>
-<script src="assets/app.js?v=1790184334"></script>
+</footer>
+<script src="assets/noon.js?v=1790186319"></script>
 </body>
 </html>
