@@ -28,11 +28,15 @@ def img(nombre):
 
 
 # ---------------------------------------------------------------- piezas
+def viva(fondo):
+    return '<canvas class="seda-viva" data-p="%s" aria-hidden="true"></canvas>' % fondo[5:] if fondo.startswith("seda-") else ""
+
+
 def hero(fondo, ceja, titulo, sub="", alto="medio", extra=""):
     tono = " sobre-claro" if fondo in CLARO else ""
-    return '''<section class="hero %s%s"><div class="capa" style="background-image:url(%s)"></div><div class="hero-in">
+    return '''<section class="hero %s%s"><div class="capa" style="background-image:url(%s)"></div>''' % (alto, tono, img(fondo)) + viva(fondo) + '''<div class="hero-in">
   <p class="ceja rev">%s</p><h1 class="rev">%s</h1>%s%s
-</div></section>''' % (alto, tono, img(fondo), ceja, titulo, '<p class="sub rev">%s</p>' % sub if sub else "", extra)
+</div></section>''' % (ceja, titulo, '<p class="sub rev">%s</p>' % sub if sub else "", extra)
 
 
 def frase(ceja, texto, sub="", clase="", sid=""):
@@ -73,8 +77,8 @@ def cierre(titulo="Tu valoración", texto=None, boton=None, fondo="seda-clara", 
     boton = boton or '<a class="boton lleno" href="valoracion.html%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (
         "?cx=" + cx["slug"] if cx else "", wa("Hola, quiero agendar mi valoración%s." % (" para " + cx["nombre"].lower() if cx else "")))
     tono = " sobre-claro" if fondo in CLARO else ""
-    return '<section class="cierre%s"><div class="capa" style="background-image:url(%s)"></div><div class="caja"><p class="ceja rev">noon Clinic</p><h2 class="rev">%s</h2><p class="sub rev">%s</p><div class="botones rev">%s</div>%s</div></section>' % (
-        tono, img(fondo), titulo, texto, boton, nota)
+    return '<section class="cierre%s"><div class="capa" style="background-image:url(%s)"></div>' % (tono, img(fondo)) + viva(fondo) + '<div class="caja"><p class="ceja rev">noon Clinic</p><h2 class="rev">%s</h2><p class="sub rev">%s</p><div class="botones rev">%s</div>%s</div></section>' % (
+        titulo, texto, boton, nota)
 
 
 
@@ -122,6 +126,9 @@ def pagina(archivo, titulo, descripcion, cuerpo):
       <a class="boton" href="valoracion.html">Agendar valoración</a></div>
   </div>
 </div>
+<div class="progreso-scroll" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span></span></div>
+<div class="vista-previa" aria-hidden="true"></div>
 <main>
 %(cuerpo)s
 </main>
@@ -273,7 +280,7 @@ def catalogo(lista, tipo):
     for p in lista:
         d = p["datos"]
         meta = ("%s · Recuperación %s" % (d[0], d[2].lower())) if tipo == "cx" else ("%s · %s" % (d[0], d[1]))
-        out += '<li class="rev" data-q="%s"><a href="%s.html"><b>%s</b><span class="c">%s</span><span class="m">%s</span><span class="fl" aria-hidden="true">→</span></a></li>' % (escape((p["nombre"] + " " + p["corto"] + " " + PALABRAS.get(p["slug"], "")).lower()), p["slug"], p["nombre"], p["corto"], meta)
+        out += '<li class="rev" data-q="%s"><a href="%s.html" data-img="%s"><b>%s</b><span class="c">%s</span><span class="m">%s</span><span class="fl" aria-hidden="true">→</span></a></li>' % (escape((p["nombre"] + " " + p["corto"] + " " + PALABRAS.get(p["slug"], "")).lower()), p["slug"], img(FONDO_ITEM.get(p["slug"], "seda-oscura")), p["nombre"], p["corto"], meta)
     return '<ul class="catalogo">%s</ul>' % out
 
 
@@ -323,7 +330,7 @@ def explorador():
 
 
 def asistente():
-    return '''<section class="asistente" id="encuentra"><div class="capa" style="background-image:url(%s)"></div>
+    return '''<section class="asistente" id="encuentra"><div class="capa" style="background-image:url(%s)"></div><canvas class="seda-viva" data-p="noche" aria-hidden="true"></canvas>
   <div class="as-in">
     <p class="ceja rev">Encuentra tu procedimiento</p>
     <h2 class="rev">Dos toques<br>y te orientamos.</h2>
@@ -353,6 +360,11 @@ def linea_tiempo(pasos):
     return '<div class="lt rev" data-lt><div class="lt-barra"><span class="lt-fill"></span></div><div class="lt-marcas">%s</div><div class="lt-textos">%s</div><div class="lt-nav"><button type="button" class="lt-ant" aria-label="Etapa anterior">←</button><button type="button" class="lt-sig" aria-label="Etapa siguiente">→</button></div></div>' % (marcas, textos)
 
 
+def cinta(nombres, clase=""):
+    fila = "".join('<span>%s</span><i aria-hidden="true">·</i>' % n for n in nombres)
+    return '<div class="cinta-mov %s" aria-hidden="true"><div class="cm-track"><div class="cm-g">%s</div><div class="cm-g">%s</div></div></div>' % (clase, fila, fila)
+
+
 def subnav(pares):
     return '<nav class="subnav" aria-label="En esta página">%s</nav>' % "".join('<a href="#%s">%s</a>' % p for p in pares)
 
@@ -371,7 +383,7 @@ def datos_barra(pares):
 # ================================================================ INICIO
 pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
        "Clínica de cirugía plástica y medicina estética. Rostro, senos, contorno corporal, inyectables, piel y tecnologías, con médicos especializados.",
-       '''<section class="hero completo portada"><div class="capa" style="background-image:url(%s)"></div><canvas class="seda-viva" aria-hidden="true"></canvas><div class="hero-in">
+       '''<section class="hero completo portada"><div class="capa" style="background-image:url(%s)"></div><canvas class="seda-viva" data-p="oscura" aria-hidden="true"></canvas><div class="hero-in">
   <img class="logo-hero rev" src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295">
   <p class="ceja rev">Estética con criterio</p>
   <p class="sub rev">Cirugía plástica · Medicina estética</p>
@@ -379,6 +391,7 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
   <div class="hero-acciones rev"><a class="boton lleno" href="#encuentra">Encuentra tu procedimiento</a><a class="boton" href="valoracion.html">Agendar valoración</a></div>
 </div><a class="bajar" href="#explora" aria-label="Bajar">Descubrir</a></section>''' % img("seda-oscura")
        + explorador()
+       + cinta([c["nombre"] for c in CIRUGIAS_NOON[:12]])
        + frase("Lo que creemos", "Primero entendemos.<br>Después hablamos de posibilidades.",
                "La recomendación nace del criterio clínico y de lo que cada persona quiere preservar.", sid="creemos")
        + asistente()
@@ -404,6 +417,7 @@ for k, n, d, f in CATEGORIAS_CX:
 pagina("cirugia-plastica.html", "Cirugía plástica", "Cirugía plástica en noon Clinic: rostro, senos, contorno corporal y procedimientos combinados.",
        hero("seda-burdeos", "Cirugía plástica", "Cirugía plástica<br>con criterio.", "Cada cirugía empieza entendiendo qué quieres lograr y qué quieres preservar.", "alto")
        + filtro_hub(CATEGORIAS_CX, "Busca una cirugía: nariz, abdomen, senos…")
+       + cinta([c["nombre"] for c in CIRUGIAS_NOON], "suave")
        + bloques_cx
        + bloque_especialista("cirugia", "Te valora y te opera el mismo especialista, que te acompaña desde la primera consulta hasta el alta.")
        + cierre())
@@ -437,6 +451,7 @@ for k, n, d, f in CATEGORIAS_ME:
 pagina("medicina-estetica.html", "Medicina estética", "Medicina estética en noon Clinic: toxina botulínica, ácido hialurónico, bioestimuladores, piel, láser, HIFU y bienestar.",
        hero("seda-champan", "Medicina estética", "Realzar lo tuyo,<br>sin cambiar quién eres.", "Tratamientos médicos no quirúrgicos con resultados naturales.", "alto")
        + filtro_hub(CATEGORIAS_ME, "Busca un tratamiento: botox, manchas, láser…")
+       + cinta([t["nombre"] for t in TRATAMIENTOS], "suave")
        + bloques_me
        + bloque_especialista("estetica", "Cada tratamiento empieza con una valoración para definir qué necesita tu piel y qué no.")
        + cierre(fondo="seda-champan"))

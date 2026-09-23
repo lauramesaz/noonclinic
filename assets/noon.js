@@ -139,15 +139,24 @@
   }
 
   // seda viva en la portada (WebGL); si no hay soporte, queda la imagen fija
-  var lienzo = document.querySelector(".seda-viva");
-  if (lienzo && !quieto && !captura) sedaViva(lienzo);
+  // paletas por sección (oscuro → claro): coinciden con las sedas del brandbook
+  var PALETAS = {
+    oscura: [[.063, .045, .035], [.21, .13, .09], [.50, .35, .24], [.90, .85, .77], .5],
+    noche: [[.05, .035, .03], [.13, .08, .07], [.32, .12, .16], [.62, .48, .42], .55],
+    burdeos: [[.07, .04, .045], [.25, .08, .12], [.47, .19, .24], [.86, .75, .70], .45],
+    cafe: [[.09, .06, .045], [.27, .17, .11], [.55, .39, .26], [.86, .78, .66], .4],
+    clara: [[.40, .29, .20], [.66, .54, .42], [.86, .79, .69], [.96, .94, .90], .12],
+    horizonte: [[.52, .40, .29], [.76, .68, .57], [.91, .87, .80], [.97, .95, .92], .1],
+    champan: [[.36, .27, .18], [.62, .50, .35], [.80, .71, .55], [.96, .93, .86], .15]
+  };
+  if (!quieto && !captura) document.querySelectorAll(".seda-viva").forEach(function (cv, i) { sedaViva(cv, PALETAS[cv.dataset.p] || PALETAS.oscura, i * 7.3); });
 
-  function sedaViva(cv) {
+  function sedaViva(cv, pal, semilla) {
     var gl = cv.getContext("webgl", { antialias: false, alpha: false, powerPreference: "low-power" });
     if (!gl) return;
     var vs = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
     var fs = [
-      "precision mediump float;uniform vec2 r;uniform float t;uniform vec2 m;",
+      "precision mediump float;uniform vec2 r;uniform float t;uniform vec2 m;uniform vec3 c0,c1,c2,c3;uniform float vg;",
       "vec2 h(vec2 p){p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)));return -1.+2.*fract(sin(p)*43758.5453);}",
       "float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);",
       "return mix(mix(dot(h(i),f),dot(h(i+vec2(1,0)),f-vec2(1,0)),u.x),mix(dot(h(i+vec2(0,1)),f-vec2(0,1)),dot(h(i+vec2(1,1)),f-vec2(1,1)),u.x),u.y);}",
@@ -158,10 +167,10 @@
       "vec2 w=vec2(fb(p+1.1*q+vec2(1.7,9.2)+tt*.5),fb(p+1.1*q+vec2(8.3,2.8)-tt*.4));",
       "float f=p.y*.9+p.x*.35+1.3*w.x+.6*q.y;",
       "float b=.5+.5*sin(f*3.4+tt*1.6);b=smoothstep(0.,1.,b);b=pow(b,1.6);",
-      "vec3 esp=vec3(.063,.045,.035),caf=vec3(.21,.13,.09),car=vec3(.50,.35,.24),cre=vec3(.90,.85,.77);",
+      "vec3 esp=c0,caf=c1,car=c2,cre=c3;",
       "vec3 c=mix(esp,caf,smoothstep(.18,.55,b));c=mix(c,car,smoothstep(.55,.85,b));c=mix(c,cre,smoothstep(.86,1.,b)*.75);",
       "c+=pow(b,14.)*.10;",
-      "float v=smoothstep(1.3,.2,length(uv-.5)*1.5);c*=.5+.5*v;",
+      "float v=smoothstep(1.3,.2,length(uv-.5)*1.5);c*=(1.-vg)+vg*v;",
       "c+=(fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453)-.5)*.03;",
       "gl_FragColor=vec4(c,1.);}"
     ].join("\n");
@@ -175,11 +184,14 @@
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
     var loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     var uR = gl.getUniformLocation(pr, "r"), uT = gl.getUniformLocation(pr, "t"), uM = gl.getUniformLocation(pr, "m");
-    var escala = Math.min(1, 0.55 * (window.devicePixelRatio || 1)), visible = true, mx = 0, my = 0, tmx = 0, tmy = 0, t0 = performance.now() - 8000;
+    ["c0", "c1", "c2", "c3"].forEach(function (n, k) { gl.uniform3fv(gl.getUniformLocation(pr, n), pal[k]); });
+    gl.uniform1f(gl.getUniformLocation(pr, "vg"), pal[4]);
+    var escala = 0.5, visible = true, mx = 0, my = 0, tmx = 0, tmy = 0, t0 = performance.now() - 8000 - (semilla || 0) * 1000;
     function medir() { cv.width = Math.round(cv.clientWidth * escala); cv.height = Math.round(cv.clientHeight * escala); gl.viewport(0, 0, cv.width, cv.height); }
     medir(); window.addEventListener("resize", medir);
     window.addEventListener("mousemove", function (e) { tmx = e.clientX / window.innerWidth - 0.5; tmy = 0.5 - e.clientY / window.innerHeight; }, { passive: true });
-    if ("IntersectionObserver" in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(cv);
+    visible = false;
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }, { rootMargin: "100px" }).observe(cv); else visible = true;
     var primero = true;
     (function cuadro(ahora) {
       if (visible && !document.hidden) {
@@ -366,4 +378,84 @@
     }); });
     if (location.hash) { var h = location.hash.slice(1); chips.forEach(function (c) { if (c.dataset.c === h) c.click(); }); }
   }
+
+  // ================= v5 · MOVIMIENTO EN TODA LA WEB =================
+  // cascada: los elementos de una misma lista entran uno tras otro
+  document.querySelectorAll(".lineas, .catalogo, .tiempo, .pasos, .preguntas, .tiles, .esp-duo, .ex-track").forEach(function (lista) {
+    [].forEach.call(lista.children, function (h, i) { h.style.setProperty("--d", Math.min(i, 10) * 70 + "ms"); });
+  });
+
+  // barra de progreso al bajar
+  var prog = document.querySelector(".progreso-scroll");
+  if (prog) {
+    var avanzar = function () { var h = document.documentElement.scrollHeight - window.innerHeight; prog.style.transform = "scaleX(" + (h > 0 ? Math.min(1, window.scrollY / h) : 0) + ")"; };
+    window.addEventListener("scroll", avanzar, { passive: true }); avanzar();
+  }
+
+  // cinta de procedimientos: se acelera y se inclina con la velocidad del scroll
+  var cintas = document.querySelectorAll(".cinta-mov .cm-track");
+  if (cintas.length && !quieto) {
+    var yAnt = window.scrollY, vel = 0;
+    window.addEventListener("scroll", function () { vel = Math.max(-40, Math.min(40, window.scrollY - yAnt)); yAnt = window.scrollY; }, { passive: true });
+    (function girar() {
+      vel *= 0.9;
+      cintas.forEach(function (c) { c.style.setProperty("--sk", (vel * -0.15).toFixed(2) + "deg"); c.style.animationDuration = Math.max(18, 60 - Math.abs(vel) * 1.2) + "s"; });
+      requestAnimationFrame(girar);
+    })();
+  }
+
+  // cursor elegante + botones magnéticos + vista previa del catálogo (solo con mouse)
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && !quieto && !captura) {
+    var cur = document.querySelector(".cursor"), vp = document.querySelector(".vista-previa");
+    var cx = -100, cy = -100, tx = -100, ty = -100, vx = -400, vy = -400;
+    html.classList.add("con-cursor");
+    window.addEventListener("mousemove", function (e) { tx = e.clientX; ty = e.clientY; }, { passive: true });
+    (function seguir() {
+      cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
+      vx += (tx - vx) * 0.09; vy += (ty - vy) * 0.09;
+      if (cur) cur.style.transform = "translate3d(" + cx + "px," + cy + "px,0)";
+      if (vp) vp.style.transform = "translate3d(" + (vx + 30) + "px," + (vy - 110) + "px,0)";
+      requestAnimationFrame(seguir);
+    })();
+    document.addEventListener("mouseover", function (e) {
+      var a = e.target.closest("a, button, summary, input, select, label");
+      cur.classList.toggle("sobre", !!a);
+      cur.classList.toggle("ver", !!e.target.closest(".tile, .ex-card, .as-res a, .esp-card"));
+      var fila = e.target.closest(".catalogo a[data-img]");
+      if (fila && vp) { vp.style.backgroundImage = "url(" + fila.dataset.img + ")"; vp.classList.add("on"); } else if (vp) vp.classList.remove("on");
+    });
+    document.addEventListener("mouseleave", function () { cur.classList.add("fuera"); });
+    document.addEventListener("mouseenter", function () { cur.classList.remove("fuera"); });
+    // magnéticos
+    document.querySelectorAll(".boton, .ex-ctrl button, .lt-nav button, .agendar, .wa-flota").forEach(function (b) {
+      b.addEventListener("mousemove", function (e) {
+        var r = b.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+        b.style.transform = "translate(" + (dx * 0.18).toFixed(1) + "px," + (dy * 0.28).toFixed(1) + "px)";
+      });
+      b.addEventListener("mouseleave", function () { b.style.transform = ""; });
+    });
+  }
+
+  // preguntas: se abren y cierran con suavidad
+  document.querySelectorAll("details.preg, details.plegable").forEach(function (d) {
+    var sum = d.querySelector("summary"), cuerpo = sum.nextElementSibling;
+    if (!cuerpo) return;
+    sum.addEventListener("click", function (e) {
+      if (quieto) return;
+      e.preventDefault();
+      if (d.open) {
+        cuerpo.style.height = cuerpo.scrollHeight + "px"; cuerpo.offsetHeight;
+        cuerpo.style.height = "0px"; cuerpo.style.opacity = "0";
+        setTimeout(function () { d.open = false; cuerpo.style.height = ""; cuerpo.style.opacity = ""; }, 450);
+      } else {
+        d.open = true; var h = cuerpo.scrollHeight;
+        cuerpo.style.height = "0px"; cuerpo.style.opacity = "0"; cuerpo.offsetHeight;
+        cuerpo.style.height = h + "px"; cuerpo.style.opacity = "1";
+        setTimeout(function () { cuerpo.style.height = ""; }, 460);
+      }
+    });
+  });
+
+  // menú: los enlaces entran escalonados
+  document.querySelectorAll(".menu nav a, .menu .ceja, .menu .boton").forEach(function (a, i) { a.style.setProperty("--d", (i * 35) + "ms"); });
 })();
