@@ -161,7 +161,7 @@
       "float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);",
       "return mix(mix(dot(h(i),f),dot(h(i+vec2(1,0)),f-vec2(1,0)),u.x),mix(dot(h(i+vec2(0,1)),f-vec2(0,1)),dot(h(i+vec2(1,1)),f-vec2(1,1)),u.x),u.y);}",
       "float fb(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}",
-      "void main(){vec2 uv=gl_FragCoord.xy/r;vec2 p=(gl_FragCoord.xy-.5*r)/min(r.x,r.y)*.75;float tt=t*.03;",
+      "void main(){vec2 uv=gl_FragCoord.xy/r;vec2 p=(gl_FragCoord.xy-.5*r)/min(r.x,r.y)*.75;float tt=t*.018;",
       "p+=m*.05;",
       "vec2 q=vec2(fb(p*.9+vec2(0.,tt)),fb(p*.9+vec2(5.2,1.3)-tt*.7));",
       "vec2 w=vec2(fb(p+1.1*q+vec2(1.7,9.2)+tt*.5),fb(p+1.1*q+vec2(8.3,2.8)-tt*.4));",

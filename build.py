@@ -29,7 +29,7 @@ def img(nombre):
 
 # ---------------------------------------------------------------- piezas
 def viva(fondo):
-    return '<canvas class="seda-viva" data-p="%s" aria-hidden="true"></canvas>' % fondo[5:] if fondo.startswith("seda-") else ""
+    return ""  # la seda en movimiento queda solo en la portada del inicio (menos ruido en el resto)
 
 
 def hero(fondo, ceja, titulo, sub="", alto="medio", extra=""):
@@ -201,12 +201,18 @@ ASISTENTE = [
         ("Energía y bienestar", ["sueroterapia", "nutricion"]),
     ]),
 ]
-ZONAS = [  # explorador del inicio: (clave, nombre, slugs)
-    ("rostro", "Rostro", [c["slug"] for c in CIRUGIAS_NOON if c["cat"] == "rostro"]),
+def _mezclar(a, b):
+    out = []
+    for i in range(max(len(a), len(b))):
+        out += ([a[i]] if i < len(a) else []) + ([b[i]] if i < len(b) else [])
+    return out
+
+
+ZONAS = [  # explorador del inicio: cirugía y medicina estética mezcladas, con el mismo peso
+    ("rostro", "Rostro", _mezclar([t["slug"] for t in TRATAMIENTOS if t["cat"] == "inyectables"], [c["slug"] for c in CIRUGIAS_NOON if c["cat"] == "rostro"])),
+    ("piel", "Piel", [t["slug"] for t in TRATAMIENTOS if t["cat"] in ("piel", "tecnologias") and t["slug"] not in ("tratamientos-corporales",)]),
     ("senos", "Senos", [c["slug"] for c in CIRUGIAS_NOON if c["cat"] == "senos"]),
-    ("cuerpo", "Cuerpo", [c["slug"] for c in CIRUGIAS_NOON if c["cat"] in ("cuerpo", "combinadas")]),
-    ("inyectables", "Inyectables", [t["slug"] for t in TRATAMIENTOS if t["cat"] == "inyectables"]),
-    ("piel", "Piel y tecnologías", [t["slug"] for t in TRATAMIENTOS if t["cat"] in ("piel", "tecnologias")]),
+    ("cuerpo", "Cuerpo", _mezclar([c["slug"] for c in CIRUGIAS_NOON if c["cat"] in ("cuerpo", "combinadas")], ["tratamientos-corporales", "radiofrecuencia", "manejo-medico-del-peso"])),
     ("bienestar", "Bienestar", [t["slug"] for t in TRATAMIENTOS if t["cat"] == "bienestar"]),
 ]
 PALABRAS = {  # sinónimos para que el buscador entienda cómo habla la gente
@@ -330,7 +336,7 @@ def explorador():
 
 
 def asistente():
-    return '''<section class="asistente" id="encuentra"><div class="capa" style="background-image:url(%s)"></div><canvas class="seda-viva" data-p="noche" aria-hidden="true"></canvas>
+    return '''<section class="asistente" id="encuentra"><div class="capa" style="background-image:url(%s)"></div>
   <div class="as-in">
     <p class="ceja rev">Encuentra tu procedimiento</p>
     <h2 class="rev">Dos toques<br>y te <em>orientamos</em>.</h2>
@@ -365,6 +371,19 @@ def cinta(nombres, clase=""):
     return '<div class="cinta-mov %s" aria-hidden="true"><div class="cm-track"><div class="cm-g">%s</div><div class="cm-g">%s</div></div></div>' % (clase, fila, fila)
 
 
+def puertas():
+    def puerta(href, num, titulo, texto, cats, fondo, cta):
+        return '''<a class="puerta rev%s" href="%s"><span class="p-img" style="background-image:url(%s)"></span>
+  <span class="p-txt"><span class="ceja">%s</span><span class="p-tit">%s</span><span class="p-desc">%s</span>
+  <span class="p-cats">%s</span><span class="ir">%s</span></span></a>''' % (" sobre-claro" if fondo in CLARO else "", href, img(fondo), num, titulo, texto,
+                                                 "".join("<i>%s</i>" % n for n in cats), cta)
+    return '<section class="puertas" id="caminos">%s%s</section>' % (
+        puerta("cirugia-plastica.html", "01 · Cirugía plástica", "Cirugía <em>plástica</em>", "Rostro, senos y contorno corporal, con un plan pensado para ti y acompañamiento hasta el alta.",
+               [n for k, n, d, f in CATEGORIAS_CX], "seda-burdeos", "Explorar cirugías"),
+        puerta("medicina-estetica.html", "02 · Medicina estética", "Medicina <em>estética</em>", "Inyectables, piel, tecnologías y bienestar. Resultados naturales, sin cirugía.",
+               [n for k, n, d, f in CATEGORIAS_ME], "seda-champan", "Explorar tratamientos"))
+
+
 def subnav(pares):
     return '<nav class="subnav" aria-label="En esta página">%s</nav>' % "".join('<a href="#%s">%s</a>' % p for p in pares)
 
@@ -389,9 +408,10 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
   <p class="sub rev">Cirugía plástica · Medicina estética</p>
   <button class="hero-buscar rev" type="button" data-abrir-buscador><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span>¿Qué te gustaría mejorar?</span></button>
   <div class="hero-acciones rev"><a class="boton lleno" href="#encuentra">Encuentra tu procedimiento</a><a class="boton" href="valoracion.html">Agendar valoración</a></div>
-</div><a class="bajar" href="#explora" aria-label="Bajar">Descubrir</a></section>''' % img("seda-oscura")
+</div><a class="bajar" href="#caminos" aria-label="Bajar">Descubrir</a></section>''' % img("seda-oscura")
+       + puertas()
        + explorador()
-       + cinta([c["nombre"] for c in CIRUGIAS_NOON[:12]])
+       + cinta([x for par in zip([c["nombre"] for c in CIRUGIAS_NOON], [t["nombre"] for t in TRATAMIENTOS]) for x in par][:16])
        + frase("Lo que creemos", "Primero <em>entendemos</em>.<br>Después hablamos de posibilidades.",
                "La recomendación nace del criterio clínico y de lo que cada persona quiere preservar.", sid="creemos")
        + asistente()

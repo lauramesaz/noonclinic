@@ -807,3 +807,69 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
   .ex-tab, .fh-chips button { margin-right: 18px; font-size: 11.5px; padding: 14px 2px; }
   .hero h1 { font-size: clamp(38px, 11vw, 56px); }
 }
+
+/* ================= v7 · EQUILIBRIO Y AIRE ================= */
+/* dos entradas del mismo peso: cirugía plástica y medicina estética */
+.puertas { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: clamp(60px, 8vw, 110px) var(--lado) 0; max-width: 1560px; margin: 0 auto; }
+.puerta { position: relative; display: block; min-height: min(78svh, 760px); overflow: hidden; text-decoration: none; isolation: isolate; }
+.p-img { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: center; transition: transform 2s var(--ease); }
+.puerta::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(18, 13, 10, .15) 0%, rgba(18, 13, 10, .25) 45%, rgba(18, 13, 10, .82) 100%); transition: background .6s; }
+.puerta:hover .p-img { transform: scale(1.04); }
+.p-txt { position: absolute; left: clamp(28px, 3.6vw, 56px); right: clamp(28px, 3.6vw, 56px); bottom: clamp(30px, 4vw, 60px); display: grid; gap: 14px; }
+.p-txt .ceja { margin: 0; color: rgba(242, 239, 232, .8); }
+.p-tit { font: 300 clamp(40px, 4.6vw, 72px)/1 var(--display); letter-spacing: -.02em; }
+.p-tit em { font-family: var(--serif-it); font-style: italic; font-size: 1.12em; color: #e9dcc3; }
+.p-desc { font-size: 15.5px; color: rgba(242, 239, 232, .82); max-width: 420px; line-height: 1.6; }
+.p-cats { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 4px; }
+.p-cats i { font: 400 10.5px var(--display); letter-spacing: .24em; text-transform: uppercase; font-style: normal; color: rgba(242, 239, 232, .7); }
+.puerta .ir { justify-self: start; margin-top: 10px; font: 400 11px var(--display); letter-spacing: .28em; text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid rgba(242, 239, 232, .5); transition: border-color .4s, letter-spacing .6s var(--ease); }
+.puerta:hover .ir { border-color: var(--ivory); letter-spacing: .34em; }
+.js .puerta.rev { clip-path: inset(10% 0 0 0); transition: clip-path 1.6s cubic-bezier(.7, 0, .2, 1) var(--d, 0ms), opacity 1.2s var(--ease) var(--d, 0ms), transform 1.2s var(--ease) var(--d, 0ms); }
+.js .puerta.rev.on { clip-path: inset(0 0 0 0); }
+.js .puerta.rev + .puerta.rev { --d: 160ms; }
+.captura .puerta.rev { clip-path: none !important; }
+.captura .puerta { min-height: 720px; }
+
+/* portadas interiores: quietas, más oscuras y serenas, con menos altura */
+.hero.alto { min-height: 74svh; }
+.hero.medio { min-height: 60svh; }
+.hero:not(.portada) .capa { animation: none; filter: saturate(.8) brightness(.78) contrast(.95); }
+.hero.sobre-claro:not(.portada) .capa { filter: saturate(.75) brightness(.92); }
+.hero:not(.portada)::after { background: linear-gradient(180deg, rgba(18, 13, 10, .55) 0%, rgba(18, 13, 10, .25) 35%, rgba(18, 13, 10, .45) 70%, rgba(18, 13, 10, .88) 100%); }
+.hero.sobre-claro:not(.portada)::after { background: linear-gradient(180deg, rgba(18, 13, 10, .6) 0%, rgba(18, 13, 10, .2) 20%, rgba(242, 239, 232, .15) 55%, rgba(242, 239, 232, .55) 100%); }
+.cierre .capa { filter: saturate(.8) brightness(.95); }
+.asistente .capa { filter: brightness(.7) saturate(.8); }
+
+/* más aire en general */
+.sec { padding: clamp(100px, 12vw, 180px) var(--lado); }
+.frase { padding: clamp(120px, 15vw, 220px) var(--lado); }
+.explora { padding-top: clamp(110px, 12vw, 180px); }
+
+/* fotos de los especialistas: más pequeñas, con marco de aire */
+.esp-duo { grid-template-columns: repeat(2, minmax(0, 340px)); gap: clamp(40px, 7vw, 110px); }
+.esp-foto { aspect-ratio: 4 / 5; }
+.esp-ficha { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); min-height: 0; padding: clamp(80px, 10vw, 150px) var(--lado); gap: clamp(50px, 8vw, 130px); align-items: center; max-width: 1300px; margin: 0 auto; border-bottom: 0; }
+.esp-ficha + .esp-ficha { border-top: 1px solid var(--linea); }
+.esp-ficha figure { width: 100%; max-width: 380px; aspect-ratio: 4 / 5; justify-self: end; }
+.esp-ficha.inv figure { justify-self: start; }
+.esp-ficha .texto { padding: 0; }
+.esp-in { grid-template-columns: minmax(0, 280px) 1fr; }
+.captura .esp-ficha { min-height: 0; } .captura .esp-ficha figure { max-height: none; }
+
+@media (max-width: 960px) {
+  .puertas { grid-template-columns: 1fr; }
+  .puerta { min-height: 70svh; }
+  .esp-ficha { grid-template-columns: 1fr; }
+  .esp-ficha figure, .esp-ficha.inv figure { justify-self: start; max-width: 320px; }
+  .esp-ficha.inv figure { order: 0; }
+  .esp-in { grid-template-columns: 1fr; }
+  .esp-in figure { max-width: 260px; }
+}
+@media (max-width: 720px) {
+  .puertas { padding: 60px 0 0; gap: 2px; }
+  .puerta { min-height: 64svh; }
+  .esp-duo { grid-template-columns: 1fr 1fr; gap: 18px; }
+  .esp-nom { font-size: 19px; }
+  .esp-rol { font-size: 11.5px; letter-spacing: .14em; }
+  .esp-ficha figure, .esp-ficha.inv figure { max-width: 72%; }
+}
