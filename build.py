@@ -72,7 +72,7 @@ def seccion(ceja, titulo, contenido, clase="", intro="", sid=""):
         clase, ' id="%s"' % sid if sid else "", ceja, titulo, '<p class="sub rev">%s</p>' % intro if intro else "", contenido)
 
 
-def cierre(titulo="Tu valoración", texto=None, boton=None, fondo="seda-clara", cx=None, nota=""):
+def cierre(titulo="Tu <em>valoración</em>", texto=None, boton=None, fondo="seda-clara", cx=None, nota=""):
     texto = texto or "Todo empieza con una conversación con nuestros especialistas."
     boton = boton or '<a class="boton lleno" href="valoracion.html%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (
         "?cx=" + cx["slug"] if cx else "", wa("Hola, quiero agendar mi valoración%s." % (" para " + cx["nombre"].lower() if cx else "")))
@@ -99,7 +99,7 @@ def pagina(archivo, titulo, descripcion, cuerpo):
 <script>document.documentElement.className="js"</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Jost:wght@300;400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/noon.css?v=%(v)s">
 </head>
 <body>
@@ -321,7 +321,7 @@ def explorador():
   <span class="ex-txt"><span class="ceja">%s</span><b>%s</b><span class="c">%s</span><span class="m">%s</span></span></a>''' % (
                 " sobre-claro" if f in CLARO else "", k, sl, img(f), "Cirugía plástica" if es_cx else "Medicina estética", it["nombre"], it["corto"], meta)
     return '''<section class="explora" id="explora">
-  <div class="ex-cab"><div><p class="ceja rev">Explora</p><h2 class="rev">¿Qué zona quieres tratar?</h2></div>
+  <div class="ex-cab"><div><p class="ceja rev">Explora</p><h2 class="rev">¿Qué zona quieres <em>tratar</em>?</h2></div>
     <div class="ex-ctrl"><button class="ex-prev" type="button" aria-label="Anterior">←</button><button class="ex-next" type="button" aria-label="Siguiente">→</button></div></div>
   <div class="ex-tabs rev" role="tablist">%s</div>
   <div class="ex-pista"><div class="ex-track">%s</div></div>
@@ -333,7 +333,7 @@ def asistente():
     return '''<section class="asistente" id="encuentra"><div class="capa" style="background-image:url(%s)"></div><canvas class="seda-viva" data-p="noche" aria-hidden="true"></canvas>
   <div class="as-in">
     <p class="ceja rev">Encuentra tu procedimiento</p>
-    <h2 class="rev">Dos toques<br>y te orientamos.</h2>
+    <h2 class="rev">Dos toques<br>y te <em>orientamos</em>.</h2>
     <div class="as-caja rev" data-asistente>
       <ol class="as-prog"><li class="on">Zona</li><li>Objetivo</li><li>Para ti</li></ol>
       <div class="as-paso" data-paso="1"><p class="as-preg">¿Qué te gustaría mejorar?</p><div class="as-ops"></div></div>
@@ -392,16 +392,16 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
 </div><a class="bajar" href="#explora" aria-label="Bajar">Descubrir</a></section>''' % img("seda-oscura")
        + explorador()
        + cinta([c["nombre"] for c in CIRUGIAS_NOON[:12]])
-       + frase("Lo que creemos", "Primero entendemos.<br>Después hablamos de posibilidades.",
+       + frase("Lo que creemos", "Primero <em>entendemos</em>.<br>Después hablamos de posibilidades.",
                "La recomendación nace del criterio clínico y de lo que cada persona quiere preservar.", sid="creemos")
        + asistente()
-       + dividir("foto-luz", '''<p class="ceja">Medicina estética</p><h2>Realzar lo tuyo.</h2>
+       + dividir("foto-luz", '''<p class="ceja">Medicina estética</p><h2>Realzar <em>lo tuyo</em>.</h2>
 <p class="sub">Tratamientos médicos no quirúrgicos para la piel, el rostro y el cuerpo. Resultados naturales, con criterio clínico.</p>%s<a class="enlace" href="medicina-estetica.html">Ver todos los tratamientos</a>''' % (
            '<ul class="catalogo corto">%s</ul>' % "".join('<li><a href="medicina-estetica.html#%s"><b>%s</b><span class="c">%s</span><span class="fl" aria-hidden="true">→</span></a></li>' % (k, n, d) for k, n, d, f in CATEGORIAS_ME)))
-       + seccion("Especialistas", "Médicos especializados.<br>Decisiones personales.", '<div class="esp-duo">%s</div><a class="enlace rev" href="especialistas.html">Conocer a los especialistas</a>' % "".join(
+       + seccion("Especialistas", "Médicos especializados.<br>Decisiones <em>personales</em>.", '<div class="esp-duo">%s</div><a class="enlace rev" href="especialistas.html">Conocer a los especialistas</a>' % "".join(
            '<a class="esp-card rev" href="especialistas.html#%s"><span class="esp-foto">%s</span><span class="esp-nom">%s</span><span class="esp-rol">%s</span></a>' % (e["slug"], foto_esp(e), e["nombre"], e["rol"]) for e in ESPECIALISTAS), "sin-borde")
-       + '''<section class="foto-frase"><div class="capa" style="background-image:url(%s)"></div><div class="caja"><p class="ceja rev">Seguridad</p><p class="grande rev">Tu tranquilidad es parte del resultado.</p><a class="boton rev" href="seguridad.html">Cómo cuidamos tu procedimiento</a></div></section>''' % img("foto-espera")
-       + seccion("Tu proceso", "Tres pasos.", '<ol class="pasos">%s</ol>' % "".join(
+       + '''<section class="foto-frase"><div class="capa" style="background-image:url(%s)"></div><div class="caja"><p class="ceja rev">Seguridad</p><p class="grande rev">Tu tranquilidad es parte <em>del resultado</em>.</p><a class="boton rev" href="seguridad.html">Cómo cuidamos tu procedimiento</a></div></section>''' % img("foto-espera")
+       + seccion("Tu proceso", "Tres <em>pasos</em>.", '<ol class="pasos">%s</ol>' % "".join(
            '<li class="rev"><span class="n">%s</span><b>%s</b><span>%s</span></li>' % x for x in [
                ("I", "Valoración", "Te escuchamos, te examinamos y te decimos qué tiene sentido para ti."),
                ("II", "Tu plan por escrito", "Procedimiento, tiempos, cuidados y presupuesto, claros desde el principio."),
@@ -415,7 +415,7 @@ for k, n, d, f in CATEGORIAS_CX:
     lista = [c for c in CIRUGIAS_NOON if c["cat"] == k]
     bloques_cx += '<section class="sec cat-bloque" id="%s"><div class="sec-in"><header class="sec-cab"><p class="ceja rev">Cirugía plástica</p><h2 class="rev">%s</h2><p class="sub rev">%s</p></header><div class="sec-cuerpo">%s</div></div></section>' % (k, n, d, catalogo(lista, "cx"))
 pagina("cirugia-plastica.html", "Cirugía plástica", "Cirugía plástica en noon Clinic: rostro, senos, contorno corporal y procedimientos combinados.",
-       hero("seda-burdeos", "Cirugía plástica", "Cirugía plástica<br>con criterio.", "Cada cirugía empieza entendiendo qué quieres lograr y qué quieres preservar.", "alto")
+       hero("seda-burdeos", "Cirugía plástica", "Cirugía plástica<br><em>con criterio</em>.", "Cada cirugía empieza entendiendo qué quieres lograr y qué quieres preservar.", "alto")
        + filtro_hub(CATEGORIAS_CX, "Busca una cirugía: nariz, abdomen, senos…")
        + cinta([c["nombre"] for c in CIRUGIAS_NOON], "suave")
        + bloques_cx
@@ -449,7 +449,7 @@ for k, n, d, f in CATEGORIAS_ME:
     lista = [t for t in TRATAMIENTOS if t["cat"] == k]
     bloques_me += '<section class="sec cat-bloque" id="%s"><div class="sec-in"><header class="sec-cab"><p class="ceja rev">Medicina estética</p><h2 class="rev">%s</h2><p class="sub rev">%s</p></header><div class="sec-cuerpo">%s</div></div></section>' % (k, n, d, catalogo(lista, "me"))
 pagina("medicina-estetica.html", "Medicina estética", "Medicina estética en noon Clinic: toxina botulínica, ácido hialurónico, bioestimuladores, piel, láser, HIFU y bienestar.",
-       hero("seda-champan", "Medicina estética", "Realzar lo tuyo,<br>sin cambiar quién eres.", "Tratamientos médicos no quirúrgicos con resultados naturales.", "alto")
+       hero("seda-champan", "Medicina estética", "Realzar lo tuyo,<br><em>sin cambiar quién eres</em>.", "Tratamientos médicos no quirúrgicos con resultados naturales.", "alto")
        + filtro_hub(CATEGORIAS_ME, "Busca un tratamiento: botox, manchas, láser…")
        + cinta([t["nombre"] for t in TRATAMIENTOS], "suave")
        + bloques_me
@@ -486,7 +486,7 @@ for i, e in enumerate(ESPECIALISTAS):
 </div></section>''' % (" inv" if i % 2 else "", e["slug"], foto_esp(e), e["rol"], e["nombre"], e["bio"], lineas([(x,) for x in e["detalle"]]) if e["detalle"] else "",
                        wa("Hola, quiero agendar una valoración con %s en noon Clinic." % e["nombre"]), e["nombre"].split()[0] + " " + e["nombre"].split()[-1], area[0], area[1])
 pagina("especialistas.html", "Especialistas", "Conoce a los especialistas de noon Clinic: Dr. Fernando Ruiz, cirujano plástico, y Dra. Valeria Enciso, médica estética.",
-       hero("seda-noche", "Especialistas", "Médicos especializados.<br>Decisiones personales.", "Te escuchamos antes de proponer, te explicamos sin dramatizar y decidimos contigo.")
+       hero("seda-noche", "Especialistas", "Médicos especializados.<br>Decisiones <em>personales</em>.", "Te escuchamos antes de proponer, te explicamos sin dramatizar y decidimos contigo.")
        + fichas
        + seccion("Cómo trabajamos", "Nuestros principios", lineas([("Escuchar antes de proponer",), ("Explicar sin dramatizar",), ("Decidir junto a la persona",), ("Cuidar también el seguimiento",)], numerar=True))
        + cierre())
@@ -566,7 +566,7 @@ pagina("otra-ciudad.html", "Si vienes de lejos", "Cómo tratarte en noon Clinic 
 # ================================================================ PREGUNTAS
 filtros = '<button class="filtro on" data-cat="todas" type="button">Todas</button>' + "".join('<button class="filtro" data-cat="%s" type="button">%s</button>' % (escape(x), x) for x in CATS_NOON)
 pagina("preguntas-frecuentes.html", "Preguntas frecuentes", "Respuestas sobre valoración, seguridad, recuperación, requisitos, medicina estética y pagos en noon Clinic.",
-       hero("seda-clara", "Preguntas frecuentes", "Todas tus dudas,<br>con calma.", "%d respuestas. Busca por palabra o filtra por tema." % len(FAQ_NOON))
+       hero("seda-clara", "Preguntas frecuentes", "Todas tus dudas,<br><em>con calma</em>.", "%d respuestas. Busca por palabra o filtra por tema." % len(FAQ_NOON))
        + '''<section class="sec marfil"><div class="sec-in solo">
   <input class="buscador" type="search" placeholder="Busca: dolor, valoración, abono…" aria-label="Buscar en las preguntas">
   <div class="filtros">%s</div>%s<p class="vacio" hidden>No encontramos esa pregunta. Escríbenos por WhatsApp y te respondemos.</p>
@@ -578,7 +578,7 @@ pagina("preguntas-frecuentes.html", "Preguntas frecuentes", "Respuestas sobre va
 opciones = ('<optgroup label="Cirugía plástica">%s</optgroup>' % "".join('<option data-slug="%s">%s</option>' % (c["slug"], c["nombre"]) for c in CIRUGIAS_NOON)
             + '<optgroup label="Medicina estética">%s</optgroup>' % "".join('<option data-slug="%s">%s</option>' % (t["slug"], t["nombre"]) for t in TRATAMIENTOS))
 pagina("valoracion.html", "Agenda tu valoración", "Todo empieza con tu valoración con nuestros especialistas. Agéndala por WhatsApp.",
-       hero("seda-oscura", "Primer paso", "Tu valoración.", "Una conversación clínica empieza por entender qué quieres preservar.")
+       hero("seda-oscura", "Primer paso", "Tu <em>valoración</em>.", "Una conversación clínica empieza por entender qué quieres preservar.")
        + '''<section class="valoracion">
   <div class="texto rev"><p class="ceja">Qué pasa en tu valoración</p><h2 class="h-val">Una conversación, no una venta.</h2>%(lista)s%(tc)s</div>
   <form class="form rev" id="form-valoracion" data-wa="%(wa)s">
