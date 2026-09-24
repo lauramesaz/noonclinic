@@ -873,3 +873,11 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
   .esp-rol { font-size: 11.5px; letter-spacing: .14em; }
   .esp-ficha figure, .esp-ficha.inv figure { max-width: 72%; }
 }
+/* especialistas del inicio: centrados */
+.esp-centro .sec-in { justify-items: center; text-align: center; }
+.esp-centro .sec-cab .ceja { justify-content: center; }
+.esp-centro .sec-cab .ceja::before { display: none; }
+.esp-centro .sec-cuerpo { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.esp-centro .esp-duo { justify-content: center; }
+.esp-centro .esp-card { justify-items: center; }
+.esp-centro .enlace { margin-top: 44px; }
