@@ -399,13 +399,25 @@ ESPACIOS = [  # (foto, nombre, texto)
 
 
 def bloque_clinica():
-    fotos = [ESPACIOS[i] for i in (0, 1, 2, 3, 4, 7)]
-    diap = "".join('<figure class="bc-f%s"><img src="%s" alt="%s de noon Clinic" loading="lazy"><figcaption>%s</figcaption></figure>' % (" on" if i == 0 else "", img("c:" + f), n, n) for i, (f, n, t) in enumerate(fotos))
+    """Mosaico discreto: 5 cuadros; cada uno alterna entre 2 fotos a su propio ritmo."""
+    extra = [("recepcion-sala", "Recepción y sala"), ("pasillo", "Circulación"), ("vista-2", "La vista")]
+    base = [(f, n) for f, n, t in ESPACIOS]
+    pares = [  # (foto principal, foto que se alterna)
+        (base[0], extra[0]),   # recepción ↔ recepción y sala  (cuadro alto)
+        (base[1], base[6]),    # consultorio ↔ circulación
+        (base[2], base[3]),    # cabina ↔ sala de tratamientos
+        (base[7], extra[2]),   # vista ↔ vista 2 (cuadro ancho)
+        (base[4], base[3]),    # sala de espera ↔ sala de tratamientos (franja de abajo)
+    ]
+    cuadros = ""
+    for i, (p1, p2) in enumerate(pares):
+        figs = "".join('<figure class="%s"><img src="%s" alt="%s de noon Clinic" loading="lazy"></figure>' % ("on" if k == 0 else "", img("c:" + f), n) for k, (f, n) in enumerate((p1, p2)))
+        cuadros += '<div class="mz mz%d rev" data-mosaico>%s</div>' % (i, figs)
     return '''<section class="bloque-clinica" id="clinica"><div class="bcl-in">
   <div class="bcl-txt"><p class="ceja rev">La clínica</p><h2 class="rev">Un espacio pensado<br>para la <em>calma</em>.</h2>
   <p class="sub rev">Privacidad, luz natural y una vista abierta. Así se siente tu valoración en noon.</p></div>
-  <div class="bcl-fotos rev" data-diapos>%s<span class="bcl-cont" aria-hidden="true"></span></div>
-</div></section>''' % diap
+  <div class="mosaico-cl">%s</div>
+</div></section>''' % cuadros
 
 
 def galeria_inicio():

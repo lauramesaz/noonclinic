@@ -470,4 +470,16 @@
       fs[i].classList.remove("on"); i = (i + 1) % fs.length; fs[i].classList.add("on"); marcar();
     }, 4200);
   });
+
+  // ---------- mosaico de la clínica: cada cuadro cambia de foto a su ritmo
+  var mz = [].slice.call(document.querySelectorAll("[data-mosaico]"));
+  if (mz.length && !quieto) {
+    var turno = 0;
+    setInterval(function () {
+      if (document.hidden) return;
+      var box = mz[turno % mz.length], fs = box.querySelectorAll("figure");
+      if (fs.length > 1) { var i = [].findIndex.call(fs, function (f) { return f.classList.contains("on"); }); fs[i].classList.remove("on"); fs[(i + 1) % fs.length].classList.add("on"); }
+      turno += 2; // salta de a dos para que no cambien vecinos seguidos
+    }, 1900);
+  }
 })();
