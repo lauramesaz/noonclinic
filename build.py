@@ -141,7 +141,7 @@ def pagina(archivo, titulo, descripcion, cuerpo):
     <div class="pie-cols cuatro">
       <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>
       <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>
-      <div><p class="ceja">La clínica</p><a href="la-clinica.html">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="preguntas-frecuentes.html">Preguntas</a></div>
+      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="preguntas-frecuentes.html">Preguntas</a></div>
       <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>
     </div>
     <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>
@@ -257,7 +257,6 @@ def datos_js():
 
 datos_js()
 MENU = [
-    ("la-clinica.html", "La clínica"),
     ("especialistas.html", "Especialistas"),
     ("seguridad.html", "Seguridad"),
     ("tu-proceso.html", "Tu proceso"),
@@ -399,6 +398,16 @@ ESPACIOS = [  # (foto, nombre, texto)
 ]
 
 
+def bloque_clinica():
+    fotos = [ESPACIOS[i] for i in (0, 1, 2, 3, 4, 7)]
+    diap = "".join('<figure class="bc-f%s"><img src="%s" alt="%s de noon Clinic" loading="lazy"><figcaption>%s</figcaption></figure>' % (" on" if i == 0 else "", img("c:" + f), n, n) for i, (f, n, t) in enumerate(fotos))
+    return '''<section class="bloque-clinica" id="clinica"><div class="bcl-in">
+  <div class="bcl-txt"><p class="ceja rev">La clínica</p><h2 class="rev">Un espacio pensado<br>para la <em>calma</em>.</h2>
+  <p class="sub rev">Privacidad, luz natural y una vista abierta. Así se siente tu valoración en noon.</p></div>
+  <div class="bcl-fotos rev" data-diapos>%s<span class="bcl-cont" aria-hidden="true"></span></div>
+</div></section>''' % diap
+
+
 def galeria_inicio():
     grandes = [ESPACIOS[0], ESPACIOS[1], ESPACIOS[2], ESPACIOS[7]]
     celdas = "".join('<figure class="g-item rev g%d"><img src="%s" alt="%s de noon Clinic" loading="lazy"><figcaption>%s</figcaption></figure>' % (i, img("c:" + f), n, n) for i, (f, n, t) in enumerate(grandes))
@@ -444,6 +453,7 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
        + dividir("foto-luz", '''<p class="ceja">Medicina estética</p><h2>Realzar <em>lo tuyo</em>.</h2>
 <p class="sub">Tratamientos médicos no quirúrgicos para la piel, el rostro y el cuerpo. Resultados naturales, con criterio clínico.</p>%s<a class="enlace" href="medicina-estetica.html">Ver todos los tratamientos</a>''' % (
            '<ul class="catalogo corto">%s</ul>' % "".join('<li><a href="medicina-estetica.html#%s"><b>%s</b><span class="c">%s</span><span class="fl" aria-hidden="true">→</span></a></li>' % (k, n, d) for k, n, d, f in CATEGORIAS_ME)))
+       + bloque_clinica()
        + seccion("Especialistas", "Médicos especializados.<br>Decisiones <em>personales</em>.", '<div class="esp-duo">%s</div><a class="enlace rev" href="especialistas.html">Conocer a los especialistas</a>' % "".join(
            '<a class="esp-card rev" href="especialistas.html#%s"><span class="esp-foto">%s</span><span class="esp-nom">%s</span><span class="esp-rol">%s</span></a>' % (e["slug"], foto_esp(e), e["nombre"], e["rol"]) for e in ESPECIALISTAS), "sin-borde esp-centro")
        + '''<section class="foto-frase"><div class="capa" style="background-image:url(%s)"></div><div class="caja"><p class="ceja rev">Seguridad</p><p class="grande rev">Tu tranquilidad es parte <em>del resultado</em>.</p><a class="boton rev" href="seguridad.html">Cómo cuidamos tu procedimiento</a></div></section>''' % img("foto-espera")
@@ -547,7 +557,7 @@ ALERTAS = [
     ("Afán para pagar", "Una decisión así se toma con calma y con toda la información."),
 ]
 pagina("seguridad.html", "Seguridad", "Cirugías en quirófano habilitado, valoración presencial, exámenes previos, consentimiento informado y seguimiento hasta el alta.",
-       hero("c:pasillo", "Seguridad", "Tu tranquilidad<br>es parte del resultado.")
+       hero("foto-pasillo", "Seguridad", "Tu tranquilidad<br>es parte del resultado.")
        + seccion("No negociables", "Cómo cuidamos tu procedimiento", lineas([
            ("Cirugías solo en quirófano", "En salas de cirugía habilitadas (%s). Nunca en consultorios." % SEDE_QX),
            ("Valoración presencial primero", "Nadie se opera ni se trata sin una valoración médica honesta."),
@@ -575,7 +585,7 @@ PROCESO_N = [
 pagina("tu-proceso.html", "Tu proceso", "De la valoración al resultado: así es el camino de tu procedimiento en noon Clinic.",
        hero("seda-oscura", "Tu proceso", "De la primera conversación<br>al resultado.", "Saber qué viene quita la mitad de los nervios.")
        + seccion("El camino", "Paso a paso", '<ol class="tiempo num">%s</ol>' % "".join('<li class="rev"><b>%s</b><span>%s</span></li>' % x for x in PROCESO_N))
-       + dividir("c:recepcion", '<p class="ceja">El día de tu cirugía</p><h2>Qué llevar</h2>%s' % lineas([(x,) for x in QUE_LLEVAR]))
+       + dividir("foto-recepcion", '<p class="ceja">El día de tu cirugía</p><h2>Qué llevar</h2>%s' % lineas([(x,) for x in QUE_LLEVAR]))
        + seccion("Preguntas", "Sobre la recuperación", faq([(c, p, r, []) for c, p, r in FAQ_NOON if c == "Recuperación"]), "marfil")
        + cierre())
 
@@ -599,7 +609,7 @@ pagina("otra-ciudad.html", "Si vienes de lejos", "Cómo tratarte en noon Clinic 
            ("Procedimiento", "Cirugía en %s o tratamiento en la clínica." % SEDE_QX),
            ("Recuperación y controles", "Te quedas en la ciudad los días que tu especialista indique."),
            ("Regreso a casa", "Viajas cuando tu especialista lo autorice.")]))
-       + dividir("c:vista", '<p class="ceja">Guía de estadía</p><h2>¿Cuántos días me quedo?</h2>%s<p class="pista">Tiempos de referencia. El regreso lo autoriza tu especialista.</p>' % lineas([
+       + dividir("foto-espera", '<p class="ceja">Guía de estadía</p><h2>¿Cuántos días me quedo?</h2>%s<p class="pista">Tiempos de referencia. El regreso lo autoriza tu especialista.</p>' % lineas([
            ("Cirugía de rostro", "Entre 1 y 2 semanas."), ("Cirugía de senos", "Entre 1 y 2 semanas."), ("Contorno corporal y combinadas", "Entre 2 y 3 semanas."), ("Medicina estética", "Por lo general, el mismo día o pocos días.")]))
        + seccion("Recomendaciones", "Para tu viaje", lineas([("Viaja acompañada", "Si es cirugía, necesitas un adulto contigo los primeros días."),
                                                                ("Hospédate cerca", "Entre más cerca de la clínica y de tus controles, más cómoda tu recuperación."),
@@ -619,17 +629,6 @@ pagina("preguntas-frecuentes.html", "Preguntas frecuentes", "Respuestas sobre va
 </div></section>''' % (filtros, faq([(c, p, r, []) for c, p, r in FAQ_NOON], filtrable=True))
        + cierre("¿No encontraste tu pregunta?", "Escríbenos y te respondemos.",
                 '<a class="boton lleno" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % wa("Hola, tengo una pregunta para noon Clinic."), fondo="seda-oscura"))
-
-# ================================================================ LA CLÍNICA
-recorrido = ""
-for i, (f, n, t) in enumerate(ESPACIOS):
-    recorrido += '<figure class="rc-item rev rc%d"><img src="%s" alt="%s de noon Clinic" loading="lazy"><figcaption><b>%s</b><span>%s</span></figcaption></figure>' % (i % 4, img("c:" + f), n, n, t)
-pagina("la-clinica.html", "La clínica", "Conoce noon Clinic: recepción, consultorio de valoración, cabina de medicina estética y salas de tratamiento, con luz natural y vista a la ciudad.",
-       hero("c:recepcion", "La clínica", "Un espacio pensado<br>para la <em>calma</em>.", "Privacidad, luz natural y materiales cálidos. Así se siente estar en noon.", "alto")
-       + frase("Nuestro espacio", "Menos ruido, <em>más criterio</em>.", "Diseñamos cada espacio para que llegues tranquila, te sientas escuchada y te vayas con todo claro.")
-       + '<section class="recorrido">%s</section>' % recorrido
-       + dividir("c:vista-2", '<p class="ceja">La vista</p><h2>En lo alto, <em>rodeada de verde</em>.</h2><p class="sub">Luz natural en todos los espacios de atención y una vista abierta a la ciudad.</p><a class="enlace" href="valoracion.html">Agenda tu visita de valoración</a>')
-       + cierre())
 
 # ================================================================ VALORACIÓN
 opciones = ('<optgroup label="Cirugía plástica">%s</optgroup>' % "".join('<option data-slug="%s">%s</option>' % (c["slug"], c["nombre"]) for c in CIRUGIAS_NOON)
@@ -653,7 +652,7 @@ pagina("valoracion.html", "Agenda tu valoración", "Todo empieza con tu valoraci
 
 # ================================================================ PÁGINAS VIEJAS → redirección a las nuevas
 for viejo, nuevo in [("cirugias", "cirugia-plastica"), ("todo-incluido", "cirugia-plastica"), ("mastopexia-con-implantes", "mastopexia"),
-                     ("mastopexia-sin-implantes", "mastopexia"), ("lipo", "liposuccion"), ("nosotros", "especialistas")]:
+                     ("mastopexia-sin-implantes", "mastopexia"), ("lipo", "liposuccion"), ("nosotros", "especialistas"), ("la-clinica", "#clinica")]:
     with open(os.path.join(AQUI, viejo + ".html"), "w", encoding="utf-8") as fh:
         fh.write('<!doctype html><html lang="es"><head><meta charset="utf-8"><title>noon Clinic</title><link rel="canonical" href="/%s"><meta http-equiv="refresh" content="0; url=/%s"><meta name="robots" content="noindex"></head><body><a href="/%s">Continuar</a></body></html>' % (nuevo, nuevo, nuevo))
 

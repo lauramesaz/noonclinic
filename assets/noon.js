@@ -458,4 +458,16 @@
 
   // menú: los enlaces entran escalonados
   document.querySelectorAll(".menu nav a, .menu .ceja, .menu .boton").forEach(function (a, i) { a.style.setProperty("--d", (i * 35) + "ms"); });
+
+  // ---------- la clínica: fotos que pasan solas (fundido lento)
+  document.querySelectorAll("[data-diapos]").forEach(function (box) {
+    var fs = box.querySelectorAll("figure"), cont = box.querySelector(".bcl-cont"), i = 0;
+    var marcar = function () { if (cont) cont.textContent = ("0" + (i + 1)).slice(-2) + " / " + ("0" + fs.length).slice(-2); };
+    marcar();
+    if (fs.length < 2 || quieto) return;
+    setInterval(function () {
+      if (document.hidden) return;
+      fs[i].classList.remove("on"); i = (i + 1) % fs.length; fs[i].classList.add("on"); marcar();
+    }, 4200);
+  });
 })();
