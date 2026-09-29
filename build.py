@@ -455,7 +455,8 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
   <p class="sub rev">Cirugía plástica · Medicina estética</p>
   <button class="hero-buscar rev" type="button" data-abrir-buscador><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span>¿Qué te gustaría mejorar?</span></button>
   <div class="hero-acciones rev"><a class="boton lleno" href="#encuentra">Encuentra tu procedimiento</a><a class="boton" href="valoracion.html">Agendar valoración</a></div>
-</div><a class="bajar" href="#caminos" aria-label="Bajar">Descubrir</a></section>''' % img("seda-oscura")
+</div><a class="bajar" href="#clinica" aria-label="Bajar">Descubrir</a></section>''' % img("seda-oscura")
+       + bloque_clinica()
        + puertas()
        + explorador()
        + cinta([x for par in zip([c["nombre"] for c in CIRUGIAS_NOON], [t["nombre"] for t in TRATAMIENTOS]) for x in par][:16])
@@ -465,7 +466,6 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
        + dividir("foto-luz", '''<p class="ceja">Medicina estética</p><h2>Realzar <em>lo tuyo</em>.</h2>
 <p class="sub">Tratamientos médicos no quirúrgicos para la piel, el rostro y el cuerpo. Resultados naturales, con criterio clínico.</p>%s<a class="enlace" href="medicina-estetica.html">Ver todos los tratamientos</a>''' % (
            '<ul class="catalogo corto">%s</ul>' % "".join('<li><a href="medicina-estetica.html#%s"><b>%s</b><span class="c">%s</span><span class="fl" aria-hidden="true">→</span></a></li>' % (k, n, d) for k, n, d, f in CATEGORIAS_ME)))
-       + bloque_clinica()
        + seccion("Especialistas", "Médicos especializados.<br>Decisiones <em>personales</em>.", '<div class="esp-duo">%s</div><a class="enlace rev" href="especialistas.html">Conocer a los especialistas</a>' % "".join(
            '<a class="esp-card rev" href="especialistas.html#%s"><span class="esp-foto">%s</span><span class="esp-nom">%s</span><span class="esp-rol">%s</span></a>' % (e["slug"], foto_esp(e), e["nombre"], e["rol"]) for e in ESPECIALISTAS), "sin-borde esp-centro")
        + '''<section class="foto-frase"><div class="capa" style="background-image:url(%s)"></div><div class="caja"><p class="ceja rev">Seguridad</p><p class="grande rev">Tu tranquilidad es parte <em>del resultado</em>.</p><a class="boton rev" href="seguridad.html">Cómo cuidamos tu procedimiento</a></div></section>''' % img("foto-espera")
