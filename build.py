@@ -441,13 +441,12 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
        + frase("Lo que creemos", "Primero <em>entendemos</em>.<br>Después hablamos de posibilidades.",
                "La recomendación nace del criterio clínico y de lo que cada persona quiere preservar.", sid="creemos")
        + asistente()
-       + dividir("c:cabina", '''<p class="ceja">Medicina estética</p><h2>Realzar <em>lo tuyo</em>.</h2>
+       + dividir("foto-luz", '''<p class="ceja">Medicina estética</p><h2>Realzar <em>lo tuyo</em>.</h2>
 <p class="sub">Tratamientos médicos no quirúrgicos para la piel, el rostro y el cuerpo. Resultados naturales, con criterio clínico.</p>%s<a class="enlace" href="medicina-estetica.html">Ver todos los tratamientos</a>''' % (
            '<ul class="catalogo corto">%s</ul>' % "".join('<li><a href="medicina-estetica.html#%s"><b>%s</b><span class="c">%s</span><span class="fl" aria-hidden="true">→</span></a></li>' % (k, n, d) for k, n, d, f in CATEGORIAS_ME)))
        + seccion("Especialistas", "Médicos especializados.<br>Decisiones <em>personales</em>.", '<div class="esp-duo">%s</div><a class="enlace rev" href="especialistas.html">Conocer a los especialistas</a>' % "".join(
            '<a class="esp-card rev" href="especialistas.html#%s"><span class="esp-foto">%s</span><span class="esp-nom">%s</span><span class="esp-rol">%s</span></a>' % (e["slug"], foto_esp(e), e["nombre"], e["rol"]) for e in ESPECIALISTAS), "sin-borde esp-centro")
-       + galeria_inicio()
-       + '''<section class="foto-frase"><div class="capa" style="background-image:url(%s)"></div><div class="caja"><p class="ceja rev">Seguridad</p><p class="grande rev">Tu tranquilidad es parte <em>del resultado</em>.</p><a class="boton rev" href="seguridad.html">Cómo cuidamos tu procedimiento</a></div></section>''' % img("c:recepcion-sala")
+       + '''<section class="foto-frase"><div class="capa" style="background-image:url(%s)"></div><div class="caja"><p class="ceja rev">Seguridad</p><p class="grande rev">Tu tranquilidad es parte <em>del resultado</em>.</p><a class="boton rev" href="seguridad.html">Cómo cuidamos tu procedimiento</a></div></section>''' % img("foto-espera")
        + seccion("Tu proceso", "Tres <em>pasos</em>.", '<ol class="pasos">%s</ol>' % "".join(
            '<li class="rev"><span class="n">%s</span><b>%s</b><span>%s</span></li>' % x for x in [
                ("I", "Valoración", "Te escuchamos, te examinamos y te decimos qué tiene sentido para ti."),
