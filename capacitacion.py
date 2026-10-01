@@ -20,9 +20,12 @@ DISPONIBILIDAD = {
 # ---------------------------------------------------------------- PRECIOS (solo los que conocemos; el resto se define en la valoración)
 CX_INCLUYE = ["Fajas", "Bomba del dolor", "Quirófano", "Instrumentador", "Póliza"]
 PRECIOS = {
-    "mastopexia": {"items": [("Mastopexia con implantes", "Desde $17.900.000"), ("Mastopexia sin implantes", "Desde $15.900.000")],
-                   "incluye": CX_INCLUYE + ["Implantes (en la mastopexia con implantes)"],
-                   "msj": "La mastopexia sin implantes está desde $15.900.000 y con implantes desde $17.900.000. Incluye fajas, bomba del dolor, quirófano, instrumentador y póliza. ¿Te agendo tu valoración con el Dr. Fernando para confirmar tu plan?"},
+    "mastopexia-con-implantes": {"items": [("Mastopexia con implantes", "Desde $17.900.000")],
+                   "incluye": CX_INCLUYE + ["Implantes"],
+                   "msj": "La mastopexia con implantes está desde $17.900.000 e incluye implantes, fajas, bomba del dolor, quirófano, instrumentador y póliza. ¿Te agendo tu valoración con el Dr. Fernando?"},
+    "mastopexia-sin-implantes": {"items": [("Mastopexia sin implantes", "Desde $15.900.000")],
+                   "incluye": CX_INCLUYE,
+                   "msj": "La mastopexia sin implantes está desde $15.900.000 e incluye fajas, bomba del dolor, quirófano, instrumentador y póliza. ¿Te agendo tu valoración con el Dr. Fernando?"},
     "lipotransferencia-glutea": {"items": [("Lipotransferencia", "Desde $18.900.000")],
                    "incluye": CX_INCLUYE + ["Implantes (si los necesita)"],
                    "msj": "La lipotransferencia está desde $18.900.000 e incluye fajas, bomba del dolor, quirófano, instrumentador y póliza. ¿Te agendo tu valoración con el Dr. Fernando para confirmar tu plan?"},
@@ -130,8 +133,29 @@ PASOS = [
 ]
 
 
+def _cirugias():
+    # en la capacitación la mastopexia va dividida: con implantes y sin implantes
+    out = []
+    for c in CIRUGIAS_NOON:
+        if c["slug"] != "mastopexia":
+            out.append(c); continue
+        out.append(dict(c, slug="mastopexia-con-implantes", nombre="Mastopexia con implantes",
+                        corto="Levanta el seno y le da volumen con implantes.",
+                        que_es=["Cirugía que levanta el seno caído y, además, le pone implantes para dar volumen, sobre todo en la parte de arriba.",
+                                "Retira el exceso de piel, da nueva forma al seno y sube la areola y el pezón."],
+                        ideal=["Senos caídos y con poco volumen", "Sensación de seno 'vacío' arriba", "Cambios tras embarazos, lactancia o baja de peso"],
+                        faq=[f for f in c["faq"] if not f[0].startswith("¿Con o sin")] + [("¿Cuál es la diferencia con la mastopexia sin implantes?", "La sin implantes solo levanta con tu propio tejido; la con implantes además da volumen.")]))
+        out.append(dict(c, slug="mastopexia-sin-implantes", nombre="Mastopexia sin implantes",
+                        corto="Levanta y reafirma el seno con tu propio tejido.",
+                        que_es=["Cirugía que levanta el seno caído usando solo tu propio tejido, sin implantes.",
+                                "Retira el exceso de piel, da nueva forma al seno y sube la areola y el pezón. Es ideal si te gusta tu volumen."],
+                        ideal=["Senos caídos pero con buen volumen", "Areola y pezón que apuntan hacia abajo", "Cambios tras embarazos, lactancia o baja de peso"],
+                        faq=[f for f in c["faq"] if not f[0].startswith("¿Con o sin")] + [("¿Cuál es la diferencia con la mastopexia con implantes?", "Esta solo levanta con tu propio tejido; la con implantes además da volumen.")]))
+    return out
+
+
 def generar():
-    procs = ([_proc(c, "cx", {k: n for k, n, d, f in CATEGORIAS_CX}) for c in CIRUGIAS_NOON]
+    procs = ([_proc(c, "cx", {k: n for k, n, d, f in CATEGORIAS_CX}) for c in _cirugias()]
              + [_proc(t, "me", {k: n for k, n, d, f in CATEGORIAS_ME}) for t in TRATAMIENTOS])
     for i, p in enumerate(procs):
         p["img"] = _imagen(p["slug"], i)

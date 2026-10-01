@@ -103,10 +103,6 @@
   "unsplash": "https://unsplash.com/photos/-8tZgyXKWv0",
   "autor": "ella alpert"
  },
- "mastopexia": {
-  "unsplash": "https://unsplash.com/photos/TBvmoNk7NaI",
-  "autor": "Roman Manshin"
- },
  "nutricion": {
   "unsplash": "https://unsplash.com/photos/KPDbRyFOTnE",
   "autor": "Ella Olsson"
@@ -154,5 +150,13 @@
  "recambio-de-implantes": {
   "unsplash": "https://unsplash.com/photos/GZCY0duQqbk",
   "autor": "Anthony Tran"
+ },
+ "mastopexia-con-implantes": {
+  "unsplash": "https://unsplash.com/photos/TBvmoNk7NaI",
+  "autor": "Roman Manshin"
+ },
+ "mastopexia-sin-implantes": {
+  "unsplash": "https://unsplash.com/photos/tesiZJcHoFk",
+  "autor": "Branislav Rodman"
  }
 }
