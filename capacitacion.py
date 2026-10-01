@@ -5,7 +5,7 @@ import os, json, hashlib
 from datos_noon import CIRUGIAS_NOON, TRATAMIENTOS, CATEGORIAS_CX, CATEGORIAS_ME
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-CODIGO = "noon2026"  # código de acceso para el equipo comercial
+CODIGO = "0000"  # código de acceso para el equipo comercial
 
 DOCTORES = [
     {"id": "fernando", "nombre": "Dr. Fernando Ruiz", "area": "Cirugía plástica", "foto": "assets/equipo/fernando-ruiz.jpg"},
