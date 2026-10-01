@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Capacitación comercial · noon Clinic</title>
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<style>
+:root { --fondo:#ffffff; --panel:#F7F5F1; --panel2:#EFEBE4; --linea:#ECE6DC; --txt:#28231F; --tenue:#7A6F65; --acento:#6D2835; --acento-suave:#F7EFF0; --champagne:#BDA47B;
+  --display:"Jost",Futura,sans-serif; --texto:"Nunito Sans","Avenir Next",-apple-system,sans-serif; --r:16px; --lateral:264px; --ease:cubic-bezier(.2,.7,.1,1);
+  --sombra:0 1px 2px rgba(40,35,31,.04),0 8px 24px rgba(40,35,31,.06); }
+*,*::before,*::after { box-sizing:border-box; }
+html { -webkit-text-size-adjust:100%; scroll-padding-top:90px; }
+body { margin:0; background:var(--fondo); color:var(--txt); font:400 15.5px/1.6 var(--texto); -webkit-font-smoothing:antialiased; }
+button,input { font:inherit; color:inherit; }
+a { color:inherit; text-decoration:none; }
+h1,h2,h3 { margin:0; font-family:var(--display); font-weight:400; letter-spacing:-.01em; }
+p { margin:0 0 .9em; }
+img { display:block; max-width:100%; }
+:focus-visible { outline:2px solid var(--acento); outline-offset:2px; border-radius:6px; }
+[hidden] { display:none !important; }
+svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; flex:none; }
+
+/* ---------- acceso ---------- */
+.acceso { min-height:100vh; min-height:100dvh; display:grid; place-items:center; padding:24px 16px; background:var(--panel); }
+.acceso form { width:min(400px,100%); background:#fff; border:1px solid var(--linea); border-radius:24px; padding:40px 32px; box-shadow:var(--sombra); display:grid; gap:16px; text-align:center; }
+.acceso img { height:30px; width:auto; margin:0 auto 10px; }
+.acceso h1 { font-size:26px; }
+.acceso p { color:var(--tenue); margin:0; }
+.acceso input { width:100%; text-align:center; letter-spacing:.4em; font-size:22px; padding:14px; border:1px solid var(--linea); border-radius:12px; background:var(--panel); outline:none; }
+.acceso input:focus { border-color:var(--acento); background:#fff; }
+.acceso .error { color:var(--acento); font-size:14px; min-height:1.3em; }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 22px; border-radius:999px; border:1px solid var(--txt); background:var(--txt); color:#fff; font:500 14px var(--texto); cursor:pointer; transition:opacity .2s; }
+.btn:hover { opacity:.85; }
+.btn.claro { background:#fff; color:var(--txt); border-color:var(--linea); }
+
+/* ---------- estructura ---------- */
+.lado { position:fixed; inset:0 auto 0 0; width:var(--lateral); background:var(--panel); border-right:1px solid var(--linea); display:flex; flex-direction:column; padding:22px 16px; overflow-y:auto; z-index:50; transition:transform .4s var(--ease); }
+.lado .logo { display:flex; align-items:center; gap:10px; padding:4px 10px 20px; }
+.lado .logo img { height:24px; width:auto; }
+.lado .logo span { font:500 10px var(--display); letter-spacing:.18em; text-transform:uppercase; color:var(--tenue); border-left:1px solid var(--linea); padding-left:10px; line-height:1.3; }
+.nav a, .nav summary { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:10px; font-weight:600; font-size:14.5px; cursor:pointer; list-style:none; transition:background .2s; }
+.nav summary::-webkit-details-marker { display:none; }
+.nav a:hover, .nav summary:hover { background:var(--panel2); }
+.nav a.activo { background:#fff; color:var(--acento); box-shadow:var(--sombra); }
+.nav summary .flecha { margin-left:auto; transition:transform .25s; }
+.nav details[open] summary .flecha { transform:rotate(90deg); }
+.nav .sub a { font-weight:400; padding:7px 12px 7px 42px; color:var(--tenue); font-size:14px; }
+.nav .sub a:hover, .nav .sub a.activo { color:var(--acento); background:transparent; box-shadow:none; }
+.nav .titulo-nav { font:500 10.5px var(--display); letter-spacing:.18em; text-transform:uppercase; color:var(--tenue); padding:18px 12px 6px; }
+.lado .salir { margin-top:auto; display:flex; align-items:center; gap:10px; padding:10px 12px; border:0; background:none; color:var(--tenue); cursor:pointer; border-radius:10px; }
+.lado .salir:hover { background:var(--panel2); }
+.velo { position:fixed; inset:0; background:rgba(40,35,31,.35); z-index:45; opacity:0; pointer-events:none; transition:opacity .3s; }
+
+.principal { margin-left:var(--lateral); min-height:100vh; }
+.barra { position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:12px; padding:14px clamp(16px,3vw,36px); background:rgba(255,255,255,.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--linea); }
+.hamb { display:none; width:42px; height:42px; border-radius:12px; border:1px solid var(--linea); background:#fff; cursor:pointer; align-items:center; justify-content:center; flex:none; }
+.buscador { position:relative; flex:1; max-width:640px; }
+.buscador label { display:flex; align-items:center; gap:10px; background:var(--panel); border:1px solid var(--linea); border-radius:12px; padding:0 14px; transition:border-color .2s,background .2s; }
+.buscador label:focus-within { background:#fff; border-color:var(--acento); }
+.buscador input { flex:1; border:0; background:transparent; outline:none; padding:11px 0; font-size:15px; min-width:0; }
+.buscador kbd { font:500 11px var(--texto); color:var(--tenue); border:1px solid var(--linea); border-radius:6px; padding:2px 6px; background:#fff; }
+.resultados { position:absolute; top:calc(100% + 8px); left:0; right:0; background:#fff; border:1px solid var(--linea); border-radius:var(--r); box-shadow:0 18px 50px rgba(40,35,31,.14); max-height:min(70vh,520px); overflow-y:auto; padding:8px; }
+.res { display:flex; gap:12px; align-items:center; padding:9px 10px; border-radius:10px; }
+.res:hover, .res.sel { background:var(--panel); }
+.res img { width:46px; height:46px; border-radius:10px; object-fit:cover; flex:none; }
+.res b { display:block; font-weight:600; font-size:14.5px; }
+.res small { display:block; color:var(--tenue); font-size:13px; line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.res mark { background:var(--acento-suave); color:var(--acento); border-radius:3px; padding:0 2px; }
+.res .tag { margin-left:auto; flex:none; font-size:11.5px; color:var(--tenue); background:var(--panel); border-radius:999px; padding:3px 9px; }
+.sin-res { padding:16px; color:var(--tenue); }
+.barra .disp { margin-left:auto; display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; padding:10px 14px; border-radius:12px; border:1px solid var(--linea); white-space:nowrap; }
+.barra .disp:hover { background:var(--panel); }
+
+.vista { padding:clamp(22px,3.5vw,44px) clamp(16px,3vw,36px) 80px; max-width:1180px; }
+.migas { display:flex; flex-wrap:wrap; align-items:center; gap:6px; color:var(--tenue); font-size:13.5px; margin-bottom:16px; }
+.migas a:hover { color:var(--acento); }
+.cabeza h1 { font-size:clamp(28px,4vw,40px); line-height:1.15; }
+.cabeza p { color:var(--tenue); max-width:640px; margin-top:8px; font-size:16px; }
+
+/* ---------- inicio ---------- */
+.portada { background:var(--panel); border-radius:24px; padding:clamp(26px,4vw,48px); display:grid; grid-template-columns:1.3fr 1fr; gap:28px; align-items:center; margin-bottom:34px; }
+.portada h1 { font-size:clamp(28px,4vw,42px); line-height:1.12; }
+.portada .chips { margin-top:18px; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { padding:8px 14px; border-radius:999px; border:1px solid var(--linea); background:#fff; font-size:13.5px; font-weight:600; cursor:pointer; transition:border-color .2s,color .2s; }
+.chip:hover { border-color:var(--acento); color:var(--acento); }
+.chip.on { background:var(--txt); color:#fff; border-color:var(--txt); }
+.regla-oro { background:#fff; border-radius:var(--r); padding:22px; border:1px solid var(--linea); }
+.regla-oro .eti, .guion .eti { display:inline-flex; align-items:center; gap:8px; font:500 11px var(--display); letter-spacing:.14em; text-transform:uppercase; color:var(--acento); margin-bottom:10px; }
+.regla-oro p { margin:0; font-size:15px; }
+.seccion { margin:0 0 40px; }
+.seccion-cab { display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:16px; }
+.seccion-cab h2 { font-size:24px; }
+.seccion-cab a { color:var(--acento); font-weight:600; font-size:14px; white-space:nowrap; }
+.atajos { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:40px; }
+.atajo { display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid var(--linea); border-radius:var(--r); transition:box-shadow .25s,border-color .25s; }
+.atajo:hover { box-shadow:var(--sombra); border-color:transparent; }
+.atajo .ico { width:40px; height:40px; border-radius:12px; background:var(--acento-suave); color:var(--acento); display:grid; place-items:center; flex:none; }
+.atajo b { display:block; font-weight:600; }
+.atajo span { color:var(--tenue); font-size:14px; }
+
+/* ---------- tarjetas ---------- */
+.rejilla { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:18px; }
+.tarjeta { display:flex; flex-direction:column; border-radius:var(--r); overflow:hidden; background:#fff; border:1px solid var(--linea); transition:box-shadow .3s var(--ease),transform .3s var(--ease); }
+.tarjeta:hover { box-shadow:0 14px 36px rgba(40,35,31,.1); transform:translateY(-2px); }
+.tarjeta .foto { aspect-ratio:4/3; background:var(--panel2) center/cover; }
+.tarjeta .info { padding:14px 16px 16px; }
+.tarjeta .cat { font-size:12px; color:var(--tenue); font-weight:600; }
+.tarjeta h3 { font-size:18px; margin:3px 0 4px; line-height:1.25; }
+.tarjeta p { color:var(--tenue); font-size:13.5px; line-height:1.5; margin:0; }
+.filtros { margin:20px 0 22px; }
+
+/* ---------- ficha ---------- */
+.ficha-top { display:grid; grid-template-columns:1.1fr 1fr; gap:28px; align-items:center; margin-bottom:30px; }
+.ficha-top .foto { aspect-ratio:4/3; border-radius:22px; background:var(--panel2) center/cover; }
+.ficha-top h1 { font-size:clamp(30px,4.2vw,44px); line-height:1.1; margin:6px 0 10px; }
+.ficha-top .corto { color:var(--tenue); font-size:17px; }
+.etq { display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--tenue); background:var(--panel); border-radius:999px; padding:5px 11px; }
+.doctor { display:flex; align-items:center; gap:10px; margin-top:16px; padding:10px 14px 10px 10px; border:1px solid var(--linea); border-radius:999px; width:max-content; max-width:100%; }
+.doctor img { width:34px; height:34px; border-radius:50%; object-fit:cover; }
+.doctor b { font-weight:600; font-size:14px; display:block; line-height:1.2; }
+.doctor small { color:var(--tenue); font-size:12.5px; }
+.datos { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:30px; }
+.dato { background:var(--panel); border-radius:14px; padding:14px 16px; }
+.dato small { display:block; font-size:12px; color:var(--tenue); font-weight:600; margin-bottom:4px; }
+.dato b { font-weight:600; font-size:14.5px; line-height:1.35; display:block; }
+.cuerpo { display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:36px; align-items:start; }
+.indice { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:26px; padding-bottom:16px; border-bottom:1px solid var(--linea); }
+.indice a { font-size:13.5px; font-weight:600; color:var(--tenue); padding:6px 12px; border-radius:999px; background:var(--panel); }
+.indice a:hover { color:var(--acento); }
+.bloque { margin-bottom:34px; }
+.bloque h2 { font-size:22px; margin-bottom:12px; }
+.lista { list-style:none; padding:0; margin:0; display:grid; gap:8px; }
+.lista li { display:flex; gap:10px; align-items:flex-start; }
+.lista li svg { color:var(--acento); margin-top:3px; }
+.tiempo { display:grid; gap:0; }
+.paso { display:grid; grid-template-columns:22px 1fr; gap:12px; position:relative; padding-bottom:16px; }
+.paso::before { content:""; position:absolute; left:6px; top:16px; bottom:0; width:1px; background:var(--linea); }
+.paso:last-child::before { display:none; }
+.paso i { width:13px; height:13px; border-radius:50%; border:2px solid var(--acento); background:#fff; margin-top:5px; }
+.paso b { font-weight:600; display:block; }
+.paso span { color:var(--tenue); font-size:14.5px; }
+.faq { border:1px solid var(--linea); border-radius:var(--r); overflow:hidden; }
+.faq details + details { border-top:1px solid var(--linea); }
+.faq summary { list-style:none; cursor:pointer; display:flex; gap:12px; align-items:center; padding:15px 18px; font-weight:600; }
+.faq summary::-webkit-details-marker { display:none; }
+.faq summary::after { content:""; margin-left:auto; width:9px; height:9px; border-right:1.6px solid var(--tenue); border-bottom:1.6px solid var(--tenue); transform:rotate(45deg); transition:transform .25s; flex:none; }
+.faq details[open] summary::after { transform:rotate(-135deg); }
+.faq details[open] { background:var(--panel); }
+.faq .resp { padding:0 18px 16px; color:#4a423b; }
+.faq details.precio summary { color:var(--acento); }
+.copiar { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--linea); background:#fff; border-radius:999px; padding:6px 12px; font-size:12.5px; font-weight:600; cursor:pointer; color:var(--txt); }
+.copiar:hover { border-color:var(--acento); color:var(--acento); }
+.lateral-ficha { position:sticky; top:90px; display:grid; gap:14px; }
+.guion { background:var(--acento-suave); border-radius:var(--r); padding:20px; }
+.guion p { font-size:14.5px; color:#3d2a2d; }
+.guion.neutro { background:var(--panel); }
+.guion.neutro .eti { color:var(--txt); }
+.relacionados h3 { font-size:15px; font-family:var(--texto); font-weight:700; margin-bottom:10px; }
+.mini { display:flex; gap:10px; align-items:center; padding:7px; border-radius:12px; }
+.mini:hover { background:var(--panel); }
+.mini img { width:44px; height:44px; border-radius:10px; object-fit:cover; }
+.mini b { font-weight:600; font-size:14px; }
+
+/* ---------- objeciones / disponibilidad ---------- */
+.dos { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.doc-card { border:1px solid var(--linea); border-radius:20px; padding:22px; }
+.doc-card .quien { display:flex; gap:14px; align-items:center; margin-bottom:16px; }
+.doc-card img { width:64px; height:64px; border-radius:50%; object-fit:cover; }
+.doc-card h2 { font-size:21px; }
+.doc-card .area { color:var(--acento); font-weight:600; font-size:14px; }
+.dia { display:flex; justify-content:space-between; gap:12px; padding:11px 2px; border-top:1px solid var(--linea); font-size:14.5px; }
+.dia span:first-child { font-weight:600; }
+.dia .pend { color:var(--tenue); background:var(--panel); border-radius:999px; padding:1px 10px; font-size:13px; }
+.nota { color:var(--tenue); font-size:14px; margin-top:20px; }
+.reglas { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.regla { background:var(--panel); border-radius:var(--r); padding:18px; }
+.regla b { display:block; font-weight:700; margin-bottom:4px; }
+.regla span { color:var(--tenue); font-size:14.5px; }
+
+.aviso { position:fixed; left:50%; bottom:24px; transform:translate(-50%,16px); opacity:0; background:var(--txt); color:#fff; padding:10px 18px; border-radius:999px; font-size:14px; font-weight:600; transition:.3s var(--ease); pointer-events:none; z-index:70; }
+.aviso.ver { opacity:1; transform:translate(-50%,0); }
+
+@media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
+@media (max-width:900px) {
+  .lado { transform:translateX(-100%); box-shadow:0 0 40px rgba(0,0,0,.15); }
+  .abierto .lado { transform:none; }
+  .abierto .velo { opacity:1; pointer-events:auto; }
+  .principal { margin-left:0; }
+  .hamb { display:inline-flex; }
+  .barra .disp span, .buscador kbd { display:none; }
+  .portada, .ficha-top { grid-template-columns:1fr; }
+  .atajos { grid-template-columns:1fr; }
+  .dos, .reglas { grid-template-columns:1fr; }
+}
+@media (max-width:520px) {
+  .rejilla { grid-template-columns:1fr 1fr; gap:12px; }
+  .tarjeta .info { padding:10px 12px 12px; }
+  .tarjeta h3 { font-size:15.5px; }
+  .tarjeta p { display:none; }
+  .ficha-top { gap:18px; }
+}
+@media (prefers-reduced-motion:reduce) { * { transition:none !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-buscar" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="i-casa" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-bisturi" viewBox="0 0 24 24"><path d="M14 4 4 18c3 1 6 0 8-2l8-8-6-4Z"/><path d="m13 9 3 2"/></symbol>
+  <symbol id="i-gota" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.1A8 8 0 1 1 20 12Z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></symbol>
+  <symbol id="i-flecha" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+  <symbol id="i-salir" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 16l-4-4 4-4M6 12h10"/></symbol>
+  <symbol id="i-copiar" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></symbol>
+  <symbol id="i-precio" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
+</svg>
+
+<section class="acceso" id="acceso">
+  <form id="form-acceso" autocomplete="off">
+    <img src="assets/logo-noon.png" alt="noon Clinic">
+    <h1>Capacitación comercial</h1>
+    <p>Escribe el código de acceso del equipo.</p>
+    <input id="codigo" type="password" inputmode="numeric" placeholder="••••" aria-label="Código de acceso" autofocus>
+    <p class="error" id="error" role="alert"></p>
+    <button class="btn" type="submit">Entrar</button>
+  </form>
+</section>
+
+<div id="app" hidden>
+  <aside class="lado" id="lado" aria-label="Menú">
+    <a class="logo" href="#inicio"><img src="assets/logo-noon.png" alt="noon Clinic"><span>Capacitación<br>comercial</span></a>
+    <nav class="nav" id="nav"></nav>
+    <button class="salir" id="salir" type="button"><svg class="i"><use href="#i-salir"/></svg>Salir</button>
+  </aside>
+  <div class="velo" id="velo"></div>
+  <div class="principal">
+    <header class="barra">
+      <button class="hamb" id="hamb" type="button" aria-label="Abrir menú" aria-expanded="false"><svg class="i"><use href="#i-menu"/></svg></button>
+      <div class="buscador">
+        <label><svg class="i"><use href="#i-buscar"/></svg><input id="q" type="search" placeholder="Busca un procedimiento o una pregunta… (ej: lactar, botox, incapacidad)" autocomplete="off" aria-label="Buscar"><kbd>/</kbd></label>
+        <div class="resultados" id="resultados" hidden></div>
+      </div>
+      <a class="disp" href="#disponibilidad"><svg class="i"><use href="#i-cal"/></svg><span>Disponibilidad</span></a>
+    </header>
+    <main class="vista" id="vista"></main>
+  </div>
+</div>
+<div class="aviso" id="aviso">Copiado</div>
+
+<script>
+const D = %%DATOS%%;
+const HASH = "%%HASH%%";
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const ico = (n, c = "i") => `<svg class="${c}"><use href="#i-${n}"/></svg>`;
+const CX = D.procs.filter(p => p.tipo === "cx"), ME = D.procs.filter(p => p.tipo === "me");
+const precio = doc => D.precio.replace("{doc}", doc);
+const docDe = p => D.doctores[p.tipo === "cx" ? 0 : 1];
+
+/* ---------- acceso ---------- */
+async function sha(t) { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join(""); }
+function entrar() { $("#acceso").hidden = true; $("#app").hidden = false; menu(); ruta(); }
+$("#form-acceso").addEventListener("submit", async e => {
+  e.preventDefault();
+  if (await sha($("#codigo").value.trim().toLowerCase()) === HASH) { try { localStorage.setItem("noon-cap", HASH); } catch (e) {} $("#error").textContent = ""; entrar(); }
+  else { $("#error").textContent = "Código incorrecto."; $("#codigo").select(); }
+});
+$("#salir").onclick = () => { try { localStorage.removeItem("noon-cap"); } catch (e) {} location.hash = ""; location.reload(); };
+
+/* ---------- menú ---------- */
+const abrir = si => { document.body.classList.toggle("abierto", si); $("#hamb").setAttribute("aria-expanded", si); };
+$("#hamb").onclick = () => abrir(true); $("#velo").onclick = () => abrir(false);
+function menu() {
+  const grupo = (id, nombre, icono, cats) => `<details ${location.hash.includes(id) ? "open" : ""}><summary data-r="${id}">${ico(icono)}${nombre}${ico("flecha", "i flecha")}</summary>
+    <div class="sub"><a href="#${id}" data-r="${id}">Ver todos</a>${cats.map(c => `<a href="#${id}/${encodeURIComponent(c)}" data-r="${id}/${encodeURIComponent(c)}">${esc(c)}</a>`).join("")}</div></details>`;
+  $("#nav").innerHTML = `<a href="#inicio" data-r="inicio">${ico("casa")}Inicio</a>
+    <p class="titulo-nav">Procedimientos</p>${grupo("cirugia", "Cirugía plástica", "bisturi", D.cats_cx)}${grupo("estetica", "Medicina estética", "gota", D.cats_me)}
+    <p class="titulo-nav">Ventas</p><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
+}
+
+/* ---------- copiar ---------- */
+const copiar = t => `<button class="copiar" type="button" data-t="${esc(t)}">${ico("copiar")}Copiar mensaje</button>`;
+document.addEventListener("click", e => {
+  const b = e.target.closest(".copiar"); if (!b) return;
+  navigator.clipboard.writeText(b.dataset.t).then(() => { const a = $("#aviso"); a.classList.add("ver"); setTimeout(() => a.classList.remove("ver"), 1400); });
+});
+
+/* ---------- piezas ---------- */
+const tarjeta = p => `<a class="tarjeta" href="#p/${p.slug}"><div class="foto" style="background-image:url(${p.img})"></div><div class="info"><span class="cat">${esc(p.cat)}</span><h3>${esc(p.nombre)}</h3><p>${esc(p.corto)}</p></div></a>`;
+const guionPrecio = doc => `<div class="guion"><span class="eti">${ico("precio")}Si preguntan el valor</span><p>${esc(precio(doc))}</p>${copiar(precio(doc))}</div>`;
+
+/* ---------- vistas ---------- */
+function inicio() {
+  return `<div class="portada"><div><h1>Todo lo que necesitas para responder a un paciente.</h1>
+      <p style="color:var(--tenue);margin-top:10px">Busca cualquier procedimiento o pregunta arriba, o explora por categoría.</p>
+      <div class="chips">${["Rinoplastia", "Lipo", "Mamoplastia", "Toxina", "Ácido hialurónico", "Manchas"].map(c => `<button class="chip" data-q="${c}">${c}</button>`).join("")}</div></div>
+    <div class="regla-oro"><span class="eti">${ico("precio")}Regla de oro</span><p>Nunca damos precios. <b>El valor depende de cada paciente</b>, por eso siempre llevamos la conversación a la <b>cita de valoración</b>.</p></div></div>
+  <div class="atajos">
+    <a class="atajo" href="#cirugia"><span class="ico">${ico("bisturi")}</span><div><b>Cirugía plástica</b><span>${CX.length} procedimientos · ${esc(D.doctores[0].nombre)}</span></div></a>
+    <a class="atajo" href="#estetica"><span class="ico">${ico("gota")}</span><div><b>Medicina estética</b><span>${ME.length} tratamientos · ${esc(D.doctores[1].nombre)}</span></div></a>
+    <a class="atajo" href="#responder"><span class="ico">${ico("chat")}</span><div><b>Cómo responder</b><span>Precio, dudas y objeciones</span></div></a>
+  </div>
+  <section class="seccion"><div class="seccion-cab"><h2>Cirugía plástica</h2><a href="#cirugia">Ver las ${CX.length} →</a></div><div class="rejilla">${CX.slice(0, 8).map(tarjeta).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Medicina estética</h2><a href="#estetica">Ver los ${ME.length} →</a></div><div class="rejilla">${ME.slice(0, 8).map(tarjeta).join("")}</div></section>`;
+}
+
+function listado(tipo, cat) {
+  const cx = tipo === "cx", lista = cx ? CX : ME, cats = cx ? D.cats_cx : D.cats_me, id = cx ? "cirugia" : "estetica", doc = D.doctores[cx ? 0 : 1];
+  const vis = cat ? lista.filter(p => p.cat === cat) : lista;
+  return `<nav class="migas"><a href="#inicio">Inicio</a>›<span>${cx ? "Cirugía plástica" : "Medicina estética"}</span></nav>
+  <div class="cabeza"><h1>${cx ? "Cirugía plástica" : "Medicina estética"}</h1><p>${lista.length} ${cx ? "procedimientos" : "tratamientos"} · los valora ${esc(doc.nombre)}.</p></div>
+  <div class="chips filtros"><a class="chip ${cat ? "" : "on"}" href="#${id}">Todos</a>${cats.map(c => `<a class="chip ${c === cat ? "on" : ""}" href="#${id}/${encodeURIComponent(c)}">${esc(c)}</a>`).join("")}</div>
+  <div class="rejilla">${vis.map(tarjeta).join("")}</div>`;
+}
+
+function ficha(slug) {
+  const p = D.procs.find(x => x.slug === slug); if (!p) return inicio();
+  const cx = p.tipo === "cx", id = cx ? "cirugia" : "estetica", d = docDe(p);
+  const rel = D.procs.filter(x => x.tipo === p.tipo && x.cat === p.cat && x.slug !== p.slug).slice(0, 4);
+  return `<nav class="migas"><a href="#inicio">Inicio</a>›<a href="#${id}">${cx ? "Cirugía plástica" : "Medicina estética"}</a>›<a href="#${id}/${encodeURIComponent(p.cat)}">${esc(p.cat)}</a></nav>
+  <div class="ficha-top"><div class="foto" style="background-image:url(${p.img})"></div>
+    <div><span class="etq">${cx ? "Cirugía plástica" : "Medicina estética"} · ${esc(p.cat)}</span><h1>${esc(p.nombre)}</h1><p class="corto">${esc(p.corto)}</p>
+      <div class="doctor"><img src="${d.foto}" alt=""><div><b>${esc(d.nombre)}</b><small>Valora este procedimiento</small></div></div></div></div>
+  <div class="datos">${p.datos.map(([k, v]) => `<div class="dato"><small>${esc(k)}</small><b>${esc(v)}</b></div>`).join("")}</div>
+  <div class="cuerpo"><div>
+    <nav class="indice"><a href="#s-que">Qué es</a><a href="#s-para">Para quién</a>${p.recuperacion.length ? '<a href="#s-rec">Recuperación</a>' : ""}<a href="#s-faq">Preguntas frecuentes</a></nav>
+    <section class="bloque" id="s-que"><h2>¿Qué es y en qué consiste?</h2>${p.que_es.map(x => `<p>${esc(x)}</p>`).join("")}</section>
+    <section class="bloque" id="s-para"><h2>¿Para quién es?</h2><ul class="lista">${p.ideal.map(x => `<li>${ico("check")}<span>${esc(x)}</span></li>`).join("")}</ul></section>
+    ${p.recuperacion.length ? `<section class="bloque" id="s-rec"><h2>Recuperación</h2><div class="tiempo">${p.recuperacion.map(([t, x]) => `<div class="paso"><i></i><div><b>${esc(t)}</b><span>${esc(x)}</span></div></div>`).join("")}</div></section>` : ""}
+    <section class="bloque" id="s-faq"><h2>Preguntas frecuentes de pacientes</h2><div class="faq">${p.faq.map(([q, r], i) => `<details class="${i === 0 ? "precio" : ""}"><summary>${esc(q)}</summary><div class="resp"><p>${esc(r)}</p>${copiar(r)}</div></details>`).join("")}</div></section>
+  </div>
+  <aside class="lateral-ficha">${guionPrecio(p.doc)}
+    <div class="guion neutro"><span class="eti">${ico("cal")}Cómo cerrar</span><p>${esc(p.cierre)}</p>${copiar(p.cierre)}</div>
+    ${rel.length ? `<div class="relacionados"><h3>También en ${esc(p.cat)}</h3>${rel.map(r => `<a class="mini" href="#p/${r.slug}"><img src="${r.img}" alt=""><b>${esc(r.nombre)}</b></a>`).join("")}</div>` : ""}
+  </aside></div>`;
+}
+
+function responder() {
+  return `<nav class="migas"><a href="#inicio">Inicio</a>›<span>Cómo responder</span></nav>
+  <div class="cabeza"><h1>Cómo responder</h1><p>Respuestas listas para copiar. Termina siempre ofreciendo dos fechas para la valoración.</p></div>
+  <section class="seccion" style="margin-top:26px">${guionPrecio("el especialista")}</section>
+  <section class="seccion"><div class="seccion-cab"><h2>Dudas y objeciones frecuentes</h2></div><div class="faq">${D.objeciones.map(([q, r]) => `<details><summary>${esc(q)}</summary><div class="resp"><p>${esc(r)}</p>${copiar(r)}</div></details>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Reglas del equipo</h2></div><div class="reglas">${D.reglas.map(([t, x]) => `<div class="regla"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Una conversación en 4 pasos</h2></div><div class="tiempo">${D.pasos.map(([t, x]) => `<div class="paso"><i></i><div><b>${esc(t)}</b><span>${esc(x)}</span></div></div>`).join("")}</div></section>`;
+}
+
+function disponibilidad() {
+  return `<nav class="migas"><a href="#inicio">Inicio</a>›<span>Disponibilidad</span></nav>
+  <div class="cabeza"><h1>Disponibilidad</h1><p>Horarios para ofrecer citas de valoración. Ofrece siempre dos opciones concretas.</p></div>
+  <div class="dos" style="margin-top:26px">${D.doctores.map(d => `<div class="doc-card"><div class="quien"><img src="${d.foto}" alt=""><div><h2>${esc(d.nombre)}</h2><span class="area">(${esc(d.area)})</span></div></div>
+    ${Object.entries(D.disp[d.id]).map(([dia, h]) => `<div class="dia"><span>${esc(dia)}</span>${h ? `<span>${esc(h)}</span>` : '<span class="pend">Por definir</span>'}</div>`).join("")}</div>`).join("")}</div>
+  <p class="nota">Si un horario no aparece aquí, confirma con la coordinación antes de ofrecerlo.</p>`;
+}
+
+/* ---------- rutas ---------- */
+function ruta() {
+  if ($("#app").hidden) return;
+  const h = decodeURIComponent(location.hash.slice(1) || "inicio"), [a, b] = h.split("/");
+  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "disponibilidad" ? disponibilidad() : inicio();
+  $("#vista").innerHTML = html;
+  const tipo = a === "p" ? (D.procs.find(x => x.slug === b) || {}).tipo : null;
+  const actual = a === "p" ? (tipo === "me" ? "estetica" : "cirugia") : location.hash.slice(1) || "inicio";
+  $$("#nav a").forEach(x => x.classList.toggle("activo", x.dataset.r === actual));
+  $$("#nav details").forEach(x => { if (x.querySelector("summary").dataset.r === actual.split("/")[0]) x.open = true; });
+  cerrarRes(); abrir(false); window.scrollTo(0, 0);
+  if (pendiente !== "" && a === "p") { const d = $$("#s-faq details")[+pendiente]; if (d) { d.open = true; setTimeout(() => d.scrollIntoView({ behavior: "smooth", block: "center" }), 60); } }
+  pendiente = "";
+}
+addEventListener("hashchange", ruta);
+document.addEventListener("click", e => {
+  if (e.target.matches("[data-q]")) { $("#q").value = e.target.dataset.q; buscar(); $("#q").focus(); }
+  if (e.target.matches("a[href^='#s-']")) { e.preventDefault(); document.querySelector(e.target.getAttribute("href")).scrollIntoView({ behavior: "smooth" }); }
+});
+
+/* ---------- buscador (nombre, descripción y preguntas) ---------- */
+const SIN = { botox: "toxina", lipo: "liposuccion", senos: "mamoplastia", busto: "mamoplastia", nariz: "rinoplastia", parpados: "blefaroplastia", papada: "lipopapada", abdomen: "abdominoplastia", gluteos: "glutea", cola: "glutea", rellenos: "acido hialuronico", labios: "acido hialuronico", arrugas: "toxina", orejas: "otoplastia", depilacion: "depilacion" };
+const IDX = D.procs.map(p => ({ p, nom: norm(p.nombre), txt: norm([p.corto, p.cat, ...p.que_es, ...p.ideal].join(" ")), faq: p.faq.map(([q, r]) => [q, norm(q + " " + r)]) }));
+let sel = -1, pendiente = "";
+function cerrarRes() { $("#resultados").hidden = true; sel = -1; }
+function marcar(t, q) { const i = norm(t).indexOf(q); return i < 0 ? esc(t) : esc(t.slice(0, i)) + "<mark>" + esc(t.slice(i, i + q.length)) + "</mark>" + esc(t.slice(i + q.length)); }
+function buscar() {
+  let q = norm($("#q").value.trim()); const caja = $("#resultados");
+  if (q.length < 2) return cerrarRes();
+  const alt = SIN[q] || null, out = [];
+  IDX.forEach(({ p, nom, txt, faq }) => {
+    const m = t => t.includes(q) || (alt && t.includes(alt));
+    if (m(nom)) out.push({ p, s: 3, sub: p.corto });
+    else if (m(txt)) out.push({ p, s: 2, sub: p.corto });
+    const fi = faq.findIndex(([, t]) => t.includes(q));
+    if (fi > -1 && q.length > 3) out.push({ p, s: 1, sub: "Pregunta: " + faq[fi][0], faq: fi });
+  });
+  out.sort((a, b) => b.s - a.s);
+  caja.innerHTML = out.length ? out.slice(0, 12).map(r => `<a class="res" href="#p/${r.p.slug}" data-f="${r.faq ?? ""}"><img src="${r.p.img}" alt=""><div><b>${marcar(r.p.nombre, q)}</b><small>${marcar(r.sub, q)}</small></div><span class="tag">${r.p.tipo === "cx" ? "Cirugía" : "Estética"}</span></a>`).join("")
+    : `<div class="sin-res">No encontramos “${esc($("#q").value)}”. Prueba con otra palabra.</div>`;
+  caja.hidden = false; sel = -1;
+}
+$("#q").addEventListener("input", buscar);
+$("#q").addEventListener("focus", () => { if ($("#q").value.trim().length > 1) buscar(); });
+$("#q").addEventListener("keydown", e => {
+  const items = $$("#resultados .res"); if (!items.length) return;
+  if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); sel = (sel + (e.key === "ArrowDown" ? 1 : -1) + items.length) % items.length; items.forEach((x, i) => x.classList.toggle("sel", i === sel)); items[sel].scrollIntoView({ block: "nearest" }); }
+  if (e.key === "Enter") { e.preventDefault(); (items[sel] || items[0]).click(); $("#q").value = ""; $("#q").blur(); }
+});
+document.addEventListener("click", e => { if (!e.target.closest(".buscador")) cerrarRes(); else if (e.target.closest(".res")) { pendiente = e.target.closest(".res").dataset.f; $("#q").value = ""; if (location.hash === e.target.closest(".res").getAttribute("href")) ruta(); } });
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement.tagName !== "INPUT" && !$("#app").hidden) { e.preventDefault(); $("#q").focus(); }
+  if (e.key === "Escape") { cerrarRes(); abrir(false); }
+});
+
+try { if (localStorage.getItem("noon-cap") === HASH) entrar(); } catch (e) {}
+</script>
+</body>
+</html>
