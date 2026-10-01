@@ -17,32 +17,70 @@ DISPONIBILIDAD = {
     "valeria": {"Lunes": "", "Martes": "", "Miércoles": "", "Jueves": "", "Viernes": "", "Sábado": ""},
 }
 
-PRECIO = ("Cada plan es personal, así que el valor depende de ti: de tu cuerpo, de lo que quieres lograr y de la técnica que "
-          "el especialista te recomiende. Por eso el primer paso es tu cita de valoración con {doc}. Ahí te examina, te explica "
-          "tus opciones y sales con tu presupuesto por escrito. ¿Te agendo? Tengo espacio el ___ o el ___.")
+# ---------------------------------------------------------------- PRECIOS (solo los que conocemos; el resto se define en la valoración)
+CX_INCLUYE = ["Fajas", "Bomba del dolor", "Quirófano", "Instrumentador", "Póliza"]
+PRECIOS = {
+    "mastopexia": {"items": [("Mastopexia con implantes", "Desde $17.900.000"), ("Mastopexia sin implantes", "Desde $15.900.000")],
+                   "incluye": CX_INCLUYE + ["Implantes (en la mastopexia con implantes)"],
+                   "msj": "La mastopexia sin implantes está desde $15.900.000 y con implantes desde $17.900.000. Incluye fajas, bomba del dolor, quirófano, instrumentador y póliza. ¿Te agendo tu valoración con el Dr. Fernando para confirmar tu plan?"},
+    "lipotransferencia-glutea": {"items": [("Lipotransferencia", "Desde $18.900.000")],
+                   "incluye": CX_INCLUYE + ["Implantes (si los necesita)"],
+                   "msj": "La lipotransferencia está desde $18.900.000 e incluye fajas, bomba del dolor, quirófano, instrumentador y póliza. ¿Te agendo tu valoración con el Dr. Fernando para confirmar tu plan?"},
+    "mamoplastia-de-aumento": {"items": [("Mamoplastia de aumento (paquete)", "$10.900.000")],
+                   "incluye": ["Honorarios del cirujano", "Instrumentador", "Quirófano", "Implantes", "Brasier posquirúrgico", "Póliza", "Bomba del dolor", "Preconsulta"],
+                   "msj": "La mamoplastia de aumento tiene un valor de $10.900.000 e incluye cirujano, quirófano, implantes, brasier, póliza y bomba del dolor. ¿Te agendo tu valoración con el Dr. Fernando esta semana?"},
+    "bioestimuladores": {"items": [("Sculptra", "$1.830.000"), ("Radiesse", "$1.830.000")],
+                   "msj": "Sculptra y Radiesse tienen un valor de $1.830.000 cada uno. ¿Te agendo con la Dra. Valeria para saber cuál es ideal para ti?"},
+    "acido-hialuronico": {"items": [("Ácido hialurónico en labios", "$990.000")],
+                   "msj": "El ácido hialurónico en labios tiene un valor de $990.000. Para otras zonas, el valor se define en tu valoración. ¿Te agendo con la Dra. Valeria esta semana?"},
+    "toxina-botulinica": {"items": [("Toxina botulínica", "$999.000")],
+                   "msj": "La toxina botulínica tiene un valor de $999.000. ¿Te agendo con la Dra. Valeria esta semana?"},
+    "skinboosters": {"items": [("Mesoterapia facial NCTF", "$810.000"), ("Mesoterapia de ojeras NCTF", "$540.000")],
+                   "msj": "La mesoterapia facial NCTF tiene un valor de $810.000 y la de ojeras $540.000. ¿Te agendo con la Dra. Valeria para ver cuál necesitas?"},
+    "microagujas": {"items": [("Nanopore", "$490.000"), ("Nanopore con ADN de salmón", "$702.000")],
+                   "msj": "El Nanopore tiene un valor de $490.000, y con ADN de salmón $702.000. ¿Te agendo con la Dra. Valeria esta semana?"},
+    "peelings": {"items": [("Peeling Salipeel (poros abiertos)", "$430.000")],
+                   "msj": "El peeling Salipeel para poros abiertos tiene un valor de $430.000. Otros peelings se definen en tu valoración. ¿Te agendo con la Dra. Valeria?"},
+}
+# Precios sin ficha propia en el catálogo (aparecen en la lista de precios)
+OTROS_PRECIOS = [("Terapia capilar", "$540.000", "Medicina estética")]
+
+PRECIO = "El valor se define en tu cita de valoración con {doc}, porque cada plan es personal. ¿Te agendo esta semana?"
+
+CIERRES = ["¿Te agendo tu valoración?", "¿Te queda mejor esta semana o la próxima?", "¿Quieres que te reserve un espacio con {doc}?", "¿Qué día te queda fácil venir?"]
+
+
+def _q(texto, i, doc):
+    # toda respuesta termina en una pregunta que lleva a la valoración
+    texto = texto.strip()
+    return texto if texto.endswith("?") else texto + " " + CIERRES[i % len(CIERRES)].format(doc=doc)
+
+
+def _precio_msj(slug, doc):
+    return PRECIOS[slug]["msj"] if slug in PRECIOS else PRECIO.format(doc=doc)
 
 
 def _faq_cx(c, doc):
     d = c["datos"]
-    return ([("¿Cuánto cuesta?", PRECIO.format(doc=doc))]
-            + [(p, r) for p, r in c["faq"]]
-            + [("¿Cuánto dura la cirugía?", "Aproximadamente %s. El tiempo exacto lo define el cirujano en la valoración." % d[0].lower()),
-               ("¿Qué anestesia usan?", "%s. Se decide en la valoración según tu caso y tus exámenes." % d[1]),
-               ("¿Cuántos días de incapacidad necesito?", "Como guía, %s. Tu cirujano te lo confirma según tu trabajo y tu recuperación." % d[2].lower()),
-               ("¿Cuándo veo el resultado final?", "%s, aproximadamente. Los primeros cambios se ven antes, pero el cuerpo necesita ese tiempo para asentarse." % d[3]),
-               ("¿Dónde me operan?", "En salas de cirugía habilitadas, nunca en un consultorio. Antes te pedimos exámenes prequirúrgicos: sin exámenes en regla no hay cirugía."),
-               ("¿Necesito acompañante?", "Sí: un adulto que te acompañe el día de la cirugía y como mínimo la primera noche.")])
+    pares = ([(p, r) for p, r in c["faq"]]
+             + [("¿Cuánto dura la cirugía?", "Más o menos %s." % d[0].lower()),
+                ("¿Qué anestesia usan?", "%s. El cirujano lo confirma según tu caso." % d[1]),
+                ("¿Cuántos días de incapacidad?", "Como guía, %s." % d[2].lower()),
+                ("¿Cuándo veo el resultado final?", "Hacia %s." % d[3].lower()),
+                ("¿Dónde me operan?", "En salas de cirugía habilitadas, nunca en un consultorio."),
+                ("¿Necesito acompañante?", "Sí, un adulto el día de la cirugía y la primera noche.")])
+    return [("¿Cuánto cuesta?", _precio_msj(c["slug"], doc))] + [(p, _q(r, i, doc)) for i, (p, r) in enumerate(pares)]
 
 
 def _faq_me(t, doc):
     d = t["datos"]
-    return ([("¿Cuánto cuesta?", PRECIO.format(doc=doc))]
-            + [(p, r) for p, r in t["faq"]]
-            + [("¿Cuántas sesiones necesito?", "Como guía: %s. La cantidad exacta la define la médica en la valoración según tu piel y tu objetivo." % d[0].lower()),
-               ("¿Cuánto dura cada sesión?", "%s, aproximadamente." % d[1]),
-               ("¿Puedo volver a mi rutina el mismo día?", "Recuperación: %s." % d[2].lower()),
-               ("¿Cuándo se ve el resultado y cuánto dura?", "%s." % d[3]),
-               ("¿Lo puedo combinar con otro tratamiento?", "Muchas veces sí, y los mejores resultados vienen de combinar. El plan se arma en la valoración.")])
+    pares = ([(p, r) for p, r in t["faq"]]
+             + [("¿Cuántas sesiones necesito?", "Como guía, %s." % d[0].lower()),
+                ("¿Cuánto dura la sesión?", "Más o menos %s." % d[1].lower()),
+                ("¿Puedo seguir con mi rutina?", "Recuperación: %s." % d[2].lower()),
+                ("¿Cuándo se ve el resultado?", "%s." % d[3]),
+                ("¿Lo puedo combinar con otro tratamiento?", "Sí, muchas veces combinar da mejores resultados.")])
+    return [("¿Cuánto cuesta?", _precio_msj(t["slug"], doc))] + [(p, _q(r, i, doc)) for i, (p, r) in enumerate(pares)]
 
 
 SEDAS = ["seda-clara", "seda-burdeos", "seda-cafe", "seda-champan", "seda-noche", "seda-horizonte"]
@@ -57,41 +95,38 @@ def _imagen(slug, i):
 
 def _proc(x, tipo, cats):
     doc = DOCTORES[0]["nombre"] if tipo == "cx" else DOCTORES[1]["nombre"]
+    con = "el Dr. Fernando" if tipo == "cx" else "la Dra. Valeria"  # como se dice en un mensaje
     etiquetas = ("Duración", "Anestesia", "Incapacidad", "Resultado final") if tipo == "cx" else ("Sesiones", "Duración", "Recuperación", "Resultado")
     return {"slug": x["slug"], "tipo": tipo, "img": "", "cat": cats[x["cat"]], "nombre": x["nombre"], "corto": x["corto"],
             "que_es": x["que_es"], "datos": list(zip(etiquetas, x["datos"])), "ideal": x["ideal"],
             "recuperacion": x.get("recuperacion", []), "doc": doc,
-            "faq": _faq_cx(x, doc) if tipo == "cx" else _faq_me(x, doc),
-            "cierre": "Lo mejor es que %s te valore: así sabes si eres candidata, qué resultado puedes esperar y el valor exacto de tu plan. ¿Te queda mejor el ___ o el ___?" % doc}
+            "faq": _faq_cx(x, con) if tipo == "cx" else _faq_me(x, con),
+            "precios": PRECIOS.get(x["slug"], {}).get("items", []), "incluye": PRECIOS.get(x["slug"], {}).get("incluye", []),
+            "precio_msj": _precio_msj(x["slug"], con),
+            "cierre": "En tu valoración con %s sales con tu plan y tu valor exacto. ¿Te queda mejor el ___ o el ___?" % con}
 
 
 OBJECIONES = [
-    ("“Solo dime un precio aproximado”",
-     "No damos cifras sin valorar porque cada cuerpo es distinto y no queremos darte un número que después cambie. En la valoración sales con tu presupuesto exacto y por escrito. ¿Te agendo esta semana?"),
-    ("“¿Por qué cobran la valoración?”",
-     "Porque es una consulta médica real con el especialista: te examina, resuelve tus dudas y te entrega un plan por escrito. No es una charla de ventas."),
-    ("“En otro lugar me dieron precio por WhatsApp”",
-     "Un precio sin examinarte puede sonar fácil, pero no te dice si eres candidata ni qué incluye. Aquí primero te valora el especialista para que decidas con información completa y segura."),
-    ("“Lo voy a pensar”",
-     "¡Claro! Justamente la valoración es para eso: decidir con toda la información. No te compromete a operarte. ¿Te separo un espacio y lo piensas con tu presupuesto en la mano?"),
-    ("“Vivo en otra ciudad”",
-     "Te ayudamos a organizar tus fechas para que valoración, procedimiento y controles te queden en un mismo viaje. ¿En qué fechas podrías venir?"),
-    ("“¿Me puedo operar ya / esta semana?”",
-     "Antes de cualquier cirugía necesitas tu valoración y tus exámenes prequirúrgicos. Empecemos por la valoración y desde ahí te damos la fecha más cercana posible."),
+    ("“Dame un precio aproximado”", "Cada caso es distinto y no quiero darte un número que después cambie. En tu valoración sales con tu valor exacto. ¿Te agendo esta semana?"),
+    ("“¿Por qué cobran la valoración?”", "Porque es una consulta médica real: el especialista te examina y te entrega tu plan por escrito. ¿Te reservo un espacio?"),
+    ("“En otro lugar me dieron precio por WhatsApp”", "Sin examinarte nadie sabe si eres candidata ni qué incluye. Aquí decides con información completa y segura. ¿Agendamos tu valoración?"),
+    ("“Lo voy a pensar”", "¡Claro! La valoración es justo para decidir con toda la información, y no te compromete. ¿Te separo un espacio?"),
+    ("“Vivo en otra ciudad”", "Te organizamos las fechas para que todo quede en un mismo viaje. ¿En qué fechas podrías venir?"),
+    ("“¿Me puedo operar ya?”", "Primero va tu valoración y tus exámenes; desde ahí te damos la fecha más cercana. ¿Te agendo la valoración esta semana?"),
 ]
 
 REGLAS = [
-    ("Tu meta es agendar la valoración", "No vendes la cirugía ni el tratamiento: vendes la cita de valoración. Ahí el especialista arma el plan y el presupuesto."),
-    ("Nunca des precios", "Ni aproximados, ni rangos, ni “desde”. La respuesta es siempre: depende de ti, por eso necesitamos verte en tu valoración."),
-    ("No diagnostiques ni prometas resultados", "Explica el procedimiento en general. Si la paciente pregunta “¿yo soy candidata?”, la respuesta es: eso lo define el especialista en la valoración."),
-    ("Cierra siempre con dos fechas", "No preguntes “¿quieres agendar?”. Pregunta “¿te queda mejor el martes o el jueves?”."),
+    ("Vende la valoración", "Tu meta es que el paciente agende su cita de valoración."),
+    ("Precio solo si lo tenemos", "Si el procedimiento tiene precio, dalo. Si no, el valor se define en la valoración."),
+    ("Mensajes cortos", "Dos o tres líneas máximo. Nada de párrafos largos."),
+    ("Termina siempre en pregunta", "Ejemplo: “¿Te queda mejor el martes o el jueves?”."),
 ]
 
 PASOS = [
-    ("Saluda y escucha", "Pregunta su nombre y qué le gustaría mejorar. Deja que cuente."),
-    ("Conecta", "Repite lo que quiere con sus palabras y explica en dos líneas en qué consiste el procedimiento."),
-    ("Responde dudas", "Usa las preguntas frecuentes de cada procedimiento. Si preguntan precio, usa el guion."),
-    ("Agenda", "Ofrece dos fechas concretas de la pestaña Disponibilidad y confirma nombre, ciudad y teléfono."),
+    ("Saluda", "Pregunta su nombre y qué le gustaría mejorar."),
+    ("Explica corto", "En dos líneas, qué es el procedimiento."),
+    ("Responde", "Usa las respuestas de cada procedimiento."),
+    ("Agenda", "Ofrece dos fechas de la pestaña Disponibilidad."),
 ]
 
 
@@ -102,7 +137,8 @@ def generar():
         p["img"] = _imagen(p["slug"], i)
     datos = {"procs": procs, "cats_cx": [n for k, n, d, f in CATEGORIAS_CX], "cats_me": [n for k, n, d, f in CATEGORIAS_ME],
              "doctores": DOCTORES, "disp": DISPONIBILIDAD, "objeciones": OBJECIONES, "reglas": REGLAS, "pasos": PASOS,
-             "precio": PRECIO}
+             "precio": PRECIO, "lista_precios": [(p["nombre"], it, v, p["slug"], p["tipo"]) for p in procs for it, v in p["precios"]],
+             "otros_precios": OTROS_PRECIOS}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:
