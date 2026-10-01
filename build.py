@@ -683,3 +683,7 @@ pagina("terminos-y-condiciones.html", "Términos y condiciones", "Condiciones de
 </div></section>''' % ("".join("<li>%s</li>" % x for x in RESUMEN_TC), indice, bloques))
 
 print("Listo. %d páginas · %d cirugías · %d tratamientos · %d preguntas." % (len(HECHAS), len(CIRUGIAS_NOON), len(TRATAMIENTOS), len(FAQ_NOON)))
+
+# ================================================================ CAPACITACIÓN COMERCIAL (interna, con código)
+from capacitacion import generar as _capacitacion
+print("Capacitación comercial: %d procedimientos." % _capacitacion())
