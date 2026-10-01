@@ -17,6 +17,10 @@ DISPONIBILIDAD = {
     "valeria": {"Lunes": "", "Martes": "", "Miércoles": "", "Jueves": "", "Viernes": "", "Sábado": ""},
 }
 
+# Video central del inicio (Google Drive compartido con enlace; el archivo pesa 1 GB, por eso no va en la web)
+VIDEO = {"titulo": "Estructura para un chat de ventas", "duracion": "34 min", "drive": "1QN8iaPSyiQWAjHC6tb_EdtH2HhW8rU16",
+         "portada": "assets/capacitacion/video-portada.jpg"}
+
 # ---------------------------------------------------------------- PRECIOS (solo los que conocemos; el resto se define en la valoración)
 CX_INCLUYE = ["Fajas", "Bomba del dolor", "Quirófano", "Instrumentador", "Póliza"]
 PRECIOS = {
@@ -162,7 +166,7 @@ def generar():
     datos = {"procs": procs, "cats_cx": [n for k, n, d, f in CATEGORIAS_CX], "cats_me": [n for k, n, d, f in CATEGORIAS_ME],
              "doctores": DOCTORES, "disp": DISPONIBILIDAD, "objeciones": OBJECIONES, "reglas": REGLAS, "pasos": PASOS,
              "precio": PRECIO, "lista_precios": [(p["nombre"], it, v, p["slug"], p["tipo"]) for p in procs for it, v in p["precios"]],
-             "otros_precios": OTROS_PRECIOS}
+             "otros_precios": OTROS_PRECIOS, "video": VIDEO}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:

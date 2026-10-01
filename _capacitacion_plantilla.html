@@ -207,6 +207,17 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .tabla-precios a:hover { background:var(--panel); }
 .tabla-precios small { display:block; color:var(--tenue); font-size:13.5px; }
 .tabla-precios b { font:500 20px var(--display); color:var(--acento); white-space:nowrap; }
+.video { position:relative; border-radius:24px; overflow:hidden; background:#000; aspect-ratio:16/9; margin-bottom:14px; box-shadow:0 18px 50px rgba(40,35,31,.14); }
+.video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+.video .play { position:absolute; inset:0; width:100%; border:0; padding:0; cursor:pointer; background:center/cover; display:grid; place-items:center; }
+.video .play::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(40,35,31,0) 40%,rgba(40,35,31,.7)); }
+.video .boton-play { position:relative; width:84px; height:84px; border-radius:50%; background:var(--acento); display:grid; place-items:center; box-shadow:0 10px 30px rgba(109,40,53,.45); transition:transform .3s var(--ease); }
+.video .play:hover .boton-play { transform:scale(1.08); }
+.video .boton-play::after { content:""; margin-left:6px; border-left:24px solid #fff; border-top:15px solid transparent; border-bottom:15px solid transparent; }
+.video .pie-video { position:absolute; left:24px; right:24px; bottom:20px; text-align:left; color:#fff; }
+.video .pie-video small { font:500 11px var(--display); letter-spacing:.16em; text-transform:uppercase; opacity:.85; }
+.video .pie-video b { display:block; font:400 clamp(20px,3vw,30px)/1.2 var(--display); }
+.video-nota { color:var(--tenue); font-size:14px; margin:0 0 34px; }
 .aviso { position:fixed; left:50%; bottom:24px; transform:translate(-50%,16px); opacity:0; background:var(--txt); color:#fff; padding:10px 18px; border-radius:999px; font-size:14px; font-weight:600; transition:.3s var(--ease); pointer-events:none; z-index:70; }
 .aviso.ver { opacity:1; transform:translate(-50%,0); }
 
@@ -335,7 +346,11 @@ const precioCard = p => p.precios.length
 
 /* ---------- vistas ---------- */
 function inicio() {
-  return `<div class="portada"><div><h1>Todo lo que necesitas para responder a un paciente.</h1>
+  const v = D.video;
+  return `<div class="video" id="video"><button class="play" type="button" style="background-image:url(${v.portada})" aria-label="Reproducir video"><span class="boton-play"></span>
+      <span class="pie-video"><small>Video de capacitación · ${esc(v.duracion)}</small><b>${esc(v.titulo)}</b></span></button></div>
+  <p class="video-nota">Empieza aquí: mira este video antes de responder tu primer chat.</p>
+  <div class="portada"><div><h1>Todo lo que necesitas para responder a un paciente.</h1>
       <p style="color:var(--tenue);margin-top:10px">Busca cualquier procedimiento o pregunta arriba, o explora por categoría.</p>
       <div class="chips">${["Rinoplastia", "Lipo", "Mamoplastia", "Toxina", "Ácido hialurónico", "Manchas"].map(c => `<button class="chip" data-q="${c}">${c}</button>`).join("")}</div></div>
     <div class="regla-oro"><span class="eti">${ico("precio")}Regla de oro</span><p>Mensajes <b>cortos</b> que <b>siempre terminan en una pregunta</b>. Si tenemos el precio, lo damos; si no, <b>el valor se define en la cita de valoración</b>.</p></div></div>
@@ -421,6 +436,7 @@ function ruta() {
 }
 addEventListener("hashchange", ruta);
 document.addEventListener("click", e => {
+  if (e.target.closest(".video .play")) { $("#video").innerHTML = `<iframe src="https://drive.google.com/file/d/${D.video.drive}/preview" allow="autoplay; fullscreen" allowfullscreen title="${esc(D.video.titulo)}"></iframe>`; }
   if (e.target.matches("[data-q]")) { $("#q").value = e.target.dataset.q; buscar(); $("#q").focus(); }
   if (e.target.matches("a[href^='#s-']")) { e.preventDefault(); document.querySelector(e.target.getAttribute("href")).scrollIntoView({ behavior: "smooth" }); }
 });
