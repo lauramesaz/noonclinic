@@ -483,3 +483,10 @@
     }, 1900);
   }
 })();
+
+
+// Medición: cada clic a WhatsApp se cuenta en Clarity (evento "clic_whatsapp"), con el idioma y la ciudad de la página.
+document.addEventListener("click", function (e) {
+  var a = e.target.closest && e.target.closest('a[href*="wa.me/"]');
+  if (a && window.clarity) { window.clarity("event", "clic_whatsapp"); window.clarity("upgrade", "clic_whatsapp"); }
+}, true);

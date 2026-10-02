@@ -88,6 +88,7 @@ def cierre(titulo="Tu <em>valoración</em>", texto=None, boton=None, fondo="seda
 
 # ---------------------------------------------------------------- piezas por idioma (cabecera, menú, pie) y SEO de todo el sitio
 DOMINIO = "https://noon.clinic"
+CLARITY_ID = "yrmcw5m1wy"
 WA_EN = "Hi! I live in the US and I'd like information about a consultation at noon Clinic in Medellín."
 BOTON_BUSCAR = '<button class="buscar-btn" type="button" aria-label="Buscar procedimiento"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="txt">Buscar</span></button>'
 MENU_ES = """<div class="menu" id="menu" hidden>
@@ -128,7 +129,7 @@ CLINICA_LD = {"@context": "https://schema.org", "@type": "MedicalClinic", "@id":
               "areaServed": ["Colombia", "United States"], "availableLanguage": ["es", "en"]}
 
 
-def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquema=None, foto=None):
+def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquema=None, foto=None, etiquetas=None):
     """lang: "es" o "en" · alterna: archivo de la misma página en el otro idioma · esquema: lista de JSON-LD extra."""
     en = lang == "en"
     menu_cx = "".join('<a href="cirugia-plastica.html#%s">%s</a>' % (k, n) for k, n, d, f in CATEGORIAS_CX)
@@ -152,6 +153,10 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
         "article" if esquema else "website", escape(titulo), escape(descripcion), url, DOMINIO, img(foto or "seda-oscura"), "en_US" if en else "es_CO")
     for bloque in [CLINICA_LD] + (esquema or []):
         seo += '\n<script type="application/ld+json">%s</script>' % json.dumps(bloque, ensure_ascii=False)
+    # Medición: Microsoft Clarity (proyecto "noon Clinic", ID yrmcw5m1wy). Etiquetas para filtrar por idioma, sección y ciudad.
+    tags = dict({"idioma": lang, "pagina": limpio or "inicio"}, **(etiquetas or {}))
+    seo += '\n<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","%s");%s</script>' % (
+        CLARITY_ID, "".join('clarity("set",%s,%s);' % (json.dumps(k), json.dumps(v)) for k, v in tags.items()))
     idioma = ('<a class="idioma" href="%s" hreflang="%s" lang="%s">%s</a>' % (alterna, "es" if en else "en", "es" if en else "en", "Español" if en else "English")) if alterna else ""
     html = """<!doctype html>
 <html lang="%(lang)s">

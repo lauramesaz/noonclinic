@@ -122,7 +122,8 @@ def generar(b):
             esquema.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
                 {"@type": "Question", "name": re.sub("<[^>]+>", "", p), "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", r)}} for p, r in g["faq"]]})
         b.pagina(g["slug"] + ".html", g["title"], g["descripcion"], cuerpo, lang=g["lang"],
-                 alterna=(g["par"] + ".html") if g.get("par") else None, esquema=esquema, foto=g.get("fondo"))
+                 alterna=(g["par"] + ".html") if g.get("par") else None, esquema=esquema, foto=g.get("fondo"),
+                 etiquetas={"seccion": "internacional", "tipo": g.get("tipo", "guia"), "ciudad": g.get("ciudad") or "general"})
 
     hubs(b, guias)
     sitemap(b, guias)
@@ -173,7 +174,8 @@ def hubs(b, guias):
                   + b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(t["wa_gen"]), t["boton"]), fondo="seda-oscura"))
         esquema = [{"@context": "https://schema.org", "@type": "CollectionPage", "name": h["titulo"], "description": h["desc"], "inLanguage": "es-CO" if lang == "es" else "en-US",
                     "hasPart": [{"@type": "WebPage", "name": g["title"], "url": b.DOMINIO + "/" + g["slug"]} for g in mias]}]
-        b.pagina(t["hub"], h["titulo"], h["desc"], cuerpo, lang=lang, alterna=h["otro"][0], esquema=esquema, foto="seda-horizonte")
+        b.pagina(t["hub"], h["titulo"], h["desc"], cuerpo, lang=lang, alterna=h["otro"][0], esquema=esquema, foto="seda-horizonte",
+                 etiquetas={"seccion": "internacional", "tipo": "hub"})
 
 
 def sitemap(b, guias):
