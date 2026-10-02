@@ -1,6 +1,6 @@
 # Agente 2 · Adaptador al inglés
 
-Lee la pieza en español y `../INSTRUCCIONES.md` §3.
+Lee la pieza en español, `../INSTRUCCIONES.md` §3 y `../notas-humanizador.md` (multas del Policía: no repitas esos vicios).
 
 1. Elige la keyword en inglés (`temas.md`) y el slug inglés; pon `"par"` cruzado en los dos archivos.
 2. Escribe `../articulos/<slug-en>.html` en inglés de EE. UU. natural (no traducción literal):
