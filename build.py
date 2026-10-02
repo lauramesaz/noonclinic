@@ -85,17 +85,81 @@ def cierre(titulo="Tu <em>valoración</em>", texto=None, boton=None, fondo="seda
 
 
 
-def pagina(archivo, titulo, descripcion, cuerpo):
+# ---------------------------------------------------------------- piezas por idioma (cabecera, menú, pie) y SEO de todo el sitio
+DOMINIO = "https://noon.clinic"
+WA_EN = "Hi! I live in the US and I'd like information about a consultation at noon Clinic in Medellín."
+BOTON_BUSCAR = '<button class="buscar-btn" type="button" aria-label="Buscar procedimiento"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="txt">Buscar</span></button>'
+MENU_ES = """<div class="menu" id="menu" hidden>
+  <div class="menu-in tres">
+    <div class="menu-col"><p class="ceja"><a href="cirugia-plastica.html">Cirugía plástica</a></p><nav class="grande">%(menu_cx)s</nav></div>
+    <div class="menu-col"><p class="ceja"><a href="medicina-estetica.html">Medicina estética</a></p><nav class="grande">%(menu_me)s</nav></div>
+    <div class="menu-col"><p class="ceja">noon Clinic</p><nav>%(menu)s</nav>
+      <a class="boton" href="valoracion.html">Agendar valoración</a></div>
+  </div>
+</div>"""
+MENU_EN = """<div class="menu" id="menu" hidden>
+  <div class="menu-in tres">
+    <div class="menu-col"><p class="ceja">International patients</p><nav class="grande"><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="international-patients.html#guides">Guides</a></nav></div>
+    <div class="menu-col"><p class="ceja">noon Clinic</p><nav class="grande"><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></nav></div>
+    <div class="menu-col"><p class="ceja">Contact</p><nav><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp</a></nav>
+      <a class="boton" href="%(wa)s" target="_blank" rel="noopener">Book a consultation</a></div>
+  </div>
+</div>""" % {"wa": "https://wa.me/" + WHATSAPP + "?text=" + quote(WA_EN)}
+PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
+PIE_EN = """<footer class="pie">
+  <div class="pie-in">
+    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
+    <p class="lema">Plastic surgery and aesthetic medicine, with judgment. Medellín, Colombia.</p>
+    <div class="pie-cols cuatro">
+      <div><p class="ceja">International patients</p><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="international-patients.html#guides">Guides</a></div>
+      <div><p class="ceja">noon Clinic</p><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></div>
+      <div><p class="ceja">En español</p><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a></div>
+      <div><p class="ceja">Contact</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a></div>
+    </div>
+    <a class="boton champan" href="terminos-y-condiciones.html">Terms and conditions (Spanish)</a>
+    <p class="legal">The information on this site is for guidance only and does not replace a medical consultation. Every procedure carries risks and results vary from person to person. © noon Clinic</p>
+  </div>
+</footer>
+"""
+CLINICA_LD = {"@context": "https://schema.org", "@type": "MedicalClinic", "@id": DOMINIO + "/#clinica", "name": "noon Clinic", "url": DOMINIO + "/",
+              "logo": DOMINIO + "/assets/logo-noon.png", "telephone": TELEFONO, "medicalSpecialty": ["PlasticSurgery", "Dermatology"],
+              "address": {"@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO"},
+              "areaServed": ["Colombia", "United States"], "availableLanguage": ["es", "en"]}
+
+
+def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquema=None, foto=None):
+    """lang: "es" o "en" · alterna: archivo de la misma página en el otro idioma · esquema: lista de JSON-LD extra."""
+    en = lang == "en"
     menu_cx = "".join('<a href="cirugia-plastica.html#%s">%s</a>' % (k, n) for k, n, d, f in CATEGORIAS_CX)
     menu_me = "".join('<a href="medicina-estetica.html#%s">%s</a>' % (k, n) for k, n, d, f in CATEGORIAS_ME)
     menu = "".join('<a href="%s">%s</a>' % (h, t) for h, t in MENU)
+    boton_buscar = BOTON_BUSCAR
+    if en:
+        menu_html = MENU_EN
+        pie_html = PIE_EN
+    else:
+        menu_html = MENU_ES % {"menu_cx": menu_cx, "menu_me": menu_me, "menu": menu}
+        pie_html = PIE_ES
+    limpio = "" if archivo == "index.html" else archivo[:-5]
+    url = DOMINIO + "/" + limpio
+    seo = '<link rel="canonical" href="%s">' % url
+    if alterna:
+        url_alt = DOMINIO + "/" + alterna[:-5]
+        es_url, en_url = (url_alt, url) if en else (url, url_alt)
+        seo += '\n<link rel="alternate" hreflang="es" href="%s">\n<link rel="alternate" hreflang="en" href="%s">\n<link rel="alternate" hreflang="x-default" href="%s">' % (es_url, en_url, es_url)
+    seo += '\n<meta property="og:type" content="%s">\n<meta property="og:site_name" content="noon Clinic">\n<meta property="og:title" content="%s">\n<meta property="og:description" content="%s">\n<meta property="og:url" content="%s">\n<meta property="og:image" content="%s/%s">\n<meta property="og:locale" content="%s">' % (
+        "article" if esquema else "website", escape(titulo), escape(descripcion), url, DOMINIO, img(foto or "seda-oscura"), "en_US" if en else "es_CO")
+    for bloque in [CLINICA_LD] + (esquema or []):
+        seo += '\n<script type="application/ld+json">%s</script>' % json.dumps(bloque, ensure_ascii=False)
+    idioma = ('<a class="idioma" href="%s" hreflang="%s" lang="%s">%s</a>' % (alterna, "es" if en else "en", "es" if en else "en", "Español" if en else "English")) if alterna else ""
     html = """<!doctype html>
-<html lang="es">
+<html lang="%(lang)s">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%(titulo)s</title>
 <meta name="description" content="%(desc)s">
+%(seo)s
 <meta name="theme-color" content="#120d0a">
 <link rel="icon" href="assets/favicon.png">
 <script>document.documentElement.className="js"</script>
@@ -106,9 +170,9 @@ def pagina(archivo, titulo, descripcion, cuerpo):
 </head>
 <body>
 <header class="cab">
-  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="rayas" aria-hidden="true"></span><span class="txt">Menú</span></button>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="rayas" aria-hidden="true"></span><span class="txt">%(t_menu)s</span></button>
   <a class="logo" href="index.html" aria-label="noon Clinic, inicio"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295"></a>
-  <div class="cab-der"><button class="buscar-btn" type="button" aria-label="Buscar procedimiento"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="txt">Buscar</span></button><a class="agendar" href="valoracion.html">Agendar</a></div>
+  <div class="cab-der">%(idioma)s%(buscar)s<a class="agendar" href="%(h_agendar)s"%(t_blank)s>%(t_agendar)s</a></div>
 </header>
 <div class="buscador-capa" hidden role="dialog" aria-modal="true" aria-label="Buscar procedimiento">
   <div class="bc-in">
@@ -120,42 +184,24 @@ def pagina(archivo, titulo, descripcion, cuerpo):
     <p class="bc-vacio" hidden>No encontramos eso. <a href="#" class="bc-wa" target="_blank" rel="noopener">Pregúntanos por WhatsApp</a></p>
   </div>
 </div>
-<div class="menu" id="menu" hidden>
-  <div class="menu-in tres">
-    <div class="menu-col"><p class="ceja"><a href="cirugia-plastica.html">Cirugía plástica</a></p><nav class="grande">%(menu_cx)s</nav></div>
-    <div class="menu-col"><p class="ceja"><a href="medicina-estetica.html">Medicina estética</a></p><nav class="grande">%(menu_me)s</nav></div>
-    <div class="menu-col"><p class="ceja">noon Clinic</p><nav>%(menu)s</nav>
-      <a class="boton" href="valoracion.html">Agendar valoración</a></div>
-  </div>
-</div>
+%(menu_html)s
 <div class="progreso-scroll" aria-hidden="true"></div>
 <div class="cursor" aria-hidden="true"><span></span></div>
 <div class="vista-previa" aria-hidden="true"></div>
 <main>
 %(cuerpo)s
 </main>
-<footer class="pie">
-  <div class="pie-in">
-    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
-    <p class="lema">Cirugía plástica y medicina estética, con criterio.</p>
-    <div class="pie-cols cuatro">
-      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>
-      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>
-      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="preguntas-frecuentes.html">Preguntas</a></div>
-      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>
-    </div>
-    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>
-    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>
-  </div>
-</footer>
-<a class="wa-flota" href="%(wa)s" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/><path d="M8.8 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2.1.4 0 .6l-.4.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.5c.2-.2.4-.2.6-.1l1.7.8c.3.1.4.3.4.5v.5c0 .4-.3 1-.9 1.2-.6.3-1.8.3-3.7-.8a9.6 9.6 0 0 1-3.4-3.5c-.9-1.6-.7-2.6-.4-3.1Z"/></svg><span>WhatsApp</span></a>
+%(pie_html)s<a class="wa-flota" href="%(wa)s" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/><path d="M8.8 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2.1.4 0 .6l-.4.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.5c.2-.2.4-.2.6-.1l1.7.8c.3.1.4.3.4.5v.5c0 .4-.3 1-.9 1.2-.6.3-1.8.3-3.7-.8a9.6 9.6 0 0 1-3.4-3.5c-.9-1.6-.7-2.6-.4-3.1Z"/></svg><span>WhatsApp</span></a>
 <script src="assets/catalogo.js?v=%(v)s" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="assets/noon.js?v=%(v)s" defer></script>
 </body>
 </html>
 """ % {"titulo": escape(titulo + (" · noon Clinic" if archivo != "index.html" else "")), "desc": escape(descripcion), "cuerpo": cuerpo,
-       "menu_cx": menu_cx, "menu_me": menu_me, "menu": menu, "v": V, "wa": wa(), "tel": TELEFONO}
+       "menu_cx": menu_cx, "menu_me": menu_me, "menu": menu, "v": V, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO,
+       "lang": lang, "seo": seo, "idioma": idioma, "menu_html": menu_html, "pie_html": pie_html % {"menu_cx": menu_cx, "menu_me": menu_me, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO},
+       "buscar": "" if en else boton_buscar, "t_menu": "Menu" if en else "Menú", "t_agendar": "Book" if en else "Agendar",
+       "h_agendar": wa(WA_EN) if en else "valoracion.html", "t_blank": ' target="_blank" rel="noopener"' if en else ""}
     html = re.sub(r'href="index\.html([?#][^"]*)?"', lambda m: 'href="./%s"' % (m.group(1) or ""), html)
     html = re.sub(r'href="([a-z0-9-]+)\.html([?#][^"]*)?"', lambda m: 'href="%s%s"' % (m.group(1), m.group(2) or ""), html)
     with open(os.path.join(AQUI, archivo), "w", encoding="utf-8") as f:
@@ -262,6 +308,7 @@ MENU = [
     ("tu-proceso.html", "Tu proceso"),
     ("formas-de-pago.html", "Pagos"),
     ("otra-ciudad.html", "Si vienes de lejos"),
+    ("pacientes-internacionales.html", "Pacientes en EE. UU."),
     ("preguntas-frecuentes.html", "Preguntas"),
 ]
 
@@ -681,6 +728,11 @@ pagina("terminos-y-condiciones.html", "Términos y condiciones", "Condiciones de
   <div class="resumen-tc"><p class="ceja">Lo más importante</p><ul>%s</ul><a class="boton champan" href="#t4">Política de devoluciones</a></div>
   <nav class="indice" aria-label="Contenido">%s</nav>%s
 </div></section>''' % ("".join("<li>%s</li>" % x for x in RESUMEN_TC), indice, bloques))
+
+# ================================================================ AGENCIA SEO INTERNACIONAL (guías ES/EN + hubs + sitemap + robots)
+import sys
+from guias import generar as _guias
+print("Guías internacionales: %d." % _guias(sys.modules[__name__]))
 
 print("Listo. %d páginas · %d cirugías · %d tratamientos · %d preguntas." % (len(HECHAS), len(CIRUGIAS_NOON), len(TRATAMIENTOS), len(FAQ_NOON)))
 

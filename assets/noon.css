@@ -978,3 +978,32 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
   .bcl-in { grid-template-columns: 1fr; }
   .mosaico-cl { grid-template-rows: repeat(3, 26vw); gap: 6px; }
 }
+
+/* ---------- Agencia SEO internacional: selector de idioma y guías (ES/EN) ---------- */
+.idioma { font: 400 11px var(--display); letter-spacing: .24em; text-transform: uppercase; text-decoration: none; padding: 10px 4px; opacity: .8; }
+.idioma:hover { opacity: 1; color: var(--champagne); }
+.articulo { max-width: 760px; }
+.art-meta { font: 400 11px/1.8 var(--display); letter-spacing: .2em; text-transform: uppercase; color: var(--tenue); margin-bottom: 46px; }
+.art-meta a { color: inherit; }
+.articulo h2 { font-size: clamp(27px, 2.8vw, 38px); line-height: 1.15; letter-spacing: -.01em; margin: 64px 0 22px; }
+.articulo h3 { font-size: clamp(20px, 1.8vw, 24px); line-height: 1.3; margin: 40px 0 14px; }
+.articulo p, .articulo li { font-size: 17.5px; line-height: 1.8; }
+.articulo .entrada { font-size: 20px; }
+.articulo ul, .articulo ol { padding-left: 1.1em; margin: 0 0 1.2em; }
+.articulo li { margin-bottom: .45em; }
+.articulo li::marker { color: var(--burgundy); }
+.articulo a { color: var(--burgundy); text-underline-offset: 3px; }
+.articulo strong { font-weight: 600; }
+.articulo blockquote { margin: 40px 0; padding: 6px 0 6px 26px; border-left: 1px solid var(--burgundy); font: 300 clamp(21px, 2vw, 26px)/1.45 var(--display); }
+.articulo .dato { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0; border-block: 1px solid var(--linea); margin: 40px 0; }
+.articulo .dato div { padding: 22px 18px 22px 0; }
+.articulo .dato b { display: block; font: 300 24px/1.2 var(--display); }
+.articulo .dato span { font-size: 14px; color: var(--tenue); }
+.art-procs { margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--linea); }
+.art-procs div { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.art-procs a { text-decoration: none; border: 1px solid var(--linea); padding: 10px 16px; font: 400 12px var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--espresso); }
+.art-procs a:hover { border-color: var(--burgundy); color: var(--burgundy); }
+.art-aviso { margin-top: 44px; padding-top: 22px; border-top: 1px solid rgba(189, 164, 123, .5); font-size: 14px !important; color: var(--tenue); }
+.lineas b a { text-decoration: none; }
+.lineas b a:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 700px) { .idioma { font-size: 10px; letter-spacing: .14em; } .articulo p, .articulo li { font-size: 16.5px; } }

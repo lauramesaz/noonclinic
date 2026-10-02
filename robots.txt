@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /capacitacion-comercial
+Disallow: /_agencia-seo/
+
+Sitemap: https://noon.clinic/sitemap.xml
