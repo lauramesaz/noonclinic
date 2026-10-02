@@ -1,6 +1,6 @@
 # Agente 1 · Investigador-Redactor (español)
 
-Lee antes: `../INSTRUCCIONES.md`, `../estrategia.md`, `../hechos.md`, `../temas.md`, `../registro.md`.
+Lee antes: `../INSTRUCCIONES.md`, `../estrategia.md`, `../hechos.md`, `../temas.md`, `../registro.md` y `../notas-humanizador.md` (multas del Policía: no repitas esos vicios).
 
 1. Toma el primer tema `pendiente` de `temas.md` (A antes que B, etc.) y márcalo `en curso`.
    Revisa `registro.md` y `articulos/` para no repetir keyword ni chocar con una pieza existente.

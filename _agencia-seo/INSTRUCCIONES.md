@@ -58,7 +58,7 @@ cada guía tiene su versión en español y su versión en inglés, enlazadas ent
 - **Enlaces internos:** cada pieza enlaza a 1–3 procedimientos (`procedimientos` en la cabecera,
   la plantilla pone los botones) + dentro del texto a 1–2 guías hermanas y a `otra-ciudad` o
   `seguridad` cuando aplique. En inglés las páginas de procedimiento están en español: se avisa.
-- **FAQ:** 3 a 5 preguntas reales (las que la gente escribe en Google). La plantilla genera el
+- **FAQ:** 3 a 6 preguntas reales (las que la gente escribe en Google). La plantilla genera el
   JSON-LD `FAQPage`, `MedicalWebPage` y `BreadcrumbList` y el `hreflang`. No lo escribas a mano.
 - Slugs en minúsculas con guiones, sin tildes. Español: `cirugia-plastica-en-medellin-desde-miami`.
   Inglés: `plastic-surgery-in-medellin-from-miami`.
