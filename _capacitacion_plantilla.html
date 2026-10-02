@@ -322,7 +322,7 @@ function menu() {
     <div class="sub"><a href="#${id}" data-r="${id}">Ver todos</a>${cats.map(c => `<a href="#${id}/${encodeURIComponent(c)}" data-r="${id}/${encodeURIComponent(c)}">${esc(c)}</a>`).join("")}</div></details>`;
   $("#nav").innerHTML = `<a href="#inicio" data-r="inicio">${ico("casa")}Inicio</a>
     <p class="titulo-nav">Procedimientos</p>${grupo("cirugia", "Cirugía plástica", "bisturi", D.cats_cx)}${grupo("estetica", "Medicina estética", "gota", D.cats_me)}
-    <p class="titulo-nav">Ventas</p><a href="#precios" data-r="precios">${ico("lista")}Lista de precios</a><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
+    <p class="titulo-nav">Ventas</p><a href="#precios" data-r="precios">${ico("lista")}Lista de precios</a><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#exterior" data-r="exterior">${ico("chat")}Pacientes del exterior</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
 }
 
 /* ---------- copiar ---------- */
@@ -405,6 +405,13 @@ function responder() {
   <section class="seccion"><div class="seccion-cab"><h2>Una conversación en 4 pasos</h2></div><div class="tiempo">${D.pasos.map(([t, x]) => `<div class="paso"><i></i><div><b>${esc(t)}</b><span>${esc(x)}</span></div></div>`).join("")}</div></section>`;
 }
 
+function exterior() {
+  return `<nav class="migas"><a href="#inicio">Inicio</a>›<span>Pacientes del exterior</span></nav>
+  <div class="cabeza"><h1>Pacientes del exterior</h1><p>Para quien escribe desde Estados Unidos. Cada respuesta está en español y en inglés: copia la del idioma en que te escriben.</p></div>
+  <section class="seccion" style="margin-top:26px"><div class="seccion-cab"><h2>Reglas</h2></div><div class="reglas">${D.inter_reglas.map(([t, x]) => `<div class="regla"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Mensajes listos</h2></div><div class="faq">${D.inter.map(([t, es, en]) => `<details><summary>${esc(t)}</summary><div class="resp"><p><b>Español</b><br>${esc(es)}</p>${copiar(es)}<p style="margin-top:14px"><b>English</b><br>${esc(en)}</p>${copiar(en)}</div></details>`).join("")}</div></section>`;
+}
+
 function precios() {
   return `<nav class="migas"><a href="#inicio">Inicio</a>›<span>Lista de precios</span></nav>
   <div class="cabeza"><h1>Lista de precios</h1><p>Solo estos procedimientos tienen precio. Para todo lo demás: <b>el valor se define el día de la cita de valoración</b>.</p></div>
@@ -424,7 +431,7 @@ function disponibilidad() {
 function ruta() {
   if ($("#app").hidden) return;
   const h = decodeURIComponent(location.hash.slice(1) || "inicio"), [a, b] = h.split("/");
-  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
+  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
   $("#vista").innerHTML = html;
   const tipo = a === "p" ? (D.procs.find(x => x.slug === b) || {}).tipo : null;
   const actual = a === "p" ? (tipo === "me" ? "estetica" : "cirugia") : location.hash.slice(1) || "inicio";

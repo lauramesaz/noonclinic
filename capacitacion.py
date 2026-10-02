@@ -57,6 +57,40 @@ PRECIO = "El valor se define en tu cita de valoración con {doc}, porque cada pl
 CIERRES = ["¿Te agendo tu valoración?", "¿Te queda mejor esta semana o la próxima?", "¿Quieres que te reserve un espacio con {doc}?", "¿Qué día te queda fácil venir?"]
 
 
+# ---------------------------------------------------------------- PACIENTES DEL EXTERIOR (EE. UU.) · guiones ES + EN
+# Solo datos verificados (_agencia-seo/hechos.md). Precios siempre en pesos colombianos (COP), nunca convertidos a dólares.
+INTERNACIONAL_REGLAS = [
+    ("Pregunta ciudad y fechas", "Desde qué ciudad escribe y cuándo podría viajar. Con eso se arma todo."),
+    ("Valoración presencial", "Se hace en persona al llegar a Medellín. Por WhatsApp solo se adelanta información y se agenda."),
+    ("Nunca des fecha para volar", "El regreso lo autoriza el especialista en el control. Recomienda tiquete flexible."),
+    ("Acompañante", "Si es cirugía, debe venir con un adulto que la acompañe los primeros días."),
+    ("Precios en pesos", "Se dan en pesos colombianos (COP). No los conviertas a dólares."),
+    ("Seguimiento al volver", "Al volver a EE. UU. seguimos con ella por WhatsApp o videollamada. No reemplaza los controles en Medellín ni urgencias."),
+]
+INTERNACIONAL = [  # (tema, mensaje en español, mensaje en inglés)
+    ("Saludo", "¡Hola! Gracias por escribir a noon Clinic en Medellín. ¿Desde qué ciudad nos escribes y para cuándo piensas viajar?",
+     "Hi! Thank you for reaching out to noon Clinic in Medellín. Which city are you writing from, and when are you thinking of traveling?"),
+    ("¿Cuánto cuesta?", "El valor se define en tu valoración presencial con el especialista, porque cada plan es personal. ¿Te la agendo para el día que llegues?",
+     "The cost is defined at your in-person consultation with our specialist, because every plan is personal. Would you like us to book it for the day you arrive?"),
+    ("¿Cuántos días me quedo?", "Como guía: rostro y senos entre 1 y 2 semanas; contorno corporal y combinadas entre 2 y 3 semanas. El regreso lo autoriza tu especialista. ¿Qué fechas tienes en mente?",
+     "As a guide: face and breast procedures 1 to 2 weeks; body contouring and combined procedures 2 to 3 weeks. Your specialist confirms when you can fly home. What dates do you have in mind?"),
+    ("¿Hacen valoración virtual?", "La valoración es presencial en Medellín, para que el especialista te examine. Antes de viajar adelantamos tu información por aquí. ¿Qué día llegas?",
+     "Your consultation is in person in Medellín, so the specialist can examine you. Before you travel, we can get your details ready here on WhatsApp. What day do you arrive?"),
+    ("¿Es seguro?", "Las cirugías se hacen en salas de cirugía habilitadas en Q2, nunca en un consultorio, y con exámenes previos obligatorios. ¿Te agendo tu valoración?",
+     "Surgeries are performed in licensed operating rooms at Q2, never in a doctor's office, and pre-op tests are required. Would you like to book your consultation?"),
+    ("¿Y cuando vuelva a casa?", "Seguimos contigo por WhatsApp o videollamada. No reemplaza tus controles en Medellín antes de volar, y ante una urgencia vas a urgencias donde estés. ¿Miramos fechas?",
+     "Once you're home, we stay in touch by WhatsApp or video call. It doesn't replace your follow-ups in Medellín before flying, and for any emergency please go to a local ER. Shall we look at dates?"),
+    ("¿Necesito visa?", "Si tienes pasaporte de EE. UU., no necesitas visa de turismo para Colombia. Si también eres colombiana, entras y sales con tu pasaporte colombiano. Revisa los requisitos vigentes antes de viajar. ¿Para cuándo piensas venir?",
+     "US citizens don't need a tourist visa for Colombia. If you're also Colombian, you must enter and leave with your Colombian passport. Please check current requirements before you travel. When are you planning to come?"),
+    ("Acompañante", "Para una cirugía necesitas un adulto que te acompañe los primeros días. ¿Vienes con alguien?",
+     "For surgery, you'll need an adult with you during the first days. Will someone be traveling with you?"),
+    ("¿A qué aeropuerto llego?", "El aeropuerto internacional de Medellín (MDE) queda en Rionegro, fuera de la ciudad. ¿Desde qué ciudad vuelas?",
+     "Medellín's international airport (MDE) is in Rionegro, just outside the city. Which city are you flying from?"),
+    ("Precio con valor conocido", "La mamoplastia de aumento tiene un valor de $10.900.000 pesos colombianos e incluye cirujano, quirófano, implantes, brasier, póliza y bomba del dolor. ¿Te agendo tu valoración con el Dr. Fernando?",
+     "Breast augmentation is COP 10,900,000 (Colombian pesos) and includes the surgeon, operating room, implants, post-op bra, complications insurance and pain pump. Would you like to book your consultation with Dr. Fernando?"),
+]
+
+
 def _q(texto, i, doc):
     # toda respuesta termina en una pregunta que lleva a la valoración
     texto = texto.strip()
@@ -166,7 +200,8 @@ def generar():
     datos = {"procs": procs, "cats_cx": [n for k, n, d, f in CATEGORIAS_CX], "cats_me": [n for k, n, d, f in CATEGORIAS_ME],
              "doctores": DOCTORES, "disp": DISPONIBILIDAD, "objeciones": OBJECIONES, "reglas": REGLAS, "pasos": PASOS,
              "precio": PRECIO, "lista_precios": [(p["nombre"], it, v, p["slug"], p["tipo"]) for p in procs for it, v in p["precios"]],
-             "otros_precios": OTROS_PRECIOS, "video": VIDEO}
+             "otros_precios": OTROS_PRECIOS, "video": VIDEO,
+             "inter_reglas": INTERNACIONAL_REGLAS, "inter": INTERNACIONAL}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:
