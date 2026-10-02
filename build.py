@@ -203,6 +203,12 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
        "lang": lang, "seo": seo, "idioma": idioma, "menu_html": menu_html, "pie_html": pie_html % {"menu_cx": menu_cx, "menu_me": menu_me, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO},
        "buscar": "" if en else boton_buscar, "t_menu": "Menu" if en else "Menú", "t_agendar": "Book" if en else "Agendar",
        "h_agendar": wa(WA_EN) if en else "valoracion.html", "t_blank": ' target="_blank" rel="noopener"' if en else ""}
+    # Todo remite a WhatsApp (decisión de Laura, 2-oct-2026): los botones que iban al formulario de valoración
+    # abren WhatsApp directo; si había un botón "Escribir por WhatsApp" al lado, se une en uno solo.
+    enlace_wa = 'href="%s" target="_blank" rel="noopener"' % wa()
+    html = re.sub(r'<a class="boton lleno" href="valoracion\.html[^"]*">[^<]*</a><a class="boton" href="https://wa\.me/[^"]*" target="_blank" rel="noopener">[^<]*</a>',
+                  '<a class="boton lleno" %s>Agendar por WhatsApp</a>' % enlace_wa, html)
+    html = re.sub(r'href="valoracion\.html[^"]*"(?: target="_blank" rel="noopener")?', enlace_wa, html)
     html = re.sub(r'href="index\.html([?#][^"]*)?"', lambda m: 'href="./%s"' % (m.group(1) or ""), html)
     html = re.sub(r'href="([a-z0-9-]+)\.html([?#][^"]*)?"', lambda m: 'href="%s%s"' % (m.group(1), m.group(2) or ""), html)
     with open(os.path.join(AQUI, archivo), "w", encoding="utf-8") as f:
@@ -486,8 +492,8 @@ def subnav(pares):
 def barra_cta(nombre, quien, slug, msj):
     return '''<div class="barra-cta" aria-label="Agendar">
   <div class="bc-t"><b>%s</b><span>%s</span></div>
-  <a class="boton bc-w" href="%s" target="_blank" rel="noopener">WhatsApp</a><a class="boton lleno" href="valoracion.html?cx=%s">Agendar<span class="solo-grande"> valoración</span></a>
-</div>''' % (nombre, quien, wa(msj), slug)
+  <a class="boton lleno" href="%s" target="_blank" rel="noopener">Agendar<span class="solo-grande"> por WhatsApp</span></a>
+</div>''' % (nombre, quien, wa(msj))
 
 
 def datos_barra(pares):
