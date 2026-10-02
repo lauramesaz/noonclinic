@@ -9,7 +9,7 @@ Vuelos y aerolíneas cambian: revisar esta tabla cada 3 meses (próxima: enero 2
 - Especialistas: Dr. Fernando Ruiz (cirujano plástico), Dra. Valeria Enciso (médica estética).
   Sin más datos de formación por ahora: no inventar.
 - Cirugías en las salas de cirugía de **Q2**, nunca en consultorio. Exámenes previos obligatorios.
-- La valoración es presencial. Por WhatsApp (+57 321 7591330) se adelanta información y se agenda.
+- La valoración es presencial. Por WhatsApp (+57 302 2491937; todos los botones llevan el mensaje "Hola, vengo de la web y quiero una cita") se adelanta información y se agenda.
 - Estadía de referencia (de la web, `otra-ciudad.html`): rostro 1–2 semanas; senos 1–2 semanas;
   contorno corporal y combinadas 2–3 semanas; medicina estética mismo día o pocos días.
   El regreso lo autoriza el especialista. Viajar acompañada si es cirugía. Tiquetes flexibles.

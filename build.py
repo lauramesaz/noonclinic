@@ -18,8 +18,9 @@ CAT_CX = {k: (n, d, f) for k, n, d, f in CATEGORIAS_CX}
 CAT_ME = {k: (n, d, f) for k, n, d, f in CATEGORIAS_ME}
 
 
-def wa(mensaje="Hola, quiero agendar mi cita de valoración en noon Clinic."):
-    return "https://wa.me/" + WHATSAPP + "?text=" + quote(mensaje)
+def wa(mensaje=None):
+    # Todos los botones llevan el mismo mensaje (MENSAJE_WA en datos.py) para saber que la persona viene de la web.
+    return "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA)
 
 
 def img(nombre):
@@ -104,7 +105,7 @@ MENU_EN = """<div class="menu" id="menu" hidden>
     <div class="menu-col"><p class="ceja">Contact</p><nav><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp</a></nav>
       <a class="boton" href="%(wa)s" target="_blank" rel="noopener">Book a consultation</a></div>
   </div>
-</div>""" % {"wa": "https://wa.me/" + WHATSAPP + "?text=" + quote(WA_EN)}
+</div>""" % {"wa": "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA)}
 PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
 PIE_EN = """<footer class="pie">
   <div class="pie-in">

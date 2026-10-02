@@ -3,8 +3,9 @@
 # y luego corre:  python3 build.py
 # OJO: aquí NUNCA van costos internos ni comisiones. Solo precio de venta y qué trae.
 
-WHATSAPP = "573217591330"
-TELEFONO = "+57 321 7591330"
+WHATSAPP = "573022491937"
+TELEFONO = "+57 302 2491937"
+MENSAJE_WA = "Hola, vengo de la web y quiero una cita"  # TODOS los botones de WhatsApp de la web llevan este mensaje (decisión de Laura, 2-oct-2026)
 MARCA = "noon Clinic"  # nombre provisional del sitio (sin marca). Cámbialo aquí.
 SEDE_QX = "Q2"
 VALORACION = "$200.000"

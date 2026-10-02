@@ -86,7 +86,7 @@
     if (cx) [].forEach.call(sel.options, function (o, i) { if (o.dataset.slug === cx) sel.selectedIndex = i; });
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var msg = "Hola, soy " + form.nombre.value.trim() + ". Quiero agendar mi valoración en noon Clinic. Me interesa: " + sel.value + ". Vivo en " + form.ciudad.value.trim() + ".";
+      var msg = "Hola, vengo de la web y quiero una cita. Soy " + form.nombre.value.trim() + ". Me interesa: " + sel.value + ". Vivo en " + form.ciudad.value.trim() + ".";
       window.open("https://wa.me/" + form.dataset.wa + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
     });
   }
@@ -238,7 +238,7 @@
       }).join("");
       act = -1;
       vac.hidden = !(q && !out.length);
-      vac.querySelector("a").href = "https://wa.me/" + datos().wa + "?text=" + encodeURIComponent("Hola, quiero información sobre: " + inp.value.trim());
+      vac.querySelector("a").href = "https://wa.me/" + datos().wa + "?text=" + encodeURIComponent("Hola, vengo de la web y quiero una cita");
     };
     inp.addEventListener("input", pintar);
     inp.addEventListener("keydown", function (e) {
@@ -308,7 +308,7 @@
       as.querySelector(".as-res").innerHTML = its.map(function (it, i) {
         return '<a href="' + it.s + '" style="background-image:url(' + fondo(it.f) + ');animation-delay:' + (i * 90) + 'ms"><em>' + it.t + "</em><b>" + it.n + "</b><small>" + it.c + "</small></a>";
       }).join("");
-      as.querySelector(".as-wa").href = "https://wa.me/" + datos().wa + "?text=" + encodeURIComponent("Hola, quiero agendar una valoración en noon Clinic. Me interesa " + elegida.n.toLowerCase() + ": " + op.n.toLowerCase() + " (" + its.map(function (x) { return x.n; }).join(", ") + ").");
+      as.querySelector(".as-wa").href = "https://wa.me/" + datos().wa + "?text=" + encodeURIComponent("Hola, vengo de la web y quiero una cita");
       ir(3);
     };
     as.querySelector(".as-atras").addEventListener("click", function () { ir(1); });
