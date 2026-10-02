@@ -14,6 +14,12 @@ Vuelos y aerolíneas cambian: revisar esta tabla cada 3 meses (próxima: enero 2
   contorno corporal y combinadas 2–3 semanas; medicina estética mismo día o pocos días.
   El regreso lo autoriza el especialista. Viajar acompañada si es cirugía. Tiquetes flexibles.
 - La web NO publica precios.
+- **Confirmado por Laura (2-oct-2026):** los quirófanos de Q2 son **habilitados** (se puede decir
+  "salas de cirugía habilitadas" / "licensed operating rooms"; NO decir "acreditadas").
+- **Confirmado por Laura (2-oct-2026):** noon hace **seguimiento a distancia** cuando la paciente ya
+  volvió a EE. UU., por WhatsApp o videollamada. Decirlo siempre con estos límites: no reemplaza la
+  valoración presencial ni los controles en Medellín que indique el especialista antes de volar, y
+  ante una urgencia se acude a urgencias en la ciudad donde se esté.
 
 ## Medellín
 - Aeropuerto internacional: José María Córdova (MDE), queda en **Rionegro**, fuera de Medellín.

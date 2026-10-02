@@ -138,7 +138,7 @@ HUB = {
                      ("Valoración en persona al llegar", "El especialista te examina en Medellín. Si es cirugía, te ordena los exámenes previos."),
                      ("Procedimiento", "La cirugía se hace en quirófano, nunca en un consultorio."),
                      ("Recuperación y controles", "Te quedas en la ciudad los días que indique tu especialista."),
-                     ("Regreso a casa", "Vuelas cuando tu especialista lo autorice en el control.")],
+                     ("Regreso y seguimiento", "Vuelas cuando tu especialista lo autorice. Ya en casa, seguimos contigo por WhatsApp o videollamada.")],
            "g_ceja": "Guías", "g_tit": "Para leer antes de viajar", "sin_guias": "Muy pronto, nuevas guías para pacientes que viajan desde Estados Unidos.",
            "otro": ("international-patients.html", "Read in English")},
     "en": {"titulo": "International patients: plastic surgery in Medellín from the US", "desc": "Living in Miami, New York, Orlando, Houston, Atlanta or Boston and considering surgery in Medellín, Colombia? How to plan your trip to noon Clinic, step by step.",
@@ -149,7 +149,7 @@ HUB = {
                      ("In-person consultation when you arrive", "Your specialist examines you in Medellín and, for surgery, orders your pre-op tests."),
                      ("Your procedure", "Surgery is always performed in an operating room, never in a doctor's office."),
                      ("Recovery and follow-ups", "You stay in the city for the days your specialist recommends."),
-                     ("Flying home", "You fly when your specialist clears you at your follow-up.")],
+                     ("Flying home and follow-up", "You fly when your specialist clears you. Once you're home, we stay in touch by WhatsApp or video call.")],
            "g_ceja": "Guides", "g_tit": "Read before you travel", "sin_guias": "New guides for patients traveling from the United States are coming soon.",
            "otro": ("pacientes-internacionales.html", "Leer en español")},
 }
