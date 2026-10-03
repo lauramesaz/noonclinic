@@ -17,7 +17,7 @@ Siempre se escribe ES + EN. Prioridad: de arriba a abajo.
 | # | Keyword ES | Keyword EN | Estado |
 |---|---|---|---|
 | B1 | cuántos días quedarse en Colombia después de una cirugía plástica | how long to stay in Colombia after plastic surgery | publicado 2026-10-02 |
-| B2 | cuándo puedo volar después de una lipo | when can I fly after liposuction | pendiente |
+| B2 | cuándo puedo volar después de una lipo | when can I fly after liposuction | publicado 2026-10-03 |
 | B3 | operarme en Colombia viviendo en Estados Unidos | getting plastic surgery in Colombia as a US resident | publicado 2026-10-02 |
 | B4 | qué llevar para operarme en Medellín | what to pack for plastic surgery in Colombia | pendiente |
 | B5 | recuperación de cirugía plástica en Medellín: dónde quedarse | where to stay in Medellin to recover after surgery | pendiente |
