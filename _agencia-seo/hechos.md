@@ -23,6 +23,13 @@ Vuelos y aerolíneas cambian: revisar esta tabla cada 3 meses (próxima: enero 2
 
 ## Medellín
 - Aeropuerto internacional: José María Córdova (MDE), queda en **Rionegro**, fuera de Medellín.
+- Clima templado casi constante todo el año ("ciudad de la eterna primavera"), por la altura y la
+  cercanía al ecuador: temperatura promedio alrededor de 22–23 °C (unos 72 °F), con un rango diario
+  aproximado de 17 a 28 °C. No hace el frío de un invierno de EE. UU. ni el calor húmedo de Miami.
+  (Fuente: Weather Spark, "Average Weather in Medellín, Colombia Year Round"; 4-oct-2026.)
+- Enchufes y voltaje: Colombia usa tipo A/B a 110V, igual que Estados Unidos; no se necesita
+  adaptador ni convertidor de voltaje viniendo de EE. UU. (Fuente: plugtype.world, "Colombia Plug
+  Types A and B, 110V"; 4-oct-2026.)
 - Colombia usa UTC−5 todo el año, sin horario de verano.
   - Miami / Nueva York / Boston / Atlanta / Orlando: misma hora que Medellín en invierno (EST);
     1 hora adelante de Medellín en verano (EDT, de marzo a noviembre).
