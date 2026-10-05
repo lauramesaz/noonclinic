@@ -100,32 +100,35 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
   .extras .extra .quitar{grid-row:1/3;grid-column:2}
 }
 
-/* ---------- PDF (A4 a 794px) ---------- */
-#pdf-caja{position:fixed;left:-10000px;top:0}
-#pdf{width:794px;padding:56px 60px 44px;background:#fff;color:#28231F;font:13px/1.55 "Nunito Sans",sans-serif}
-#pdf .p-cab{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:22px;border-bottom:1px solid #D8D0C3}
-#pdf .p-cab img{height:34px}
-#pdf .p-cab .der{text-align:right;font-size:12px;color:#7A7067}
-#pdf .p-cab .der b{display:block;font-family:Jost;font-weight:400;font-size:22px;color:#28231F;letter-spacing:.02em;margin-bottom:4px}
-#pdf .p-datos{display:grid;grid-template-columns:1fr 1fr;gap:10px 30px;padding:22px 0;border-bottom:1px solid #D8D0C3}
-#pdf .p-datos div span{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7A7067}
-#pdf .p-datos div b{font-weight:600;font-size:14px}
-#pdf table{width:100%;border-collapse:collapse;margin-top:24px}
-#pdf th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7A7067;font-weight:700;text-align:left;padding:0 0 10px;border-bottom:1px solid #28231F}
+/* ---------- PDF (carta: 816 × 1056 px) ---------- */
+#pdf-caja{position:absolute;left:-10000px;top:0}
+#pdf{width:816px;min-height:1056px;background:#fff;color:#28231F;font:14px/1.55 "Nunito Sans",sans-serif;display:flex;flex-direction:column}
+#pdf .p-cab{background:#28231F;color:#F2EFE8;padding:34px 64px 28px;display:flex;justify-content:space-between;align-items:flex-end}
+#pdf .p-cab img{height:40px}
+#pdf .p-cab .der{text-align:right;font-size:12.5px;color:#D8D0C3;line-height:1.7}
+#pdf .p-cab .der b{display:block;font-family:Jost;font-weight:300;font-size:26px;letter-spacing:.22em;text-transform:uppercase;color:#F2EFE8;margin-bottom:6px}
+#pdf .p-cuerpo{flex:1;display:flex;flex-direction:column;padding:26px 64px 0}
+#pdf .p-datos{display:grid;grid-template-columns:1.3fr 1fr;gap:12px 40px;padding:16px 24px;background:#F7F4EF;border-radius:4px}
+#pdf .p-datos span{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#7A7067;margin-bottom:2px}
+#pdf .p-datos b{font-weight:600;font-size:15px}
+#pdf table{width:100%;border-collapse:collapse;margin-top:20px}
+#pdf th{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#7A7067;font-weight:700;text-align:left;padding:0 0 10px;border-bottom:1px solid #28231F}
 #pdf th:last-child,#pdf td:last-child{text-align:right;white-space:nowrap}
-#pdf td{padding:12px 0;border-bottom:1px solid #EAE4DA;vertical-align:top}
-#pdf td small{display:block;color:#7A7067;font-size:11.5px}
-#pdf .p-total td{border-bottom:0;padding-top:18px}
-#pdf .p-total td:first-child{font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
-#pdf .p-total td:last-child{font-family:Jost;font-size:24px;color:#6D2835}
-#pdf .p-info{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:30px;padding-top:24px;border-top:1px solid #D8D0C3}
-#pdf h4{font-family:Jost;font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+#pdf td{padding:9px 0;border-bottom:1px solid #EAE4DA;vertical-align:top;font-size:14px}
+#pdf td:last-child{font-variant-numeric:tabular-nums}
+#pdf td small{display:block;color:#7A7067;font-size:12px;margin-top:1px}
+#pdf .p-total{margin-top:18px;background:#6D2835;color:#fff;border-radius:4px;padding:15px 24px;display:flex;justify-content:space-between;align-items:center}
+#pdf .p-total span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+#pdf .p-total b{font-family:Jost;font-weight:300;font-size:30px;letter-spacing:.01em}
+#pdf .p-vence{margin-top:10px;font-size:12px;color:#7A7067;text-align:right}
+#pdf .p-info{margin-top:auto;padding-top:20px!important;display:grid;grid-template-columns:1fr 1fr;gap:36px;padding:20px 0 0;border-top:1px solid #D8D0C3}
+#pdf h4{font-family:Jost;font-weight:500;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px;color:#6D2835}
 #pdf ul{list-style:none}
-#pdf li{padding-left:14px;position:relative;margin-bottom:4px;font-size:12px}
-#pdf li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:1px;background:#6D2835}
-#pdf .p-terminos{margin-top:22px;font-size:11.5px;color:#7A7067}
-#pdf .p-terminos a{color:#6D2835}
-#pdf .p-pie{margin-top:34px;padding-top:14px;border-top:1px solid #D8D0C3;font-size:11px;color:#7A7067;display:flex;justify-content:space-between}
+#pdf li{padding-left:14px;position:relative;margin-bottom:3px;font-size:12px}
+#pdf li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:1px;background:#6D2835}
+#pdf .p-terminos{margin-top:18px;font-size:12px;color:#7A7067}
+#pdf .p-terminos a{color:#6D2835;text-decoration:none;font-weight:600}
+#pdf .p-pie{margin:22px 0 0;padding:14px 64px;background:#F2EFE8;font-size:11.5px;color:#7A7067;display:flex;justify-content:space-between;letter-spacing:.06em}
 </style>
 </head>
 <body>
@@ -359,24 +362,27 @@ function armarPDF(s, numero, hoy, vence){
   s.extras.forEach(x => filas.push([x.d || "Otro", "", x.v]));
   const incluye = C.incluye.concat(/abdominoplastia/i.test(s.proc) ? ["Exovac o reservorio (1 unidad)"] : []);
   $("#pdf").innerHTML = `
-    <div class="p-cab"><img src="assets/logo-noon.png" alt="noon Clinic">
-      <div class="der"><b>Cotización</b>N.º ${numero}<br>${fecha(hoy)}</div></div>
-    <div class="p-datos">
-      <div><span>Paciente</span><b>${esc(s.nombre)}</b></div>
-      <div><span>Documento</span><b>${esc(s.cedula)}</b></div>
-      <div><span>Procedimiento</span><b>${esc(s.proc)}</b></div>
-      <div><span>Cirujano</span><b>${esc(s.doctor)}</b></div>
+    <div class="p-cab"><img src="assets/logo-noon-claro.png" alt="noon Clinic">
+      <div class="der"><b>Cotización</b>N.º ${numero} · ${fecha(hoy)}</div></div>
+    <div class="p-cuerpo">
+      <div class="p-datos">
+        <div><span>Paciente</span><b>${esc(s.nombre)}</b></div>
+        <div><span>Documento</span><b>${esc(s.cedula)}</b></div>
+        <div><span>Procedimiento</span><b>${esc(s.proc)}</b></div>
+        <div><span>Cirujano</span><b>${esc(s.doctor)}</b></div>
+      </div>
+      <table><thead><tr><th>Concepto</th><th>Valor</th></tr></thead><tbody>
+        ${filas.map(f => `<tr><td>${esc(f[0])}${f[1] ? `<small>${esc(f[1])}</small>` : ""}</td><td>${fmt(f[2])}</td></tr>`).join("")}
+      </tbody></table>
+      <div class="p-total"><span>Total de tu inversión</span><b>${fmt(s.total)}</b></div>
+      <p class="p-vence">Válida hasta el ${fecha(vence)}</p>
+      <div class="p-info">
+        <div><h4>El quirófano incluye</h4><ul>${incluye.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+        <div><h4>Formas de pago</h4><ul>${C.pagos.map(p => `<li><b>${esc(p[0])}.</b> ${esc(p[1])}</li>`).join("")}</ul>
+          <p class="p-terminos">Al abonar aceptas nuestros términos y la política de devoluciones: <a href="${C.terminos}">${C.terminos.replace("https://", "")}</a></p></div>
+      </div>
     </div>
-    <table><thead><tr><th>Concepto</th><th>Valor</th></tr></thead><tbody>
-      ${filas.map(f => `<tr><td>${esc(f[0])}${f[1] ? `<small>${esc(f[1])}</small>` : ""}</td><td>${fmt(f[2])}</td></tr>`).join("")}
-      <tr class="p-total"><td>Total</td><td>${fmt(s.total)}</td></tr>
-    </tbody></table>
-    <div class="p-info">
-      <div><h4>El quirófano incluye</h4><ul>${incluye.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
-      <div><h4>Formas de pago</h4><ul>${C.pagos.map(p => `<li><b>${esc(p[0])}.</b> ${esc(p[1])}</li>`).join("")}</ul></div>
-    </div>
-    <p class="p-terminos">Esta cotización es válida hasta el <b>${fecha(vence)}</b>. Al abonar aceptas nuestros términos y condiciones y la política de devoluciones: <a href="${C.terminos}">${C.terminos.replace("https://", "")}</a></p>
-    <div class="p-pie"><span>noon Clinic · Medellín</span><span>noon.clinic</span></div>`;
+    <div class="p-pie"><span>noon Clinic · Medellín, Colombia</span><span>noon.clinic</span></div>`;
 }
 
 /* ---- correo con todo discriminado ---- */
@@ -422,11 +428,13 @@ $("#descargar").onclick = async () => {
   armarPDF(s, numero, hoy, vence);
   try{
     await document.fonts.ready;
+    window.scrollTo(0, 0);
     await html2pdf().set({
       margin: 0, filename: `Cotizacion noon - ${s.nombre} - ${s.proc}.pdf`.replace(/[\\/:*?"<>|]/g, ""),
-      image: { type: "jpeg", quality: 0.96 }, html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
-      jsPDF: { unit: "px", format: [794, 1123], hotfixes: ["px_scaling"] },
-      pagebreak: { mode: ["avoid-all"] },
+      image: { type: "jpeg", quality: 0.97 },
+      html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollX: 0, scrollY: 0 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+      pagebreak: { mode: ["css"], avoid: ["tr", ".p-total", ".p-info"] },
     }).from($("#pdf")).save();
   }catch(e){ aviso("No se pudo generar el PDF. Intenta de nuevo.", true); b.disabled = false; b.textContent = "Descargar PDF"; return; }
   b.textContent = "Enviando copia…";
