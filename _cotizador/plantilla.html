@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Cotizador · noon Clinic</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fondo:#ffffff; --suave:#F7F4EF; --linea:#E6E0D6; --texto:#28231F; --tenue:#7A7067;
+  --acento:#6D2835; --acento-suave:#F4ECEC; --ok:#2F6B4F; --error:#A23B3B;
+  --radio:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--fondo);color:var(--texto);font:16px/1.5 "Nunito Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Jost,sans-serif;font-weight:400;letter-spacing:.01em}
+button,input,select{font:inherit;color:inherit}
+.oculto{display:none!important}
+
+/* candado */
+#candado{position:fixed;inset:0;background:var(--suave);display:grid;place-items:center;z-index:50;padding:16px}
+#candado form{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:36px 32px;width:100%;max-width:340px;text-align:center}
+#candado img{height:34px;margin-bottom:22px}
+#candado p{color:var(--tenue);font-size:14px;margin-bottom:18px}
+#candado input{width:100%;text-align:center;font-size:24px;letter-spacing:.4em;padding:10px;border:1px solid var(--linea);border-radius:var(--radio);outline:none}
+#candado input:focus{border-color:var(--acento)}
+#candado .mal{color:var(--error);font-size:13px;margin-top:10px;min-height:20px}
+
+/* cabecera */
+header{display:flex;align-items:center;gap:16px;padding:18px 28px;border-bottom:1px solid var(--linea);position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);z-index:5}
+header img{height:26px}
+header h1{font-size:18px;font-weight:400}
+header .etiqueta{margin-left:auto;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue)}
+
+main{max-width:1180px;margin:0 auto;padding:32px 28px 80px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:40px;align-items:start}
+
+/* secciones del formulario */
+.paso{padding:26px 0;border-bottom:1px solid var(--linea)}
+.paso:first-child{padding-top:0}
+.paso h2{font-size:20px;display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.paso h2 span{font-size:13px;color:var(--acento);font-family:"Nunito Sans";font-weight:700}
+.paso .ayuda{color:var(--tenue);font-size:14px;margin-bottom:18px}
+.fila{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px}
+.fila.una{grid-template-columns:1fr}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+label small{font-weight:400;color:var(--tenue)}
+input[type=text],select{width:100%;padding:11px 13px;border:1px solid var(--linea);border-radius:var(--radio);background:#fff;outline:none;transition:border-color .15s}
+select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237A7067' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 14px center;padding-right:36px}
+input:focus,select:focus{border-color:var(--acento)}
+input:disabled,select:disabled{background:var(--suave);color:var(--tenue)}
+.campo.error input,.campo.error select{border-color:var(--error)}
+.dinero{position:relative}
+.dinero input{padding-left:26px;text-align:right;font-variant-numeric:tabular-nums}
+.dinero::before{content:"$";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--tenue)}
+.auto{display:flex;justify-content:space-between;align-items:center;background:var(--suave);border-radius:var(--radio);padding:12px 14px;margin-top:14px;font-size:14px}
+.auto b{font-variant-numeric:tabular-nums;font-weight:700}
+.auto.vacio{color:var(--tenue)}
+
+.extras .extra{display:grid;grid-template-columns:minmax(0,1fr) 170px 40px;gap:10px;margin-bottom:10px}
+.quitar{border:1px solid var(--linea);background:#fff;border-radius:var(--radio);cursor:pointer;color:var(--tenue);font-size:18px}
+.quitar:hover{color:var(--error);border-color:var(--error)}
+.botones{display:flex;flex-wrap:wrap;gap:10px}
+.btn-linea{border:1px dashed var(--linea);background:#fff;border-radius:var(--radio);padding:10px 14px;cursor:pointer;font-size:14px;color:var(--texto)}
+.btn-linea:hover{border-color:var(--acento);color:var(--acento)}
+
+/* resumen */
+aside{position:sticky;top:90px;border:1px solid var(--linea);border-radius:14px;padding:24px}
+aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);font-family:"Nunito Sans";font-weight:700;margin-bottom:14px}
+.linea-r{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:7px 0}
+.linea-r span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap}
+.linea-r.sub{color:var(--tenue);font-size:13px;padding:2px 0 2px 12px}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--linea);margin-top:12px;padding-top:16px}
+.total span:first-child{font-size:14px;font-weight:600}
+.total b{font-family:Jost;font-weight:400;font-size:28px;font-variant-numeric:tabular-nums}
+.nota{font-size:12px;color:var(--tenue);margin-top:14px}
+.btn{width:100%;margin-top:18px;background:var(--acento);color:#fff;border:0;border-radius:var(--radio);padding:14px;font-weight:700;cursor:pointer;font-size:15px}
+.btn:hover{filter:brightness(1.1)}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn-sec{width:100%;margin-top:10px;background:#fff;border:1px solid var(--linea);border-radius:var(--radio);padding:11px;cursor:pointer;font-size:14px}
+.vacio-r{color:var(--tenue);font-size:14px;padding:6px 0}
+
+#aviso{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--texto);color:#fff;padding:12px 18px;border-radius:var(--radio);font-size:14px;opacity:0;transition:.25s;z-index:60;max-width:calc(100% - 32px)}
+#aviso.ver{opacity:1;transform:translateX(-50%)}
+#aviso.mal{background:var(--error)}
+
+@media (max-width:900px){
+  main{grid-template-columns:1fr;padding:22px 16px 60px;gap:28px}
+  aside{position:static}
+  header{padding:14px 16px}
+  header .etiqueta{display:none}
+}
+@media (max-width:560px){
+  .fila{grid-template-columns:1fr}
+  .extras .extra{grid-template-columns:1fr 40px}
+  .extras .extra .dinero{grid-column:1}
+  .extras .extra .quitar{grid-row:1/3;grid-column:2}
+}
+
+/* ---------- PDF (A4 a 794px) ---------- */
+#pdf-caja{position:fixed;left:-10000px;top:0}
+#pdf{width:794px;padding:56px 60px 44px;background:#fff;color:#28231F;font:13px/1.55 "Nunito Sans",sans-serif}
+#pdf .p-cab{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:22px;border-bottom:1px solid #D8D0C3}
+#pdf .p-cab img{height:34px}
+#pdf .p-cab .der{text-align:right;font-size:12px;color:#7A7067}
+#pdf .p-cab .der b{display:block;font-family:Jost;font-weight:400;font-size:22px;color:#28231F;letter-spacing:.02em;margin-bottom:4px}
+#pdf .p-datos{display:grid;grid-template-columns:1fr 1fr;gap:10px 30px;padding:22px 0;border-bottom:1px solid #D8D0C3}
+#pdf .p-datos div span{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7A7067}
+#pdf .p-datos div b{font-weight:600;font-size:14px}
+#pdf table{width:100%;border-collapse:collapse;margin-top:24px}
+#pdf th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7A7067;font-weight:700;text-align:left;padding:0 0 10px;border-bottom:1px solid #28231F}
+#pdf th:last-child,#pdf td:last-child{text-align:right;white-space:nowrap}
+#pdf td{padding:12px 0;border-bottom:1px solid #EAE4DA;vertical-align:top}
+#pdf td small{display:block;color:#7A7067;font-size:11.5px}
+#pdf .p-total td{border-bottom:0;padding-top:18px}
+#pdf .p-total td:first-child{font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+#pdf .p-total td:last-child{font-family:Jost;font-size:24px;color:#6D2835}
+#pdf .p-info{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:30px;padding-top:24px;border-top:1px solid #D8D0C3}
+#pdf h4{font-family:Jost;font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+#pdf ul{list-style:none}
+#pdf li{padding-left:14px;position:relative;margin-bottom:4px;font-size:12px}
+#pdf li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:1px;background:#6D2835}
+#pdf .p-terminos{margin-top:22px;font-size:11.5px;color:#7A7067}
+#pdf .p-terminos a{color:#6D2835}
+#pdf .p-pie{margin-top:34px;padding-top:14px;border-top:1px solid #D8D0C3;font-size:11px;color:#7A7067;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<div id="candado">
+  <form id="f-candado" autocomplete="off">
+    <img src="assets/logo-noon.png" alt="noon Clinic">
+    <p>Cotizador interno. Escribe el código.</p>
+    <input id="codigo" type="password" inputmode="numeric" maxlength="6" autofocus>
+    <div class="mal" id="codigo-mal"></div>
+  </form>
+</div>
+
+<header>
+  <img src="assets/logo-noon.png" alt="noon Clinic">
+  <h1>Cotizador de cirugía</h1>
+  <span class="etiqueta">Uso interno</span>
+</header>
+
+<main>
+  <div>
+    <section class="paso">
+      <h2><span>01</span>Paciente</h2>
+      <p class="ayuda">Así sale en el PDF.</p>
+      <div class="fila">
+        <div class="campo"><label for="nombre">Nombre completo</label><input id="nombre" type="text" autocomplete="off"></div>
+        <div class="campo"><label for="cedula">Cédula o documento</label><input id="cedula" type="text" autocomplete="off"></div>
+        <div class="campo"><label for="doctor">Cirujano que opera</label><select id="doctor"></select></div>
+        <div class="campo oculto" id="c-doctor-otro"><label for="doctor-otro">Nombre del cirujano</label><input id="doctor-otro" type="text"></div>
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2><span>02</span>Cirugía y quirófano</h2>
+      <p class="ayuda">Tarifario Quirófanos 2 Sur 2026. El precio del quirófano y el del instrumentador salen solos.</p>
+      <div class="fila">
+        <div class="campo"><label for="proc">Procedimiento</label><select id="proc"><option value="">Elige el procedimiento</option></select></div>
+        <div class="campo"><label for="tiempo">Tiempo de quirófano</label><select id="tiempo" disabled><option value="">Primero elige el procedimiento</option></select></div>
+      </div>
+      <div class="auto vacio" id="auto-q"><span>Quirófano</span><b>—</b></div>
+      <div class="auto vacio" id="auto-i" style="margin-top:8px"><span>Instrumentador <small>(200.000 por hora)</small></span><b>—</b></div>
+    </section>
+
+    <section class="paso">
+      <h2><span>03</span>Implantes</h2>
+      <p class="ayuda">Los mamarios ya traen el precio por par con el descuento. Para glúteos, pantorrilla u otros escribes el valor.</p>
+      <div class="fila">
+        <div class="campo"><label for="imp-tipo">Tipo de implante</label>
+          <select id="imp-tipo">
+            <option value="">Sin implantes</option>
+            <option value="mamario">Mamarios</option>
+            <option value="gluteo">Glúteos</option>
+            <option value="pantorrilla">Pantorrilla</option>
+            <option value="otro">Otro</option>
+          </select></div>
+        <div class="campo oculto" id="c-imp-modelo"><label for="imp-modelo">Modelo (precio por par)</label><select id="imp-modelo"></select></div>
+        <div class="campo oculto" id="c-imp-desc"><label for="imp-desc">Referencia <small>(opcional)</small></label><input id="imp-desc" type="text" placeholder="Ej: redondos 350 cc"></div>
+        <div class="campo oculto" id="c-imp-valor"><label for="imp-valor">Valor</label><div class="dinero"><input id="imp-valor" type="text" inputmode="numeric" data-dinero></div></div>
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2><span>04</span>Honorarios</h2>
+      <p class="ayuda">En el PDF del paciente los dos van sumados como “Honorarios del cirujano”. En tu correo llegan separados.</p>
+      <div class="fila">
+        <div class="campo"><label for="hon-doc">Honorarios del doctor</label><div class="dinero"><input id="hon-doc" type="text" inputmode="numeric" data-dinero></div></div>
+        <div class="campo"><label for="hon-cli">Ganancia de la clínica</label><div class="dinero"><input id="hon-cli" type="text" inputmode="numeric" data-dinero></div></div>
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2><span>05</span>Otros elementos</h2>
+      <p class="ayuda">Lo que haga falta: fajas, exámenes, hospitalización, medicamentos… Cada uno se suma al total.</p>
+      <div class="extras" id="extras"></div>
+      <div class="botones">
+        <button type="button" class="btn-linea" id="add-extra">+ Agregar elemento</button>
+        <button type="button" class="btn-linea" id="add-hosp">+ Noche de hospitalización</button>
+      </div>
+    </section>
+  </div>
+
+  <aside>
+    <h3>Resumen</h3>
+    <div id="resumen"></div>
+    <div class="total"><span>Total paciente</span><b id="total">$0</b></div>
+    <button class="btn" id="descargar">Descargar PDF</button>
+    <button class="btn-sec" id="nueva">Nueva cotización</button>
+    <p class="nota">Al descargar, te llega una copia con todo discriminado a <span id="correo-nota"></span>.</p>
+  </aside>
+</main>
+
+<div id="aviso"></div>
+<div id="pdf-caja"><div id="pdf"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+const C = /*CONFIG*/{};
+const $ = s => document.querySelector(s);
+const fmt = n => "$" + Math.round(n || 0).toLocaleString("es-CO");
+const num = v => parseInt(String(v || "").replace(/\D/g, ""), 10) || 0;
+const esc = s => String(s || "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const horas = h => (h % 1 ? String(h).replace(".", ",") : h) + (h === 1 ? " hora" : " horas");
+
+/* ---- candado ---- */
+function abrir(){ $("#candado").classList.add("oculto"); try{ sessionStorage.setItem("noon-cot", "1"); }catch(e){} }
+try{ if (sessionStorage.getItem("noon-cot") === "1") abrir(); }catch(e){}
+$("#f-candado").addEventListener("submit", e => e.preventDefault());
+$("#codigo").addEventListener("input", e => {
+  const v = e.target.value;
+  if (v === C.codigo) abrir();
+  else $("#codigo-mal").textContent = v.length >= C.codigo.length ? "Código incorrecto" : "";
+});
+
+/* ---- llenar listas ---- */
+$("#correo-nota").textContent = C.correo;
+$("#doctor").innerHTML = C.doctores.map(d => `<option>${esc(d)}</option>`).join("") + `<option value="otro">Otro cirujano…</option>`;
+$("#proc").innerHTML += Object.keys(C.tarifas).map(p => `<option>${esc(p)}</option>`).join("");
+$("#imp-modelo").innerHTML = C.mamarios.map((m, i) => `<option value="${i}">${esc(m.modelo)} · ${fmt(m.precio)}</option>`).join("");
+
+/* ---- dinero con puntos mientras se escribe ---- */
+document.addEventListener("input", e => {
+  if (!e.target.matches("[data-dinero]")) return;
+  const n = num(e.target.value);
+  e.target.value = n ? n.toLocaleString("es-CO") : "";
+});
+
+/* ---- procedimiento → tiempos ---- */
+$("#proc").addEventListener("change", () => {
+  const p = C.tarifas[$("#proc").value], t = $("#tiempo");
+  if (!p){ t.disabled = true; t.innerHTML = `<option value="">Primero elige el procedimiento</option>`; }
+  else { t.disabled = false; t.innerHTML = `<option value="">Elige el tiempo</option>` + p.tiempos.map(([h, v], i) => `<option value="${i}">${horas(h)} · ${fmt(v)}</option>`).join(""); }
+  calcular();
+});
+
+/* ---- implantes ---- */
+$("#imp-tipo").addEventListener("change", () => {
+  const t = $("#imp-tipo").value;
+  $("#c-imp-modelo").classList.toggle("oculto", t !== "mamario");
+  $("#c-imp-desc").classList.toggle("oculto", !t || t === "mamario");
+  $("#c-imp-valor").classList.toggle("oculto", !t || t === "mamario");
+  $("#imp-desc").placeholder = t === "otro" ? "Ej: implante de mentón" : "Ej: referencia o volumen";
+  calcular();
+});
+$("#doctor").addEventListener("change", () => { $("#c-doctor-otro").classList.toggle("oculto", $("#doctor").value !== "otro"); });
+
+/* ---- otros elementos ---- */
+function agregarExtra(desc = "", valor = 0){
+  const d = document.createElement("div");
+  d.className = "extra";
+  d.innerHTML = `<input type="text" class="ex-desc" placeholder="Descripción" value="${esc(desc)}">
+    <div class="dinero"><input type="text" class="ex-valor" inputmode="numeric" data-dinero value="${valor ? valor.toLocaleString("es-CO") : ""}"></div>
+    <button type="button" class="quitar" title="Quitar">×</button>`;
+  d.querySelector(".quitar").onclick = () => { d.remove(); calcular(); };
+  $("#extras").appendChild(d);
+  if (!desc) d.querySelector(".ex-desc").focus();
+  calcular();
+}
+$("#add-extra").onclick = () => agregarExtra();
+$("#add-hosp").onclick = () => agregarExtra("Noche de hospitalización (habitación individual)", C.hospitalizacion);
+
+/* ---- cálculo ---- */
+function leer(){
+  const nombreProc = $("#proc").value, p = C.tarifas[nombreProc], ti = $("#tiempo").value;
+  const q = p && ti !== "" ? { h: p.tiempos[ti][0], v: p.tiempos[ti][1] } : null;
+  const tipo = $("#imp-tipo").value;
+  let imp = null;
+  if (tipo === "mamario"){ const m = C.mamarios[$("#imp-modelo").value]; imp = { nombre: "Implantes mamarios (par)", detalle: m.modelo + " · ref. " + m.codigo, v: m.precio }; }
+  else if (tipo){
+    const nombres = { gluteo: "Implantes de glúteos", pantorrilla: "Implantes de pantorrilla", otro: "Implante" };
+    imp = { nombre: nombres[tipo], detalle: $("#imp-desc").value.trim(), v: num($("#imp-valor").value) };
+  }
+  const extras = [...document.querySelectorAll(".extra")].map(x => ({ d: x.querySelector(".ex-desc").value.trim(), v: num(x.querySelector(".ex-valor").value) })).filter(x => x.d || x.v);
+  const doc = num($("#hon-doc").value), cli = num($("#hon-cli").value);
+  const instr = q ? q.h * C.instrumentador : 0;
+  const total = (q ? q.v : 0) + instr + (imp ? imp.v : 0) + doc + cli + extras.reduce((s, x) => s + x.v, 0);
+  return {
+    nombre: $("#nombre").value.trim(), cedula: $("#cedula").value.trim(),
+    doctor: $("#doctor").value === "otro" ? $("#doctor-otro").value.trim() : $("#doctor").value,
+    proc: nombreProc, anestesia: p ? p.anestesia : "", q, instr, imp, doc, cli, extras, total,
+  };
+}
+
+function calcular(){
+  const s = leer();
+  const aq = $("#auto-q"), ai = $("#auto-i");
+  aq.classList.toggle("vacio", !s.q); ai.classList.toggle("vacio", !s.q);
+  aq.querySelector("b").textContent = s.q ? fmt(s.q.v) : "—";
+  ai.querySelector("b").textContent = s.q ? fmt(s.instr) + " · " + horas(s.q.h) : "—";
+
+  let r = "";
+  if (s.q){ r += linea("Quirófano · " + horas(s.q.h), s.q.v) + linea("Instrumentador", s.instr); }
+  if (s.imp) r += linea(s.imp.nombre, s.imp.v);
+  if (s.doc || s.cli){
+    r += linea("Honorarios del cirujano", s.doc + s.cli);
+    r += `<div class="linea-r sub"><span>Doctor</span><span>${fmt(s.doc)}</span></div><div class="linea-r sub"><span>Clínica</span><span>${fmt(s.cli)}</span></div>`;
+  }
+  s.extras.forEach(x => r += linea(x.d || "Elemento", x.v));
+  $("#resumen").innerHTML = r || `<p class="vacio-r">Elige el procedimiento para empezar.</p>`;
+  $("#total").textContent = fmt(s.total);
+  return s;
+}
+const linea = (a, b) => `<div class="linea-r"><span>${esc(a)}</span><span>${fmt(b)}</span></div>`;
+document.addEventListener("input", calcular);
+document.addEventListener("change", e => { if (e.target.matches("input,select")) calcular(); });
+
+/* ---- validar ---- */
+function validar(s){
+  const faltan = [];
+  const marca = (id, mal, txt) => { const c = $(id).closest(".campo"); c.classList.toggle("error", mal); if (mal) faltan.push(txt); };
+  marca("#nombre", !s.nombre, "nombre");
+  marca("#cedula", !s.cedula, "cédula");
+  marca("#proc", !s.proc, "procedimiento");
+  marca("#tiempo", !s.q, "tiempo de quirófano");
+  marca("#hon-doc", !s.doc, "honorarios del doctor");
+  if ($("#doctor").value === "otro") marca("#doctor-otro", !s.doctor, "cirujano");
+  if (s.imp && $("#imp-tipo").value !== "mamario") marca("#imp-valor", !s.imp.v, "valor del implante");
+  return faltan;
+}
+
+/* ---- PDF ---- */
+const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const fecha = d => d.getDate() + " de " + MESES[d.getMonth()] + " de " + d.getFullYear();
+const dos = n => String(n).padStart(2, "0");
+
+function armarPDF(s, numero, hoy, vence){
+  const filas = [];
+  filas.push([`Quirófano · Quirófanos 2 Sur`, `${horas(s.q.h)} · anestesia ${s.anestesia}`, s.q.v]);
+  filas.push([`Instrumentador quirúrgico`, horas(s.q.h), s.instr]);
+  if (s.imp) filas.push([s.imp.nombre, s.imp.detalle, s.imp.v]);
+  filas.push([`Honorarios del cirujano`, s.doctor, s.doc + s.cli]);
+  s.extras.forEach(x => filas.push([x.d || "Otro", "", x.v]));
+  const incluye = C.incluye.concat(/abdominoplastia/i.test(s.proc) ? ["Exovac o reservorio (1 unidad)"] : []);
+  $("#pdf").innerHTML = `
+    <div class="p-cab"><img src="assets/logo-noon.png" alt="noon Clinic">
+      <div class="der"><b>Cotización</b>N.º ${numero}<br>${fecha(hoy)}</div></div>
+    <div class="p-datos">
+      <div><span>Paciente</span><b>${esc(s.nombre)}</b></div>
+      <div><span>Documento</span><b>${esc(s.cedula)}</b></div>
+      <div><span>Procedimiento</span><b>${esc(s.proc)}</b></div>
+      <div><span>Cirujano</span><b>${esc(s.doctor)}</b></div>
+    </div>
+    <table><thead><tr><th>Concepto</th><th>Valor</th></tr></thead><tbody>
+      ${filas.map(f => `<tr><td>${esc(f[0])}${f[1] ? `<small>${esc(f[1])}</small>` : ""}</td><td>${fmt(f[2])}</td></tr>`).join("")}
+      <tr class="p-total"><td>Total</td><td>${fmt(s.total)}</td></tr>
+    </tbody></table>
+    <div class="p-info">
+      <div><h4>El quirófano incluye</h4><ul>${incluye.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+      <div><h4>Formas de pago</h4><ul>${C.pagos.map(p => `<li><b>${esc(p[0])}.</b> ${esc(p[1])}</li>`).join("")}</ul></div>
+    </div>
+    <p class="p-terminos">Esta cotización es válida hasta el <b>${fecha(vence)}</b>. Al abonar aceptas nuestros términos y condiciones y la política de devoluciones: <a href="${C.terminos}">${C.terminos.replace("https://", "")}</a></p>
+    <div class="p-pie"><span>noon Clinic · Medellín</span><span>noon.clinic</span></div>`;
+}
+
+/* ---- correo con todo discriminado ---- */
+let ultimoEnvio = "";
+async function enviarCorreo(s, numero, hoy, vence){
+  const datos = {
+    _subject: `Cotización ${numero} · ${s.nombre} · ${s.proc} · ${fmt(s.total)}`,
+    _template: "table", _captcha: "false",
+    "Número": numero, "Fecha": fecha(hoy), "Válida hasta": fecha(vence),
+    "Paciente": s.nombre, "Documento": s.cedula, "Cirujano": s.doctor,
+    "Procedimiento": s.proc, "Anestesia": s.anestesia, "Tiempo de quirófano": horas(s.q.h),
+    "Quirófano (Q2 Sur)": fmt(s.q.v),
+    "Instrumentador": fmt(s.instr) + " (" + horas(s.q.h) + " × " + fmt(C.instrumentador) + ")",
+    "Implantes": s.imp ? `${s.imp.nombre}${s.imp.detalle ? " · " + s.imp.detalle : ""} · ${fmt(s.imp.v)}` : "Sin implantes",
+    "Honorarios del doctor": fmt(s.doc),
+    "Ganancia de la clínica": fmt(s.cli),
+    "Honorarios en el PDF (doctor + clínica)": fmt(s.doc + s.cli),
+  };
+  s.extras.forEach((x, i) => datos["Otro " + (i + 1) + ": " + (x.d || "sin descripción")] = fmt(x.v));
+  datos["TOTAL PACIENTE"] = fmt(s.total);
+  const firma = JSON.stringify(Object.assign({}, datos, { "Número": "", "_subject": "" }));
+  if (firma === ultimoEnvio) return "repetida";
+  const r = await fetch("https://formsubmit.co/ajax/" + C.correo, {
+    method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(datos),
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok || String(j.success) === "false") throw new Error(j.message || "error");
+  ultimoEnvio = firma;
+  return "ok";
+}
+
+function aviso(t, mal){
+  const a = $("#aviso"); a.textContent = t; a.classList.toggle("mal", !!mal); a.classList.add("ver");
+  clearTimeout(aviso.t); aviso.t = setTimeout(() => a.classList.remove("ver"), 4500);
+}
+
+$("#descargar").onclick = async () => {
+  const s = calcular(), faltan = validar(s);
+  if (faltan.length){ aviso("Falta: " + faltan.join(", "), true); return; }
+  const b = $("#descargar"); b.disabled = true; b.textContent = "Generando…";
+  const hoy = new Date(), vence = new Date(hoy); vence.setMonth(vence.getMonth() + C.vigencia);
+  const numero = "NC-" + String(hoy.getFullYear()).slice(2) + dos(hoy.getMonth() + 1) + dos(hoy.getDate()) + "-" + dos(hoy.getHours()) + dos(hoy.getMinutes());
+  armarPDF(s, numero, hoy, vence);
+  try{
+    await document.fonts.ready;
+    await html2pdf().set({
+      margin: 0, filename: `Cotizacion noon - ${s.nombre} - ${s.proc}.pdf`.replace(/[\\/:*?"<>|]/g, ""),
+      image: { type: "jpeg", quality: 0.96 }, html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+      jsPDF: { unit: "px", format: [794, 1123], hotfixes: ["px_scaling"] },
+      pagebreak: { mode: ["avoid-all"] },
+    }).from($("#pdf")).save();
+  }catch(e){ aviso("No se pudo generar el PDF. Intenta de nuevo.", true); b.disabled = false; b.textContent = "Descargar PDF"; return; }
+  b.textContent = "Enviando copia…";
+  try{
+    const r = await enviarCorreo(s, numero, hoy, vence);
+    aviso(r === "repetida" ? "PDF descargado (esta misma cotización ya estaba en tu correo)" : "PDF descargado y copia enviada a tu correo");
+  }catch(e){ aviso("El PDF se descargó, pero no se pudo enviar el correo.", true); }
+  b.disabled = false; b.textContent = "Descargar PDF";
+};
+
+$("#nueva").onclick = () => {
+  if (!confirm("¿Borrar todo y empezar una cotización nueva?")) return;
+  document.querySelectorAll("main input").forEach(i => i.value = "");
+  document.querySelectorAll("main select").forEach(s => s.selectedIndex = 0);
+  $("#extras").innerHTML = ""; $("#imp-tipo").dispatchEvent(new Event("change")); $("#proc").dispatchEvent(new Event("change"));
+  $("#doctor").dispatchEvent(new Event("change"));
+  document.querySelectorAll(".campo.error").forEach(c => c.classList.remove("error"));
+  window.scrollTo(0, 0);
+};
+
+calcular();
+</script>
+</body>
+</html>

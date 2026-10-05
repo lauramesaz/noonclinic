@@ -751,3 +751,5 @@ print("Listo. %d páginas · %d cirugías · %d tratamientos · %d preguntas." %
 # ================================================================ CAPACITACIÓN COMERCIAL (interna, con código)
 from capacitacion import generar as _capacitacion
 print("Capacitación comercial: %d procedimientos." % _capacitacion())
+from cotizador import generar as _cotizador
+print("Cotizador interno: %d procedimientos." % _cotizador())
