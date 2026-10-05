@@ -385,31 +385,24 @@ function armarPDF(s, numero, hoy, vence){
     <div class="p-pie"><span>noon Clinic · Medellín, Colombia</span><span>noon.clinic</span></div>`;
 }
 
-/* ---- correo con todo discriminado ---- */
+/* ---- correo con todo discriminado (diseño noon + PDF adjunto, vía noon-cotizador-correo en Vercel) ---- */
 let ultimoEnvio = "";
-async function enviarCorreo(s, numero, hoy, vence){
+async function enviarCorreo(s, numero, hoy, vence, pdf, archivo){
   const datos = {
-    _subject: `Cotización ${numero} · ${s.nombre} · ${s.proc} · ${fmt(s.total)}`,
-    _template: "table", _captcha: "false",
-    "Número": numero, "Fecha": fecha(hoy), "Válida hasta": fecha(vence),
-    "Paciente": s.nombre, "Documento": s.cedula, "Cirujano": s.doctor,
-    "Procedimiento": s.proc, "Anestesia": s.anestesia, "Tiempo de quirófano": horas(s.q.h),
-    "Quirófano (Q2 Sur)": fmt(s.q.v),
-    "Instrumentador": fmt(s.instr) + " (" + horas(s.q.h) + " × " + fmt(C.instrumentador) + ")",
-    "Implantes": s.imp ? `${s.imp.nombre}${s.imp.detalle ? " · " + s.imp.detalle : ""} · ${fmt(s.imp.v)}` : "Sin implantes",
-    "Honorarios del doctor": fmt(s.doc),
-    "Ganancia de la clínica": fmt(s.cli),
-    "Honorarios en el PDF (doctor + clínica)": fmt(s.doc + s.cli),
+    numero, fecha: fecha(hoy), vence: fecha(vence),
+    paciente: s.nombre, documento: s.cedula, cirujano: s.doctor,
+    procedimiento: s.proc, anestesia: s.anestesia, horas: horas(s.q.h),
+    quirofano: s.q.v, instrumentador: s.instr, instrumentadorHora: C.instrumentador,
+    implante: s.imp ? { nombre: s.imp.nombre, detalle: s.imp.detalle, valor: s.imp.v } : null,
+    honorariosDoctor: s.doc, gananciaClinica: s.cli, extras: s.extras, total: s.total,
   };
-  s.extras.forEach((x, i) => datos["Otro " + (i + 1) + ": " + (x.d || "sin descripción")] = fmt(x.v));
-  datos["TOTAL PACIENTE"] = fmt(s.total);
-  const firma = JSON.stringify(Object.assign({}, datos, { "Número": "", "_subject": "" }));
+  const firma = JSON.stringify(Object.assign({}, datos, { numero: "" }));
   if (firma === ultimoEnvio) return "repetida";
-  const r = await fetch("https://formsubmit.co/ajax/" + C.correo, {
-    method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(datos),
+  const r = await fetch(C.envio, {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.assign(datos, { pdf, archivo })),
   });
   const j = await r.json().catch(() => ({}));
-  if (!r.ok || String(j.success) === "false") throw new Error(j.message || "error");
+  if (!r.ok || !j.ok) throw new Error(j.error || "error");
   ultimoEnvio = firma;
   return "ok";
 }
@@ -426,20 +419,24 @@ $("#descargar").onclick = async () => {
   const hoy = new Date(), vence = new Date(hoy); vence.setMonth(vence.getMonth() + C.vigencia);
   const numero = "NC-" + String(hoy.getFullYear()).slice(2) + dos(hoy.getMonth() + 1) + dos(hoy.getDate()) + "-" + dos(hoy.getHours()) + dos(hoy.getMinutes());
   armarPDF(s, numero, hoy, vence);
+  let archivo = "", pdf = "";
   try{
     await document.fonts.ready;
     window.scrollTo(0, 0);
-    await html2pdf().set({
-      margin: 0, filename: `Cotizacion noon - ${s.nombre} - ${s.proc}.pdf`.replace(/[\\/:*?"<>|]/g, ""),
+    archivo = `Cotizacion noon - ${s.nombre} - ${s.proc}.pdf`.replace(/[\\/:*?"<>|]/g, "");
+    const doc = await html2pdf().set({
+      margin: 0, filename: archivo,
       image: { type: "jpeg", quality: 0.97 },
       html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollX: 0, scrollY: 0 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
       pagebreak: { mode: ["css"], avoid: ["tr", ".p-total", ".p-info"] },
-    }).from($("#pdf")).save();
+    }).from($("#pdf")).toPdf().get("pdf");
+    doc.save(archivo);
+    pdf = doc.output("datauristring").split(",")[1];
   }catch(e){ aviso("No se pudo generar el PDF. Intenta de nuevo.", true); b.disabled = false; b.textContent = "Descargar PDF"; return; }
   b.textContent = "Enviando copia…";
   try{
-    const r = await enviarCorreo(s, numero, hoy, vence);
+    const r = await enviarCorreo(s, numero, hoy, vence, pdf, archivo);
     aviso(r === "repetida" ? "PDF descargado (esta misma cotización ya estaba en tu correo)" : "PDF descargado y copia enviada a tu correo");
   }catch(e){ aviso("El PDF se descargó, pero no se pudo enviar el correo.", true); }
   b.disabled = false; b.textContent = "Descargar PDF";

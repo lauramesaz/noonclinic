@@ -5,7 +5,8 @@ import os, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 CODIGO = "111"
-CORREO = "lauramesazuluaga@gmail.com"  # aquí llega cada cotización con todo discriminado (vía FormSubmit)
+CORREO = "lauramesazuluaga@gmail.com"  # aquí llega cada cotización con todo discriminado y el PDF adjunto
+ENVIO = "https://noon-cotizador-correo.vercel.app/api/enviar"  # proyecto ~/noon-cotizador-correo (Vercel personal + Resend)
 
 INSTRUMENTADOR_HORA = 200000
 HOSPITALIZACION_NOCHE = 1380000  # habitación individual, tarifa Q2 2026
@@ -38,7 +39,7 @@ TERMINOS = "https://noon.clinic/terminos-y-condiciones#t4"
 def generar():
     tarifas = json.load(open(os.path.join(AQUI, "_cotizador", "tarifas-q2-2026.json"), encoding="utf-8"))
     config = {
-        "codigo": CODIGO, "correo": CORREO, "instrumentador": INSTRUMENTADOR_HORA,
+        "codigo": CODIGO, "correo": CORREO, "envio": ENVIO, "instrumentador": INSTRUMENTADOR_HORA,
         "hospitalizacion": HOSPITALIZACION_NOCHE, "vigencia": VIGENCIA_MESES, "doctores": DOCTORES,
         "tarifas": tarifas, "mamarios": IMPLANTES_MAMARIOS, "incluye": QUIROFANO_INCLUYE,
         "pagos": PAGOS, "terminos": TERMINOS,
