@@ -22,7 +22,7 @@ Siempre se escribe ES + EN. Prioridad: de arriba a abajo.
 | B4 | qué llevar para operarme en Medellín | what to pack for plastic surgery in Colombia | publicado 2026-10-04 |
 | B5 | recuperación de cirugía plástica en Medellín: dónde quedarse | where to stay in Medellin to recover after surgery | publicado 2026-10-05 |
 | B6 | controles después de operarme en Colombia al volver a EE. UU. | follow-up care at home after surgery in Colombia | publicado 2026-10-06 |
-| B7 | viajar acompañada a una cirugía en Colombia | traveling with a companion for surgery abroad | pendiente |
+| B7 | viajar acompañada a una cirugía en Colombia | traveling with a companion for surgery abroad | publicado 2026-10-07 |
 
 ## C. Seguridad (clave en inglés)
 | # | Keyword ES | Keyword EN | Estado |
