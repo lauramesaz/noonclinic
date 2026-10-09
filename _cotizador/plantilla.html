@@ -67,6 +67,15 @@ input:disabled,select:disabled{background:var(--suave);color:var(--tenue)}
 .btn-linea{border:1px dashed var(--linea);background:#fff;border-radius:var(--radio);padding:10px 14px;cursor:pointer;font-size:14px;color:var(--texto)}
 .btn-linea:hover{border-color:var(--acento);color:var(--acento)}
 
+/* sede */
+.sede{display:flex;align-items:center;gap:16px;padding-bottom:22px;margin-bottom:4px;border-bottom:1px solid var(--linea)}
+.sede span{font-size:13px;font-weight:600}
+.sede-op{display:inline-flex;background:var(--suave);border-radius:999px;padding:4px}
+.sede-op button{border:0;background:transparent;padding:9px 22px;border-radius:999px;cursor:pointer;font-size:14px;color:var(--tenue);font-weight:600}
+.sede-op button.activa{background:var(--acento);color:#fff}
+.horas-ins{display:flex;align-items:center;gap:8px}
+.horas-ins input{width:70px;padding:6px 8px;border:1px solid var(--linea);border-radius:8px;text-align:center;background:#fff}
+
 /* resumen */
 aside{position:sticky;top:90px;border:1px solid var(--linea);border-radius:14px;padding:24px}
 aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);font-family:"Nunito Sans";font-weight:700;margin-bottom:14px}
@@ -150,6 +159,9 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
 
 <main>
   <div>
+    <div class="sede"><span>Sede</span>
+      <div class="sede-op" id="sede"><button type="button" data-sede="medellin" class="activa">Medellín</button><button type="button" data-sede="bogota">Bogotá</button></div>
+    </div>
     <section class="paso">
       <h2><span>01</span>Paciente</h2>
       <p class="ayuda">Así sale en el PDF.</p>
@@ -163,13 +175,13 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
 
     <section class="paso">
       <h2><span>02</span>Cirugía y quirófano</h2>
-      <p class="ayuda">Tarifario Quirófanos 2 Sur 2026. El precio del quirófano y el del instrumentador salen solos.</p>
+      <p class="ayuda" id="ayuda-q"></p>
       <div class="fila">
         <div class="campo"><label for="proc">Procedimiento</label><select id="proc"><option value="">Elige el procedimiento</option></select></div>
-        <div class="campo"><label for="tiempo">Tiempo de quirófano</label><select id="tiempo" disabled><option value="">Primero elige el procedimiento</option></select></div>
+        <div class="campo"><label for="tiempo">Tiempo y anestesia</label><select id="tiempo" disabled><option value="">Primero elige el procedimiento</option></select></div>
       </div>
       <div class="auto vacio" id="auto-q"><span>Quirófano</span><b>—</b></div>
-      <div class="auto vacio" id="auto-i" style="margin-top:8px"><span>Instrumentador <small>(200.000 por hora)</small></span><b>—</b></div>
+      <div class="auto vacio" id="auto-i" style="margin-top:8px"><span class="horas-ins">Instrumentador <input id="instr-h" type="text" inputmode="decimal" placeholder="0"> horas <small>(200.000 c/u)</small></span><b>—</b></div>
     </section>
 
     <section class="paso">
@@ -203,9 +215,8 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
       <h2><span>05</span>Otros elementos</h2>
       <p class="ayuda">Lo que haga falta: fajas, exámenes, hospitalización, medicamentos… Cada uno se suma al total.</p>
       <div class="extras" id="extras"></div>
-      <div class="botones">
+      <div class="botones" id="rapidos">
         <button type="button" class="btn-linea" id="add-extra">+ Agregar elemento</button>
-        <button type="button" class="btn-linea" id="add-hosp">+ Noche de hospitalización</button>
       </div>
     </section>
   </div>
@@ -245,7 +256,22 @@ $("#codigo").addEventListener("input", e => {
 /* ---- llenar listas ---- */
 $("#correo-nota").textContent = C.correo;
 $("#doctor").innerHTML = C.doctores.map(d => `<option>${esc(d)}</option>`).join("") + `<option value="otro">Otro cirujano…</option>`;
-$("#proc").innerHTML += Object.keys(C.tarifas).map(p => `<option>${esc(p)}</option>`).join("");
+let SEDE = "medellin";
+const S = () => C.sedes[SEDE];
+const horasDe = h => h == null ? "" : horas(h);
+function ponerSede(id){
+  SEDE = id;
+  document.querySelectorAll("#sede button").forEach(b => b.classList.toggle("activa", b.dataset.sede === id));
+  $("#proc").innerHTML = `<option value="">Elige el procedimiento</option>` + Object.keys(S().tarifas).map(p => `<option>${esc(p)}</option>`).join("");
+  $("#ayuda-q").textContent = `Tarifario ${S().quirofano} 2026 (sede ${S().nombre}). El precio del quirófano y el del instrumentador salen solos.`;
+  document.querySelectorAll(".btn-rapido").forEach(b => b.remove());
+  S().rapidos.forEach(([d, v]) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "btn-linea btn-rapido";
+    b.textContent = "+ " + d; b.onclick = () => agregarExtra(d, v); $("#rapidos").appendChild(b);
+  });
+  $("#proc").dispatchEvent(new Event("change"));
+}
+document.querySelectorAll("#sede button").forEach(b => b.onclick = () => { if (b.dataset.sede !== SEDE) ponerSede(b.dataset.sede); });
 $("#imp-modelo").innerHTML = C.mamarios.map((m, i) => `<option value="${i}">${esc(m.modelo)} · ${fmt(m.precio)}</option>`).join("");
 
 /* ---- dinero con puntos mientras se escribe ---- */
@@ -257,9 +283,15 @@ document.addEventListener("input", e => {
 
 /* ---- procedimiento → tiempos ---- */
 $("#proc").addEventListener("change", () => {
-  const p = C.tarifas[$("#proc").value], t = $("#tiempo");
+  const p = S().tarifas[$("#proc").value], t = $("#tiempo");
   if (!p){ t.disabled = true; t.innerHTML = `<option value="">Primero elige el procedimiento</option>`; }
-  else { t.disabled = false; t.innerHTML = `<option value="">Elige el tiempo</option>` + p.tiempos.map(([h, v], i) => `<option value="${i}">${horas(h)} · ${fmt(v)}</option>`).join(""); }
+  else {
+    t.disabled = false;
+    t.innerHTML = `<option value="">Elige</option>` + p.map(([h, a, v], i) => `<option value="${i}">${h == null ? "Precio fijo" : horas(h) + " · anestesia " + a} · ${fmt(v)}</option>`).join("");
+    if (p.length === 1) t.value = "0";
+  }
+  $("#instr-h").value = "";
+  if (t.value !== "") $("#tiempo").dispatchEvent(new Event("change"));
   calcular();
 });
 
@@ -287,12 +319,17 @@ function agregarExtra(desc = "", valor = 0){
   calcular();
 }
 $("#add-extra").onclick = () => agregarExtra();
-$("#add-hosp").onclick = () => agregarExtra("Noche de hospitalización (habitación individual)", C.hospitalizacion);
+$("#tiempo").addEventListener("change", () => {
+  const p = S().tarifas[$("#proc").value], o = p && $("#tiempo").value !== "" ? p[$("#tiempo").value] : null;
+  $("#instr-h").value = o && o[0] != null ? String(o[0]).replace(".", ",") : "";
+  calcular();
+});
 
 /* ---- cálculo ---- */
 function leer(){
-  const nombreProc = $("#proc").value, p = C.tarifas[nombreProc], ti = $("#tiempo").value;
-  const q = p && ti !== "" ? { h: p.tiempos[ti][0], v: p.tiempos[ti][1] } : null;
+  const nombreProc = $("#proc").value, p = S().tarifas[nombreProc], ti = $("#tiempo").value;
+  const q = p && ti !== "" ? { h: p[ti][0], a: p[ti][1], v: p[ti][2] } : null;
+  const hi = parseFloat(($("#instr-h").value || "").replace(",", ".")) || 0;
   const tipo = $("#imp-tipo").value;
   let imp = null;
   if (tipo === "mamario"){ const m = C.mamarios[$("#imp-modelo").value]; imp = { nombre: "Implantes mamarios (par)", detalle: m.modelo + " · ref. " + m.codigo, v: m.precio }; }
@@ -302,12 +339,12 @@ function leer(){
   }
   const extras = [...document.querySelectorAll(".extra")].map(x => ({ d: x.querySelector(".ex-desc").value.trim(), v: num(x.querySelector(".ex-valor").value) })).filter(x => x.d || x.v);
   const doc = num($("#hon-doc").value), cli = num($("#hon-cli").value);
-  const instr = q ? q.h * C.instrumentador : 0;
+  const instr = q ? hi * C.instrumentador : 0;
   const total = (q ? q.v : 0) + instr + (imp ? imp.v : 0) + doc + cli + extras.reduce((s, x) => s + x.v, 0);
   return {
     nombre: $("#nombre").value.trim(), cedula: $("#cedula").value.trim(),
     doctor: $("#doctor").value === "otro" ? $("#doctor-otro").value.trim() : $("#doctor").value,
-    proc: nombreProc, anestesia: p ? p.anestesia : "", q, instr, imp, doc, cli, extras, total,
+    proc: nombreProc, anestesia: q ? q.a : "", hi, sede: S().nombre, quirofanoNombre: S().quirofano, q, instr, imp, doc, cli, extras, total,
   };
 }
 
@@ -316,10 +353,10 @@ function calcular(){
   const aq = $("#auto-q"), ai = $("#auto-i");
   aq.classList.toggle("vacio", !s.q); ai.classList.toggle("vacio", !s.q);
   aq.querySelector("b").textContent = s.q ? fmt(s.q.v) : "—";
-  ai.querySelector("b").textContent = s.q ? fmt(s.instr) + " · " + horas(s.q.h) : "—";
+  ai.querySelector("b").textContent = s.q ? fmt(s.instr) : "—";
 
   let r = "";
-  if (s.q){ r += linea("Quirófano · " + horas(s.q.h), s.q.v) + linea("Instrumentador", s.instr); }
+  if (s.q){ r += linea("Quirófano" + (s.q.h != null ? " · " + horas(s.q.h) : ""), s.q.v) + linea("Instrumentador · " + horas(s.hi), s.instr); }
   if (s.imp) r += linea(s.imp.nombre, s.imp.v);
   if (s.doc || s.cli){
     r += linea("Honorarios del cirujano", s.doc + s.cli);
@@ -342,6 +379,7 @@ function validar(s){
   marca("#cedula", !s.cedula, "cédula");
   marca("#proc", !s.proc, "procedimiento");
   marca("#tiempo", !s.q, "tiempo de quirófano");
+  if (s.q && !s.hi){ faltan.push("horas del instrumentador"); $("#instr-h").style.borderColor = "var(--error)"; } else $("#instr-h").style.borderColor = "";
   marca("#hon-doc", !s.doc, "honorarios del doctor");
   if ($("#doctor").value === "otro") marca("#doctor-otro", !s.doctor, "cirujano");
   if (s.imp && $("#imp-tipo").value !== "mamario") marca("#imp-valor", !s.imp.v, "valor del implante");
@@ -355,12 +393,12 @@ const dos = n => String(n).padStart(2, "0");
 
 function armarPDF(s, numero, hoy, vence){
   const filas = [];
-  filas.push([`Quirófano · Quirófanos 2 Sur`, `${horas(s.q.h)} · anestesia ${s.anestesia}`, s.q.v]);
-  filas.push([`Instrumentador quirúrgico`, horas(s.q.h), s.instr]);
+  filas.push([`Quirófano · ${s.quirofanoNombre}`, [horasDe(s.q.h), s.anestesia ? "anestesia " + s.anestesia : ""].filter(Boolean).join(" · "), s.q.v]);
+  filas.push([`Instrumentador quirúrgico`, horas(s.hi), s.instr]);
   if (s.imp) filas.push([s.imp.nombre, s.imp.detalle, s.imp.v]);
   filas.push([`Honorarios del cirujano`, s.doctor, s.doc + s.cli]);
   s.extras.forEach(x => filas.push([x.d || "Otro", "", x.v]));
-  const incluye = C.incluye.concat(/abdominoplastia/i.test(s.proc) ? ["Exovac o reservorio (1 unidad)"] : []);
+  const incluye = S().incluye.concat(/abdominoplastia/i.test(s.proc) ? ["Exovac o reservorio (1 unidad)"] : []);
   $("#pdf").innerHTML = `
     <div class="p-cab"><img src="assets/logo-noon-claro.png" alt="noon Clinic">
       <div class="der"><b>Cotización</b>N.º ${numero} · ${fecha(hoy)}</div></div>
@@ -382,7 +420,7 @@ function armarPDF(s, numero, hoy, vence){
           <p class="p-terminos">Al abonar aceptas nuestros términos y la política de devoluciones: <a href="${C.terminos}">${C.terminos.replace("https://", "")}</a></p></div>
       </div>
     </div>
-    <div class="p-pie"><span>noon Clinic · Medellín, Colombia</span><span>noon.clinic</span></div>`;
+    <div class="p-pie"><span>noon Clinic · Sede ${esc(s.sede)}, Colombia</span><span>noon.clinic</span></div>`;
 }
 
 /* ---- correo con todo discriminado (diseño noon + PDF adjunto, vía noon-cotizador-correo en Vercel) ---- */
@@ -391,7 +429,7 @@ async function enviarCorreo(s, numero, hoy, vence, pdf, archivo){
   const datos = {
     numero, fecha: fecha(hoy), vence: fecha(vence),
     paciente: s.nombre, documento: s.cedula, cirujano: s.doctor,
-    procedimiento: s.proc, anestesia: s.anestesia, horas: horas(s.q.h),
+    procedimiento: s.proc, anestesia: s.anestesia, horas: horasDe(s.q.h), horasInstr: horas(s.hi), sede: s.sede, quirofanoNombre: s.quirofanoNombre,
     quirofano: s.q.v, instrumentador: s.instr, instrumentadorHora: C.instrumentador,
     implante: s.imp ? { nombre: s.imp.nombre, detalle: s.imp.detalle, valor: s.imp.v } : null,
     honorariosDoctor: s.doc, gananciaClinica: s.cli, extras: s.extras, total: s.total,
@@ -452,6 +490,7 @@ $("#nueva").onclick = () => {
   window.scrollTo(0, 0);
 };
 
+ponerSede("medellin");
 calcular();
 </script>
 </body>

@@ -67,6 +67,15 @@ input:disabled,select:disabled{background:var(--suave);color:var(--tenue)}
 .btn-linea{border:1px dashed var(--linea);background:#fff;border-radius:var(--radio);padding:10px 14px;cursor:pointer;font-size:14px;color:var(--texto)}
 .btn-linea:hover{border-color:var(--acento);color:var(--acento)}
 
+/* sede */
+.sede{display:flex;align-items:center;gap:16px;padding-bottom:22px;margin-bottom:4px;border-bottom:1px solid var(--linea)}
+.sede span{font-size:13px;font-weight:600}
+.sede-op{display:inline-flex;background:var(--suave);border-radius:999px;padding:4px}
+.sede-op button{border:0;background:transparent;padding:9px 22px;border-radius:999px;cursor:pointer;font-size:14px;color:var(--tenue);font-weight:600}
+.sede-op button.activa{background:var(--acento);color:#fff}
+.horas-ins{display:flex;align-items:center;gap:8px}
+.horas-ins input{width:70px;padding:6px 8px;border:1px solid var(--linea);border-radius:8px;text-align:center;background:#fff}
+
 /* resumen */
 aside{position:sticky;top:90px;border:1px solid var(--linea);border-radius:14px;padding:24px}
 aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);font-family:"Nunito Sans";font-weight:700;margin-bottom:14px}
@@ -150,6 +159,9 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
 
 <main>
   <div>
+    <div class="sede"><span>Sede</span>
+      <div class="sede-op" id="sede"><button type="button" data-sede="medellin" class="activa">Medellín</button><button type="button" data-sede="bogota">Bogotá</button></div>
+    </div>
     <section class="paso">
       <h2><span>01</span>Paciente</h2>
       <p class="ayuda">Así sale en el PDF.</p>
@@ -163,13 +175,13 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
 
     <section class="paso">
       <h2><span>02</span>Cirugía y quirófano</h2>
-      <p class="ayuda">Tarifario Quirófanos 2 Sur 2026. El precio del quirófano y el del instrumentador salen solos.</p>
+      <p class="ayuda" id="ayuda-q"></p>
       <div class="fila">
         <div class="campo"><label for="proc">Procedimiento</label><select id="proc"><option value="">Elige el procedimiento</option></select></div>
-        <div class="campo"><label for="tiempo">Tiempo de quirófano</label><select id="tiempo" disabled><option value="">Primero elige el procedimiento</option></select></div>
+        <div class="campo"><label for="tiempo">Tiempo y anestesia</label><select id="tiempo" disabled><option value="">Primero elige el procedimiento</option></select></div>
       </div>
       <div class="auto vacio" id="auto-q"><span>Quirófano</span><b>—</b></div>
-      <div class="auto vacio" id="auto-i" style="margin-top:8px"><span>Instrumentador <small>(200.000 por hora)</small></span><b>—</b></div>
+      <div class="auto vacio" id="auto-i" style="margin-top:8px"><span class="horas-ins">Instrumentador <input id="instr-h" type="text" inputmode="decimal" placeholder="0"> horas <small>(200.000 c/u)</small></span><b>—</b></div>
     </section>
 
     <section class="paso">
@@ -203,9 +215,8 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
       <h2><span>05</span>Otros elementos</h2>
       <p class="ayuda">Lo que haga falta: fajas, exámenes, hospitalización, medicamentos… Cada uno se suma al total.</p>
       <div class="extras" id="extras"></div>
-      <div class="botones">
+      <div class="botones" id="rapidos">
         <button type="button" class="btn-linea" id="add-extra">+ Agregar elemento</button>
-        <button type="button" class="btn-linea" id="add-hosp">+ Noche de hospitalización</button>
       </div>
     </section>
   </div>
@@ -225,7 +236,7 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-const C = {"codigo": "111", "correo": "lauramesazuluaga@gmail.com", "envio": "https://noon-cotizador-correo.vercel.app/api/enviar", "instrumentador": 200000, "hospitalizacion": 1380000, "vigencia": 3, "doctores": ["Dr. Fernando Ruiz"], "tarifas": {"Abdominoplastia": {"anestesia": "general", "tiempos": [[2.0, 3582000], [2.5, 4071000], [3.0, 4440000], [3.5, 4763000], [4.0, 4964000], [4.5, 5166000], [5.0, 5369000], [5.5, 5570000], [6.0, 5773000]]}, "Abdominoplastia + Liposucción": {"anestesia": "general", "tiempos": [[3.0, 5109000], [3.5, 5392000], [4.0, 5674000], [4.5, 5957000], [5.0, 6240000], [5.5, 6522000], [6.0, 6806000], [6.5, 7088000], [7.0, 7369000], [7.5, 7651000], [8.0, 8099000]]}, "Abdominoplastia + Implantes mamarios o mastopexia": {"anestesia": "general", "tiempos": [[4.0, 5159000], [4.5, 5528000], [5.0, 5850000], [5.5, 6128000], [6.0, 6367000], [6.5, 6871000], [7.0, 7375000], [7.5, 7879000], [8.0, 8383000]]}, "Abdominoplastia + Liposucción + Implantes mamarios o mastopexia": {"anestesia": "general", "tiempos": [[4.0, 5701000], [4.5, 6193000], [5.0, 6550000], [5.5, 6880000], [6.0, 7255000], [6.5, 7705000], [7.0, 8135000], [7.5, 8654000], [8.0, 9172000]]}, "Liposucción": {"anestesia": "general", "tiempos": [[1.0, 2024000], [1.5, 2301000], [2.0, 2576000], [2.5, 3005000], [3.0, 3434000], [3.5, 3950000], [4.0, 4465000], [4.5, 4968000], [5.0, 5469000], [5.5, 5878000], [6.0, 6286000]]}, "Mamoplastia (implantes de mama) o mastopexia": {"anestesia": "general", "tiempos": [[1.0, 1610000], [1.5, 2020000], [2.0, 2430000], [2.5, 2955000], [3.0, 3480000], [3.5, 4034000], [4.0, 4588000], [4.5, 4809000], [5.0, 5029000]]}, "Liposucción + mamoplastia (implantes de mama) o mastopexia": {"anestesia": "general", "tiempos": [[3.0, 3961000], [3.5, 4208000], [4.0, 4457000], [4.5, 4923000], [5.0, 5389000], [5.5, 5884000], [6.0, 6378000], [6.5, 6847000], [7.0, 7316000], [7.5, 7786000], [8.0, 8255000]]}, "Implantes de glúteos": {"anestesia": "general", "tiempos": [[1.0, 1430000], [1.5, 2042000], [2.0, 2592000], [2.5, 2977000], [3.0, 3362000], [3.5, 3833000], [4.0, 4305000], [4.5, 4690000], [5.0, 5074000], [5.5, 5458000], [6.0, 5844000]]}, "Implantes de pantorrilla": {"anestesia": "general", "tiempos": [[2.0, 2822000], [2.5, 3457000], [3.0, 4065000], [3.5, 4647000], [4.0, 5204000]]}, "Ginecomastia": {"anestesia": "general", "tiempos": [[1.0, 1610000], [1.5, 2020000], [2.0, 2430000], [2.5, 2955000], [3.0, 3480000], [3.5, 4034000], [4.0, 4588000], [4.5, 4809000], [5.0, 5029000]]}, "Braquioplastia": {"anestesia": "general", "tiempos": [[3.0, 3756000], [3.5, 4361000], [4.0, 4964000], [4.5, 5556000], [5.0, 6136000], [5.5, 6705000], [6.0, 7261000], [6.5, 7808000], [7.0, 8343000]]}, "Cruroplastia": {"anestesia": "general", "tiempos": [[3.0, 3756000], [3.5, 4361000], [4.0, 4964000], [4.5, 5556000], [5.0, 6136000], [5.5, 6705000], [6.0, 7261000], [6.5, 7808000], [7.0, 8343000]]}, "Blefaroplastia": {"anestesia": "general", "tiempos": [[1.0, 1868000], [1.5, 2252000], [2.0, 2635000], [2.5, 3213000], [3.0, 3789000], [3.5, 4309000], [4.0, 4828000], [4.5, 5337000], [5.0, 5836000], [5.5, 6324000], [6.0, 6803000], [6.5, 7273000], [7.0, 7733000]]}, "Blefaroplastia (anestesia local)": {"anestesia": "local", "tiempos": [[2.0, 2128000], [2.5, 2660000]]}, "Frontoplastia": {"anestesia": "general", "tiempos": [[1.0, 1939000], [1.5, 2522000], [2.0, 3104000], [2.5, 3625000], [3.0, 4147000], [3.5, 4618000], [4.0, 5091000], [4.5, 5553000], [5.0, 6007000], [5.5, 6452000], [6.0, 6251000]]}, "Otoplastia": {"anestesia": "general", "tiempos": [[1.0, 1290000], [1.5, 1897000], [2.0, 2478000], [2.5, 3049000], [3.0, 3608000], [3.5, 4156000], [4.0, 4693000], [4.5, 5220000], [5.0, 5735000], [5.5, 6240000], [6.0, 6735000]]}, "Otoplastia (anestesia local)": {"anestesia": "local", "tiempos": [[1.0, 1190000], [1.5, 1749000], [2.0, 2331000]]}, "Rinoplastia": {"anestesia": "general", "tiempos": [[1.0, 1506000], [1.5, 2148000], [2.0, 2789000], [2.5, 3175000], [3.0, 3560000], [3.5, 4095000], [4.0, 4628000], [4.5, 5148000], [5.0, 5668000], [5.5, 6166000], [6.0, 6664000]]}, "Ritidoplastia sin endoscopio": {"anestesia": "general", "tiempos": [[2.0, 3423000], [2.5, 4278000], [3.0, 4548000], [3.5, 4811000], [4.0, 5070000], [4.5, 5323000], [5.0, 5570000], [5.5, 5813000], [6.0, 6052000], [7.0, 7060000]]}, "Blefaroplastia + Frontoplastia sin endoscopio": {"anestesia": "general", "tiempos": [[3.0, 4533000], [3.5, 5185000], [4.0, 5809000], [4.5, 6339000], [5.0, 6868000], [5.5, 7165000], [6.0, 7462000], [6.5, 7753000], [7.0, 8038000]]}, "Blefaroplastia + Rinoplastia": {"anestesia": "general", "tiempos": [[2.0, 2653000], [2.5, 3251000], [3.0, 3824000], [3.5, 4374000], [4.0, 4900000], [4.5, 5417000], [5.0, 5923000], [5.5, 6418000], [6.0, 6904000], [6.5, 7380000], [7.0, 7847000], [7.5, 8304000], [8.0, 8752000]]}, "Rinoseptoplastia": {"anestesia": "general", "tiempos": [[1.0, 1534000], [1.5, 2187000], [2.0, 2840000], [2.5, 3233000], [3.0, 3625000], [3.5, 4169000], [4.0, 4712000], [4.5, 5242000], [5.0, 5771000], [5.5, 6278000], [6.0, 6785000]]}}, "mamarios": [{"modelo": "Standard redondo liso", "codigo": "10521", "precio": 1689166}, {"modelo": "Soft Plus redondo (liso, opaco)", "codigo": "22622", "precio": 1838367}, {"modelo": "Biodesign redondo texturizado", "codigo": "20622", "precio": 1838367}, {"modelo": "Biodesign anatómico (texturizado)", "codigo": "20637 · 20674 · 20646", "precio": 2751334}, {"modelo": "Biodesign redondo poliuretano", "codigo": "30622", "precio": 2129664}], "incluye": ["Derechos de sala por el tiempo programado", "Consulta preanestésica y honorarios de anestesia", "Materiales y medicamentos básicos para el procedimiento", "Equipos básicos de quirófano"], "pagos": [["Abono para tu fecha", "Con un abono reservas la fecha de tu cirugía."], ["Saldo", "Se paga completo antes del procedimiento."]], "terminos": "https://noon.clinic/terminos-y-condiciones#t4"};
+const C = {"codigo": "111", "correo": "lauramesazuluaga@gmail.com", "envio": "https://noon-cotizador-correo.vercel.app/api/enviar", "instrumentador": 200000, "vigencia": 3, "doctores": ["Dr. Fernando Ruiz"], "sedes": {"medellin": {"nombre": "Medellín", "quirofano": "Quirófanos 2 Sur", "tarifas": {"Abdominoplastia": [[2.0, "general", 3582000], [2.5, "general", 4071000], [3.0, "general", 4440000], [3.5, "general", 4763000], [4.0, "general", 4964000], [4.5, "general", 5166000], [5.0, "general", 5369000], [5.5, "general", 5570000], [6.0, "general", 5773000]], "Abdominoplastia + Liposucción": [[3.0, "general", 5109000], [3.5, "general", 5392000], [4.0, "general", 5674000], [4.5, "general", 5957000], [5.0, "general", 6240000], [5.5, "general", 6522000], [6.0, "general", 6806000], [6.5, "general", 7088000], [7.0, "general", 7369000], [7.5, "general", 7651000], [8.0, "general", 8099000]], "Abdominoplastia + Implantes mamarios o mastopexia": [[4.0, "general", 5159000], [4.5, "general", 5528000], [5.0, "general", 5850000], [5.5, "general", 6128000], [6.0, "general", 6367000], [6.5, "general", 6871000], [7.0, "general", 7375000], [7.5, "general", 7879000], [8.0, "general", 8383000]], "Abdominoplastia + Liposucción + Implantes mamarios o mastopexia": [[4.0, "general", 5701000], [4.5, "general", 6193000], [5.0, "general", 6550000], [5.5, "general", 6880000], [6.0, "general", 7255000], [6.5, "general", 7705000], [7.0, "general", 8135000], [7.5, "general", 8654000], [8.0, "general", 9172000]], "Liposucción": [[1.0, "general", 2024000], [1.5, "general", 2301000], [2.0, "general", 2576000], [2.5, "general", 3005000], [3.0, "general", 3434000], [3.5, "general", 3950000], [4.0, "general", 4465000], [4.5, "general", 4968000], [5.0, "general", 5469000], [5.5, "general", 5878000], [6.0, "general", 6286000]], "Mamoplastia (implantes de mama) o mastopexia": [[1.0, "general", 1610000], [1.5, "general", 2020000], [2.0, "general", 2430000], [2.5, "general", 2955000], [3.0, "general", 3480000], [3.5, "general", 4034000], [4.0, "general", 4588000], [4.5, "general", 4809000], [5.0, "general", 5029000]], "Liposucción + mamoplastia (implantes de mama) o mastopexia": [[3.0, "general", 3961000], [3.5, "general", 4208000], [4.0, "general", 4457000], [4.5, "general", 4923000], [5.0, "general", 5389000], [5.5, "general", 5884000], [6.0, "general", 6378000], [6.5, "general", 6847000], [7.0, "general", 7316000], [7.5, "general", 7786000], [8.0, "general", 8255000]], "Implantes de glúteos": [[1.0, "general", 1430000], [1.5, "general", 2042000], [2.0, "general", 2592000], [2.5, "general", 2977000], [3.0, "general", 3362000], [3.5, "general", 3833000], [4.0, "general", 4305000], [4.5, "general", 4690000], [5.0, "general", 5074000], [5.5, "general", 5458000], [6.0, "general", 5844000]], "Implantes de pantorrilla": [[2.0, "general", 2822000], [2.5, "general", 3457000], [3.0, "general", 4065000], [3.5, "general", 4647000], [4.0, "general", 5204000]], "Ginecomastia": [[1.0, "general", 1610000], [1.5, "general", 2020000], [2.0, "general", 2430000], [2.5, "general", 2955000], [3.0, "general", 3480000], [3.5, "general", 4034000], [4.0, "general", 4588000], [4.5, "general", 4809000], [5.0, "general", 5029000]], "Braquioplastia": [[3.0, "general", 3756000], [3.5, "general", 4361000], [4.0, "general", 4964000], [4.5, "general", 5556000], [5.0, "general", 6136000], [5.5, "general", 6705000], [6.0, "general", 7261000], [6.5, "general", 7808000], [7.0, "general", 8343000]], "Cruroplastia": [[3.0, "general", 3756000], [3.5, "general", 4361000], [4.0, "general", 4964000], [4.5, "general", 5556000], [5.0, "general", 6136000], [5.5, "general", 6705000], [6.0, "general", 7261000], [6.5, "general", 7808000], [7.0, "general", 8343000]], "Blefaroplastia": [[1.0, "general", 1868000], [1.5, "general", 2252000], [2.0, "general", 2635000], [2.5, "general", 3213000], [3.0, "general", 3789000], [3.5, "general", 4309000], [4.0, "general", 4828000], [4.5, "general", 5337000], [5.0, "general", 5836000], [5.5, "general", 6324000], [6.0, "general", 6803000], [6.5, "general", 7273000], [7.0, "general", 7733000]], "Blefaroplastia (anestesia local)": [[2.0, "local", 2128000], [2.5, "local", 2660000]], "Frontoplastia": [[1.0, "general", 1939000], [1.5, "general", 2522000], [2.0, "general", 3104000], [2.5, "general", 3625000], [3.0, "general", 4147000], [3.5, "general", 4618000], [4.0, "general", 5091000], [4.5, "general", 5553000], [5.0, "general", 6007000], [5.5, "general", 6452000], [6.0, "general", 6251000]], "Otoplastia": [[1.0, "general", 1290000], [1.5, "general", 1897000], [2.0, "general", 2478000], [2.5, "general", 3049000], [3.0, "general", 3608000], [3.5, "general", 4156000], [4.0, "general", 4693000], [4.5, "general", 5220000], [5.0, "general", 5735000], [5.5, "general", 6240000], [6.0, "general", 6735000]], "Otoplastia (anestesia local)": [[1.0, "local", 1190000], [1.5, "local", 1749000], [2.0, "local", 2331000]], "Rinoplastia": [[1.0, "general", 1506000], [1.5, "general", 2148000], [2.0, "general", 2789000], [2.5, "general", 3175000], [3.0, "general", 3560000], [3.5, "general", 4095000], [4.0, "general", 4628000], [4.5, "general", 5148000], [5.0, "general", 5668000], [5.5, "general", 6166000], [6.0, "general", 6664000]], "Ritidoplastia sin endoscopio": [[2.0, "general", 3423000], [2.5, "general", 4278000], [3.0, "general", 4548000], [3.5, "general", 4811000], [4.0, "general", 5070000], [4.5, "general", 5323000], [5.0, "general", 5570000], [5.5, "general", 5813000], [6.0, "general", 6052000], [7.0, "general", 7060000]], "Blefaroplastia + Frontoplastia sin endoscopio": [[3.0, "general", 4533000], [3.5, "general", 5185000], [4.0, "general", 5809000], [4.5, "general", 6339000], [5.0, "general", 6868000], [5.5, "general", 7165000], [6.0, "general", 7462000], [6.5, "general", 7753000], [7.0, "general", 8038000]], "Blefaroplastia + Rinoplastia": [[2.0, "general", 2653000], [2.5, "general", 3251000], [3.0, "general", 3824000], [3.5, "general", 4374000], [4.0, "general", 4900000], [4.5, "general", 5417000], [5.0, "general", 5923000], [5.5, "general", 6418000], [6.0, "general", 6904000], [6.5, "general", 7380000], [7.0, "general", 7847000], [7.5, "general", 8304000], [8.0, "general", 8752000]], "Rinoseptoplastia": [[1.0, "general", 1534000], [1.5, "general", 2187000], [2.0, "general", 2840000], [2.5, "general", 3233000], [3.0, "general", 3625000], [3.5, "general", 4169000], [4.0, "general", 4712000], [4.5, "general", 5242000], [5.0, "general", 5771000], [5.5, "general", 6278000], [6.0, "general", 6785000]]}, "incluye": ["Derechos de sala por el tiempo programado", "Consulta preanestésica y honorarios de anestesia", "Materiales y medicamentos básicos para el procedimiento", "Equipos básicos de quirófano"], "rapidos": [["Noche de hospitalización (habitación individual)", 1380000]]}, "bogota": {"nombre": "Bogotá", "quirofano": "Cirulaser", "tarifas": {"Amigdalectomía": [[1.0, "general", 2436000], [1.0, "asistida", 2237000]], "Aspiración de epidídimo": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3637000], [2.0, "asistida", 3417000], [2.0, "local", 2239000]], "Aspiración folicular": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]], "Avance mandibular": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3637000], [2.0, "asistida", 3417000], [2.0, "local", 2239000], [3.0, "general", 4526000], [3.0, "asistida", 4526000]], "Banda gástrica": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]], "Blefaroplastia 2 párpados": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 988000], [1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1317000], [2.0, "general", 3512000], [2.0, "asistida", 3294000], [2.0, "local", 1975000]], "Blefaroplastia 4 párpados": [[1.0, "general", 2675000], [1.0, "asistida", 2471000], [1.0, "local", 1449000], [2.0, "general", 3512000], [2.0, "asistida", 3294000], [2.0, "local", 1975000]], "Bolsas de Bichat": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 988000], [1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1317000]], "Cervicofacial (mejillas y cuello)": [[3.0, "general", 5231000], [3.0, "asistida", 4984000], [4.0, "general", 6162000], [4.0, "asistida", 5643000]], "Circuncisión": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]], "Cirugía Bimaxilar Hemimaxilectomia": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3616000], [2.0, "asistida", 3528000], [2.0, "local", 2239000], [3.0, "general", 4449000], [3.0, "asistida", 4215000], [4.0, "general", 5463000], [4.0, "asistida", 5212000]], "Cola de cejas": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 988000], [1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3512000], [2.0, "asistida", 3294000], [2.0, "local", 1975000], [3.0, "general", 4449000], [3.0, "asistida", 4215000]], "Colgajo local simple de piel (ombligo)": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3512000], [2.0, "asistida", 3226000]], "Colporrafia": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]], "Conización": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]], "Corrección cicatriz en lipectomía": [[1.0, "general", 2724000], [1.0, "asistida", 2519000], [1.0, "local", 1449000], [2.0, "general", 3443000], [2.0, "asistida", 3226000], [2.0, "local", 1975000]], "Corrección de cicatriz": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 988000], [1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3443000], [2.0, "asistida", 3226000], [2.0, "local", 1975000]], "Corrección prognatismo": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3637000], [2.0, "asistida", 3417000], [2.0, "local", 2239000], [3.0, "general", 4765000], [3.0, "asistida", 4526000]], "Cruroplastia": [[1.0, "general", 3166000], [1.0, "asistida", 2953000], [1.0, "local", 1712000], [2.0, "general", 4156000], [2.0, "asistida", 3927000], [3.0, "general", 5231000], [3.0, "asistida", 4984000]], "Dermoabrasión": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 988000], [1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1185000], [2.0, "general", 3443000], [2.0, "asistida", 3226000], [2.0, "local", 1975000]], "Drenaje Sero Hematomas - Abscesos": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1185000], [2.0, "general", 3512000], [2.0, "asistida", 3226000], [2.0, "local", 1975000]], "Estrabismo": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3512000], [2.0, "asistida", 3294000], [2.0, "local", 2239000]], "Extracción de costilla": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]], "Faloplastia": [[1.0, "general", 2675000], [1.0, "asistida", 2471000], [1.0, "local", 1449000], [2.0, "general", 3616000], [2.0, "asistida", 3528000], [2.0, "local", 2239000]], "Fistulotomía": [[0.5, "general", 1624000], [0.5, "asistida", 1449000], [0.5, "local", 988000], [1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]], "Gastroplastia Endoscópica": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3637000], [2.0, "asistida", 3417000], [2.0, "local", 2239000]], "Ginecomastia": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3443000], [2.0, "asistida", 3226000], [2.0, "local", 1975000]], "Gluteoplastia": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 1185000], [1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1712000], [2.0, "general", 3512000], [2.0, "asistida", 3294000]], "Herniorrafia": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]], "Implante Coclear": [[1.0, "general", 2675000], [1.0, "asistida", 2471000], [2.0, "general", 3616000], [2.0, "asistida", 3528000], [3.0, "general", 4765000], [3.0, "asistida", 4526000], [4.0, "general", 6162000], [4.0, "asistida", 5643000]], "Implante Unilateral": [[1.0, "general", 2561000], [1.0, "asistida", 2360000], [1.0, "local", 1712000], [2.0, "general", 3512000], [2.0, "asistida", 3294000]], "Injerto homólogo de piel": [[1.0, "asistida", 2237000], [1.0, "general", 2436000], [1.0, "local", 1449000], [2.0, "asistida", 3226000], [2.0, "general", 3512000], [3.0, "asistida", 4215000], [3.0, "general", 4449000], [4.0, "asistida", 5212000], [4.0, "general", 5463000]], "Lipectomía Abdominal": [[2.0, "general", 3976000], [2.0, "asistida", 3749118], [3.0, "general", 4765000], [3.0, "asistida", 4737000], [4.0, "general", 5463000], [4.0, "asistida", 5212000]], "Lipoescultura": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 1185000], [1.0, "general", 2724000], [1.0, "asistida", 2519000], [1.0, "local", 1449000], [2.0, "general", 3976000], [2.0, "asistida", 3749118], [3.0, "general", 4765000], [3.0, "asistida", 4526000], [4.0, "general", 5463000], [4.0, "asistida", 5212000], [5.0, "general", 6373000], [5.0, "asistida", 6106000]], "Lipoinyección": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 988000], [1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1185000], [2.0, "general", 3512000], [2.0, "asistida", 3294000]], "Lipopapada": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 1185000]], "Mamoplastia de Aumento Bilateral": [[1.0, "general", 2675000], [1.0, "asistida", 2471000], [1.0, "local", 1712000], [2.0, "general", 3616000], [2.0, "asistida", 3528000], [3.0, "general", 4765000], [3.0, "asistida", 4526000]], "Mamoplastia de Reducción Bilateral": [[1.0, "general", 3080000], [1.0, "asistida", 2869000], [1.0, "local", 1712000], [2.0, "general", 4156000], [2.0, "asistida", 3927000], [3.0, "general", 5231000], [3.0, "asistida", 4984000], [4.0, "general", 6169000], [4.0, "asistida", 5906000]], "Mentoplastia con implante": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3637000], [2.0, "asistida", 3417000], [2.0, "local", 2239000]], "Mentoplastia con osteotomía": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3637000], [2.0, "asistida", 3417000], [2.0, "local", 2239000]], "Método Mohs": [[1.0, "general", 1894000], [1.0, "asistida", 1735000], [1.0, "local", 1185000]], "Onicectomía": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]], "Osteotomía Le Fort": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3637000], [2.0, "asistida", 3417000], [2.0, "local", 2239000], [3.0, "general", 4765000], [3.0, "asistida", 4526000]], "Otoplastia": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3512000], [2.0, "asistida", 3294000]], "Perinorrafia": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]], "Pexia Mamaria": [[1.0, "general", 3080000], [1.0, "asistida", 2869000], [1.0, "local", 1712000], [2.0, "general", 4156000], [2.0, "asistida", 3927000], [3.0, "general", 5231000], [3.0, "asistida", 4984000], [4.0, "general", 6169000], [4.0, "asistida", 5906000]], "Plastia General Pezón": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1712000], [2.0, "general", 3443000], [2.0, "asistida", 3226000]], "Potenciales Evocados": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 1185000], [1.0, "general", 2436000], [1.0, "asistida", 2237000]], "Reducción de tejido adiposo de pared abdominal (retoque)": [[1.0, "general", 1894000], [1.0, "asistida", 1735000], [1.0, "local", 1185000]], "Reducción de tejido adiposo en muslos, pelvis, glúteos o brazos (lipectomía)": [[1.0, "general", 2756000], [1.0, "asistida", 2561000], [1.0, "local", 1712000], [2.0, "general", 3856000], [2.0, "asistida", 3632000], [3.0, "general", 4765000], [3.0, "asistida", 4737000]], "Resección de glándulas supernumerarias": [[1.0, "general", 2436000], [1.0, "local", 1449000]], "Resección Tumor": [[0.5, "general", 1994000], [0.5, "asistida", 1802000], [0.5, "local", 988000], [1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3512000], [2.0, "asistida", 3294000]], "Retiro de Biopolímeros": [[1.0, "general", 2918000], [1.0, "asistida", 2710000], [1.0, "local", 1185000], [2.0, "general", 3856000], [2.0, "asistida", 3632000], [2.0, "local", 2239000], [3.0, "general", 4765000], [3.0, "asistida", 4526000], [4.0, "general", 5463000], [4.0, "asistida", 5212000]], "Retiro y/o cambio de Implantes": [[1.0, "general", 2675000], [1.0, "asistida", 2471000], [1.0, "local", 1449000], [2.0, "general", 3616000], [2.0, "asistida", 3528000], [2.0, "local", 2239000]], "Retoque Liposucción": [[0.5, "general", 1624000], [0.5, "asistida", 1449000], [0.5, "local", 988000], [1.0, "general", 1894000], [1.0, "asistida", 1735000], [1.0, "local", 1185000]], "Retoque Punta Nasal": [[0.5, "general", 1624000], [0.5, "asistida", 1449000], [0.5, "local", 988000], [1.0, "general", 1894000], [1.0, "asistida", 1735000], [1.0, "local", 1185000]], "Rinoplastia": [[1.0, "general", 2675000], [1.0, "asistida", 2471000], [1.0, "local", 1449000], [2.0, "general", 3616000], [2.0, "asistida", 3528000], [3.0, "general", 4765000], [3.0, "asistida", 4526000], [4.0, "general", 6162000], [4.0, "asistida", 5643000]], "Ritidectomia Cervicofacial sin frente": [[1.0, "general", 3080000], [1.0, "asistida", 2869000], [1.0, "local", 1580000], [2.0, "general", 4156000], [2.0, "asistida", 3927000], [2.0, "local", 2239000]], "Ritidectomia de frente": [[1.0, "general", 2675000], [1.0, "asistida", 2471000], [1.0, "local", 1449000], [2.0, "general", 3856000], [2.0, "asistida", 3632000]], "Ritidoplastia": [[1.0, "general", 3080000], [1.0, "asistida", 2869000], [2.0, "general", 4156000], [2.0, "asistida", 3927000], [3.0, "general", 5158000], [3.0, "asistida", 4984000], [4.0, "general", 6169000], [4.0, "asistida", 5906000], [5.0, "general", 6373000], [5.0, "asistida", 6106000]], "Septectomía vía transnasal": [[null, "", 3080000]], "Septectomía vía transnasal endoscópica": [[null, "", 3080000]], "Septoplastia extracorpórea": [[null, "", 3280000]], "Septoplastia primaria transnasal": [[null, "", 3080000]], "Septoplastia primaria vía transnasal endoscópica": [[null, "", 3280000]], "Septoplastia revisional transnasal": [[null, "", 3280000]], "Septoplastia revisional vía transnasal endoscópica": [[null, "", 3080000]], "Septorrinoplastia secundaria vía abierta": [[null, "", 3528000]], "Vaginoplastia": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000], [2.0, "general", 3512000], [2.0, "asistida", 3294000], [2.0, "local", 2239000]], "Vasectomía": [[1.0, "general", 2436000], [1.0, "asistida", 2237000], [1.0, "local", 1449000]]}, "incluye": ["Derechos de sala por el tiempo programado", "Anestesia según el tipo indicado"], "rapidos": [["Consulta preanestésica", 175000], ["VASER", 633000], ["Recuperación posquirúrgica prolongada (1 hora)", 70000], ["Patología pequeña", 290000], ["Patología grande", 447000]]}}, "mamarios": [{"modelo": "Standard redondo liso", "codigo": "10521", "precio": 1689166}, {"modelo": "Soft Plus redondo (liso, opaco)", "codigo": "22622", "precio": 1838367}, {"modelo": "Biodesign redondo texturizado", "codigo": "20622", "precio": 1838367}, {"modelo": "Biodesign anatómico (texturizado)", "codigo": "20637 · 20674 · 20646", "precio": 2751334}, {"modelo": "Biodesign redondo poliuretano", "codigo": "30622", "precio": 2129664}], "pagos": [["Abono para tu fecha", "Con un abono reservas la fecha de tu cirugía."], ["Saldo", "Se paga completo antes del procedimiento."]], "terminos": "https://noon.clinic/terminos-y-condiciones#t4"};
 const $ = s => document.querySelector(s);
 const fmt = n => "$" + Math.round(n || 0).toLocaleString("es-CO");
 const num = v => parseInt(String(v || "").replace(/\D/g, ""), 10) || 0;
@@ -245,7 +256,22 @@ $("#codigo").addEventListener("input", e => {
 /* ---- llenar listas ---- */
 $("#correo-nota").textContent = C.correo;
 $("#doctor").innerHTML = C.doctores.map(d => `<option>${esc(d)}</option>`).join("") + `<option value="otro">Otro cirujano…</option>`;
-$("#proc").innerHTML += Object.keys(C.tarifas).map(p => `<option>${esc(p)}</option>`).join("");
+let SEDE = "medellin";
+const S = () => C.sedes[SEDE];
+const horasDe = h => h == null ? "" : horas(h);
+function ponerSede(id){
+  SEDE = id;
+  document.querySelectorAll("#sede button").forEach(b => b.classList.toggle("activa", b.dataset.sede === id));
+  $("#proc").innerHTML = `<option value="">Elige el procedimiento</option>` + Object.keys(S().tarifas).map(p => `<option>${esc(p)}</option>`).join("");
+  $("#ayuda-q").textContent = `Tarifario ${S().quirofano} 2026 (sede ${S().nombre}). El precio del quirófano y el del instrumentador salen solos.`;
+  document.querySelectorAll(".btn-rapido").forEach(b => b.remove());
+  S().rapidos.forEach(([d, v]) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "btn-linea btn-rapido";
+    b.textContent = "+ " + d; b.onclick = () => agregarExtra(d, v); $("#rapidos").appendChild(b);
+  });
+  $("#proc").dispatchEvent(new Event("change"));
+}
+document.querySelectorAll("#sede button").forEach(b => b.onclick = () => { if (b.dataset.sede !== SEDE) ponerSede(b.dataset.sede); });
 $("#imp-modelo").innerHTML = C.mamarios.map((m, i) => `<option value="${i}">${esc(m.modelo)} · ${fmt(m.precio)}</option>`).join("");
 
 /* ---- dinero con puntos mientras se escribe ---- */
@@ -257,9 +283,15 @@ document.addEventListener("input", e => {
 
 /* ---- procedimiento → tiempos ---- */
 $("#proc").addEventListener("change", () => {
-  const p = C.tarifas[$("#proc").value], t = $("#tiempo");
+  const p = S().tarifas[$("#proc").value], t = $("#tiempo");
   if (!p){ t.disabled = true; t.innerHTML = `<option value="">Primero elige el procedimiento</option>`; }
-  else { t.disabled = false; t.innerHTML = `<option value="">Elige el tiempo</option>` + p.tiempos.map(([h, v], i) => `<option value="${i}">${horas(h)} · ${fmt(v)}</option>`).join(""); }
+  else {
+    t.disabled = false;
+    t.innerHTML = `<option value="">Elige</option>` + p.map(([h, a, v], i) => `<option value="${i}">${h == null ? "Precio fijo" : horas(h) + " · anestesia " + a} · ${fmt(v)}</option>`).join("");
+    if (p.length === 1) t.value = "0";
+  }
+  $("#instr-h").value = "";
+  if (t.value !== "") $("#tiempo").dispatchEvent(new Event("change"));
   calcular();
 });
 
@@ -287,12 +319,17 @@ function agregarExtra(desc = "", valor = 0){
   calcular();
 }
 $("#add-extra").onclick = () => agregarExtra();
-$("#add-hosp").onclick = () => agregarExtra("Noche de hospitalización (habitación individual)", C.hospitalizacion);
+$("#tiempo").addEventListener("change", () => {
+  const p = S().tarifas[$("#proc").value], o = p && $("#tiempo").value !== "" ? p[$("#tiempo").value] : null;
+  $("#instr-h").value = o && o[0] != null ? String(o[0]).replace(".", ",") : "";
+  calcular();
+});
 
 /* ---- cálculo ---- */
 function leer(){
-  const nombreProc = $("#proc").value, p = C.tarifas[nombreProc], ti = $("#tiempo").value;
-  const q = p && ti !== "" ? { h: p.tiempos[ti][0], v: p.tiempos[ti][1] } : null;
+  const nombreProc = $("#proc").value, p = S().tarifas[nombreProc], ti = $("#tiempo").value;
+  const q = p && ti !== "" ? { h: p[ti][0], a: p[ti][1], v: p[ti][2] } : null;
+  const hi = parseFloat(($("#instr-h").value || "").replace(",", ".")) || 0;
   const tipo = $("#imp-tipo").value;
   let imp = null;
   if (tipo === "mamario"){ const m = C.mamarios[$("#imp-modelo").value]; imp = { nombre: "Implantes mamarios (par)", detalle: m.modelo + " · ref. " + m.codigo, v: m.precio }; }
@@ -302,12 +339,12 @@ function leer(){
   }
   const extras = [...document.querySelectorAll(".extra")].map(x => ({ d: x.querySelector(".ex-desc").value.trim(), v: num(x.querySelector(".ex-valor").value) })).filter(x => x.d || x.v);
   const doc = num($("#hon-doc").value), cli = num($("#hon-cli").value);
-  const instr = q ? q.h * C.instrumentador : 0;
+  const instr = q ? hi * C.instrumentador : 0;
   const total = (q ? q.v : 0) + instr + (imp ? imp.v : 0) + doc + cli + extras.reduce((s, x) => s + x.v, 0);
   return {
     nombre: $("#nombre").value.trim(), cedula: $("#cedula").value.trim(),
     doctor: $("#doctor").value === "otro" ? $("#doctor-otro").value.trim() : $("#doctor").value,
-    proc: nombreProc, anestesia: p ? p.anestesia : "", q, instr, imp, doc, cli, extras, total,
+    proc: nombreProc, anestesia: q ? q.a : "", hi, sede: S().nombre, quirofanoNombre: S().quirofano, q, instr, imp, doc, cli, extras, total,
   };
 }
 
@@ -316,10 +353,10 @@ function calcular(){
   const aq = $("#auto-q"), ai = $("#auto-i");
   aq.classList.toggle("vacio", !s.q); ai.classList.toggle("vacio", !s.q);
   aq.querySelector("b").textContent = s.q ? fmt(s.q.v) : "—";
-  ai.querySelector("b").textContent = s.q ? fmt(s.instr) + " · " + horas(s.q.h) : "—";
+  ai.querySelector("b").textContent = s.q ? fmt(s.instr) : "—";
 
   let r = "";
-  if (s.q){ r += linea("Quirófano · " + horas(s.q.h), s.q.v) + linea("Instrumentador", s.instr); }
+  if (s.q){ r += linea("Quirófano" + (s.q.h != null ? " · " + horas(s.q.h) : ""), s.q.v) + linea("Instrumentador · " + horas(s.hi), s.instr); }
   if (s.imp) r += linea(s.imp.nombre, s.imp.v);
   if (s.doc || s.cli){
     r += linea("Honorarios del cirujano", s.doc + s.cli);
@@ -342,6 +379,7 @@ function validar(s){
   marca("#cedula", !s.cedula, "cédula");
   marca("#proc", !s.proc, "procedimiento");
   marca("#tiempo", !s.q, "tiempo de quirófano");
+  if (s.q && !s.hi){ faltan.push("horas del instrumentador"); $("#instr-h").style.borderColor = "var(--error)"; } else $("#instr-h").style.borderColor = "";
   marca("#hon-doc", !s.doc, "honorarios del doctor");
   if ($("#doctor").value === "otro") marca("#doctor-otro", !s.doctor, "cirujano");
   if (s.imp && $("#imp-tipo").value !== "mamario") marca("#imp-valor", !s.imp.v, "valor del implante");
@@ -355,12 +393,12 @@ const dos = n => String(n).padStart(2, "0");
 
 function armarPDF(s, numero, hoy, vence){
   const filas = [];
-  filas.push([`Quirófano · Quirófanos 2 Sur`, `${horas(s.q.h)} · anestesia ${s.anestesia}`, s.q.v]);
-  filas.push([`Instrumentador quirúrgico`, horas(s.q.h), s.instr]);
+  filas.push([`Quirófano · ${s.quirofanoNombre}`, [horasDe(s.q.h), s.anestesia ? "anestesia " + s.anestesia : ""].filter(Boolean).join(" · "), s.q.v]);
+  filas.push([`Instrumentador quirúrgico`, horas(s.hi), s.instr]);
   if (s.imp) filas.push([s.imp.nombre, s.imp.detalle, s.imp.v]);
   filas.push([`Honorarios del cirujano`, s.doctor, s.doc + s.cli]);
   s.extras.forEach(x => filas.push([x.d || "Otro", "", x.v]));
-  const incluye = C.incluye.concat(/abdominoplastia/i.test(s.proc) ? ["Exovac o reservorio (1 unidad)"] : []);
+  const incluye = S().incluye.concat(/abdominoplastia/i.test(s.proc) ? ["Exovac o reservorio (1 unidad)"] : []);
   $("#pdf").innerHTML = `
     <div class="p-cab"><img src="assets/logo-noon-claro.png" alt="noon Clinic">
       <div class="der"><b>Cotización</b>N.º ${numero} · ${fecha(hoy)}</div></div>
@@ -382,7 +420,7 @@ function armarPDF(s, numero, hoy, vence){
           <p class="p-terminos">Al abonar aceptas nuestros términos y la política de devoluciones: <a href="${C.terminos}">${C.terminos.replace("https://", "")}</a></p></div>
       </div>
     </div>
-    <div class="p-pie"><span>noon Clinic · Medellín, Colombia</span><span>noon.clinic</span></div>`;
+    <div class="p-pie"><span>noon Clinic · Sede ${esc(s.sede)}, Colombia</span><span>noon.clinic</span></div>`;
 }
 
 /* ---- correo con todo discriminado (diseño noon + PDF adjunto, vía noon-cotizador-correo en Vercel) ---- */
@@ -391,7 +429,7 @@ async function enviarCorreo(s, numero, hoy, vence, pdf, archivo){
   const datos = {
     numero, fecha: fecha(hoy), vence: fecha(vence),
     paciente: s.nombre, documento: s.cedula, cirujano: s.doctor,
-    procedimiento: s.proc, anestesia: s.anestesia, horas: horas(s.q.h),
+    procedimiento: s.proc, anestesia: s.anestesia, horas: horasDe(s.q.h), horasInstr: horas(s.hi), sede: s.sede, quirofanoNombre: s.quirofanoNombre,
     quirofano: s.q.v, instrumentador: s.instr, instrumentadorHora: C.instrumentador,
     implante: s.imp ? { nombre: s.imp.nombre, detalle: s.imp.detalle, valor: s.imp.v } : null,
     honorariosDoctor: s.doc, gananciaClinica: s.cli, extras: s.extras, total: s.total,
@@ -452,6 +490,7 @@ $("#nueva").onclick = () => {
   window.scrollTo(0, 0);
 };
 
+ponerSede("medellin");
 calcular();
 </script>
 </body>

@@ -29,6 +29,18 @@ QUIROFANO_INCLUYE = [
     "Materiales y medicamentos básicos para el procedimiento",
     "Equipos básicos de quirófano",
 ]
+# Bogotá (Cirulaser 2026): el tarifario no dice qué incluye; la tarifa es por horas según el tipo de anestesia
+QUIROFANO_INCLUYE_BOGOTA = [
+    "Derechos de sala por el tiempo programado",
+    "Anestesia según el tipo indicado",
+]
+BOGOTA_RAPIDOS = [  # cobros aparte del tarifario Cirulaser
+    ["Consulta preanestésica", 175000],
+    ["VASER", 633000],
+    ["Recuperación posquirúrgica prolongada (1 hora)", 70000],
+    ["Patología pequeña", 290000],
+    ["Patología grande", 447000],
+]
 PAGOS = [
     ("Abono para tu fecha", "Con un abono reservas la fecha de tu cirugía."),
     ("Saldo", "Se paga completo antes del procedimiento."),
@@ -36,19 +48,30 @@ PAGOS = [
 TERMINOS = "https://noon.clinic/terminos-y-condiciones#t4"
 
 
+def _json(nombre):
+    return json.load(open(os.path.join(AQUI, "_cotizador", nombre), encoding="utf-8"))
+
+
 def generar():
-    tarifas = json.load(open(os.path.join(AQUI, "_cotizador", "tarifas-q2-2026.json"), encoding="utf-8"))
+    # Medellín (Q2 Sur): {proc: {anestesia, tiempos: [[h, v]]}} → {proc: [[h, anestesia, v]]}
+    q2 = {p: [[h, d["anestesia"], v] for h, v in d["tiempos"]] for p, d in _json("tarifas-q2-2026.json").items()}
+    sedes = {
+        "medellin": {"nombre": "Medellín", "quirofano": "Quirófanos 2 Sur", "tarifas": q2, "incluye": QUIROFANO_INCLUYE,
+                     "rapidos": [["Noche de hospitalización (habitación individual)", HOSPITALIZACION_NOCHE]]},
+        # Bogotá (Cirulaser): {proc: [[h | None, anestesia, v]]}; None = precio fijo sin horas
+        "bogota": {"nombre": "Bogotá", "quirofano": "Cirulaser", "tarifas": _json("tarifas-bogota-2026.json"), "incluye": QUIROFANO_INCLUYE_BOGOTA,
+                   "rapidos": BOGOTA_RAPIDOS},
+    }
     config = {
         "codigo": CODIGO, "correo": CORREO, "envio": ENVIO, "instrumentador": INSTRUMENTADOR_HORA,
-        "hospitalizacion": HOSPITALIZACION_NOCHE, "vigencia": VIGENCIA_MESES, "doctores": DOCTORES,
-        "tarifas": tarifas, "mamarios": IMPLANTES_MAMARIOS, "incluye": QUIROFANO_INCLUYE,
-        "pagos": PAGOS, "terminos": TERMINOS,
+        "vigencia": VIGENCIA_MESES, "doctores": DOCTORES, "sedes": sedes,
+        "mamarios": IMPLANTES_MAMARIOS, "pagos": PAGOS, "terminos": TERMINOS,
     }
     plantilla = open(os.path.join(AQUI, "_cotizador", "plantilla.html"), encoding="utf-8").read()
     html = plantilla.replace("/*CONFIG*/{}", json.dumps(config, ensure_ascii=False))
     with open(os.path.join(AQUI, "cotizador.html"), "w", encoding="utf-8") as f:
         f.write(html)
-    return len(tarifas)
+    return len(q2) + len(sedes["bogota"]["tarifas"])
 
 
 if __name__ == "__main__":
