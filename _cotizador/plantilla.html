@@ -115,7 +115,8 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
 #pdf .p-cab{background:#28231F;color:#F2EFE8;padding:34px 64px 28px;display:flex;justify-content:space-between;align-items:flex-end}
 #pdf .p-cab img{height:40px}
 #pdf .p-cab .der{text-align:right;font-size:12.5px;color:#D8D0C3;line-height:1.7}
-#pdf .p-cab .der b{display:block;font-family:Jost;font-weight:300;font-size:26px;letter-spacing:.22em;text-transform:uppercase;color:#F2EFE8;margin-bottom:6px}
+#pdf .p-cab .der b{display:block;font-family:Jost;font-weight:400;font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:#D8D0C3;margin-bottom:2px}
+#pdf .p-cab .p-sede{display:block;font-family:Jost;font-weight:400;font-size:34px;line-height:1.15;letter-spacing:.12em;text-transform:uppercase;color:#BDA47B;margin-bottom:6px}
 #pdf .p-cuerpo{flex:1;display:flex;flex-direction:column;padding:26px 64px 0}
 #pdf .p-datos{display:grid;grid-template-columns:1.3fr 1fr;gap:12px 40px;padding:16px 24px;background:#F7F4EF;border-radius:4px}
 #pdf .p-datos span{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#7A7067;margin-bottom:2px}
@@ -401,7 +402,7 @@ function armarPDF(s, numero, hoy, vence){
   const incluye = S().incluye.concat(/abdominoplastia/i.test(s.proc) ? ["Exovac o reservorio (1 unidad)"] : []);
   $("#pdf").innerHTML = `
     <div class="p-cab"><img src="assets/logo-noon-claro.png" alt="noon Clinic">
-      <div class="der"><b>Cotización</b>N.º ${numero} · ${fecha(hoy)}</div></div>
+      <div class="der"><b>Cotización</b><span class="p-sede">Sede ${esc(s.sede)}</span>N.º ${numero} · ${fecha(hoy)}</div></div>
     <div class="p-cuerpo">
       <div class="p-datos">
         <div><span>Paciente</span><b>${esc(s.nombre)}</b></div>
