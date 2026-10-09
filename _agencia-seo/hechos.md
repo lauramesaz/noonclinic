@@ -77,6 +77,28 @@ Decir siempre "aproximado" en duraciones y "revisa horarios vigentes".
   visa o una estancia larga: no es el caso típico del ciudadano estadounidense.
 - No dar asesoría migratoria personalizada: "revisa los requisitos vigentes antes de viajar".
 
+## Cómo se verifica a un cirujano plástico en Colombia
+(Fuentes: noticiasrcn.com, "La ruta de verificación de médicos y especialistas en cirugía estética en
+Colombia"; bluradio.com, "Cómo verificar un cirujano plástico certificado en Colombia"; El País
+(Colombia) vía bluradio.com sobre el rol de la SCCP; 9-oct-2026.)
+- **RETHUS** (Registro Único Nacional del Talento Humano en Salud, Ministerio de Salud): registro
+  oficial donde se puede buscar el nombre de un médico y confirmar si tiene inscrita la
+  especialidad de cirugía plástica. Es el dato que de verdad certifica la especialidad.
+- Para ser cirujano plástico en Colombia hay que ser médico titulado y haber hecho después una
+  especialización formal en cirugía plástica, estética y reconstructiva en un programa
+  universitario aprobado por el Estado colombiano.
+- **SCCP** (Sociedad Colombiana de Cirugía Plástica Estética y Reconstructiva): es un gremio
+  médico-científico privado, no una entidad estatal. No certifica competencias médicas; evalúa que
+  sus afiliados cumplan los requisitos para ser miembros. Pertenecer a la SCCP es una referencia de
+  respaldo gremial, pero no sustituye el RETHUS.
+- **REPS** (Registro Especial de Prestadores de Servicios de Salud, Ministerio de Salud): permite
+  verificar si una clínica, hospital o sede quirúrgica está habilitada para hacer cirugía. Es el
+  registro que respalda el concepto de "quirófano habilitado" que ya usa `hechos.md` (sección noon
+  Clinic) y `seguridad.html`.
+- No hay un enlace único y estable para citar a RETHUS/REPS que se pueda verificar aquí mismo: en el
+  texto se dice "el portal del Ministerio de Salud", sin URL exacta, y se invita a confirmarlo antes
+  de usarlo.
+
 ## Costos en EE. UU. (solo como referencia, nunca comparar con precio de noon)
 ASPS (American Society of Plastic Surgeons), páginas de costo, "últimas estadísticas" (año no
 indicado; citar "según la ASPS", con enlace, sin año). Solo honorario del cirujano: no incluye

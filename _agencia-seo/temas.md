@@ -28,7 +28,7 @@ Siempre se escribe ES + EN. Prioridad: de arriba a abajo.
 | # | Keyword ES | Keyword EN | Estado |
 |---|---|---|---|
 | C1 | es seguro operarse en Colombia | is it safe to get plastic surgery in Colombia | publicado 2026-10-08 |
-| C2 | cómo elegir cirujano plástico en Medellín | how to choose a plastic surgeon in Medellin | pendiente |
+| C2 | cómo elegir cirujano plástico en Medellín | how to choose a plastic surgeon in Medellin | publicado 2026-10-09 |
 | C3 | señales de alerta al operarse en el exterior | red flags medical tourism plastic surgery | pendiente |
 
 ## D. Procedimiento + viaje
