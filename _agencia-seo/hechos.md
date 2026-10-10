@@ -107,6 +107,23 @@ anestesia, quirófano ni otros gastos.
   Abdominoplastia: USD 8.174.
 Enlaces: plasticsurgery.org/cosmetic-procedures/<rhinoplasty|breast-augmentation|liposuction|tummy-tuck>/cost
 
+## Turismo médico y cirugía cosmética: riesgos documentados por el CDC
+(Fuente: CDC, MMWR -Morbidity and Mortality Weekly Report-, "Deaths of U.S. Citizens Undergoing
+Cosmetic Surgery — Dominican Republic, 2009–2022", vol. 73, núm. 3, publicado 25-ene-2024;
+confirmado por cobertura de AP, CBS News y NBC de la misma semana; 10-oct-2026.)
+- El CDC documentó 93 muertes de ciudadanos estadounidenses tras cirugía cosmética en República
+  Dominicana entre 2009 y 2022. Las muertes aumentaron con el tiempo: de un promedio de 4,1 al
+  año (2009-2018) a 13 al año (2019-2022).
+- En la revisión detallada de los casos de 2019-2020, la causa principal fue embolia grasa o
+  tromboembolismo venoso (coágulos). Casi todos los casos de embolia grasa correspondían a
+  pacientes que se hicieron liposucción junto con transferencia de grasa a los glúteos (BBL) en
+  la misma cirugía.
+- El propio CDC señala como factores de riesgo prevenibles la obesidad y el hacer varios
+  procedimientos combinados en una sola cirugía larga, no el país en sí.
+- No usar esto para señalar un país o una clínica puntual: sirve para explicar por qué noon
+  exige exámenes previos, decide con el especialista qué se combina en una misma cirugía y por
+  qué el riesgo de coágulos (ya citado de ASPS, sección siguiente) se toma en serio.
+
 ## Volar después de una cirugía (fuente: ASPS)
 - ASPS sugiere esperar antes de volar 5 a 7 días tras cirugías corporales (lipo, aumento de
   senos) y 7 a 10 días tras cirugías de la cara (lifting, párpados, rinoplastia).
