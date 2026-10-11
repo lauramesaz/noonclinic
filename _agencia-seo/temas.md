@@ -34,7 +34,7 @@ Siempre se escribe ES + EN. Prioridad: de arriba a abajo.
 ## D. Procedimiento + viaje
 | # | Procedimiento | Keyword ES | Keyword EN | Estado |
 |---|---|---|---|---|
-| D1 | liposuccion | lipo en Medellín para pacientes de EE. UU. | liposuction in Medellin Colombia | pendiente |
+| D1 | liposuccion | lipo en Medellín para pacientes de EE. UU. | liposuction in Medellin Colombia | publicado 2026-10-11 |
 | D2 | abdominoplastia | abdominoplastia en Colombia viniendo de EE. UU. | tummy tuck in Colombia | pendiente |
 | D3 | mamoplastia-de-aumento | aumento de senos en Medellín desde Estados Unidos | breast augmentation in Medellin | pendiente |
 | D4 | mommy-makeover | mommy makeover en Colombia | mommy makeover in Colombia | pendiente |

@@ -21,6 +21,9 @@ Vuelos y aerolíneas cambian: revisar esta tabla cada 3 meses (próxima: enero 2
   valoración presencial ni los controles en Medellín que indique el especialista antes de volar, y
   ante una urgencia se acude a urgencias en la ciudad donde se esté.
 
+- **Liposucción** (datos ya publicados en `liposuccion.html`, verificado 11-oct-2026): dura entre 2 y 5 horas según las zonas tratadas, con anestesia general o raquídea; se hace siempre en quirófano (Q2), nunca en consultorio; no es un método para bajar de peso, funciona mejor con peso estable.
+- **Lipotransferencia glútea** (datos ya publicados en `lipotransferencia-glutea.html`, verificado 11-oct-2026): combina liposucción de otras zonas con transferencia de esa grasa, purificada, a los glúteos; dura 3 a 5 horas, anestesia general; una parte de la grasa transferida se reabsorbe en los primeros meses.
+
 ## Medellín
 - Aeropuerto internacional: José María Córdova (MDE), queda en **Rionegro**, fuera de Medellín.
 - Clima templado casi constante todo el año ("ciudad de la eterna primavera"), por la altura y la
