@@ -526,14 +526,15 @@ $("#descargar").onclick = async () => {
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
       pagebreak: { mode: ["css"], avoid: ["tr", ".p-total", ".p-info"] },
     }).from($("#pdf")).toPdf().get("pdf");
-    doc.save(archivo);
     pdf = doc.output("datauristring").split(",")[1];
-  }catch(e){ aviso("No se pudo generar el PDF. Intenta de nuevo.", true); b.disabled = false; b.textContent = "Descargar PDF"; return; }
-  b.textContent = "Enviando copia…";
-  try{
-    const r = await enviarCorreo(s, numero, hoy, vence, pdf, archivo);
-    aviso(r === "repetida" ? "PDF descargado (esta misma cotización ya estaba en tu correo)" : "PDF descargado y copia enviada a tu correo");
-  }catch(e){ aviso("El PDF se descargó, pero no se pudo enviar el correo.", true); }
+    // primero la copia (correo + hoja de costos) y después la descarga: en el celular,
+    // al abrir el PDF la página se queda dormida y lo que venga después no alcanza a salir
+    b.textContent = "Enviando copia…";
+    let r = "error";
+    try{ r = await enviarCorreo(s, numero, hoy, vence, pdf.length < 3_000_000 ? pdf : "", archivo); }catch(e){}
+    aviso(r === "error" ? "El PDF se descargó, pero no se pudo enviar el correo." : r === "repetida" ? "PDF descargado (esta misma cotización ya estaba en tu correo)" : "PDF descargado y copia enviada a tu correo", r === "error");
+    doc.save(archivo);
+  }catch(e){ aviso("No se pudo generar el PDF. Intenta de nuevo.", true); }
   b.disabled = false; b.textContent = "Descargar PDF";
 };
 
