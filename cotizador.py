@@ -13,7 +13,7 @@ HOSPITALIZACION_NOCHE = 1380000  # habitación individual, tarifa Q2 2026
 VIGENCIA_MESES = 3
 POLIZA = 600000  # va siempre, en todas las cotizaciones
 RAPIDOS = [  # botones de "Otros elementos" en las dos sedes
-    ["Bomba del dolor", 550000],
+    ["Bomba del dolor (3 días)", 550000],
 ]
 FAJAS_RECARGO = 0.30  # sobre el precio de la tienda, redondeado al mil
 FAJAS = [  # (nombre que ve la paciente, precio tienda, modelo de referencia — NO sale en el PDF)
