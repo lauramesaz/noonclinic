@@ -65,6 +65,7 @@ input:disabled,select:disabled{background:var(--suave);color:var(--tenue)}
 .quitar:hover{color:var(--error);border-color:var(--error)}
 .botones{display:flex;flex-wrap:wrap;gap:10px}
 .btn-linea{border:1px dashed var(--linea);background:#fff;border-radius:var(--radio);padding:10px 14px;cursor:pointer;font-size:14px;color:var(--texto)}
+.sel-faja{width:auto;padding:10px 34px 10px 14px;border-style:dashed}
 .btn-linea:hover{border-color:var(--acento);color:var(--acento)}
 
 /* sede */
@@ -74,6 +75,16 @@ input:disabled,select:disabled{background:var(--suave);color:var(--tenue)}
 .sede-op button{border:0;background:transparent;padding:9px 22px;border-radius:999px;cursor:pointer;font-size:14px;color:var(--tenue);font-weight:600}
 .sede-op button.activa{background:var(--acento);color:#fff}
 .horas-ins{display:flex;align-items:center;gap:8px}
+.proc-b{padding:16px 0 4px}
+.proc-b + .proc-b{border-top:1px dashed var(--linea);margin-top:14px}
+.proc-b .tit{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acento);font-weight:700;margin-bottom:10px}
+.proc-b .tit button{border:0;background:none;color:var(--tenue);font-size:13px;cursor:pointer;letter-spacing:0;text-transform:none;font-weight:400}
+.proc-b .tit button:hover{color:var(--error)}
+#procs .proc-b:only-child .tit{display:none}
+#procs .proc-b:first-child{padding-top:0}
+.fijo{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--linea);border-radius:var(--radio);padding:11px 14px;margin-bottom:10px;font-size:14px}
+.fijo small{color:var(--tenue);margin-left:6px}
+.fijo b{font-variant-numeric:tabular-nums}
 .horas-ins input{width:70px;padding:6px 8px;border:1px solid var(--linea);border-radius:8px;text-align:center;background:#fff}
 
 /* resumen */
@@ -177,12 +188,8 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
     <section class="paso">
       <h2><span>02</span>Cirugía y quirófano</h2>
       <p class="ayuda" id="ayuda-q"></p>
-      <div class="fila">
-        <div class="campo"><label for="proc">Procedimiento</label><select id="proc"><option value="">Elige el procedimiento</option></select></div>
-        <div class="campo"><label for="tiempo">Tiempo y anestesia</label><select id="tiempo" disabled><option value="">Primero elige el procedimiento</option></select></div>
-      </div>
-      <div class="auto vacio" id="auto-q"><span>Quirófano</span><b>—</b></div>
-      <div class="auto vacio" id="auto-i" style="margin-top:8px"><span class="horas-ins">Instrumentador <input id="instr-h" type="text" inputmode="decimal" placeholder="0"> horas <small>(200.000 c/u)</small></span><b>—</b></div>
+      <div id="procs"></div>
+      <div class="botones" style="margin-top:16px"><button type="button" class="btn-linea" id="add-proc">+ Agregar otro procedimiento</button></div>
     </section>
 
     <section class="paso">
@@ -214,9 +221,11 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
 
     <section class="paso">
       <h2><span>05</span>Otros elementos</h2>
-      <p class="ayuda">Lo que haga falta: fajas, exámenes, hospitalización, medicamentos… Cada uno se suma al total.</p>
+      <p class="ayuda">La póliza va siempre. Lo demás (fajas, bomba del dolor, exámenes…) lo agregas con los botones. Cada uno se suma al total.</p>
+      <div class="fijo"><span>Póliza<small>· va en todas las cotizaciones</small></span><b id="poliza-v"></b></div>
       <div class="extras" id="extras"></div>
       <div class="botones" id="rapidos">
+        <select id="add-faja" class="btn-linea sel-faja"><option value="">+ Faja…</option></select>
         <button type="button" class="btn-linea" id="add-extra">+ Agregar elemento</button>
       </div>
     </section>
@@ -263,14 +272,14 @@ const horasDe = h => h == null ? "" : horas(h);
 function ponerSede(id){
   SEDE = id;
   document.querySelectorAll("#sede button").forEach(b => b.classList.toggle("activa", b.dataset.sede === id));
-  $("#proc").innerHTML = `<option value="">Elige el procedimiento</option>` + Object.keys(S().tarifas).map(p => `<option>${esc(p)}</option>`).join("");
+  $("#procs").innerHTML = ""; agregarProc();
   $("#ayuda-q").textContent = `Tarifario ${S().quirofano} 2026 (sede ${S().nombre}). El precio del quirófano y el del instrumentador salen solos.`;
   document.querySelectorAll(".btn-rapido").forEach(b => b.remove());
-  S().rapidos.forEach(([d, v]) => {
+  C.rapidos.concat(S().rapidos).forEach(([d, v]) => {
     const b = document.createElement("button"); b.type = "button"; b.className = "btn-linea btn-rapido";
     b.textContent = "+ " + d; b.onclick = () => agregarExtra(d, v); $("#rapidos").appendChild(b);
   });
-  $("#proc").dispatchEvent(new Event("change"));
+  calcular();
 }
 document.querySelectorAll("#sede button").forEach(b => b.onclick = () => { if (b.dataset.sede !== SEDE) ponerSede(b.dataset.sede); });
 $("#imp-modelo").innerHTML = C.mamarios.map((m, i) => `<option value="${i}">${esc(m.modelo)} · ${fmt(m.precio)}</option>`).join("");
@@ -282,19 +291,42 @@ document.addEventListener("input", e => {
   e.target.value = n ? n.toLocaleString("es-CO") : "";
 });
 
-/* ---- procedimiento → tiempos ---- */
-$("#proc").addEventListener("change", () => {
-  const p = S().tarifas[$("#proc").value], t = $("#tiempo");
-  if (!p){ t.disabled = true; t.innerHTML = `<option value="">Primero elige el procedimiento</option>`; }
-  else {
-    t.disabled = false;
-    t.innerHTML = `<option value="">Elige</option>` + p.map(([h, a, v], i) => `<option value="${i}">${h == null ? "Precio fijo" : horas(h) + " · anestesia " + a} · ${fmt(v)}</option>`).join("");
-    if (p.length === 1) t.value = "0";
-  }
-  $("#instr-h").value = "";
-  if (t.value !== "") $("#tiempo").dispatchEvent(new Event("change"));
-  calcular();
-});
+/* ---- procedimientos (uno o varios) ---- */
+function agregarProc(){
+  const d = document.createElement("div");
+  d.className = "proc-b";
+  d.innerHTML = `<div class="tit"><span class="n"></span><button type="button" class="quitar-p">Quitar ×</button></div>
+    <div class="fila">
+      <div class="campo"><label>Procedimiento</label><select class="proc"><option value="">Elige el procedimiento</option>${Object.keys(S().tarifas).map(p => `<option>${esc(p)}</option>`).join("")}</select></div>
+      <div class="campo"><label>Tiempo y anestesia</label><select class="tiempo" disabled><option value="">Primero elige el procedimiento</option></select></div>
+    </div>
+    <div class="auto vacio a-q"><span>Quirófano</span><b>—</b></div>
+    <div class="auto vacio a-i" style="margin-top:8px"><span class="horas-ins">Instrumentador <input class="instr-h" type="text" inputmode="decimal" placeholder="0"> horas <small>(${C.instrumentador.toLocaleString("es-CO")} c/u)</small></span><b>—</b></div>`;
+  const proc = d.querySelector(".proc"), t = d.querySelector(".tiempo"), ih = d.querySelector(".instr-h");
+  proc.addEventListener("change", () => {
+    const p = S().tarifas[proc.value];
+    if (!p){ t.disabled = true; t.innerHTML = `<option value="">Primero elige el procedimiento</option>`; }
+    else {
+      t.disabled = false;
+      t.innerHTML = `<option value="">Elige</option>` + p.map(([h, a, v], i) => `<option value="${i}">${h == null ? "Precio fijo" : horas(h) + " · anestesia " + a} · ${fmt(v)}</option>`).join("");
+      if (p.length === 1) t.value = "0";
+    }
+    ih.value = "";
+    if (t.value !== "") t.dispatchEvent(new Event("change"));
+    calcular();
+  });
+  t.addEventListener("change", () => {
+    const p = S().tarifas[proc.value], o = p && t.value !== "" ? p[t.value] : null;
+    ih.value = o && o[0] != null ? String(o[0]).replace(".", ",") : "";
+    calcular();
+  });
+  d.querySelector(".quitar-p").onclick = () => { d.remove(); numerarProcs(); calcular(); };
+  $("#procs").appendChild(d);
+  numerarProcs();
+  return d;
+}
+function numerarProcs(){ document.querySelectorAll("#procs .proc-b").forEach((b, i) => b.querySelector(".n").textContent = "Procedimiento " + (i + 1)); }
+$("#add-proc").onclick = () => { agregarProc().querySelector(".proc").focus(); calcular(); };
 
 /* ---- implantes ---- */
 $("#imp-tipo").addEventListener("change", () => {
@@ -320,17 +352,19 @@ function agregarExtra(desc = "", valor = 0){
   calcular();
 }
 $("#add-extra").onclick = () => agregarExtra();
-$("#tiempo").addEventListener("change", () => {
-  const p = S().tarifas[$("#proc").value], o = p && $("#tiempo").value !== "" ? p[$("#tiempo").value] : null;
-  $("#instr-h").value = o && o[0] != null ? String(o[0]).replace(".", ",") : "";
-  calcular();
-});
+$("#poliza-v").textContent = fmt(C.poliza);
+$("#add-faja").innerHTML += C.fajas.map(([n, v], i) => `<option value="${i}">${esc(n)} · ${fmt(v)}</option>`).join("");
+$("#add-faja").addEventListener("change", e => { const f = C.fajas[e.target.value]; e.target.value = ""; if (f) agregarExtra(f[0], f[1]); });
 
 /* ---- cálculo ---- */
 function leer(){
-  const nombreProc = $("#proc").value, p = S().tarifas[nombreProc], ti = $("#tiempo").value;
-  const q = p && ti !== "" ? { h: p[ti][0], a: p[ti][1], v: p[ti][2] } : null;
-  const hi = parseFloat(($("#instr-h").value || "").replace(",", ".")) || 0;
+  const procs = [...document.querySelectorAll("#procs .proc-b")].map(b => {
+    const nombre = b.querySelector(".proc").value, p = S().tarifas[nombre], ti = b.querySelector(".tiempo").value;
+    const q = p && ti !== "" ? { h: p[ti][0], a: p[ti][1], v: p[ti][2] } : null;
+    const hi = q ? parseFloat((b.querySelector(".instr-h").value || "").replace(",", ".")) || 0 : 0;
+    return { b, nombre, q, hi, instr: hi * C.instrumentador };
+  });
+  const listos = procs.filter(x => x.q);
   const tipo = $("#imp-tipo").value;
   let imp = null;
   if (tipo === "mamario"){ const m = C.mamarios[$("#imp-modelo").value]; imp = { nombre: "Implantes mamarios (par)", detalle: m.modelo + " · ref. " + m.codigo, v: m.precio }; }
@@ -340,29 +374,36 @@ function leer(){
   }
   const extras = [...document.querySelectorAll(".extra")].map(x => ({ d: x.querySelector(".ex-desc").value.trim(), v: num(x.querySelector(".ex-valor").value) })).filter(x => x.d || x.v);
   const doc = num($("#hon-doc").value), cli = num($("#hon-cli").value);
-  const instr = q ? hi * C.instrumentador : 0;
-  const total = (q ? q.v : 0) + instr + (imp ? imp.v : 0) + doc + cli + extras.reduce((s, x) => s + x.v, 0);
+  const quir = listos.reduce((a, x) => a + x.q.v, 0), instr = listos.reduce((a, x) => a + x.instr, 0);
+  const total = quir + instr + (imp ? imp.v : 0) + doc + cli + C.poliza + extras.reduce((s, x) => s + x.v, 0);
   return {
     nombre: $("#nombre").value.trim(), cedula: $("#cedula").value.trim(),
     doctor: $("#doctor").value === "otro" ? $("#doctor-otro").value.trim() : $("#doctor").value,
-    proc: nombreProc, anestesia: q ? q.a : "", hi, sede: S().nombre, quirofanoNombre: S().quirofano, q, instr, imp, doc, cli, extras, total,
+    procs, listos, proc: listos.map(x => x.nombre).join(" + "), quir, sede: S().nombre, quirofanoNombre: S().quirofano, instr, imp, doc, cli, extras, total,
   };
 }
 
 function calcular(){
   const s = leer();
-  const aq = $("#auto-q"), ai = $("#auto-i");
-  aq.classList.toggle("vacio", !s.q); ai.classList.toggle("vacio", !s.q);
-  aq.querySelector("b").textContent = s.q ? fmt(s.q.v) : "—";
-  ai.querySelector("b").textContent = s.q ? fmt(s.instr) : "—";
+  s.procs.forEach(x => {
+    const aq = x.b.querySelector(".a-q"), ai = x.b.querySelector(".a-i");
+    aq.classList.toggle("vacio", !x.q); ai.classList.toggle("vacio", !x.q);
+    aq.querySelector("b").textContent = x.q ? fmt(x.q.v) : "—";
+    ai.querySelector("b").textContent = x.q ? fmt(x.instr) : "—";
+  });
 
   let r = "";
-  if (s.q){ r += linea("Quirófano" + (s.q.h != null ? " · " + horas(s.q.h) : ""), s.q.v) + linea("Instrumentador · " + horas(s.hi), s.instr); }
+  const varios = s.listos.length > 1;
+  s.listos.forEach(x => {
+    if (varios) r += `<div class="linea-r" style="font-weight:700;padding-top:10px">${esc(x.nombre)}</div>`;
+    r += linea((varios ? "· " : "") + "Quirófano" + (x.q.h != null ? " · " + horas(x.q.h) : ""), x.q.v) + linea((varios ? "· " : "") + "Instrumentador · " + horas(x.hi), x.instr);
+  });
   if (s.imp) r += linea(s.imp.nombre, s.imp.v);
   if (s.doc || s.cli){
     r += linea("Honorarios del cirujano", s.doc + s.cli);
     r += `<div class="linea-r sub"><span>Doctor</span><span>${fmt(s.doc)}</span></div><div class="linea-r sub"><span>Clínica</span><span>${fmt(s.cli)}</span></div>`;
   }
+  if (r) r += linea("Póliza", C.poliza);
   s.extras.forEach(x => r += linea(x.d || "Elemento", x.v));
   $("#resumen").innerHTML = r || `<p class="vacio-r">Elige el procedimiento para empezar.</p>`;
   $("#total").textContent = fmt(s.total);
@@ -378,9 +419,17 @@ function validar(s){
   const marca = (id, mal, txt) => { const c = $(id).closest(".campo"); c.classList.toggle("error", mal); if (mal) faltan.push(txt); };
   marca("#nombre", !s.nombre, "nombre");
   marca("#cedula", !s.cedula, "cédula");
-  marca("#proc", !s.proc, "procedimiento");
-  marca("#tiempo", !s.q, "tiempo de quirófano");
-  if (s.q && !s.hi){ faltan.push("horas del instrumentador"); $("#instr-h").style.borderColor = "var(--error)"; } else $("#instr-h").style.borderColor = "";
+  if (!s.listos.length) faltan.push("procedimiento");
+  s.procs.forEach((x, i) => {
+    const n = s.procs.length > 1 ? " (procedimiento " + (i + 1) + ")" : "";
+    x.b.querySelector(".proc").closest(".campo").classList.toggle("error", !x.nombre);
+    x.b.querySelector(".tiempo").closest(".campo").classList.toggle("error", !x.q);
+    if (!x.nombre && s.procs.length > 1) faltan.push("procedimiento" + n);
+    else if (x.nombre && !x.q) faltan.push("tiempo de quirófano" + n);
+    const malH = x.q && !x.hi;
+    if (malH) faltan.push("horas del instrumentador" + n);
+    x.b.querySelector(".instr-h").style.borderColor = malH ? "var(--error)" : "";
+  });
   marca("#hon-doc", !s.doc, "honorarios del doctor");
   if ($("#doctor").value === "otro") marca("#doctor-otro", !s.doctor, "cirujano");
   if (s.imp && $("#imp-tipo").value !== "mamario") marca("#imp-valor", !s.imp.v, "valor del implante");
@@ -394,10 +443,14 @@ const dos = n => String(n).padStart(2, "0");
 
 function armarPDF(s, numero, hoy, vence){
   const filas = [];
-  filas.push([`Quirófano · ${s.quirofanoNombre}`, [horasDe(s.q.h), s.anestesia ? "anestesia " + s.anestesia : ""].filter(Boolean).join(" · "), s.q.v]);
-  filas.push([`Instrumentador quirúrgico`, horas(s.hi), s.instr]);
+  const varios = s.listos.length > 1;
+  s.listos.forEach(x => {
+    filas.push([`Quirófano · ${s.quirofanoNombre}`, [varios ? x.nombre : "", horasDe(x.q.h), x.q.a ? "anestesia " + x.q.a : ""].filter(Boolean).join(" · "), x.q.v]);
+    filas.push([`Instrumentador quirúrgico`, [varios ? x.nombre : "", horas(x.hi)].filter(Boolean).join(" · "), x.instr]);
+  });
   if (s.imp) filas.push([s.imp.nombre, s.imp.detalle, s.imp.v]);
   filas.push([`Honorarios del cirujano`, s.doctor, s.doc + s.cli]);
+  filas.push(["Póliza", "", C.poliza]);
   s.extras.forEach(x => filas.push([x.d || "Otro", "", x.v]));
   const incluye = S().incluye.concat(/abdominoplastia/i.test(s.proc) ? ["Exovac o reservorio (1 unidad)"] : []);
   $("#pdf").innerHTML = `
@@ -430,10 +483,13 @@ async function enviarCorreo(s, numero, hoy, vence, pdf, archivo){
   const datos = {
     numero, fecha: fecha(hoy), vence: fecha(vence),
     paciente: s.nombre, documento: s.cedula, cirujano: s.doctor,
-    procedimiento: s.proc, anestesia: s.anestesia, horas: horasDe(s.q.h), horasInstr: horas(s.hi), sede: s.sede, quirofanoNombre: s.quirofanoNombre,
-    quirofano: s.q.v, instrumentador: s.instr, instrumentadorHora: C.instrumentador,
+    procedimiento: s.proc, anestesia: [...new Set(s.listos.map(x => x.q.a).filter(Boolean))].join(" / "),
+    horas: s.listos.map(x => horasDe(x.q.h)).filter(Boolean).join(" + "), horasInstr: horas(s.listos.reduce((a, x) => a + x.hi, 0)),
+    sede: s.sede, quirofanoNombre: s.quirofanoNombre,
+    quirofano: s.quir, instrumentador: s.instr, instrumentadorHora: C.instrumentador,
+    procedimientos: s.listos.map(x => ({ nombre: x.nombre, horas: horasDe(x.q.h), anestesia: x.q.a, quirofano: x.q.v, horasInstr: horas(x.hi), instrumentador: x.instr })),
     implante: s.imp ? { nombre: s.imp.nombre, detalle: s.imp.detalle, valor: s.imp.v } : null,
-    honorariosDoctor: s.doc, gananciaClinica: s.cli, extras: s.extras, total: s.total,
+    honorariosDoctor: s.doc, gananciaClinica: s.cli, extras: [{ d: "Póliza", v: C.poliza }].concat(s.extras), total: s.total,
   };
   const firma = JSON.stringify(Object.assign({}, datos, { numero: "" }));
   if (firma === ultimoEnvio) return "repetida";
@@ -485,7 +541,7 @@ $("#nueva").onclick = () => {
   if (!confirm("¿Borrar todo y empezar una cotización nueva?")) return;
   document.querySelectorAll("main input").forEach(i => i.value = "");
   document.querySelectorAll("main select").forEach(s => s.selectedIndex = 0);
-  $("#extras").innerHTML = ""; $("#imp-tipo").dispatchEvent(new Event("change")); $("#proc").dispatchEvent(new Event("change"));
+  $("#extras").innerHTML = ""; $("#imp-tipo").dispatchEvent(new Event("change")); $("#procs").innerHTML = ""; agregarProc(); calcular();
   $("#doctor").dispatchEvent(new Event("change"));
   document.querySelectorAll(".campo.error").forEach(c => c.classList.remove("error"));
   window.scrollTo(0, 0);

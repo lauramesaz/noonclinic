@@ -11,6 +11,20 @@ ENVIO = "https://noon-cotizador-correo.vercel.app/api/enviar"  # proyecto ~/noon
 INSTRUMENTADOR_HORA = 200000
 HOSPITALIZACION_NOCHE = 1380000  # habitación individual, tarifa Q2 2026
 VIGENCIA_MESES = 3
+POLIZA = 600000  # va siempre, en todas las cotizaciones
+RAPIDOS = [  # botones de "Otros elementos" en las dos sedes
+    ["Bomba del dolor", 550000],
+]
+FAJAS_RECARGO = 0.30  # sobre el precio de la tienda, redondeado al mil
+FAJAS = [  # (nombre que ve la paciente, precio tienda, modelo de referencia — NO sale en el PDF)
+    ("Faja todo el cuerpo · compresión alta", 260900, "Ana"),
+    ("Faja todo el cuerpo · compresión media alta", 268900, "Ada"),
+    ("Faja todo el cuerpo · compresión media", 221900, "Agatha C"),
+    ("Faja todo el cuerpo · compresión baja", 135900, "Aurora"),
+    ("Faja todo el cuerpo con mangas", 266900, "África / Calixta"),
+    ("Faja solo senos", 105900, "Amara / Luna"),
+    ("Faja senos con mangas", 116900, "Lyra"),
+]
 
 DOCTORES = ["Dr. Fernando Ruiz"]
 
@@ -64,7 +78,8 @@ def generar():
     }
     config = {
         "codigo": CODIGO, "correo": CORREO, "envio": ENVIO, "instrumentador": INSTRUMENTADOR_HORA,
-        "vigencia": VIGENCIA_MESES, "doctores": DOCTORES, "sedes": sedes,
+        "vigencia": VIGENCIA_MESES, "poliza": POLIZA, "rapidos": RAPIDOS,
+        "fajas": [[n, int(round(v * (1 + FAJAS_RECARGO), -3))] for n, v, _ in FAJAS], "doctores": DOCTORES, "sedes": sedes,
         "mamarios": IMPLANTES_MAMARIOS, "pagos": PAGOS, "terminos": TERMINOS,
     }
     plantilla = open(os.path.join(AQUI, "_cotizador", "plantilla.html"), encoding="utf-8").read()
