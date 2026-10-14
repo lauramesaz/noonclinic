@@ -336,6 +336,7 @@ def generar(b):
   <p class="cl-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Los resultados varían de una persona a otra. Fotos: Laura Beauty Designer en Pexels; Patient Perfect y krivitskiy en Unsplash. © noon Clinic</p>
 </footer>
 <div class="cl-barra" aria-hidden="true">%(btn_barra)s</div>
+<script src="assets/medicion-ads.js?v=%(v)s" defer></script>
 <script src="assets/criolipolisis.js?v=%(v)s" defer></script>
 </body>
 </html>
