@@ -447,6 +447,13 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .carta:nth-child(odd) .frente { border-color:var(--tinta); }
 @media (prefers-reduced-motion:reduce) { .parada.sig .bola, .toca i { animation:none; } }
 
+/* ---------- camino: leyendas de los recuadros ---------- */
+.escena .col { display:flex; flex-direction:column; gap:10px; min-width:0; }
+.escena .col > .escena-info, .escena .col > .telefono { flex:1; }
+.leyenda { display:inline-flex; align-items:center; gap:8px; font:500 11.5px var(--display); letter-spacing:.14em; text-transform:uppercase; color:#5E554D; padding-left:4px; }
+.leyenda svg { width:15px; height:15px; color:var(--vinoF); }
+.leyenda em { font-style:normal; letter-spacing:.04em; text-transform:none; color:#A69A8B; font-family:var(--texto); font-size:12.5px; }
+
 @media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
 @media (max-width:900px) {
   .precio-card { grid-template-columns:1fr; }
@@ -697,12 +704,12 @@ function irA(i, primera) {
   const x = bolas[pasoC].offsetLeft; $("#token").style.transform = `translateX(${x}px)`;
   $("#riel").style.width = (pasoC / (C.length - 1) * 100) + "%";
   const av = p.foto ? `<span class="av" style="background-image:url(${fotoDoc(p.foto)})"></span>` : `<span class="av">${ico(p.ico)}</span>`;
-  $("#escena").innerHTML = `<div class="escena-info anima"><span class="num">${String(pasoC + 1).padStart(2, "0")}</span>
+  $("#escena").innerHTML = `<div class="col"><span class="leyenda">${ico("lista")}Qué pasa en este paso</span><div class="escena-info anima"><span class="num">${String(pasoC + 1).padStart(2, "0")}</span>
       <span class="quien-chip">${av}${esc(p.quien)}</span><h2>${esc(p.que)}</h2><p class="como">${esc(p.como)}</p>
       ${p.ojo ? `<div class="alerta"><span class="ojo">Ojo</span><span>${esc(p.ojo)}</span></div>` : ""}
       <div class="controles"><button class="btn claro" type="button" data-mover="-1" ${pasoC === 0 ? "disabled" : ""}>← Atrás</button>
         <button class="btn" type="button" data-mover="1" ${pasoC === C.length - 1 ? "disabled" : ""}>${pasoC === C.length - 2 ? "¡Último paso!" : "Siguiente"} →</button></div></div>
-    <div class="telefono"><div class="top"><img src="assets/logo-noon-claro.png" alt="noon"><small>${esc(p.quien.split("·")[0])}</small></div><div class="burbujas" id="burbujas"></div></div>`;
+    </div><div class="col"><span class="leyenda">${ico("chat")}Así se ve en el chat <em>(ejemplo)</em></span><div class="telefono"><div class="top"><img src="assets/logo-noon-claro.png" alt="noon"><small>${esc(p.quien.split("·")[0])}</small></div><div class="burbujas" id="burbujas"></div></div></div>`;
   chatea(p.chat);
   if (pasoC === C.length - 1 && !primera) confeti();
 }
