@@ -506,6 +506,83 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 @media (max-width:640px) { .wa { height:520px; border-width:7px; border-radius:30px; } .wa-top .wa-i + .wa-i { margin-left:10px; } }
 @media (prefers-reduced-motion:reduce) { .wa-m, .wa-sys { animation:none; } }
 
+/* ---------- video guiado Saneo ---------- */
+.ver-video { display:inline-flex; align-items:center; gap:10px; align-self:flex-start; font-weight:700; font-size:15px; color:#5B21B6; background:#F3EEFF; border:1px solid #DDD0FF; border-radius:999px; padding:8px 16px 8px 8px; transition:background .2s; }
+.ver-video:hover { background:#E9DFFF; }
+.ver-video span { width:28px; height:28px; border-radius:50%; background:#6D28D9; color:#fff; display:grid; place-items:center; font-size:11px; }
+.sv { margin-bottom:56px; }
+.sv-player { background:#16110F; border-radius:24px; padding:14px; box-shadow:0 24px 50px rgba(22,17,15,.18); }
+.sv-escala { position:relative; overflow:hidden; border-radius:14px; cursor:pointer; }
+.sv-app { position:absolute; left:0; top:0; width:980px; height:600px; transform-origin:0 0; background:#fff; display:flex; font-family:"Jost",-apple-system,sans-serif; color:#1F1B2E; overflow:hidden; }
+.sv-lado { width:62px; flex:none; background:linear-gradient(180deg,#8B2CF5,#5B5BF0); display:flex; flex-direction:column; align-items:center; gap:16px; padding:14px 0; }
+.sv-logo { width:34px; height:34px; border-radius:10px; background:#fff; color:#5B21B6; display:grid; place-items:center; font-weight:700; margin-bottom:8px; }
+.sv-lado i { width:20px; height:20px; border-radius:6px; background:rgba(255,255,255,.35); }
+.sv-lado i.on { width:40px; height:28px; border-radius:10px; background:#fff; }
+.sv-main { flex:1; display:flex; flex-direction:column; min-width:0; }
+.sv-top { display:flex; align-items:center; gap:14px; padding:12px 18px; border-bottom:1px solid #EEE9F7; font-size:13px; }
+.sv-migas { color:#6B6880; } .sv-migas b { color:#1F1B2E; }
+.sv-sede { margin-left:auto; border:1px solid #E5E0F0; border-radius:10px; padding:5px 10px; font-weight:600; transition:box-shadow .3s; }
+.sv-user { color:#6B6880; }
+.sv-bar { display:flex; align-items:center; gap:12px; padding:10px 18px; font-size:12.5px; }
+.sv-vistas { display:flex; background:#F4F1FA; border-radius:9px; padding:3px; } .sv-vistas span { padding:4px 10px; border-radius:7px; color:#6B6880; } .sv-vistas span.on { background:#fff; color:#1F1B2E; font-weight:600; box-shadow:0 1px 2px rgba(0,0,0,.08); }
+.sv-btn { background:#6D28D9; color:#fff; border-radius:9px; padding:6px 12px; font-weight:600; transition:box-shadow .3s; }
+.sv-mes { margin-left:auto; font-size:16px; }
+.sv-cal { flex:1; display:flex; flex-direction:column; padding:0 18px 14px; min-height:0; }
+.sv-sem { display:grid; grid-template-columns:repeat(7,1fr); font-size:11px; font-weight:600; color:#6B6880; padding:6px 0; border-bottom:1px solid #EEE9F7; } .sv-sem span { padding-left:6px; }
+.sv-grid { flex:1; display:grid; grid-template-columns:repeat(7,1fr); grid-template-rows:repeat(5,1fr); border-left:1px solid #EEE9F7; min-height:0; }
+.sv-dia { border-right:1px solid #EEE9F7; border-bottom:1px solid #EEE9F7; padding:4px 5px; position:relative; overflow:hidden; display:flex; flex-direction:column; gap:3px; }
+.sv-dia.fuera b { color:#C4C0D0; }
+.sv-dh { display:flex; align-items:center; justify-content:space-between; gap:4px; } .sv-dh b { font-size:12px; font-weight:600; }
+.sv-dia.hoy .sv-dh b { background:#6D28D9; color:#fff; border-radius:50%; width:20px; height:20px; display:grid; place-items:center; }
+.sv-nd { font-size:8.5px; border:1px solid #DCD7E8; border-radius:999px; padding:1px 6px; color:#6B6880; white-space:nowrap; transition:box-shadow .3s; }
+.sv-ev, .sv-nueva { border:1px solid #EEE9F7; border-left:3px solid #C026D3; border-radius:6px; padding:3px 5px; font-size:8.5px; line-height:1.3; background:#fff; }
+.sv-ev div, .sv-nueva div { display:flex; gap:4px; align-items:center; } .sv-ev i, .sv-nueva i { font-style:normal; color:#4A4660; }
+.sv-ev b, .sv-nueva b { display:block; font-size:9.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } .sv-ev small, .sv-nueva small { color:#6B6880; }
+.st { font-style:normal; color:#fff; border-radius:999px; padding:0 5px; font-size:7.5px; font-weight:700; }
+.st.programada { background:#475569; } .st.completada { background:#16A34A; } .st.cancelada { background:#EF4444; } .st.confirmada { background:#2563EB; }
+.sv-nueva { opacity:0; transform:scale(.8); transition:opacity .4s, transform .5s cubic-bezier(.3,1.5,.5,1); box-shadow:0 0 0 0 rgba(109,40,217,.5); }
+.sv-nueva.ver { opacity:1; transform:none; animation:svPulso 1.4s ease-out 2; }
+@keyframes svPulso { 0% { box-shadow:0 0 0 0 rgba(109,40,217,.55); } 100% { box-shadow:0 0 0 12px rgba(109,40,217,0); } }
+.sv-mas { position:absolute; right:6px; bottom:6px; width:24px; height:24px; border-radius:50%; background:#EDE4FF; color:#6D28D9; display:grid; place-items:center; font-weight:700; opacity:0; transform:scale(.6); transition:all .3s; }
+.sv-mas.ver { opacity:1; transform:none; }
+.marca { box-shadow:0 0 0 3px #FACC15, 0 0 0 7px rgba(250,204,21,.35) !important; }
+.sv-pop { position:absolute; left:470px; top:395px; width:190px; background:#fff; border-radius:12px; box-shadow:0 12px 30px rgba(31,27,46,.2); padding:10px 12px; font-size:11px; opacity:0; transform:translateY(-6px); transition:all .3s; pointer-events:none; }
+.sv-pop.ver { opacity:1; transform:none; }
+.sv-pop b { display:block; font-size:11.5px; margin:2px 0 4px; } .sv-pop p { margin:0 0 6px; padding-left:14px; position:relative; font-weight:600; } .sv-pop small { display:block; color:#6B6880; font-weight:400; }
+.sv-pop i { position:absolute; left:0; top:4px; width:7px; height:7px; border-radius:50%; } .sv-pop i.r { background:#EF4444; } .sv-pop i.v { background:#22C55E; }
+.sv-modal { position:absolute; inset:0; background:rgba(31,27,46,.35); display:flex; justify-content:flex-end; opacity:0; pointer-events:none; transition:opacity .35s; }
+.sv-modal.ver { opacity:1; }
+.sv-form { width:380px; height:100%; background:#fff; padding:22px 24px; display:flex; flex-direction:column; gap:10px; transform:translateX(40px); transition:transform .45s cubic-bezier(.2,.7,.1,1); position:relative; }
+.sv-modal.ver .sv-form { transform:none; }
+.sv-form h4 { margin:0 0 4px; font:600 18px "Jost",sans-serif; }
+.sv-form label { display:flex; flex-direction:column; gap:4px; font-size:11.5px; font-weight:600; color:#4A4660; }
+.sv-in { border:1px solid #E5E0F0; border-radius:9px; min-height:34px; padding:8px 10px; font-size:13px; font-weight:500; color:#1F1B2E; transition:border-color .2s, box-shadow .2s; }
+.sv-in.alto { min-height:52px; }
+.sv-in em { font-style:normal; }
+.sv-in.foco { border-color:#6D28D9; box-shadow:0 0 0 3px rgba(109,40,217,.15); } .sv-in.foco em::after { content:"|"; color:#6D28D9; animation:svCaret .8s steps(1) infinite; }
+@keyframes svCaret { 50% { opacity:0; } }
+.sv-in.lleno { border-color:#C9B8F5; background:#FBF9FF; }
+.sv-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.sv-sug { position:absolute; left:24px; right:24px; top:112px; background:#fff; border:1px solid #E5E0F0; border-radius:9px; box-shadow:0 10px 24px rgba(31,27,46,.14); padding:9px 10px; font-size:13px; font-weight:600; opacity:0; transition:opacity .2s; z-index:2; }
+.sv-sug.ver { opacity:1; } .sv-sug small { color:#6B6880; font-weight:400; margin-left:6px; }
+.sv-acc { margin-top:auto; display:flex; justify-content:flex-end; gap:10px; font-size:13px; } .sv-cancel { padding:7px 12px; color:#6B6880; }
+.sv-cursor { position:absolute; left:-6px; top:-4px; transition:transform .9s cubic-bezier(.45,.05,.3,1); z-index:10; pointer-events:none; filter:drop-shadow(0 2px 3px rgba(0,0,0,.25)); }
+.sv-click { position:absolute; left:2px; top:0; width:26px; height:26px; margin:-10px 0 0 -10px; border-radius:50%; border:2px solid #FACC15; opacity:0; }
+.sv-cursor.clic .sv-click { animation:svClic .5s ease-out; }
+@keyframes svClic { from { opacity:1; transform:scale(.3); } to { opacity:0; transform:scale(1.6); } }
+.sv-escala::after { content:"▶"; position:absolute; inset:0; margin:auto; width:84px; height:84px; border-radius:50%; background:rgba(22,17,15,.82); color:#fff; display:grid; place-items:center; font-size:28px; padding-left:6px; transition:opacity .3s; }
+.sv-player.empezado .sv-escala::after { opacity:0; }
+.sv-cap { min-height:56px; display:flex; align-items:center; padding:12px 6px 4px; color:#fff; font-size:17px; font-weight:600; line-height:1.4; }
+.sv-cap span { animation:entra .4s var(--ease) both; }
+.sv-ctrl { display:flex; align-items:center; gap:14px; padding:8px 6px 4px; }
+.sv-play { width:40px; height:40px; border-radius:50%; border:0; background:#fff; color:#16110F; font-size:14px; cursor:pointer; flex:none; }
+.sv-linea { flex:1; height:6px; border-radius:6px; background:rgba(255,255,255,.18); position:relative; cursor:pointer; }
+.sv-linea i { position:absolute; inset:0 auto 0 0; width:0; background:#fff; border-radius:6px; }
+.sv-linea b { position:absolute; top:-2px; width:2px; height:10px; background:rgba(255,255,255,.45); }
+.sv-tiempo { color:#CFC6BA; font-size:13px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.sv-nota { color:#A69A8B; font-size:12.5px; margin:8px 6px 2px; }
+@media (max-width:640px) { .sv-cap { font-size:15px; } .sv-player { padding:10px; border-radius:18px; } }
+
 @media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
 @media (max-width:900px) {
   .precio-card { grid-template-columns:1fr; }
@@ -732,6 +809,9 @@ function camino() {
       <button class="wa-repetir" type="button" data-rep="1">↻ Ver este paso otra vez</button></div></div>
   <p class="pista-teclas">Tip: usa las flechas <kbd>←</kbd> <kbd>→</kbd> del teclado para avanzar.</p>
 
+  <div class="cam-titulo" id="video-saneo"><h2>Video guiado: cómo agendar en <em>Saneo</em></h2><span>Dale play y mira el paso a paso.</span></div>
+  <div class="sv">${svMarco()}</div>
+
   <div class="cam-titulo"><h2>Antes de agendar, <em>pregunta</em></h2><span>Sin estas 3 respuestas no se agenda.</span></div>
   <div class="tres">
     <div class="preg"><span class="n">1</span><b>¿De qué ciudad eres?</b><span>Cada ciudad tiene su médico.</span><div class="opc">${D.ciudades.map(c => `<i>${esc(c)}</i>`).join("")}</div></div>
@@ -762,6 +842,7 @@ function irA(i, primera) {
   $("#info").innerHTML = `<span class="leyenda">${ico("lista")}Qué pasa en este paso</span><div class="escena-info anima"><span class="num">${String(pasoC + 1).padStart(2, "0")}</span>
       <span class="quien-chip">${av}${esc(p.quien)}</span><h2>${esc(p.que)}</h2><p class="como">${esc(p.como)}</p>
       ${p.ojo ? `<div class="alerta"><span class="ojo">Ojo</span><span>${esc(p.ojo)}</span></div>` : ""}
+      ${pasoC === 2 ? `<a class="ver-video" href="#video-saneo" data-video="1"><span>▶</span>Ver el video: cómo agendar en Saneo</a>` : ""}
       <div class="controles"><button class="btn claro" type="button" data-mover="-1" ${pasoC === 0 ? "disabled" : ""}>← Atrás</button>
         <button class="btn" type="button" data-mover="1" ${pasoC === C.length - 1 ? "disabled" : ""}>${pasoC === C.length - 2 ? "¡Último paso!" : "Siguiente"} →</button></div></div>`;
   waIr(pasoC);
@@ -869,13 +950,133 @@ document.addEventListener("keydown", e => {
 });
 addEventListener("resize", () => { if ($("#escena")) { const b = $$(".parada")[pasoC]; if (b) $("#token").style.transform = `translateX(${b.offsetLeft}px)`; } });
 
+/* ---------- video guiado de Saneo (simulación animada, no es la app real) ---------- */
+const SV_DUR = 34000;
+let svT = 0, svPlay = false, svLast = 0, svRaf = 0, svHechos = 0;
+const SV_EV = [ // [día, hora, estado, paciente, profesional]
+  [2, "17:00 – 17:30", "Cancelada", "Paciente ejemplo 1", "Sin asignar"], [5, "10:30 – 11:00", "Completada", "Paciente ejemplo 2", "Sin asignar"],
+  [7, "15:30 – 16:00", "Completada", "Paciente ejemplo 3", "Valeria Enciso"], [8, "08:00 – 08:30", "Programada", "Paciente ejemplo 4", "Fernando Ruiz"],
+  [8, "08:30 – 09:00", "Cancelada", "Paciente ejemplo 5", "Fernando Ruiz"], [9, "10:00 – 10:30", "Programada", "Paciente ejemplo 6", "Fernando Ruiz"],
+  [15, "09:00 – 09:30", "Programada", "Paciente ejemplo 7", "Fernando Ruiz"], [16, "14:00 – 14:30", "Programada", "Paciente ejemplo 8", "Fernando Ruiz"],
+  [22, "11:00 – 11:30", "Confirmada", "Paciente ejemplo 9", "Valeria Enciso"]];
+const SV_CAP = [ // [desde (ms), texto]
+  [0, "1. Entra a Agenda › Calendario y revisa que estés en la sede correcta."],
+  [4200, "2. Antes de agendar, mira quién está disponible: toca “no disponibles”."],
+  [7600, "Rojo = ese día NO atiende. Verde = sí puedes agendar con esa persona."],
+  [11600, "3. Elige un día con espacio y toca el “+” (o el botón Nueva Cita)."],
+  [14600, "4. Busca al paciente por su nombre (o créalo si es nuevo)."],
+  [18400, "5. Elige el profesional correcto: cirugía = Dr. Fernando · estética = Dra. Valeria."],
+  [21800, "6. Pon fecha, hora y espacio."],
+  [24600, "7. En notas: presencial o virtual, ciudad y que ya pagó."],
+  [28000, "8. Guarda. ¡Listo! La cita queda “Programada”. Ahora: comprobante al grupo + mensaje de confirmación."]];
+function svMarco() {
+  const dias = []; for (let i = 0; i < 35; i++) { const d = new Date(2026, 8, 28 + i); dias.push(d); }
+  const nd = { 5: 1, 6: 1, 7: 2, 12: 2, 13: 1, 14: 1, 16: 2, 17: 2, 23: 1 };
+  const cel = dias.map(d => { const n = d.getDate(), m = d.getMonth() === 9, evs = m ? SV_EV.filter(e => e[0] === n) : [];
+    return `<div class="sv-dia ${m ? "" : "fuera"} ${m && n === 14 ? "hoy" : ""}" ${m ? `data-d="${n}"` : ""}><div class="sv-dh"><b>${n}</b>${m && nd[n] ? `<span class="sv-nd" ${n === 16 ? 'id="sv-nd16"' : ""}>▦ ${nd[n]} no disponible${nd[n] > 1 ? "s" : ""}</span>` : ""}</div>
+      ${evs.map(e => `<div class="sv-ev"><div><i>${e[1]}</i><em class="st ${e[2].toLowerCase()}">${e[2]}</em></div><b>${e[3]}</b><small>👤 ${e[4]}</small></div>`).join("")}
+      ${m && n === 23 ? `<div class="sv-nueva" id="sv-nueva"><div><i>10:00 – 10:30</i><em class="st programada">Programada</em></div><b>Ana Gómez</b><small>👤 Fernando Ruiz</small></div><span class="sv-mas" id="sv-mas">+</span>` : ""}</div>`; }).join("");
+  return `<div class="sv-player" id="sv-player">
+    <div class="sv-escala" id="sv-escala"><div class="sv-app" id="sv-app">
+      <aside class="sv-lado"><span class="sv-logo">N</span><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i></aside>
+      <div class="sv-main">
+        <div class="sv-top"><span class="sv-migas">Agenda / <b>Calendario</b></span><span class="sv-sede" id="sv-sede">📍 Sede principal</span><span class="sv-user">A · administrador</span></div>
+        <div class="sv-bar"><div class="sv-vistas"><span>Día</span><span>Semana</span><span class="on">Mes</span><span>Lista</span></div><span class="sv-btn" id="sv-btn-nueva">+ Nueva Cita</span><b class="sv-mes">octubre 2026</b></div>
+        <div class="sv-cal"><div class="sv-sem">${["LUN", "MAR", "MIE", "JUE", "VIE", "SAB", "DOM"].map(x => `<span>${x}</span>`).join("")}</div><div class="sv-grid">${cel}</div></div>
+      </div>
+      <div class="sv-pop" id="sv-pop"><b>No disponibles</b><p><i class="r"></i>Fernando Ruiz<small>Todo el día · Otro</small></p><p><i class="r"></i>Valeria Enciso<small>Todo el día · Otro</small></p><b>Sin bloqueo</b><p><i class="v"></i>Juliana Dussan</p></div>
+      <div class="sv-modal" id="sv-modal"><div class="sv-form">
+        <h4>Nueva cita</h4>
+        <label>Paciente<span class="sv-in" id="sv-f-pac"><em></em></span></label>
+        <div class="sv-sug" id="sv-sug">Ana Gómez <small>Paciente</small></div>
+        <label>Profesional<span class="sv-in" id="sv-f-pro"><em></em></span></label>
+        <div class="sv-row"><label>Fecha<span class="sv-in" id="sv-f-fec"><em></em></span></label><label>Hora<span class="sv-in" id="sv-f-hor"><em></em></span></label></div>
+        <label>Espacio<span class="sv-in" id="sv-f-esp"><em></em></span></label>
+        <label>Notas<span class="sv-in alto" id="sv-f-not"><em></em></span></label>
+        <div class="sv-acc"><span class="sv-cancel">Cancelar</span><span class="sv-btn" id="sv-guardar">Guardar cita</span></div>
+      </div></div>
+      <div class="sv-cursor" id="sv-cursor"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M5 3l14 8-6 1.5L10 19z" fill="#16110F" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="sv-click"></span></div>
+    </div></div>
+    <div class="sv-cap" id="sv-cap"></div>
+    <div class="sv-ctrl"><button type="button" class="sv-play" id="sv-play" aria-label="Reproducir">▶</button>
+      <div class="sv-linea" id="sv-linea"><i id="sv-prog"></i>${SV_CAP.map(c => `<b style="left:${c[0] / SV_DUR * 100}%"></b>`).join("")}</div>
+      <span class="sv-tiempo" id="sv-tiempo">0:00 / 0:34</span></div>
+    <p class="sv-nota">Simulación de la pantalla de Saneo para aprender. Los nombres son de ejemplo y algunos campos pueden verse distinto en tu Saneo.</p>
+  </div>`;
+}
+const svEl = id => document.getElementById(id);
+function svApunta(id, dx = 0, dy = 0) { // devuelve la posición (en px del escenario) del centro de un elemento
+  const app = svEl("sv-app"), el = typeof id === "string" ? (svEl(id) || app.querySelector(id)) : id; if (!app || !el) return [0, 0];
+  let x = 0, y = 0, n = el; while (n && n !== app) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+  return [x + el.offsetWidth / 2 + dx, y + el.offsetHeight / 2 + dy];
+}
+function svCursor(pos, click) { const c = svEl("sv-cursor"); if (!c) return; c.style.transform = `translate(${pos[0]}px,${pos[1]}px)`; if (click) { c.classList.remove("clic"); void c.offsetWidth; c.classList.add("clic"); } }
+function svEscribe(id, txt, p) { const e = svEl(id); if (e) { e.querySelector("em").textContent = txt.slice(0, Math.round(txt.length * p)); e.classList.toggle("foco", p > 0 && p < 1); e.classList.toggle("lleno", p >= 1); } }
+// Estado del video en el instante t (se recalcula entero: así funciona pausar, adelantar y repetir)
+function svPinta(t) {
+  const app = svEl("sv-app"); if (!app) return;
+  const entre = (a, b) => Math.max(0, Math.min(1, (t - a) / (b - a)));
+  svEl("sv-sede").classList.toggle("marca", t > 1200 && t < 4200);
+  svEl("sv-pop").classList.toggle("ver", t > 6400 && t < 11400);
+  svEl("sv-nd16").classList.toggle("marca", t > 5200 && t < 11400);
+  svEl("sv-mas").classList.toggle("ver", t > 12600 && t < 14400);
+  svEl("sv-modal").classList.toggle("ver", t > 14200 && t < 29400);
+  svEl("sv-sug").classList.toggle("ver", t > 16400 && t < 17600);
+  svEscribe("sv-f-pac", "Ana Gómez", entre(15200, 16600));
+  svEscribe("sv-f-pro", "Fernando Ruiz · Cirugía plástica", entre(19200, 20400));
+  svEscribe("sv-f-fec", "Jue 23 oct 2026", entre(22200, 23000));
+  svEscribe("sv-f-hor", "10:00 – 10:30", entre(23200, 24000));
+  svEscribe("sv-f-esp", "Consultorio principal", entre(24000, 24600));
+  svEscribe("sv-f-not", "Presencial · Medellín · pagó $200.000 (comprobante en el grupo)", entre(25200, 27400));
+  svEl("sv-guardar").classList.toggle("marca", t > 28200 && t < 29400);
+  svEl("sv-nueva").classList.toggle("ver", t > 29400);
+  // cursor
+  let pos, clic = false;
+  if (t < 1200) pos = svApunta("sv-btn-nueva", 120, 120);
+  else if (t < 4600) { pos = svApunta("sv-sede"); clic = t > 2200 && t < 2400; }
+  else if (t < 11400) { pos = svApunta("sv-nd16"); clic = t > 6200 && t < 6400; }
+  else if (t < 14400) { pos = svApunta("sv-mas"); clic = t > 13800 && t < 14000; }
+  else if (t < 18400) { pos = svApunta("sv-f-pac"); clic = t > 17000 && t < 17200; }
+  else if (t < 21800) pos = svApunta("sv-f-pro");
+  else if (t < 24600) pos = svApunta(t < 23100 ? "sv-f-fec" : t < 23900 ? "sv-f-hor" : "sv-f-esp");
+  else if (t < 28000) pos = svApunta("sv-f-not");
+  else if (t < 29600) { pos = svApunta("sv-guardar"); clic = t > 29000 && t < 29200; }
+  else pos = svApunta("sv-nueva", 40, 30);
+  svCursor(pos, clic && !svEl("sv-cursor").classList.contains("clic-hecho"));
+  svEl("sv-cursor").classList.toggle("clic-hecho", clic);
+  // subtítulo, barra, tiempo
+  const cap = [...SV_CAP].reverse().find(c => t >= c[0]); const ce = svEl("sv-cap");
+  if (ce && ce.dataset.t !== cap[1]) { ce.dataset.t = cap[1]; ce.innerHTML = `<span>${esc(cap[1])}</span>`; }
+  svEl("sv-prog").style.width = (t / SV_DUR * 100) + "%";
+  const f = ms => `0:${String(Math.floor(ms / 1000)).padStart(2, "0")}`; svEl("sv-tiempo").textContent = `${f(t)} / ${f(SV_DUR)}`;
+}
+function svBucle(now) {
+  if (!svEl("sv-app")) { svPlay = false; return; }
+  if (svPlay) { svT = Math.min(SV_DUR, svT + (now - svLast)); svLast = now; svPinta(svT); if (svT >= SV_DUR) { svPlay = false; svEl("sv-play").textContent = "↻"; } }
+  if (svPlay) svRaf = requestAnimationFrame(svBucle);
+}
+function svToggle() {
+  if (svT >= SV_DUR) svT = 0;
+  svPlay = !svPlay; svEl("sv-play").textContent = svPlay ? "❚❚" : "▶";
+  svEl("sv-player").classList.add("empezado");
+  if (svPlay) { svLast = performance.now(); cancelAnimationFrame(svRaf); svRaf = requestAnimationFrame(svBucle); }
+}
+function svEscalar() { const e = svEl("sv-escala"), app = svEl("sv-app"); if (!e || !app) return; const k = Math.min(1, e.clientWidth / 980); app.style.transform = `scale(${k})`; e.style.height = (600 * k) + "px"; }
+function montaVideo() { svT = 0; svPlay = false; svEscalar(); const [x, y] = svApunta("sv-nd16"), pp = svEl("sv-pop"); if (pp) { pp.style.left = (x - 95) + "px"; pp.style.top = (y + 14) + "px"; } svPinta(0); }
+document.addEventListener("click", e => {
+  if (e.target.closest("#sv-play") || e.target.closest(".sv-escala")) svToggle();
+  const ln = e.target.closest("#sv-linea"); if (ln) { const r = ln.getBoundingClientRect(); svT = Math.max(0, Math.min(SV_DUR, (e.clientX - r.left) / r.width * SV_DUR)); svPinta(svT); }
+  const vv = e.target.closest("[data-video]"); if (vv) { e.preventDefault(); svEl("video-saneo")?.scrollIntoView({ behavior: "smooth", block: "start" }); if (!svPlay) setTimeout(svToggle, 700); }
+});
+addEventListener("resize", svEscalar);
+
 /* ---------- rutas ---------- */
 function ruta() {
   if ($("#app").hidden) return;
   const h = decodeURIComponent(location.hash.slice(1) || "inicio"), [a, b] = h.split("/");
   const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "camino" ? camino() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
   $("#vista").innerHTML = html;
-  if (a === "camino") { irA(0, true); pintaQuiz(); }
+  if (a === "camino") { irA(0, true); pintaQuiz(); montaVideo(); }
   const tipo = a === "p" ? (D.procs.find(x => x.slug === b) || {}).tipo : null;
   const actual = a === "p" ? (tipo === "me" ? "estetica" : "cirugia") : location.hash.slice(1) || "inicio";
   $$("#nav a").forEach(x => x.classList.toggle("activo", x.dataset.r === actual));
