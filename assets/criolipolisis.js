@@ -1,21 +1,27 @@
-/* noon Clinic · Landing Criolipólisis: zonas, capas que muestran qué hace el frío, aparición suave, barra fija y medición. */
+/* noon Clinic · Landing Criolipólisis (v2 editorial): luz líquida del inicio, cabecera que cambia de tono por sección,
+   zonas en lista que se despliega, dibujo de capas (qué hace el frío), aparición suave, barra fija y medición. */
 (function () {
   var quieto = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (/[?&]captura/.test(location.search)) document.documentElement.classList.add("captura");
+  var captura = /[?&]captura/.test(location.search);
+  if (captura) document.documentElement.classList.add("captura");
 
-  // ---------- cabecera sólida al bajar + barra fija en celular
+  // ---------- cabecera: tono según la sección que pasa por debajo + barra fija en celular
   var cab = document.querySelector(".cl-cab");
+  var secciones = Array.prototype.slice.call(document.querySelectorAll("main > [data-tema], .cl-pie"));
   var barra = document.querySelector(".cl-barra");
   var hero = document.querySelector(".cl-hero");
   var cierre = document.querySelector(".cl-cierre");
   var cierreVisible = false;
   function alBajar() {
-    var y = window.scrollY || window.pageYOffset;
-    cab.classList.toggle("solida", y > 40);
+    var y = window.scrollY || window.pageYOffset, medio = cab.offsetHeight / 2;
+    cab.classList.toggle("solida", y > hero.offsetHeight - 80);
+    for (var i = 0; i < secciones.length; i++) {
+      var r = secciones[i].getBoundingClientRect();
+      if (r.top <= medio && r.bottom > medio) { cab.setAttribute("data-tema", secciones[i].getAttribute("data-tema")); break; }
+    }
     if (barra) {
-      var pasado = hero && y > hero.offsetHeight * 0.7;
-      var on = pasado && !cierreVisible;
-      barra.classList.toggle("on", !!on);
+      var on = y > hero.offsetHeight * 0.7 && !cierreVisible;
+      barra.classList.toggle("on", on);
       barra.setAttribute("aria-hidden", on ? "false" : "true");
     }
   }
@@ -23,28 +29,94 @@
     new IntersectionObserver(function (e) { cierreVisible = e[0].isIntersecting; alBajar(); }, { threshold: 0.15 }).observe(cierre);
   }
   window.addEventListener("scroll", alBajar, { passive: true });
+  window.addEventListener("resize", alBajar);
   alBajar();
 
   // ---------- aparición suave
   var revs = document.querySelectorAll(".cl-rev");
-  if ("IntersectionObserver" in window && !quieto) {
+  if ("IntersectionObserver" in window && !quieto && !captura) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
     revs.forEach(function (el) { io.observe(el); });
   } else {
     revs.forEach(function (el) { el.classList.add("on"); });
   }
 
-  // ---------- zonas
-  var zBot = document.querySelectorAll(".cl-z");
-  var zPan = document.querySelectorAll(".cl-zp");
-  zBot.forEach(function (b) {
-    b.addEventListener("click", function () {
-      var i = b.dataset.z;
-      zBot.forEach(function (x) { var on = x === b; x.classList.toggle("on", on); x.setAttribute("aria-pressed", on ? "true" : "false"); });
-      zPan.forEach(function (p) { var on = p.dataset.z === i; p.classList.toggle("on", on); p.hidden = !on; });
-      if (window.clarity) window.clarity("set", "zona", b.textContent);
+  // ---------- luz líquida del inicio (WebGL). Tonos noon: noche → vino → rosado → champaña → perla fría.
+  // arranca después de que aparece el título (primero se lee, luego entra la luz con un fundido)
+  var lienzo = document.querySelector(".cl-liquido");
+  if (lienzo) setTimeout(function () { luzLiquida(lienzo); }, captura ? 0 : 900);
+
+  function luzLiquida(cv) {
+    var gl = cv.getContext("webgl", { antialias: false, alpha: false, powerPreference: "low-power" });
+    if (!gl) { cv.remove(); return; }   // queda la luz fija del CSS
+    var vs = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
+    var fs = [
+      "precision mediump float;uniform vec2 r;uniform float t;uniform vec2 m;",
+      "vec2 h(vec2 p){p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)));return -1.+2.*fract(sin(p)*43758.5453);}",
+      "float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);",
+      "return mix(mix(dot(h(i),f),dot(h(i+vec2(1,0)),f-vec2(1,0)),u.x),mix(dot(h(i+vec2(0,1)),f-vec2(0,1)),dot(h(i+vec2(1,1)),f-vec2(1,1)),u.x),u.y);}",
+      "float fb(vec2 p){float v=0.,a=.55;for(int i=0;i<3;i++){v+=a*n(p);p=p*1.9+vec2(1.7,9.2);a*=.45;}return v;}",
+      "void main(){vec2 uv=gl_FragCoord.xy/r;vec2 p=(gl_FragCoord.xy-.5*r)/min(r.x,r.y)*.78;float tt=t*.04;",
+      "p+=m*.08;",
+      "vec2 q=vec2(fb(p*1.1+vec2(0.,tt)),fb(p*1.1+vec2(5.2,1.3)-tt*.8));",
+      "vec2 w=vec2(fb(p+1.7*q+vec2(1.7,9.2)+tt*.6),fb(p+1.7*q+vec2(8.3,2.8)-tt*.5));",
+      "float f=fb(p+1.9*w);",
+      "float b=clamp(.36+f*1.45+.10*sin(p.x*1.3+p.y*.7+tt*1.8),0.,1.);",
+      // vetas suaves que fluyen (luz líquida, no solo desenfoque)
+      "float rib=sin(f*7.5+p.y*1.1+tt*1.3);b=clamp(b+rib*.06,0.,1.);",
+      "vec3 c0=vec3(.071,.051,.039),c1=vec3(.27,.09,.12),c2=vec3(.43,.16,.21),c3=vec3(.78,.55,.49),c4=vec3(.80,.68,.48),c5=vec3(.93,.94,.93);",
+      "vec3 c=mix(c0,c1,smoothstep(.12,.34,b));c=mix(c,c2,smoothstep(.32,.48,b));c=mix(c,c3,smoothstep(.50,.66,b));",
+      "c=mix(c,c4,smoothstep(.64,.80,b));c=mix(c,c5,smoothstep(.82,.97,b)*.9);",
+      // brillo iridiscente muy suave (película de aceite), solo en las zonas claras
+      "c+=smoothstep(.45,.95,b)*.045*cos(6.2831*(vec3(0.,.33,.67)+b*2.2+tt*.25));",
+      "c+=pow(b,9.)*.10;",
+      "float v=smoothstep(1.25,.25,length(uv-.5)*1.45);c*=.62+.38*v;",
+      "c+=(fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453)-.5)*.035;",
+      "gl_FragColor=vec4(c,1.);}"
+    ].join("\n");
+    function sh(tipo, src) { var o = gl.createShader(tipo); gl.shaderSource(o, src); gl.compileShader(o); return gl.getShaderParameter(o, gl.COMPILE_STATUS) ? o : null; }
+    var a = sh(gl.VERTEX_SHADER, vs), b = sh(gl.FRAGMENT_SHADER, fs);
+    if (!a || !b) { cv.remove(); return; }
+    var pr = gl.createProgram(); gl.attachShader(pr, a); gl.attachShader(pr, b); gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { cv.remove(); return; }
+    gl.useProgram(pr);
+    var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var uR = gl.getUniformLocation(pr, "r"), uT = gl.getUniformLocation(pr, "t"), uM = gl.getUniformLocation(pr, "m");
+    var escala = 0.5, visible = true, mx = 0, my = 0, tmx = 0, tmy = 0, t0 = performance.now() - 30000;
+    function medir() { cv.width = Math.max(1, Math.round(cv.clientWidth * escala)); cv.height = Math.max(1, Math.round(cv.clientHeight * escala)); gl.viewport(0, 0, cv.width, cv.height); }
+    medir(); window.addEventListener("resize", medir);
+    window.addEventListener("mousemove", function (e) { tmx = e.clientX / window.innerWidth - 0.5; tmy = 0.5 - e.clientY / window.innerHeight; }, { passive: true });
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }, { rootMargin: "60px" }).observe(cv);
+    function pintar(ahora) {
+      mx += (tmx - mx) * 0.03; my += (tmy - my) * 0.03;
+      gl.uniform2f(uR, cv.width, cv.height); gl.uniform1f(uT, (ahora - t0) / 1000); gl.uniform2f(uM, mx, my);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    if (quieto || captura) { pintar(performance.now()); cv.classList.add("vivo"); return; }   // un solo cuadro quieto
+    requestAnimationFrame(function () { cv.classList.add("vivo"); });
+    (function cuadro(ahora) {
+      if (visible && !document.hidden) pintar(ahora);
+      requestAnimationFrame(cuadro);
+    })(performance.now());
+  }
+
+  // ---------- zonas: lista que se despliega (una abierta a la vez)
+  var filas = document.querySelectorAll(".cl-fila");
+  filas.forEach(function (fila) {
+    var btn = fila.querySelector(".cl-fila-b"), det = fila.querySelector(".cl-fila-d");
+    btn.addEventListener("click", function () {
+      var abrir = !fila.classList.contains("abierta");
+      filas.forEach(function (f) {
+        var on = f === fila && abrir;
+        f.classList.toggle("abierta", on);
+        f.querySelector(".cl-fila-b").setAttribute("aria-expanded", on ? "true" : "false");
+        f.querySelector(".cl-fila-d").hidden = !on;
+      });
+      if (abrir && window.clarity) window.clarity("set", "zona", fila.querySelector(".cl-fila-t").textContent);
     });
   });
 
@@ -62,14 +134,6 @@
       var d = "";
       for (var x = -10; x <= 810; x += 10) d += (x === -10 ? "M" : "L") + x + "," + techo(x, b).toFixed(1);
       return d;
-    }
-
-    // fibras del músculo
-    var fib = svg.querySelector(".cl-fibras");
-    for (var fx = -40; fx < 820; fx += 13) {
-      var l = document.createElementNS(NS, "line");
-      l.setAttribute("x1", fx); l.setAttribute("y1", 324); l.setAttribute("x2", fx + 34); l.setAttribute("y2", 380);
-      fib.appendChild(l);
     }
 
     // células de grasa (posiciones fijas con un aleatorio con semilla, para que siempre se vea igual)
@@ -114,7 +178,7 @@
     function fondoEtiqueta() {
       if (!etGrasa || !etGrasa.getBBox) return;
       var bb = etGrasa.getBBox();
-      if (!fondoEt) { fondoEt = document.createElementNS(NS, "rect"); fondoEt.setAttribute("fill", "#1b1411"); svg.insertBefore(fondoEt, etGrasa); }
+      if (!fondoEt) { fondoEt = document.createElementNS(NS, "rect"); fondoEt.setAttribute("fill", "#120d0a"); svg.insertBefore(fondoEt, etGrasa); }
       var px = bb.height * 0.45, py = bb.height * 0.22;
       fondoEt.setAttribute("x", (bb.x - px).toFixed(1)); fondoEt.setAttribute("y", (bb.y - py).toFixed(1));
       fondoEt.setAttribute("width", (bb.width + 2 * px).toFixed(1)); fondoEt.setAttribute("height", (bb.height + 2 * py).toFixed(1));
