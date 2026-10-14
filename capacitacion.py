@@ -179,7 +179,7 @@ CAMINO = [
     {"ico": "chat", "corto": "Escribe", "quien": "Paciente → Comercial", "foto": "",
      "que": "El paciente escribe y tú lo atiendes.",
      "como": "Resuelves sus dudas y haces las 3 preguntas clave: ciudad, qué se quiere hacer y si la cita es presencial o virtual.",
-     "ojo": "Siempre envíale los documentos y las redes del Dr. Fer.",
+     "ojo": "Siempre pregunta si la cita es presencial o virtual y en qué ciudad está.",
      "chat": [("pac", "Paciente", "Hola, quiero info de la lipo 🙌"),
               ("noon", "Comercial", "¡Hola! Qué bueno que nos escribes. ¿Desde qué ciudad nos escribes: Medellín, Bogotá o Pereira?")]},
     {"ico": "precio", "corto": "Paga", "quien": "Paciente", "foto": "",
