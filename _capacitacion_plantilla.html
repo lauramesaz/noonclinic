@@ -695,9 +695,9 @@ function camino() {
   </div>
 
   <div class="cam-titulo"><h2>El mensaje de <em>confirmación</em></h2></div>
-  <div class="confirma"><div class="telefono"><div class="top"><img src="assets/logo-noon-claro.png" alt="noon"><small>en línea</small></div><div class="burbujas"><div class="burb noon">${esc(D.confirmacion)}</div></div></div>
-    <div><p style="font-size:18px">Se manda <b>apenas el paciente paga</b>. Solo cambias lo que está entre corchetes.</p>
-      <ul><li>${ico("check")}<span>Le confirma día, hora y ciudad.</span></li><li>${ico("check")}<span>Le recuerda que los $200.000 no se abonan.</span></li><li>${ico("check")}<span>Le deja claro que lo adicional se paga aparte.</span></li><li>${ico("check")}<span>Le manda los términos y condiciones.</span></li></ul>
+  <div class="confirma"><div class="telefono"><div class="top"><img src="assets/logo-noon-claro.png" alt="noon"><small>en línea</small></div><div class="burbujas"><div class="burb noon">${esc(D.confirmacion).replace(/\*([^*\n]+)\*/g, "<b>$1</b>")}</div></div></div>
+    <div><p style="font-size:18px">Se manda <b>apenas el paciente paga</b>. Solo llenas los datos de la cita y lo envías.</p>
+      <ul><li>${ico("check")}<span>Todos los datos de la cita: fecha, hora, tipo, especialista y consultorio.</span></li><li>${ico("check")}<span>Las políticas de reprogramación y devolución.</span></li><li>${ico("check")}<span>Que la cita no se abona y lo adicional se paga aparte.</span></li><li>${ico("check")}<span>El link de términos y condiciones.</span></li></ul>
       ${copiar(D.confirmacion)}</div></div>
 
   <div class="cam-titulo"><h2>Reglas de <em>oro</em></h2><span>Toca cada carta.</span></div>

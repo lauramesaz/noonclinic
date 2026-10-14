@@ -225,13 +225,24 @@ CAMINO = [
      "ojo": "",
      "chat": [("pac", "Paciente", "¡Ya hice el abono! 🎉"), ("noon", "Comercial", "¡Qué emoción! Ya empezamos a organizar tu cirugía.")]},
 ]
-CONFIRMACION = ("¡Hola [nombre]! Tu cita en noon Clinic quedó agendada ✅\n\n"
-                "📅 [día y hora]\n📍 [Medellín / Bogotá / Pereira / virtual]\n\n"
-                "Antes de tu cita ten en cuenta:\n"
-                "• Los $200.000 son parte de una promoción y no se abonan a la cirugía.\n"
-                "• Si se suma un procedimiento adicional, ese se paga aparte.\n"
-                "• Aquí están nuestros términos y condiciones: " + TERMINOS_URL + "\n\n"
-                "Antes de la cita te va a escribir la Dra. Valeria, nuestra médica general. ¡Te esperamos!")
+CONFIRMACION = ("✨ *CONFIRMACIÓN DE CITA* ✨\n"
+                "━━━━━━━━━━━━━━\n\n"
+                "🤍 *Nombre:* \n"
+                "🗓️ *Fecha:* \n"
+                "🕰️ *Hora:* \n"
+                "📲 *Tipo de cita:* Presencial / Virtual\n"
+                "🩺 *Especialidad:* \n"
+                "👩🏻‍⚕️ *Especialista:* \n"
+                "📍 *Consultorio:* \n\n"
+                "━━━━━━━━━━━━━━\n"
+                "🌿 *Ten en cuenta*\n\n"
+                "▫️ Si necesitas reprogramar, avísanos con mínimo *24 horas* de anticipación.\n"
+                "▫️ Si no asistes y pides la devolución del valor de la cita, se hace entre *30 y 90 días hábiles*, con un cargo del *20%* por proceso administrativo.\n"
+                "▫️ El valor de la cita no se abona a la cirugía.\n"
+                "▫️ Si se suma un procedimiento adicional, se paga aparte.\n\n"
+                "📜 Términos y condiciones: " + TERMINOS_URL + "\n\n"
+                "Antes de tu cita te escribirá la Dra. Valeria, nuestra médica general.\n"
+                "Gracias por confiar en *noon Clinic* 🤍")
 REGLAS_ORO = [
     ("🙋", "Si dudas, pregunta.", "Nunca asumas. Preguntar es de pros."),
     ("📍", "Ciudad clara, siempre.", "Medellín, Bogotá o Pereira. Cada una tiene su médico."),
