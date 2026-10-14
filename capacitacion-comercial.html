@@ -627,6 +627,23 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .sim-salir { margin-left:auto; background:none; border:0; font:600 13px var(--texto); letter-spacing:0; text-transform:none; color:var(--acento); cursor:pointer; padding:0; }
 @media (max-width:900px) { .sim-casos, .sim { grid-template-columns:1fr; } .sim .wa { height:460px; } }
 
+/* ---------- bloque llamativo del simulador ---------- */
+.sim-bloque { position:relative; overflow:hidden; isolation:isolate; background:#16110F; border-radius:28px; padding:clamp(24px,4vw,44px); margin:56px 0; scroll-margin-top:80px; }
+.sim-bloque::before { content:""; position:absolute; inset:-30%; z-index:-1; background:radial-gradient(35% 40% at 85% 15%,rgba(122,31,51,.9),transparent 70%),radial-gradient(30% 35% at 10% 90%,rgba(189,164,123,.45),transparent 70%),radial-gradient(25% 30% at 50% 55%,rgba(122,31,51,.35),transparent 70%); animation:deriva 16s ease-in-out infinite alternate; }
+.sim-bloque::after { content:""; position:absolute; inset:0; z-index:-1; background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.2px); background-size:18px 18px; }
+.sim-eti-top { display:inline-block; font-weight:700; font-size:13px; background:var(--champagne); color:#16110F; border-radius:999px; padding:5px 14px; margin-bottom:14px; }
+.sim-bloque .cam-titulo { margin:0 0 22px; }
+.sim-bloque .cam-titulo h2 { color:#fff; }
+.sim-bloque .cam-titulo h2 em { color:#F2B8C4; }
+.sim-bloque .cam-titulo span { color:#E6DFD5; }
+.sim-bloque #sim-zona { margin-bottom:0; }
+.sim-bloque .sim-caso { border:0; box-shadow:0 14px 34px rgba(0,0,0,.28); }
+.sim-bloque .sim-caso:hover { transform:translateY(-6px) rotate(-.5deg); box-shadow:0 0 0 3px var(--champagne), 0 20px 40px rgba(0,0,0,.35); }
+.sim-bloque .leyenda { color:#CFC6BA; } .sim-bloque .leyenda svg { color:#F2B8C4; }
+.sim-bloque .sim-salir { color:#F2B8C4; }
+.sim-bloque .sim-panel { background:#fff; border:0; }
+.sim-bloque .wa { border-color:#000; box-shadow:0 24px 50px rgba(0,0,0,.4); }
+
 @media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
 @media (max-width:900px) {
   .precio-card { grid-template-columns:1fr; }
@@ -872,8 +889,9 @@ function camino() {
   <div class="cam-titulo"><h2>Reglas de <em>oro</em></h2><span>Toca cada carta.</span></div>
   <div class="oro">${D.reglas_oro.map(([, t, x]) => `<button class="carta" type="button"><span class="in"><span class="cara frente"><b>${esc(t)}</b><small>Toca para ver por qué →</small></span><span class="cara reves">${esc(x)}</span></span></button>`).join("")}</div>
 
-  <div class="cam-titulo" id="simulador-sec"><h2>Simulador de <em>chat</em></h2><span>Una paciente te escribe por WhatsApp y tú eliges qué responder.</span></div>
-  <div id="sim-zona">${simZona()}</div>
+  <section class="sim-bloque" id="simulador-sec"><span class="sim-eti-top">💬 Practica aquí</span>
+    <div class="cam-titulo"><h2>Simulador de <em>chat</em></h2><span>Una paciente te escribe por WhatsApp y tú eliges qué responder. ¿Lo haces perfecto?</span></div>
+    <div id="sim-zona">${simZona()}</div></section>
   <div class="cam-titulo"><h2>¿Tú qué <em>harías</em>?</h2><span>${D.quiz.length} situaciones reales. A ver cuántas aciertas.</span></div>
   <section class="quiz" id="quiz"></section></div>`;
 }
