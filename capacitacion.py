@@ -171,6 +171,97 @@ PASOS = [
 ]
 
 
+# ---------------------------------------------------------------- EL CAMINO DEL PACIENTE (proceso comercial, de que escribe a que abona)
+# Cada paso: quién, qué, cómo, alerta (opcional), chat de ejemplo [(lado, quien, texto)] lado = "pac" | "noon" | "int" (interno)
+TERMINOS_URL = "https://noon.clinic/terminos-y-condiciones#t2"
+CIUDADES = ["Medellín", "Bogotá", "Pereira"]
+CAMINO = [
+    {"ico": "chat", "corto": "Escribe", "quien": "Paciente → Comercial", "foto": "",
+     "que": "El paciente escribe y tú lo atiendes.",
+     "como": "Resuelves sus dudas y haces las 3 preguntas clave: ciudad, qué se quiere hacer y si la cita es presencial o virtual.",
+     "ojo": "Siempre envíale los documentos y las redes del Dr. Fer.",
+     "chat": [("pac", "Paciente", "Hola, quiero info de la lipo 🙌"),
+              ("noon", "Comercial", "¡Hola! Qué bueno que nos escribes. ¿Desde qué ciudad nos escribes: Medellín, Bogotá o Pereira?")]},
+    {"ico": "precio", "corto": "Paga", "quien": "Paciente", "foto": "",
+     "que": "Paga la cita de valoración: $200.000.",
+     "como": "Sin pago no hay cita. Así de simple.",
+     "ojo": "Los $200.000 son de la promoción y NO se abonan a la cirugía.",
+     "chat": [("noon", "Comercial", "Para reservar tu valoración el valor es $200.000. ¿Te paso los datos para el pago?"),
+              ("pac", "Paciente", "Listo, ya te mando el comprobante ✅")]},
+    {"ico": "cal", "corto": "Agenda", "quien": "Comercial", "foto": "",
+     "que": "Agendas la cita y avisas a todos.",
+     "como": "1) Montas la cita en Saneo, en la agenda y la ciudad correctas. 2) Mandas el comprobante al grupo de WhatsApp con el formato de siempre. 3) Le envías al paciente el mensaje de confirmación.",
+     "ojo": "Cirugía plástica y medicina estética son agendas distintas. Si dudas, pregunta.",
+     "chat": [("int", "Grupo de WhatsApp", "📎 Comprobante · Nombre · Cédula · Ciudad · Fecha y hora · Doctor"),
+              ("noon", "Comercial", "¡Tu cita quedó agendada! Te envío la confirmación con todos los detalles 💌")]},
+    {"ico": "check", "corto": "Verifica", "quien": "Administración", "foto": "",
+     "que": "Administración revisa que el pago sí entró.",
+     "como": "Lo hace con el comprobante que mandaste al grupo. Por eso el formato es tan importante.",
+     "ojo": "",
+     "chat": [("int", "Administración", "Pago confirmado ✔️")]},
+    {"ico": "gota", "corto": "Preconsulta", "quien": "Dra. Valeria · médica general", "foto": "valeria",
+     "que": "La Dra. Valeria hace la preconsulta.",
+     "como": "Le escribe al paciente desde su número para conocer su caso antes de la cita.",
+     "ojo": "Si la cita es virtual, la Dra. Valeria le pide las fotos. Siempre.",
+     "chat": [("noon", "Dra. Valeria", "Hola, soy la Dra. Valeria de noon. Para preparar tu cita virtual, ¿me compartes unas fotos de la zona a tratar?")]},
+    {"ico": "bisturi", "corto": "Consulta", "quien": "Dr. Fer · cirujano plástico", "foto": "fernando",
+     "que": "Consulta con el cirujano plástico.",
+     "como": "El Dr. Fer valora al paciente y define el plan.",
+     "ojo": "Cada ciudad tiene su médico: el paciente lo atiende el médico de SU ciudad.",
+     "chat": []},
+    {"ico": "lista", "corto": "Cotización", "quien": "Dra. Valeria · médica general", "foto": "valeria",
+     "que": "La Dra. Valeria saca la cotización y se la manda.",
+     "como": "La hace en el cotizador de la página web, con lo que definió el doctor.",
+     "ojo": "Si se suma un procedimiento adicional, ese se paga aparte.",
+     "chat": [("noon", "Dra. Valeria", "Te comparto tu cotización 📄 Cualquier duda me cuentas.")]},
+    {"ico": "chat", "corto": "Seguimiento", "quien": "Equipo comercial", "foto": "",
+     "que": "Le haces seguimiento hasta que decida.",
+     "como": "Lo acompañas, resuelves dudas y le ayudas a organizar su cirugía.",
+     "ojo": "",
+     "chat": [("noon", "Comercial", "¿Cómo te fue con la cotización? ¿Te ayudo a escoger la fecha de tu cirugía?")]},
+    {"ico": "check", "corto": "¡Abona!", "quien": "Paciente → Equipo de cirugía", "foto": "",
+     "que": "El paciente abona su cirugía: $1.000.000.",
+     "como": "¡Lo lograste! Aquí empieza otro proceso: el montaje de la cirugía (qué quiere el paciente, quirófano, fechas).",
+     "ojo": "",
+     "chat": [("pac", "Paciente", "¡Ya hice el abono! 🎉"), ("noon", "Comercial", "¡Qué emoción! Ya empezamos a organizar tu cirugía.")]},
+]
+CONFIRMACION = ("¡Hola [nombre]! Tu cita en noon Clinic quedó agendada ✅\n\n"
+                "📅 [día y hora]\n📍 [Medellín / Bogotá / Pereira / virtual]\n\n"
+                "Antes de tu cita ten en cuenta:\n"
+                "• Los $200.000 son parte de una promoción y no se abonan a la cirugía.\n"
+                "• Si se suma un procedimiento adicional, ese se paga aparte.\n"
+                "• Aquí están nuestros términos y condiciones: " + TERMINOS_URL + "\n\n"
+                "Antes de la cita te va a escribir la Dra. Valeria, nuestra médica general. ¡Te esperamos!")
+REGLAS_ORO = [
+    ("🙋", "Si dudas, pregunta.", "Nunca asumas. Preguntar es de pros."),
+    ("📍", "Ciudad clara, siempre.", "Medellín, Bogotá o Pereira. Cada una tiene su médico."),
+    ("🗓️", "Agenda correcta.", "Cirugía plástica y medicina estética no van juntas."),
+    ("💸", "Los $200.000 no se abonan.", "Son de la promoción. Lo adicional se paga aparte."),
+    ("📜", "Términos en cada cita.", "Van en el mensaje de confirmación."),
+    ("📲", "Docs y redes del Dr. Fer.", "A todos los pacientes, sin excepción."),
+]
+QUIZ = [  # (situación, [opciones], índice correcto, explicación)
+    ("Una paciente te escribe desde Pereira y quiere su valoración.",
+     ["La agendo con el Dr. Fer en Medellín", "La agendo con el médico de Pereira", "La agendo donde haya espacio"], 1,
+     "Cada ciudad tiene su médico. Paciente de Pereira = médico de Pereira."),
+    ("Te dice: “Te pago mañana, ¿me apartas la cita?”",
+     ["Sí, se la aparto de una", "La cita queda agendada cuando llega el pago"], 1,
+     "Sin pago no hay cita. Lo dices con cariño, pero lo dices."),
+    ("Te pregunta: “¿Los 200 mil se me abonan a la cirugía?”",
+     ["Sí, claro", "No, son de la promoción y no se abonan", "Depende del doctor"], 1,
+     "Los $200.000 no se abonan. Y está en los términos que le mandas."),
+    ("La cita es virtual. ¿Quién le pide las fotos?",
+     ["Yo, la comercial", "La Dra. Valeria, desde su número", "Nadie, no hacen falta"], 1,
+     "Las fotos las pide la Dra. Valeria. Y siempre se piden."),
+    ("No estás segura si va en la agenda de cirugía o en la de estética.",
+     ["La pongo en la que creo", "Pregunto antes de agendar"], 1,
+     "Si dudas, pregunta. Una pregunta ahorra un problemón."),
+    ("En la valoración quiere sumar otro procedimiento a su cirugía.",
+     ["Va incluido en el precio", "El procedimiento adicional se paga aparte"], 1,
+     "Lo adicional se paga aparte, y queda en su cotización."),
+]
+
+
 def _cirugias():
     # en la capacitación la mastopexia va dividida: con implantes y sin implantes
     out = []
@@ -201,7 +292,8 @@ def generar():
              "doctores": DOCTORES, "disp": DISPONIBILIDAD, "objeciones": OBJECIONES, "reglas": REGLAS, "pasos": PASOS,
              "precio": PRECIO, "lista_precios": [(p["nombre"], it, v, p["slug"], p["tipo"]) for p in procs for it, v in p["precios"]],
              "otros_precios": OTROS_PRECIOS, "video": VIDEO,
-             "inter_reglas": INTERNACIONAL_REGLAS, "inter": INTERNACIONAL}
+             "inter_reglas": INTERNACIONAL_REGLAS, "inter": INTERNACIONAL,
+             "camino": CAMINO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:
