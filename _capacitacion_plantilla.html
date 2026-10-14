@@ -454,6 +454,33 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .leyenda svg { width:15px; height:15px; color:var(--vinoF); }
 .leyenda em { font-style:normal; letter-spacing:.04em; text-transform:none; color:#A69A8B; font-family:var(--texto); font-size:12.5px; }
 
+/* ---------- camino: verde (avanzar / correcto) y rojo (ojo / error) ---------- */
+.camino-v, .banner-camino { --verde:#0F7B55; --verde2:#0A5E41; --verdeS:#E3F4EC; --verdeC:#86E0B6; --rojo:#D63A3A; --rojoS:#FDECEC;
+  --vinoF:var(--verde); --rosa:var(--verdeC); --acento:var(--verde); --acento-suave:var(--verdeS); }
+.camino-v .cam-hero::before { background:radial-gradient(40% 40% at 78% 28%,rgba(15,123,85,.75),transparent 70%),radial-gradient(28% 30% at 15% 85%,rgba(214,58,58,.4),transparent 70%); }
+.camino-v .parada:hover .bola { background:var(--verdeS); border-color:var(--verde); color:var(--verde); box-shadow:0 8px 18px rgba(15,123,85,.2); }
+.camino-v .parada.hecha .bola { background:var(--verdeS); border-color:var(--verde); color:var(--verde); }
+.camino-v .parada.hecha span { color:var(--verde2); }
+.camino-v .parada.on .bola { background:var(--verde); border-color:var(--verde); color:#fff; box-shadow:0 8px 22px rgba(15,123,85,.4); }
+.camino-v .parada.sig .bola { animation-name:llamaV; }
+@keyframes llamaV { 0% { box-shadow:0 0 0 0 rgba(15,123,85,.5); } 70% { box-shadow:0 0 0 14px rgba(15,123,85,0); } 100% { box-shadow:0 0 0 0 rgba(15,123,85,0); } }
+.camino-v .escena-info .num { color:var(--verdeS); }
+.camino-v .alerta { background:var(--rojo); color:#fff; }
+.camino-v .alerta .ojo { background:#fff; color:var(--rojo); }
+.camino-v .telefono .top small { color:var(--verdeC); }
+.camino-v .burb.noon { background:var(--verde); }
+.camino-v .burb.int { background:var(--tinta); color:#fff; }
+.camino-v .preg:nth-child(2) { background:var(--verde); border-color:var(--verde); }
+.camino-v .preg:nth-child(2) .n { color:#fff; }
+.camino-v .carta .reves { background:var(--verde); }
+.camino-v .opcion:hover:not([disabled]) { background:var(--verdeS); }
+.camino-v .opcion.ok { background:var(--verde); color:#fff; } .camino-v .opcion.ok .l { background:#fff; color:var(--verde); }
+.camino-v .opcion.mal { background:var(--rojo); color:#fff; } .camino-v .opcion.mal .l { background:#fff; color:var(--rojo); }
+.camino-v .quiz .barra-q i.ok { background:var(--verdeC); } .camino-v .quiz .barra-q i.mal { background:var(--rojo); }
+.camino-v .explica p b { color:var(--verdeC); }
+.camino-v .final h3 { color:var(--verdeC); }
+.camino-v .cam-hero .eti, .camino-v .quiz .eti { color:var(--verdeC); }
+
 @media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
 @media (max-width:900px) {
   .precio-card { grid-template-columns:1fr; }
@@ -666,7 +693,7 @@ let pasoC = 0, qI = 0, qOk = 0, qRes = [];
 const fotoDoc = id => (D.doctores.find(d => d.id === id) || {}).foto;
 function camino() {
   const C = D.camino;
-  return `<section class="cam-hero"><span class="eti">Proceso comercial · noon Clinic</span>
+  return `<div class="camino-v"><section class="cam-hero"><span class="eti">Proceso comercial · noon Clinic</span>
     <h1>El camino del <em>paciente</em></h1>
     <p>Desde que nos escribe “hola” hasta que abona su cirugía. Toca cada parada y mira qué pasa, quién lo hace y qué decir.</p>
     <div class="stats"><div><b>${C.length}</b><small>paradas</small></div><div><b>3</b><small>preguntas clave</small></div><div><b>${D.reglas_oro.length}</b><small>reglas de oro</small></div><div><b>${D.quiz.length}</b><small>retos al final</small></div></div></section>
@@ -694,7 +721,7 @@ function camino() {
   <div class="oro">${D.reglas_oro.map(([, t, x]) => `<button class="carta" type="button"><span class="in"><span class="cara frente"><b>${esc(t)}</b><small>Toca para ver por qué →</small></span><span class="cara reves">${esc(x)}</span></span></button>`).join("")}</div>
 
   <div class="cam-titulo"><h2>¿Tú qué <em>harías</em>?</h2><span>${D.quiz.length} situaciones reales. A ver cuántas aciertas.</span></div>
-  <section class="quiz" id="quiz"></section>`;
+  <section class="quiz" id="quiz"></section></div>`;
 }
 function irA(i, primera) {
   const C = D.camino; pasoC = Math.max(0, Math.min(C.length - 1, i)); const p = C[pasoC];
