@@ -426,6 +426,27 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .explica { background:rgba(255,255,255,.1); }
 .banner-camino { background:var(--tinta); } .banner-camino b em { color:var(--rosa); }
 
+/* ---------- camino: líneas suaves + que se note que se toca ---------- */
+.pista .riel { background:#ECE6DC; height:3px; }
+.parada .bola { border:1.5px solid #D8D0C3; color:#5E554D; box-shadow:0 2px 8px rgba(40,35,31,.06); }
+.parada span { color:#5E554D; }
+.parada:hover .bola { border-color:var(--vinoF); color:var(--vinoF); background:#FBEFF1; transform:translateY(-3px); box-shadow:0 8px 18px rgba(122,31,51,.18); }
+.parada.hecha .bola { background:var(--tinta); border-color:var(--tinta); color:var(--champagne); box-shadow:none; }
+.parada.hecha span { color:var(--tinta); }
+.parada.sig .bola { border-color:var(--vinoF); color:var(--vinoF); background:#fff; animation:llama 1.6s ease-out infinite; }
+.parada.sig span { color:var(--vinoF); }
+@keyframes llama { 0% { box-shadow:0 0 0 0 rgba(122,31,51,.45); } 70% { box-shadow:0 0 0 14px rgba(122,31,51,0); } 100% { box-shadow:0 0 0 0 rgba(122,31,51,0); } }
+.toca { display:flex; align-items:center; gap:8px; font-weight:700; font-size:14px; color:var(--vinoF); margin:2px 0 0; }
+.toca i { font-style:normal; display:inline-block; animation:empuja 1.2s ease-in-out infinite; }
+@keyframes empuja { 50% { transform:translateX(5px); } }
+.escena-info { border:1px solid var(--linea); box-shadow:0 10px 30px rgba(40,35,31,.07); }
+.telefono { border:0; }
+.controles .btn.claro { border:1px solid #D8D0C3; }
+.preg { border:1px solid #D8D0C3; }
+.carta .frente { border:1px solid #D8D0C3; }
+.carta:nth-child(odd) .frente { border-color:var(--tinta); }
+@media (prefers-reduced-motion:reduce) { .parada.sig .bola, .toca i { animation:none; } }
+
 @media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
 @media (max-width:900px) {
   .precio-card { grid-template-columns:1fr; }
@@ -643,6 +664,7 @@ function camino() {
     <p>Desde que nos escribe “hola” hasta que abona su cirugía. Toca cada parada y mira qué pasa, quién lo hace y qué decir.</p>
     <div class="stats"><div><b>${C.length}</b><small>paradas</small></div><div><b>3</b><small>preguntas clave</small></div><div><b>${D.reglas_oro.length}</b><small>reglas de oro</small></div><div><b>${D.quiz.length}</b><small>retos al final</small></div></div></section>
 
+  <p class="toca" id="toca">Toca cada círculo para avanzar <i>→</i></p>
   <div class="pista" id="pista"><div class="riel"><i id="riel"></i></div><div class="ficha-pac" id="token"><b>Paciente</b></div>
     <div class="paradas">${C.map((p, i) => `<button class="parada" type="button" data-paso="${i}" aria-label="Paso ${i + 1}: ${esc(p.corto)}"><span class="bola">${ico(p.ico)}</span><span>${esc(p.corto)}</span></button>`).join("")}</div></div>
   <div class="escena" id="escena"></div>
@@ -669,7 +691,8 @@ function camino() {
 }
 function irA(i, primera) {
   const C = D.camino; pasoC = Math.max(0, Math.min(C.length - 1, i)); const p = C[pasoC];
-  $$(".parada").forEach((b, j) => { b.classList.toggle("on", j === pasoC); b.classList.toggle("hecha", j < pasoC); });
+  $$(".parada").forEach((b, j) => { b.classList.toggle("on", j === pasoC); b.classList.toggle("hecha", j < pasoC); b.classList.toggle("sig", j === pasoC + 1); });
+  const tc = $("#toca"); if (tc) tc.innerHTML = pasoC === C.length - 1 ? "¡Llegaste al final! Toca cualquier círculo para repasar." : `Toca el siguiente círculo para avanzar <i>→</i>`;
   const pista = $("#pista"), bolas = $$(".parada"); if (!pista || !bolas.length) return;
   const x = bolas[pasoC].offsetLeft; $("#token").style.transform = `translateX(${x}px)`;
   $("#riel").style.width = (pasoC / (C.length - 1) * 100) + "%";
