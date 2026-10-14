@@ -621,7 +621,10 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .sim-banner b { font:300 24px/1.2 var(--display); display:block; } .sim-banner b em { font-family:var(--serif); font-style:italic; font-weight:500; color:var(--acento); font-size:1.1em; }
 .sim-banner span { color:var(--tenue); font-size:15px; }
 .sim-banner .ir { margin-left:auto; flex:none; width:44px; height:44px; border-radius:50%; background:var(--txt); color:#fff; display:grid; place-items:center; }
-.sim-banner + .cam-titulo { margin-top:48px; }
+#sim-zona { margin-bottom:56px; }
+.sim-casos { margin-top:0; }
+.sim .leyenda { width:100%; }
+.sim-salir { margin-left:auto; background:none; border:0; font:600 13px var(--texto); letter-spacing:0; text-transform:none; color:var(--acento); cursor:pointer; padding:0; }
 @media (max-width:900px) { .sim-casos, .sim { grid-template-columns:1fr; } .sim .wa { height:460px; } }
 
 @media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
@@ -723,7 +726,7 @@ $("#hamb").onclick = () => abrir(true); $("#velo").onclick = () => abrir(false);
 function menu() {
   const grupo = (id, nombre, icono, cats) => `<details ${location.hash.includes(id) ? "open" : ""}><summary data-r="${id}">${ico(icono)}${nombre}${ico("flecha", "i flecha")}</summary>
     <div class="sub"><a href="#${id}" data-r="${id}">Ver todos</a>${cats.map(c => `<a href="#${id}/${encodeURIComponent(c)}" data-r="${id}/${encodeURIComponent(c)}">${esc(c)}</a>`).join("")}</div></details>`;
-  $("#nav").innerHTML = `<a href="#inicio" data-r="inicio">${ico("casa")}Inicio</a><a href="#camino" data-r="camino">${ico("flecha")}El camino del paciente</a><a href="#simulador" data-r="simulador">${ico("chat")}Simulador de chat</a>
+  $("#nav").innerHTML = `<a href="#inicio" data-r="inicio">${ico("casa")}Inicio</a><a href="#camino" data-r="camino">${ico("flecha")}El camino del paciente</a>
     <p class="titulo-nav">Procedimientos</p>${grupo("cirugia", "Cirugía plástica", "bisturi", D.cats_cx)}${grupo("estetica", "Medicina estética", "gota", D.cats_me)}
     <p class="titulo-nav">Ventas</p><a href="#precios" data-r="precios">${ico("lista")}Lista de precios</a><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#exterior" data-r="exterior">${ico("chat")}Pacientes del exterior</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
 }
@@ -835,7 +838,7 @@ function disponibilidad() {
 let pasoC = 0, qI = 0, qOk = 0, qRes = [];
 const fotoDoc = id => (D.doctores.find(d => d.id === id) || {}).foto;
 function camino() {
-  const C = D.camino; waHasta = -1; waAnim = false;
+  const C = D.camino; waHasta = -1; waAnim = false; simT.forEach(clearTimeout); SIM.caso = null;
   return `<div class="camino-v"><section class="cam-hero"><span class="eti">Proceso comercial · noon Clinic</span>
     <h1>El camino del <em>paciente</em></h1>
     <p>Desde que nos escribe “hola” hasta que abona su cirugía. Toca cada parada y mira qué pasa, quién lo hace y qué decir.</p>
@@ -869,7 +872,8 @@ function camino() {
   <div class="cam-titulo"><h2>Reglas de <em>oro</em></h2><span>Toca cada carta.</span></div>
   <div class="oro">${D.reglas_oro.map(([, t, x]) => `<button class="carta" type="button"><span class="in"><span class="cara frente"><b>${esc(t)}</b><small>Toca para ver por qué →</small></span><span class="cara reves">${esc(x)}</span></span></button>`).join("")}</div>
 
-  <a class="sim-banner" href="#simulador"><div><b>Practica con el <em>simulador</em></b><span>Una paciente te escribe por WhatsApp y tú eliges qué responder. Te decimos al instante si estuvo bien.</span></div><span class="ir">${ico("flecha")}</span></a>
+  <div class="cam-titulo" id="simulador-sec"><h2>Simulador de <em>chat</em></h2><span>Una paciente te escribe por WhatsApp y tú eliges qué responder.</span></div>
+  <div id="sim-zona">${simZona()}</div>
   <div class="cam-titulo"><h2>¿Tú qué <em>harías</em>?</h2><span>${D.quiz.length} situaciones reales. A ver cuántas aciertas.</span></div>
   <section class="quiz" id="quiz"></section></div>`;
 }
@@ -905,7 +909,7 @@ const WI = {
 };
 function waMarco(id, nombre, sub, cuerpo, corto) {
   return `<div class="wa ${corto ? "corto" : ""}"><div class="wa-top"><span class="wa-i">${WI.atras}</span><span class="wa-av">${esc(nombre[0])}</span>
-      <div class="wa-nom"><b>${esc(nombre)}</b><small ${id ? 'id="wa-sub"' : ""}>${esc(sub)}</small></div>
+      <div class="wa-nom"><b>${esc(nombre)}</b><small ${id ? `id="${id}-sub"` : ""}>${esc(sub)}</small></div>
       <span class="wa-i der">${WI.video}</span><span class="wa-i">${WI.tel}</span><span class="wa-i">${WI.mas}</span></div>
     <div class="wa-chat" ${id ? `id="${id}"` : ""}>${cuerpo}</div>
     <div class="wa-pie"><div class="wa-input"><span>${WI.emoji}</span><em>Mensaje</em><span>${WI.clip}</span></div><span class="wa-mic">${WI.mic}</span></div></div>`;
@@ -930,10 +934,10 @@ function waPaso(k, instant) {
   waAnim = true; let t = 300; const baja = () => c.scrollTo({ top: c.scrollHeight, behavior: "smooth" }); baja();
   msgs.forEach(m => {
     const lado = m[0];
-    if (lado === "pac") { waT.push(setTimeout(() => { const sb = $("#wa-sub"); if (sb) sb.textContent = "escribiendo…"; c.insertAdjacentHTML("beforeend", `<div class="wa-m in cola wa-esc"><i></i><i></i><i></i></div>`); baja(); }, t)); t += 950; }
+    if (lado === "pac") { waT.push(setTimeout(() => { const sb = $("#wa-chat-sub"); if (sb) sb.textContent = "escribiendo…"; c.insertAdjacentHTML("beforeend", `<div class="wa-m in cola wa-esc"><i></i><i></i><i></i></div>`); baja(); }, t)); t += 950; }
     else t += lado === "sys" ? 250 : 650;
     waT.push(setTimeout(() => {
-      c.querySelector(".wa-esc")?.remove(); const sb = $("#wa-sub"); if (sb) sb.textContent = "en línea";
+      c.querySelector(".wa-esc")?.remove(); const sb = $("#wa-chat-sub"); if (sb) sb.textContent = "en línea";
       c.insertAdjacentHTML("beforeend", waMsg(m, lado !== waLado, false)); waLado = lado === "sys" ? null : lado;
       const el = c.lastElementChild; if (lado === "noon") waT.push(setTimeout(() => el.querySelector(".tick")?.classList.add("leido"), 800)); baja();
     }, t));
@@ -943,7 +947,7 @@ function waPaso(k, instant) {
 }
 function waIr(i) {
   waT.forEach(clearTimeout); waT = []; const c = $("#wa-chat"); if (!c) return;
-  const sb = $("#wa-sub"); if (sb) sb.textContent = "en línea";
+  const sb = $("#wa-chat-sub"); if (sb) sb.textContent = "en línea";
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (waAnim || i !== waHasta + 1 || reduce) { c.innerHTML = ""; waLado = null; for (let k = 0; k < i; k++) waPaso(k, true); }
   c.querySelectorAll(".wa-chip.actual").forEach(x => x.classList.remove("actual"));
@@ -1115,23 +1119,21 @@ addEventListener("resize", svEscalar);
 /* ---------- simulador de chat (con guion) ---------- */
 const SIM = { caso: null, nodo: 0, ok: 0, res: [], min: 0 };
 let simT = [];
-function simulador() {
-  if (SIM.caso === null) return `<div class="camino-v"><nav class="migas"><a href="#inicio">Inicio</a>›<span>Simulador de chat</span></nav>
-    <div class="cabeza"><h1>Simulador de <em class="it">chat</em></h1><p>Elige una paciente. Ella te escribe por WhatsApp y tú eliges qué responder. Al final ves tu puntaje.</p></div>
-    <div class="sim-casos">${D.sim.map((c, i) => `<button class="sim-caso" type="button" data-sim="${i}"><span class="sim-nivel n${i}">${esc(c.nivel)}</span><span class="wa-av">${esc(c.nombre[0])}</span><b>${esc(c.nombre)}</b><span>${esc(c.resumen)}</span><em>Empezar →</em></button>`).join("")}</div></div>`;
+function simZona() {
+  if (SIM.caso === null) return `<div class="sim-casos">${D.sim.map((c, i) => `<button class="sim-caso" type="button" data-sim="${i}"><span class="sim-nivel n${i}">${esc(c.nivel)}</span><span class="wa-av">${esc(c.nombre[0])}</span><b>${esc(c.nombre)}</b><span>${esc(c.resumen)}</span><em>Empezar →</em></button>`).join("")}</div>`;
   const c = D.sim[SIM.caso];
-  return `<div class="camino-v"><nav class="migas"><a href="#inicio">Inicio</a>›<a href="#simulador" data-sim-salir="1">Simulador de chat</a>›<span>${esc(c.nombre)}</span></nav>
-    <div class="sim"><div class="col"><span class="leyenda">${ico("chat")}Tu WhatsApp</span>${waMarco("sim-chat", c.nombre, "en línea", "")}</div>
-      <div class="col"><span class="leyenda">${ico("lista")}Tu turno</span><div class="sim-panel" id="sim-panel"></div></div></div></div>`;
+  return `<div class="sim"><div class="col"><span class="leyenda">${ico("chat")}Tu WhatsApp con ${esc(c.nombre.split(" ")[0])}</span>${waMarco("sim-chat", c.nombre, "en línea", "")}</div>
+      <div class="col"><span class="leyenda">${ico("lista")}Tu turno <button class="sim-salir" type="button" data-sim-salir="1">← Elegir otra paciente</button></span><div class="sim-panel" id="sim-panel"></div></div></div>`;
 }
+function simPinta() { const z = $("#sim-zona"); if (!z) return; simT.forEach(clearTimeout); simT = []; z.innerHTML = simZona(); if (SIM.caso !== null) { simNodo(); $("#simulador-sec")?.scrollIntoView({ behavior: "smooth", block: "start" }); } }
 const simHora = () => { const m = 10 + SIM.min++; return `3:${String(m).padStart(2, "0")} p. m.`; };
 function simCola(fns) { let t = 0; fns.forEach(([d, f]) => { t += d; simT.push(setTimeout(f, t)); }); return t; }
 function simPac(textos, luego) {
   const c = $("#sim-chat"); if (!c) return; const baja = () => c.scrollTo({ top: c.scrollHeight, behavior: "smooth" });
   const pasos = [];
   textos.forEach(tx => {
-    pasos.push([500, () => { const sb = $("#wa-sub"); if (sb) sb.textContent = "escribiendo…"; c.insertAdjacentHTML("beforeend", `<div class="wa-m in cola wa-esc"><i></i><i></i><i></i></div>`); baja(); }]);
-    pasos.push([1100, () => { c.querySelector(".wa-esc")?.remove(); const sb = $("#wa-sub"); if (sb) sb.textContent = "en línea"; c.insertAdjacentHTML("beforeend", waMsg(["pac", "", tx, simHora()], c.dataset.lado !== "pac", true)); c.dataset.lado = "pac"; baja(); }]);
+    pasos.push([500, () => { const sb = $("#sim-chat-sub"); if (sb) sb.textContent = "escribiendo…"; c.insertAdjacentHTML("beforeend", `<div class="wa-m in cola wa-esc"><i></i><i></i><i></i></div>`); baja(); }]);
+    pasos.push([1100, () => { c.querySelector(".wa-esc")?.remove(); const sb = $("#sim-chat-sub"); if (sb) sb.textContent = "en línea"; c.insertAdjacentHTML("beforeend", waMsg(["pac", "", tx, simHora()], c.dataset.lado !== "pac", true)); c.dataset.lado = "pac"; baja(); }]);
   });
   pasos.push([250, luego]); simCola(pasos);
 }
@@ -1169,8 +1171,8 @@ function simFin() {
     <div class="sim-acc"><button class="btn" type="button" data-sim="${SIM.caso}">Intentar otra vez</button><button class="btn claro" type="button" data-sim-salir="1">Otra paciente</button></div></div>`;
 }
 document.addEventListener("click", e => {
-  const cs = e.target.closest("[data-sim]"); if (cs) { simT.forEach(clearTimeout); Object.assign(SIM, { caso: +cs.dataset.sim, nodo: 0, ok: 0, res: [], min: 0 }); if (location.hash === "#simulador") ruta(); else location.hash = "simulador"; }
-  const sl = e.target.closest("[data-sim-salir]"); if (sl) { e.preventDefault(); simT.forEach(clearTimeout); SIM.caso = null; if (location.hash === "#simulador") ruta(); else location.hash = "simulador"; }
+  const cs = e.target.closest("[data-sim]"); if (cs) { Object.assign(SIM, { caso: +cs.dataset.sim, nodo: 0, ok: 0, res: [], min: 0 }); simPinta(); }
+  const sl = e.target.closest("[data-sim-salir]"); if (sl) { e.preventDefault(); SIM.caso = null; simPinta(); }
   const op = e.target.closest("[data-op-sim]"); if (op && !op.disabled) simElige(+op.dataset.opSim);
   if (e.target.closest("[data-sim-sig]")) { const c = D.sim[SIM.caso]; if (SIM.nodo === c.nodos.length - 1) simFin(); else { SIM.nodo++; simNodo(); } }
 });
@@ -1179,12 +1181,12 @@ document.addEventListener("click", e => {
 function ruta() {
   if ($("#app").hidden) return;
   const h = decodeURIComponent(location.hash.slice(1) || "inicio"), [a, b] = h.split("/");
-  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "camino" ? camino() : a === "simulador" ? simulador() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
+  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "camino" || a === "simulador" ? camino() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
   $("#vista").innerHTML = html;
-  if (a === "camino") { irA(0, true); pintaQuiz(); montaVideo(); }
-  if (a === "simulador" && SIM.caso !== null) simNodo();
+  if (a === "camino" || a === "simulador") { irA(0, true); pintaQuiz(); montaVideo(); }
+  if (a === "simulador") setTimeout(() => $("#simulador-sec")?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
   const tipo = a === "p" ? (D.procs.find(x => x.slug === b) || {}).tipo : null;
-  const actual = a === "p" ? (tipo === "me" ? "estetica" : "cirugia") : location.hash.slice(1) || "inicio";
+  const actual = a === "p" ? (tipo === "me" ? "estetica" : "cirugia") : a === "simulador" ? "camino" : location.hash.slice(1) || "inicio";
   $$("#nav a").forEach(x => x.classList.toggle("activo", x.dataset.r === actual));
   $$("#nav details").forEach(x => { if (x.querySelector("summary").dataset.r === actual.split("/")[0]) x.open = true; });
   cerrarRes(); abrir(false); window.scrollTo(0, 0);
