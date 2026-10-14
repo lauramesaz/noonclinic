@@ -454,32 +454,15 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .leyenda svg { width:15px; height:15px; color:var(--vinoF); }
 .leyenda em { font-style:normal; letter-spacing:.04em; text-transform:none; color:#A69A8B; font-family:var(--texto); font-size:12.5px; }
 
-/* ---------- camino: verde (avanzar / correcto) y rojo (ojo / error) ---------- */
-.camino-v, .banner-camino { --verde:#0F7B55; --verde2:#0A5E41; --verdeS:#E3F4EC; --verdeC:#86E0B6; --rojo:#D63A3A; --rojoS:#FDECEC;
-  --vinoF:var(--verde); --rosa:var(--verdeC); --acento:var(--verde); --acento-suave:var(--verdeS); }
-.camino-v .cam-hero::before { background:radial-gradient(40% 40% at 78% 28%,rgba(15,123,85,.75),transparent 70%),radial-gradient(28% 30% at 15% 85%,rgba(214,58,58,.4),transparent 70%); }
-.camino-v .parada:hover .bola { background:var(--verdeS); border-color:var(--verde); color:var(--verde); box-shadow:0 8px 18px rgba(15,123,85,.2); }
-.camino-v .parada.hecha .bola { background:var(--verdeS); border-color:var(--verde); color:var(--verde); }
-.camino-v .parada.hecha span { color:var(--verde2); }
-.camino-v .parada.on .bola { background:var(--verde); border-color:var(--verde); color:#fff; box-shadow:0 8px 22px rgba(15,123,85,.4); }
-.camino-v .parada.sig .bola { animation-name:llamaV; }
-@keyframes llamaV { 0% { box-shadow:0 0 0 0 rgba(15,123,85,.5); } 70% { box-shadow:0 0 0 14px rgba(15,123,85,0); } 100% { box-shadow:0 0 0 0 rgba(15,123,85,0); } }
-.camino-v .escena-info .num { color:var(--verdeS); }
-.camino-v .alerta { background:var(--rojo); color:#fff; }
-.camino-v .alerta .ojo { background:#fff; color:var(--rojo); }
-.camino-v .telefono .top small { color:var(--verdeC); }
-.camino-v .burb.noon { background:var(--verde); }
-.camino-v .burb.int { background:var(--tinta); color:#fff; }
-.camino-v .preg:nth-child(2) { background:var(--verde); border-color:var(--verde); }
-.camino-v .preg:nth-child(2) .n { color:#fff; }
-.camino-v .carta .reves { background:var(--verde); }
-.camino-v .opcion:hover:not([disabled]) { background:var(--verdeS); }
-.camino-v .opcion.ok { background:var(--verde); color:#fff; } .camino-v .opcion.ok .l { background:#fff; color:var(--verde); }
-.camino-v .opcion.mal { background:var(--rojo); color:#fff; } .camino-v .opcion.mal .l { background:#fff; color:var(--rojo); }
-.camino-v .quiz .barra-q i.ok { background:var(--verdeC); } .camino-v .quiz .barra-q i.mal { background:var(--rojo); }
-.camino-v .explica p b { color:var(--verdeC); }
-.camino-v .final h3 { color:var(--verdeC); }
-.camino-v .cam-hero .eti, .camino-v .quiz .eti { color:var(--verdeC); }
+/* ---------- camino: verde = bien, rojo = mal (solo eso; el resto sigue vino/negro) ---------- */
+.camino-v { --bien:#12805A; --bienS:#E4F4EC; --bienC:#7FDDB1; --mal:#D63A3A; --malS:#FDECEC; --malC:#FF9C9C; }
+.camino-v .alerta { background:var(--malS); color:#8E1F1F; border:1px solid #F5C2C2; }
+.camino-v .alerta .ojo { background:var(--mal); color:#fff; }
+.camino-v .confirma li svg { color:var(--bien); }
+.camino-v .opcion.ok { background:var(--bien); color:#fff; } .camino-v .opcion.ok .l { background:#fff; color:var(--bien); }
+.camino-v .opcion.mal { background:var(--mal); color:#fff; } .camino-v .opcion.mal .l { background:#fff; color:var(--mal); }
+.camino-v .quiz .barra-q i.ok { background:var(--bienC); } .camino-v .quiz .barra-q i.mal { background:var(--malC); }
+.camino-v .explica.si p b { color:var(--bienC); } .camino-v .explica.no p b { color:var(--malC); }
 
 @media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
 @media (max-width:900px) {
@@ -781,7 +764,7 @@ document.addEventListener("click", e => {
     const [, , ok, porque] = D.quiz[qI], j = +op.dataset.op, bien = j === ok;
     $$(".opcion").forEach((b, k) => { b.disabled = true; if (k === ok) b.classList.add("ok"); });
     if (!bien) op.classList.add("mal"); qRes[qI] = bien; if (bien) qOk++;
-    $("#explica").innerHTML = `<div class="explica"><p><b>${bien ? "¡Exacto!" : "Casi…"}</b> ${esc(porque)}</p><button class="btn" type="button" data-quiz="sig">${qI === D.quiz.length - 1 ? "Ver resultado" : "Siguiente"} →</button></div>`;
+    $("#explica").innerHTML = `<div class="explica ${bien ? "si" : "no"}"><p><b>${bien ? "¡Exacto!" : "Casi…"}</b> ${esc(porque)}</p><button class="btn" type="button" data-quiz="sig">${qI === D.quiz.length - 1 ? "Ver resultado" : "Siguiente"} →</button></div>`;
     $$(".barra-q i")[qI].className = bien ? "ok" : "mal";
   }
   const qz = e.target.closest("[data-quiz]");
