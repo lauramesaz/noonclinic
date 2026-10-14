@@ -43,7 +43,7 @@
     revs.forEach(function (el) { el.classList.add("on"); });
   }
 
-  // ---------- luz líquida del inicio (WebGL). Tonos noon: noche → vino → rosado → champaña → perla fría.
+  // ---------- luz líquida del inicio (WebGL). Blanco y negro con vetas de vino (el acento).
   // arranca después de que aparece el título (primero se lee, luego entra la luz con un fundido)
   var lienzo = document.querySelector(".cl-liquido");
   if (lienzo) setTimeout(function () { luzLiquida(lienzo); }, captura ? 0 : 900);
@@ -66,11 +66,11 @@
       "float b=clamp(.36+f*1.45+.10*sin(p.x*1.3+p.y*.7+tt*1.8),0.,1.);",
       // vetas suaves que fluyen (luz líquida, no solo desenfoque)
       "float rib=sin(f*7.5+p.y*1.1+tt*1.3);b=clamp(b+rib*.06,0.,1.);",
-      "vec3 c0=vec3(.071,.051,.039),c1=vec3(.27,.09,.12),c2=vec3(.43,.16,.21),c3=vec3(.78,.55,.49),c4=vec3(.80,.68,.48),c5=vec3(.93,.94,.93);",
-      "vec3 c=mix(c0,c1,smoothstep(.12,.34,b));c=mix(c,c2,smoothstep(.32,.48,b));c=mix(c,c3,smoothstep(.50,.66,b));",
-      "c=mix(c,c4,smoothstep(.64,.80,b));c=mix(c,c5,smoothstep(.82,.97,b)*.9);",
-      // brillo iridiscente muy suave (película de aceite), solo en las zonas claras
-      "c+=smoothstep(.45,.95,b)*.045*cos(6.2831*(vec3(0.,.33,.67)+b*2.2+tt*.25));",
+      // blanco y negro (negro → gris → perla) con pozos de vino que fluyen: el vino es el único color
+      "vec3 negro=vec3(.035),gris=vec3(.38),perla=vec3(.92),vino=vec3(.50,.17,.24),vinoh=vec3(.24,.06,.10);",
+      "vec3 c=mix(negro,gris,smoothstep(.24,.64,b));c=mix(c,perla,smoothstep(.68,.97,b)*.85);",
+      "float vz=smoothstep(-.02,.34,fb(p*.7+q*1.4+vec2(3.1,7.7)+tt*.3));",
+      "c=mix(c,mix(vinoh,vino,smoothstep(.2,.6,b)),vz*.9*(1.-smoothstep(.6,.9,b)));",
       "c+=pow(b,9.)*.10;",
       "float v=smoothstep(1.25,.25,length(uv-.5)*1.45);c*=.62+.38*v;",
       "c+=(fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453)-.5)*.035;",

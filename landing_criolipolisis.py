@@ -100,8 +100,9 @@ def _boton(b, texto="Quiero mi valoración", clase="cl-btn", extra=""):
 def generar(b):
     """b = módulo build (WHATSAPP, TELEFONO, DOMINIO, CLARITY_ID, CLINICA_LD, ESPECIALISTAS, HECHAS, V, AQUI).
     v2 (14-oct): dirección editorial tipo galería monocromática sobre luz líquida, en la línea de noon:
-    marfil/espresso, Jost delgada monumental + una palabra en cursiva Cormorant, botones en píldora (lo único redondo),
-    un solo gesto de color: la luz líquida del inicio (espresso → vino → rosado → champaña → perla fría)."""
+    Jost delgada monumental + una palabra en cursiva Cormorant, botones en píldora (lo único redondo).
+    v3 (14-oct): blanco y negro con VINOTINTO de acento (pedido de Laura), más aire, fotos del tratamiento
+    en blanco y negro (Pexels/Unsplash, gratis) y luz líquida en negro, grises y vino."""
     v = b.V
     url = b.DOMINIO + "/criolipolisis"
 
@@ -147,7 +148,7 @@ def generar(b):
     ]
     seo = '<link rel="canonical" href="%s">' % url
     seo += ('\n<meta property="og:type" content="website">\n<meta property="og:site_name" content="noon Clinic">\n<meta property="og:title" content="%s">'
-            '\n<meta property="og:description" content="%s">\n<meta property="og:url" content="%s">\n<meta property="og:image" content="%s/assets/criolipolisis/silueta.jpg">'
+            '\n<meta property="og:description" content="%s">\n<meta property="og:url" content="%s">\n<meta property="og:image" content="%s/assets/criolipolisis/sesion-aplicador.jpg">'
             '\n<meta property="og:locale" content="es_CO">') % (escape(TITULO), escape(DESCRIPCION), url, b.DOMINIO)
     for bloque in [b.CLINICA_LD] + esquema:
         seo += '\n<script type="application/ld+json">%s</script>' % json.dumps(bloque, ensure_ascii=False)
@@ -166,7 +167,7 @@ def generar(b):
 <title>%(titulo)s · noon Clinic</title>
 <meta name="description" content="%(desc)s">
 %(seo)s
-<meta name="theme-color" content="#120d0a">
+<meta name="theme-color" content="#0b0b0b">
 <link rel="icon" href="assets/favicon.png">
 <script>document.documentElement.className="js"</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -205,7 +206,7 @@ def generar(b):
     <header class="cl-rev"><p class="ceja">La grasa terca</p>
       <h2 class="cl-h2">Ese <em>rollito</em> que sigue ahí, aunque hagas todo bien.</h2>
       <p class="cl-texto">Hay grasa que no responde a la dieta ni al ejercicio: se acumula en zonas puntuales, muchas veces por genética. Justo esa es la que trata la criolipólisis.</p></header>
-    <figure class="cl-foto cl-rev"><img src="assets/criolipolisis/silueta.jpg" alt="Mujer con suéter de punto marfil y la mano sobre el abdomen" width="1200" height="1800" loading="lazy"></figure>
+    <figure class="cl-foto cl-rev"><img src="assets/criolipolisis/abdomen-bn.jpg" alt="Abdomen de una mujer con la mano sobre la cadera, en blanco y negro" width="1100" height="1375" loading="lazy"></figure>
   </div>
   <div class="cl-in">
     <p class="cl-lista-t cl-rev">¿Dónde está la tuya? <span>Toca tu zona.</span></p>
@@ -246,15 +247,28 @@ def generar(b):
   </div>
 </section>
 
-<!-- 4 · RUPTURA: bloque tipográfico + botón -->
-<section class="cl-sec cl-claro cl-ruptura" data-tema="claro">
+<!-- 4 · LA SESIÓN: fotos del tratamiento -->
+<section class="cl-sec cl-claro cl-sesion" data-tema="claro">
+  <div class="cl-in">
+    <header class="cl-cabeza cl-rev"><p class="ceja">La sesión</p>
+      <h2 class="cl-h2">Así se vive una <em>sesión</em>.</h2>
+      <p class="cl-texto">El aplicador se coloca sobre la zona y trabaja mientras tú descansas: lees, conversas o miras el celular. Sin agujas, sin cortes y sin incapacidad.</p></header>
+    <div class="cl-galeria">
+      <figure class="cl-g-alta cl-rev"><img src="assets/criolipolisis/sesion-aplicador.jpg" alt="Aplicador blanco sobre el abdomen durante un tratamiento corporal" width="1100" height="1375" loading="lazy"><figcaption><span>01</span>El aplicador va directo sobre la zona que quieres tratar.</figcaption></figure>
+      <figure class="cl-g-ancha cl-rev"><img src="assets/criolipolisis/sesion-aparato.jpg" alt="Tratamiento corporal sin cirugía sobre el abdomen" width="1400" height="933" loading="lazy"><figcaption><span>02</span>Al terminar te levantas y sigues con tu día.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · RUPTURA: bloque tipográfico + botón -->
+<section class="cl-sec cl-oscuro cl-ruptura" data-tema="oscuro">
   <div class="cl-in cl-ruptura-in">
     <p class="cl-bloque cl-rev" aria-label="Sin cirugía. Sin agujas. Sin pausa.">Sin cirugía.<br>Sin agujas.<br>Sin <em>pausa</em>.</p>
     <div class="cl-ruptura-cta cl-rev"><p>¿Ya sabes qué zona quieres tratar? Empieza por tu valoración médica.</p>%(btn_ruptura)s</div>
   </div>
 </section>
 
-<!-- 5 · LO QUE VAS A VIVIR -->
+<!-- 6 · LO QUE VAS A VIVIR -->
 <section class="cl-sec cl-claro cl-vivir-sec" data-tema="claro">
   <div class="cl-in cl-dos-col">
     <header class="cl-rev"><p class="ceja">Lo que vas a vivir</p><h2 class="cl-h2">Una sesión, y tu vida <em>sigue</em>.</h2></header>
@@ -262,7 +276,7 @@ def generar(b):
   </div>
 </section>
 
-<!-- 6 · ¿ES PARA TI? (honesto: también decimos cuándo no) -->
+<!-- 7 · ¿ES PARA TI? (honesto: también decimos cuándo no) -->
 <section class="cl-sec cl-oscuro" data-tema="oscuro">
   <div class="cl-in">
     <header class="cl-cabeza cl-rev"><p class="ceja">¿Es para ti?</p>
@@ -274,7 +288,7 @@ def generar(b):
   </div>
 </section>
 
-<!-- 7 · POR QUÉ EN NOON: primero un médico -->
+<!-- 8 · POR QUÉ EN NOON: primero un médico -->
 <section class="cl-sec cl-claro" data-tema="claro">
   <div class="cl-in cl-medico">
     <figure class="cl-med-foto cl-rev"><img src="%(foto_med)s" alt="%(med_nombre)s, %(med_rol)s de noon Clinic" loading="lazy"></figure>
@@ -292,7 +306,7 @@ def generar(b):
   </div>
 </section>
 
-<!-- 8 · PREGUNTAS -->
+<!-- 9 · PREGUNTAS -->
 <section class="cl-sec cl-claro cl-faq-sec" id="preguntas" data-tema="claro">
   <div class="cl-in cl-dos-col">
     <header class="cl-rev cl-pegado"><p class="ceja">Preguntas</p><h2 class="cl-h2">Lo que todas <em>preguntan</em>.</h2></header>
@@ -300,7 +314,7 @@ def generar(b):
   </div>
 </section>
 
-<!-- 9 · CIERRE -->
+<!-- 10 · CIERRE -->
 <section class="cl-cierre" data-tema="oscuro">
   <div class="cl-cierre-in cl-rev">
     <p class="ceja">noon Clinic</p>
@@ -319,7 +333,7 @@ def generar(b):
     <div><p class="cl-mini">Contacto</p><p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a></p></div>
     <nav><p class="cl-mini">noon</p><a href="./">Conoce noon</a><a href="medicina-estetica">Medicina estética</a><a href="especialistas">Especialistas</a><a href="terminos-y-condiciones">Términos</a></nav>
   </div>
-  <p class="cl-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Los resultados varían de una persona a otra. Foto: sombre en Unsplash. © noon Clinic</p>
+  <p class="cl-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Los resultados varían de una persona a otra. Fotos: Laura Beauty Designer en Pexels; Patient Perfect y krivitskiy en Unsplash. © noon Clinic</p>
 </footer>
 <div class="cl-barra" aria-hidden="true">%(btn_barra)s</div>
 <script src="assets/criolipolisis.js?v=%(v)s" defer></script>
