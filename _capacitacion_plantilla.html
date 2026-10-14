@@ -464,6 +464,48 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .camino-v .quiz .barra-q i.ok { background:var(--bienC); } .camino-v .quiz .barra-q i.mal { background:var(--malC); }
 .camino-v .explica.si p b { color:var(--bienC); } .camino-v .explica.no p b { color:var(--malC); }
 
+/* ---------- WhatsApp ---------- */
+.wa { display:flex; flex-direction:column; height:600px; border:9px solid #16110F; border-radius:38px; overflow:hidden; background:#EFEAE2; box-shadow:0 24px 50px rgba(22,17,15,.18); font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+.wa.corto { height:auto; max-height:720px; }
+.wa-top { display:flex; align-items:center; gap:8px; background:#008069; color:#fff; padding:10px 12px 10px 6px; flex:none; }
+.wa-i { display:grid; place-items:center; opacity:.95; } .wa-i.der { margin-left:auto; } .wa-top .wa-i + .wa-i { margin-left:14px; }
+.wa-av { width:36px; height:36px; border-radius:50%; background:#DFE5E7; color:#54656F; display:grid; place-items:center; font-weight:700; font-size:16px; flex:none; }
+.wa-nom { display:flex; flex-direction:column; line-height:1.2; min-width:0; }
+.wa-nom b { font-weight:600; font-size:16px; } .wa-nom small { font-size:12.5px; opacity:.85; }
+.wa-chat { flex:1; overflow-y:auto; padding:10px 16px 14px; display:flex; flex-direction:column; gap:2px; background-color:#EFEAE2;
+  background-image:radial-gradient(rgba(84,101,111,.09) 1.1px,transparent 1.3px),radial-gradient(rgba(84,101,111,.06) 1.1px,transparent 1.3px); background-size:22px 22px,22px 22px; background-position:0 0,11px 11px; }
+.wa-chip { align-self:center; background:#fff; color:#54656F; font-size:12px; font-weight:600; padding:5px 12px; border-radius:8px; box-shadow:0 1px .5px rgba(11,20,26,.13); margin:12px 0 6px; transition:background .3s,color .3s; }
+.wa-chip.actual { background:var(--acento); color:#fff; }
+.wa-sys { align-self:center; background:#FFEECD; color:#54656F; font-size:12.5px; padding:6px 12px; border-radius:8px; text-align:center; max-width:88%; margin:5px 0; box-shadow:0 1px .5px rgba(11,20,26,.1); animation:waPop .35s ease both; }
+.wa-m { position:relative; max-width:82%; padding:6px 8px 7px 9px; border-radius:8px; font-size:14.5px; line-height:1.38; color:#111B21; box-shadow:0 1px .5px rgba(11,20,26,.13); margin-top:2px; animation:waPop .35s ease both; }
+.wa-m.cola { margin-top:8px; }
+.wa-m.in { background:#fff; align-self:flex-start; } .wa-m.out { background:#D9FDD3; align-self:flex-end; }
+.wa-m.in.cola { border-top-left-radius:0; } .wa-m.out.cola { border-top-right-radius:0; }
+.wa-m.in.cola::before { content:""; position:absolute; top:0; left:-8px; border-right:8px solid #fff; border-bottom:10px solid transparent; }
+.wa-m.out.cola::before { content:""; position:absolute; top:0; right:-8px; border-left:8px solid #D9FDD3; border-bottom:10px solid transparent; }
+@keyframes waPop { from { opacity:0; transform:translateY(8px) scale(.97); } }
+.wa-quien { display:block; font-size:12.5px; font-weight:600; color:#06A35A; margin-bottom:1px; } .wa-quien.v { color:#C2185B; }
+.wa-txt { white-space:pre-line; overflow-wrap:anywhere; display:inline; }
+.wa-txt a { color:#027EB5; text-decoration:underline; }
+.wa-meta { float:right; display:inline-flex; align-items:center; gap:3px; margin:7px 0 -5px 12px; font-size:11px; color:#667781; white-space:nowrap; }
+.tick { color:#8696A0; transition:color .3s; } .tick.leido { color:#53BDEB; }
+.wa-img { width:230px; max-width:100%; height:140px; border-radius:6px; background:linear-gradient(135deg,#E9EDEF,#D1D7DB); color:#54656F; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; margin-bottom:2px; }
+.wa-pdf { display:flex; gap:10px; align-items:center; background:rgba(11,20,26,.05); border-radius:6px; padding:10px; width:250px; max-width:100%; margin-bottom:2px; }
+.wa-pdf .pdf { flex:none; width:34px; height:40px; border-radius:4px; background:#E53935; color:#fff; font-size:10px; font-weight:800; display:grid; place-items:center; }
+.wa-pdf b { display:block; font-size:13.5px; font-weight:600; } .wa-pdf small { color:#667781; font-size:12px; }
+.wa-esc { display:flex; gap:4px; padding:12px 14px; }
+.wa-esc i { width:7px; height:7px; border-radius:50%; background:#8696A0; animation:punto 1s infinite; }
+.wa-esc i:nth-child(2){animation-delay:.15s}.wa-esc i:nth-child(3){animation-delay:.3s}
+.wa-pie { display:flex; align-items:center; gap:8px; padding:8px 10px; background:#F0F2F5; flex:none; }
+.wa-input { flex:1; display:flex; align-items:center; gap:10px; background:#fff; border-radius:22px; padding:8px 12px; color:#54656F; }
+.wa-input em { flex:1; font-style:normal; color:#8696A0; font-size:14.5px; }
+.wa-mic { width:42px; height:42px; border-radius:50%; background:#00A884; color:#fff; display:grid; place-items:center; flex:none; }
+.wa-repetir { align-self:flex-start; background:none; border:0; padding:4px 2px; font:600 13.5px var(--texto); color:var(--acento); cursor:pointer; }
+.escena { align-items:start; }
+.escena .col > .escena-info { flex:none; }
+@media (max-width:640px) { .wa { height:520px; border-width:7px; border-radius:30px; } .wa-top .wa-i + .wa-i { margin-left:10px; } }
+@media (prefers-reduced-motion:reduce) { .wa-m, .wa-sys { animation:none; } }
+
 @media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
 @media (max-width:900px) {
   .precio-card { grid-template-columns:1fr; }
@@ -675,7 +717,7 @@ function disponibilidad() {
 let pasoC = 0, qI = 0, qOk = 0, qRes = [];
 const fotoDoc = id => (D.doctores.find(d => d.id === id) || {}).foto;
 function camino() {
-  const C = D.camino;
+  const C = D.camino; waHasta = -1; waAnim = false;
   return `<div class="camino-v"><section class="cam-hero"><span class="eti">Proceso comercial · noon Clinic</span>
     <h1>El camino del <em>paciente</em></h1>
     <p>Desde que nos escribe “hola” hasta que abona su cirugía. Toca cada parada y mira qué pasa, quién lo hace y qué decir.</p>
@@ -684,7 +726,10 @@ function camino() {
   <p class="toca" id="toca">Toca cada círculo para avanzar <i>→</i></p>
   <div class="pista" id="pista"><div class="riel"><i id="riel"></i></div><div class="ficha-pac" id="token"><b>Paciente</b></div>
     <div class="paradas">${C.map((p, i) => `<button class="parada" type="button" data-paso="${i}" aria-label="Paso ${i + 1}: ${esc(p.corto)}"><span class="bola">${ico(p.ico)}</span><span>${esc(p.corto)}</span></button>`).join("")}</div></div>
-  <div class="escena" id="escena"></div>
+  <div class="escena" id="escena"><div class="col" id="info"></div>
+    <div class="col"><span class="leyenda">${ico("chat")}Así se ve en WhatsApp <em>(ejemplo: la conversación completa con Ana)</em></span>
+      ${waMarco("wa-chat", "Ana Gómez", "en línea", "")}
+      <button class="wa-repetir" type="button" data-rep="1">↻ Ver este paso otra vez</button></div></div>
   <p class="pista-teclas">Tip: usa las flechas <kbd>←</kbd> <kbd>→</kbd> del teclado para avanzar.</p>
 
   <div class="cam-titulo"><h2>Antes de agendar, <em>pregunta</em></h2><span>Sin estas 3 respuestas no se agenda.</span></div>
@@ -695,7 +740,7 @@ function camino() {
   </div>
 
   <div class="cam-titulo"><h2>El mensaje de <em>confirmación</em></h2></div>
-  <div class="confirma"><div class="telefono"><div class="top"><img src="assets/logo-noon-claro.png" alt="noon"><small>en línea</small></div><div class="burbujas"><div class="burb noon">${esc(D.confirmacion).replace(/\*([^*\n]+)\*/g, "<b>$1</b>")}</div></div></div>
+  <div class="confirma"><div>${waMarco("", "Paciente", "en línea", `<div class="wa-chip">Hoy</div>` + waMsg(["noon", "", "[plantilla]", "2:40 p. m."], true, true), true)}</div>
     <div><p style="font-size:18px">Se manda <b>apenas el paciente paga</b>. Solo llenas los datos de la cita y lo envías.</p>
       <ul><li>${ico("check")}<span>Todos los datos de la cita: fecha, hora, tipo, especialista y consultorio.</span></li><li>${ico("check")}<span>Las políticas de reprogramación y devolución.</span></li><li>${ico("check")}<span>Que la cita no se abona y lo adicional se paga aparte.</span></li><li>${ico("check")}<span>El link de términos y condiciones.</span></li></ul>
       ${copiar(D.confirmacion)}</div></div>
@@ -714,26 +759,73 @@ function irA(i, primera) {
   const x = bolas[pasoC].offsetLeft; $("#token").style.transform = `translateX(${x}px)`;
   $("#riel").style.width = (pasoC / (C.length - 1) * 100) + "%";
   const av = p.foto ? `<span class="av" style="background-image:url(${fotoDoc(p.foto)})"></span>` : `<span class="av">${ico(p.ico)}</span>`;
-  $("#escena").innerHTML = `<div class="col"><span class="leyenda">${ico("lista")}Qué pasa en este paso</span><div class="escena-info anima"><span class="num">${String(pasoC + 1).padStart(2, "0")}</span>
+  $("#info").innerHTML = `<span class="leyenda">${ico("lista")}Qué pasa en este paso</span><div class="escena-info anima"><span class="num">${String(pasoC + 1).padStart(2, "0")}</span>
       <span class="quien-chip">${av}${esc(p.quien)}</span><h2>${esc(p.que)}</h2><p class="como">${esc(p.como)}</p>
       ${p.ojo ? `<div class="alerta"><span class="ojo">Ojo</span><span>${esc(p.ojo)}</span></div>` : ""}
       <div class="controles"><button class="btn claro" type="button" data-mover="-1" ${pasoC === 0 ? "disabled" : ""}>← Atrás</button>
-        <button class="btn" type="button" data-mover="1" ${pasoC === C.length - 1 ? "disabled" : ""}>${pasoC === C.length - 2 ? "¡Último paso!" : "Siguiente"} →</button></div></div>
-    </div><div class="col"><span class="leyenda">${ico("chat")}Así se ve en el chat <em>(ejemplo)</em></span><div class="telefono"><div class="top"><img src="assets/logo-noon-claro.png" alt="noon"><small>${esc(p.quien.split("·")[0])}</small></div><div class="burbujas" id="burbujas"></div></div></div>`;
-  chatea(p.chat);
+        <button class="btn" type="button" data-mover="1" ${pasoC === C.length - 1 ? "disabled" : ""}>${pasoC === C.length - 2 ? "¡Último paso!" : "Siguiente"} →</button></div></div>`;
+  waIr(pasoC);
   if (pasoC === C.length - 1 && !primera) confeti();
 }
-let chatT = [];
-function chatea(msgs) {
-  chatT.forEach(clearTimeout); chatT = []; const caja = $("#burbujas");
-  if (!msgs.length) { caja.innerHTML = `<div class="vacio"><b>En persona</b>Aquí no hay chat: es la consulta con el doctor.</div>`; caja.style.margin = "auto"; return; }
-  let t = 250;
-  msgs.forEach(([lado, quien, txt]) => {
-    chatT.push(setTimeout(() => { caja.insertAdjacentHTML("beforeend", `<div class="escribiendo ${lado === "noon" ? "der" : ""}"><i></i><i></i><i></i></div>`); const e = caja.lastElementChild; if (lado === "noon") e.style.alignSelf = "flex-end"; if (lado === "int") e.style.alignSelf = "center"; }, t));
-    t += 700;
-    chatT.push(setTimeout(() => { caja.querySelector(".escribiendo")?.remove(); caja.insertAdjacentHTML("beforeend", `<div class="burb ${lado}"><small>${esc(quien)}</small>${esc(txt)}</div>`); }, t));
+/* ---------- chat estilo WhatsApp (una conversación que crece paso a paso) ---------- */
+let waHasta = -1, waAnim = false, waLado = null, waT = [];
+const WI = {
+  atras: '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  video: '<svg viewBox="0 0 24 24" width="22" height="22"><rect x="3" y="7" width="12" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m15 11 5-3v8l-5-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+  tel: '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+  mas: '<svg viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="5" r="1.7" fill="currentColor"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/><circle cx="12" cy="19" r="1.7" fill="currentColor"/></svg>',
+  tick: '<svg class="tick" viewBox="0 0 18 11" width="17" height="11"><path d="M1 6l3.2 3.2L11 1.5M7 9.2 8 10l7-8.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  emoji: '<svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 14.5a4.5 4.5 0 0 0 7 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="9" cy="10" r="1.1" fill="currentColor"/><circle cx="15" cy="10" r="1.1" fill="currentColor"/></svg>',
+  clip: '<svg viewBox="0 0 24 24" width="21" height="21"><path d="m20 11-8 8a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.7 16.7a1.7 1.7 0 0 1-2.4-2.4L15 6.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+  mic: '<svg viewBox="0 0 24 24" width="20" height="20"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  recibo: '<svg viewBox="0 0 24 24" width="30" height="30"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8h6M9 11.5h6M9 15h3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+};
+function waMarco(id, nombre, sub, cuerpo, corto) {
+  return `<div class="wa ${corto ? "corto" : ""}"><div class="wa-top"><span class="wa-i">${WI.atras}</span><span class="wa-av">${esc(nombre[0])}</span>
+      <div class="wa-nom"><b>${esc(nombre)}</b><small ${id ? 'id="wa-sub"' : ""}>${esc(sub)}</small></div>
+      <span class="wa-i der">${WI.video}</span><span class="wa-i">${WI.tel}</span><span class="wa-i">${WI.mas}</span></div>
+    <div class="wa-chat" ${id ? `id="${id}"` : ""}>${cuerpo}</div>
+    <div class="wa-pie"><div class="wa-input"><span>${WI.emoji}</span><em>Mensaje</em><span>${WI.clip}</span></div><span class="wa-mic">${WI.mic}</span></div></div>`;
+}
+const waTexto = t => esc(t).replace(/\*([^*\n]+)\*/g, "<b>$1</b>").replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+function confLlena() { let t = D.confirmacion; for (const [k, v] of Object.entries(D.conf_ej)) t = t.replace(new RegExp("\\*" + k + ":\\*[^\\n]*"), "*" + k + ":* " + v); return t; }
+function waMsg([lado, quien, txt, hora], cola, leido) {
+  if (lado === "sys") return `<div class="wa-sys">${esc(txt)}</div>`;
+  const out = lado === "noon";
+  let c;
+  if (txt.startsWith("[img]")) c = `<div class="wa-img">${WI.recibo}<span>${esc(txt.slice(5))}</span></div>`;
+  else if (txt.startsWith("[pdf]")) c = `<div class="wa-pdf"><span class="pdf">PDF</span><div><b>${esc(txt.slice(5))}</b><small>1 página · PDF</small></div></div>`;
+  else if (txt === "[conf]") c = `<div class="wa-txt">${waTexto(confLlena())}</div>`;
+  else if (txt === "[plantilla]") c = `<div class="wa-txt">${waTexto(D.confirmacion)}</div>`;
+  else c = `<div class="wa-txt">${waTexto(txt)}</div>`;
+  return `<div class="wa-m ${out ? "out" : "in"} ${cola ? "cola" : ""}">${out && quien ? `<span class="wa-quien ${quien.includes("Valeria") ? "v" : ""}">${esc(quien)}</span>` : ""}${c}<span class="wa-meta">${esc(hora)}${out ? WI.tick.replace('class="tick"', `class="tick ${leido ? "leido" : ""}"`) : ""}</span></div>`;
+}
+function waPaso(k, instant) {
+  const c = $("#wa-chat"); if (!c) return; const C = D.camino, msgs = D.wa[k] || [];
+  c.insertAdjacentHTML("beforeend", `<div class="wa-chip ${instant ? "" : "actual"}">Paso ${k + 1} · ${esc(C[k].corto)}</div>`); waLado = null;
+  if (instant) { msgs.forEach(m => { c.insertAdjacentHTML("beforeend", waMsg(m, m[0] !== waLado, true)); waLado = m[0] === "sys" ? null : m[0]; }); return; }
+  waAnim = true; let t = 300; const baja = () => c.scrollTo({ top: c.scrollHeight, behavior: "smooth" }); baja();
+  msgs.forEach(m => {
+    const lado = m[0];
+    if (lado === "pac") { waT.push(setTimeout(() => { const sb = $("#wa-sub"); if (sb) sb.textContent = "escribiendo…"; c.insertAdjacentHTML("beforeend", `<div class="wa-m in cola wa-esc"><i></i><i></i><i></i></div>`); baja(); }, t)); t += 950; }
+    else t += lado === "sys" ? 250 : 650;
+    waT.push(setTimeout(() => {
+      c.querySelector(".wa-esc")?.remove(); const sb = $("#wa-sub"); if (sb) sb.textContent = "en línea";
+      c.insertAdjacentHTML("beforeend", waMsg(m, lado !== waLado, false)); waLado = lado === "sys" ? null : lado;
+      const el = c.lastElementChild; if (lado === "noon") waT.push(setTimeout(() => el.querySelector(".tick")?.classList.add("leido"), 800)); baja();
+    }, t));
     t += 450;
   });
+  waT.push(setTimeout(() => { waAnim = false; }, t));
+}
+function waIr(i) {
+  waT.forEach(clearTimeout); waT = []; const c = $("#wa-chat"); if (!c) return;
+  const sb = $("#wa-sub"); if (sb) sb.textContent = "en línea";
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (waAnim || i !== waHasta + 1 || reduce) { c.innerHTML = ""; waLado = null; for (let k = 0; k < i; k++) waPaso(k, true); }
+  c.querySelectorAll(".wa-chip.actual").forEach(x => x.classList.remove("actual"));
+  waAnim = false; waPaso(i, reduce); waHasta = i;
+  if (reduce) { c.querySelectorAll(".wa-chip").forEach((x, j, all) => x.classList.toggle("actual", j === all.length - 1)); c.scrollTop = c.scrollHeight; }
 }
 function confeti() {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -757,6 +849,7 @@ function pintaQuiz() {
 }
 document.addEventListener("click", e => {
   const pa = e.target.closest("[data-paso]"); if (pa) irA(+pa.dataset.paso);
+  if (e.target.closest("[data-rep]")) { waHasta = -99; waIr(pasoC); }
   const mv = e.target.closest("[data-mover]"); if (mv) irA(pasoC + +mv.dataset.mover);
   const ca = e.target.closest(".carta"); if (ca) ca.classList.toggle("vuelta");
   const op = e.target.closest(".opcion");

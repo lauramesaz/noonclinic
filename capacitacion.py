@@ -273,6 +273,42 @@ QUIZ = [  # (situación, [opciones], índice correcto, explicación)
 ]
 
 
+# Conversación de WhatsApp de ejemplo (UNA sola, crece paso a paso). Vista desde el WhatsApp de noon:
+# "noon" = mensajes del equipo (derecha, verde), "pac" = paciente (izquierda, blanco), "sys" = nota interna (centro).
+# Texto que empieza por [img] = foto/comprobante, [pdf] = documento, [conf] = mensaje de confirmación lleno.
+CONF_EJEMPLO = {"Nombre": "Ana Gómez", "Fecha": "Jueves 23 de octubre", "Hora": "10:00 a. m.", "Tipo de cita": "Presencial",
+                "Especialidad": "Cirugía plástica", "Especialista": "Dr. Fernando Ruiz", "Consultorio": "noon Clinic · Medellín"}
+CHAT_WA = [
+    [("pac", "", "Hola, buenas tardes 👋 Quiero información de la lipo", "2:14 p. m."),
+     ("noon", "Comercial", "¡Hola, Ana! Qué gusto saludarte, te habla Sofía de noon Clinic 🤍 ¿Desde qué ciudad nos escribes?", "2:15 p. m."),
+     ("pac", "", "Desde Medellín", "2:15 p. m."),
+     ("noon", "Comercial", "¡Perfecto! ¿Prefieres tu cita de valoración presencial o virtual?", "2:16 p. m."),
+     ("pac", "", "Presencial, por favor", "2:16 p. m.")],
+    [("noon", "Comercial", "Listo 😊 Para reservar tu cita de valoración el valor es de $200.000. ¿Te comparto los datos para el pago?", "2:17 p. m."),
+     ("pac", "", "Sí, por favor", "2:18 p. m."),
+     ("pac", "", "[img]Comprobante de pago", "2:31 p. m."),
+     ("pac", "", "Listo, ya pagué ✨", "2:31 p. m.")],
+    [("sys", "", "Interno: comprobante enviado al grupo de WhatsApp y cita montada en Saneo", ""),
+     ("noon", "Comercial", "[conf]", "2:40 p. m."),
+     ("pac", "", "¡Mil gracias! 🙌", "2:42 p. m.")],
+    [("sys", "", "Interno: administración confirmó que el pago entró ✔️", "")],
+    [("noon", "Dra. Valeria", "Hola, Ana. Soy la Dra. Valeria, médica general de noon 🤍 Te escribo para preparar tu cita con el Dr. Fernando. ¿Me cuentas qué te gustaría mejorar?", "Mar 9:05 a. m."),
+     ("pac", "", "Hola, doctora. El abdomen y la cintura 😊", "Mar 9:20 a. m."),
+     ("noon", "Dra. Valeria", "Perfecto, quedó anotado. ¡Nos vemos el jueves!", "Mar 9:22 a. m.")],
+    [("sys", "", "Cita de valoración con el Dr. Fernando · en persona 🩺", ""),
+     ("pac", "", "¡Me encantó el doctor! Me explicó todo 😍", "Jue 12:10 p. m.")],
+    [("noon", "Dra. Valeria", "Ana, te comparto tu cotización 📄", "Jue 3:30 p. m."),
+     ("noon", "Dra. Valeria", "[pdf]Cotización Ana Gómez.pdf", "Jue 3:30 p. m."),
+     ("noon", "Dra. Valeria", "Cualquier duda me cuentas.", "Jue 3:31 p. m.")],
+    [("noon", "Comercial", "Hola, Ana 🤍 ¿Cómo te fue con la cotización? ¿Te ayudo a escoger la fecha de tu cirugía?", "Sáb 11:00 a. m."),
+     ("pac", "", "Sí, estoy pensando en diciembre", "Sáb 11:24 a. m."),
+     ("noon", "Comercial", "¡Me encanta! Con el abono reservamos tu fecha. ¿Te paso los datos?", "Sáb 11:25 a. m.")],
+    [("pac", "", "[img]Comprobante del abono", "Sáb 4:02 p. m."),
+     ("pac", "", "¡Listo, ya hice el abono! 🎉", "Sáb 4:02 p. m."),
+     ("noon", "Comercial", "¡Qué emoción, Ana! Tu fecha queda reservada. Ahora empezamos a organizar tu cirugía 🤍", "Sáb 4:05 p. m.")],
+]
+
+
 def _cirugias():
     # en la capacitación la mastopexia va dividida: con implantes y sin implantes
     out = []
@@ -304,7 +340,7 @@ def generar():
              "precio": PRECIO, "lista_precios": [(p["nombre"], it, v, p["slug"], p["tipo"]) for p in procs for it, v in p["precios"]],
              "otros_precios": OTROS_PRECIOS, "video": VIDEO,
              "inter_reglas": INTERNACIONAL_REGLAS, "inter": INTERNACIONAL,
-             "camino": CAMINO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES}
+             "camino": CAMINO, "wa": CHAT_WA, "conf_ej": CONF_EJEMPLO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:
