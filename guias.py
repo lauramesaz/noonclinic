@@ -62,7 +62,103 @@ def leer():
             raise SystemExit("El archivo %s debe llamarse %s.html" % (nombre, g["slug"]))
         out.append(g)
     out.sort(key=lambda g: (g.get("actualizado") or g["publicado"]), reverse=True)
+    preparar(out)
     return out
+
+
+# ---------------------------------------------------------------- BLOG: tema y foto de cada guía (para las tarjetas)
+# Orden = prioridad: la primera regla que coincide con el slug decide el tema y la foto.
+# Una guía puede fijar los suyos en la cabecera JSON con "categoria" y "foto" (ej. "noon/foto-luz").
+TEMAS = [
+    (r"volar|fly", "viaje", "noon/foto-luz"),
+    (r"llevar|pack", "viaje", "noon/foto-detalle"),
+    (r"donde-quedar|where-to-stay", "viaje", "clinica/vista-2"),
+    (r"quedarse|how-long-to-stay", "viaje", "noon/foto-espera"),
+    (r"acompa|companion", "viaje", "noon/foto-recepcion"),
+    (r"controles|follow-up", "viaje", "noon/foto-objetos"),
+    (r"elegir|choose", "seguridad", "noon/foto-consulta"),
+    (r"seguro|safe", "seguridad", "clinica/recepcion"),
+    (r"alerta|red-flags", "seguridad", "noon/foto-pasillo"),
+    (r"viviendo-en|us-resident", "viaje", "clinica/vista"),
+]
+PROC_PAL = r"lipo|abdominoplastia|tummy|senos|breast|mommy|rinoplastia|rhinoplasty|blefaro|eyelid|glute|bbl|mastopexia|lift"
+CATS = {"es": [("procedimientos", "Procedimientos"), ("viaje", "Viaje y recuperación"), ("seguridad", "Seguridad")],
+        "en": [("procedimientos", "Procedures"), ("viaje", "Travel & recovery"), ("seguridad", "Safety")]}
+EXTRA = ["noon/foto-luz", "noon/foto-espera", "noon/foto-consulta", "noon/foto-detalle", "noon/foto-pasillo", "noon/foto-objetos", "noon/foto-recepcion"]
+MESES_C = {"es": ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+           "en": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
+
+
+def _existe(f):
+    return os.path.exists(os.path.join(AQUI, "assets", f + ".jpg"))
+
+
+def preparar(guias):
+    """Pone a cada guía su tema (_cat) y una foto (_foto) sin repetir fotos dentro del mismo idioma.
+    Se reparte de la más vieja a la más nueva, así una guía nueva nunca le cambia la foto a una vieja."""
+    usadas = {"es": set(), "en": set()}
+    por_slug = {g["slug"]: g for g in guias}
+    for g in sorted(guias, key=lambda x: (x["publicado"], x["lang"] != "es", x["slug"])):
+        regla = next((r for r in TEMAS if re.search(r[0], g["slug"])), None)
+        if g.get("tipo") == "ciudad":
+            cat = "ciudad"
+        else:
+            cat = g.get("categoria") or (regla[1] if regla else ("procedimientos" if re.search(PROC_PAL, g["slug"]) else "viaje"))
+        g["_cat"] = cat
+        par = por_slug.get(g.get("par") or "")
+        if cat == "ciudad":
+            g["_foto"] = "noon/" + g.get("fondo", "seda-oscura")  # las ciudades se muestran como lista, no gastan fotos
+            continue
+        if par and par.get("_foto") and g["lang"] == "en":
+            g["_foto"] = par["_foto"]  # la versión en inglés usa la misma foto que su par en español
+        else:
+            opciones = ([g["foto"]] if g.get("foto") else []) + ([regla[2]] if regla else []) \
+                + ["capacitacion/" + s for s in g.get("procedimientos", [])] + EXTRA
+            libres = [f for f in opciones if _existe(f) and f not in usadas[g["lang"]]]
+            g["_foto"] = libres[0] if libres else next((f for f in opciones if _existe(f)), "noon/" + g.get("fondo", "seda-oscura"))
+        usadas[g["lang"]].add(g["_foto"])
+
+
+def fecha_corta(g):
+    a, m, d = (int(x) for x in (g.get("actualizado") or g["publicado"]).split("-"))
+    return ("%d %s %d" % (d, MESES_C["es"][m - 1], a)) if g["lang"] == "es" else ("%s %d, %d" % (MESES_C["en"][m - 1], d, a))
+
+
+def tarjeta(g, destacada=False, d=0, media=False):
+    """Tarjeta del blog: foto, tema · fecha, título (con su cursiva), entrada corta y 'Leer'."""
+    nombres = dict(CATS[g["lang"]])
+    nombres["ciudad"] = "Por ciudad" if g["lang"] == "es" else "By city"
+    meta = ("Lo más reciente · " if g["lang"] == "es" else "Latest · ") if destacada else ""
+    return '''<a class="bl-card rev%s%s" href="%s.html" data-t="%s"%s><span class="bl-foto"><img src="assets/%s.jpg" alt="" loading="lazy"></span>
+  <span class="bl-txt"><span class="bl-meta">%s%s · %s</span><span class="bl-tit">%s</span><span class="bl-desc">%s</span><span class="bl-ir">%s</span></span></a>''' % (
+        " bl-dest" if destacada else "", " bl-media" if media else "", g["slug"], g["_cat"], ' style="--d:%dms"' % d if d else "", g["_foto"],
+        meta, nombres.get(g["_cat"], ""), fecha_corta(g), g["h1"].replace("<br>", " "), g.get("intro") or g["descripcion"],
+        "Leer" if g["lang"] == "es" else "Read")
+
+
+def bloque_lecturas(lista, ceja, titulo, lang="es", sid=""):
+    """Fila de 3 tarjetas con enlace al blog (inicio, cada cirugía y el final de cada guía)."""
+    if not lista:
+        return ""
+    blog = BLOG[lang]
+    return '''<section class="sec bl-fila"%s><div class="bl-in"><header class="bl-cab"><div><p class="ceja rev">%s</p><h2 class="rev">%s</h2></div><a class="enlace rev" href="%s">%s</a></header>
+<div class="bl-grid tres">%s</div></div></section>''' % (' id="%s"' % sid if sid else "", ceja, titulo, blog["archivo"], blog["ver_todo"],
+                                                         "".join(tarjeta(g, d=i * 120) for i, g in enumerate(lista[:3])))
+
+
+def ultimas(guias, lang="es", n=3):
+    return [g for g in guias if g["lang"] == lang and g.get("tipo") != "ciudad"][:n]
+
+
+def de_procedimiento(guias, slug, n=3):
+    """Lecturas para la página de una cirugía: primero las que tratan de ella, luego las de seguridad y viaje."""
+    mias = [g for g in guias if g["lang"] == "es" and g.get("tipo") != "ciudad"]
+    sobre = [g for g in mias if slug in g.get("procedimientos", [])]
+    raices = [p[:4] for p in slug.split("-") if len(p) > 3]  # "lipo", "aume"…: la guía la nombra en su dirección
+    sobre.sort(key=lambda g: (not any(r in g["slug"] for r in raices), g.get("procedimientos", [None])[0] != slug, g["_cat"] != "procedimientos"))
+    resto = [g for g in mias if g not in sobre]
+    resto.sort(key=lambda g: ({"seguridad": 0, "viaje": 1}.get(g["_cat"], 2)))
+    return (sobre + resto)[:n]
 
 
 def generar(b):
@@ -78,7 +174,7 @@ def generar(b):
         return (p["nombre"], slug + ".html") if p else None
 
     def relacionadas(g):
-        mismas = [x for x in guias if x["lang"] == g["lang"] and x["slug"] != g["slug"]]
+        mismas = [x for x in guias if x["lang"] == g["lang"] and x["slug"] != g["slug"] and x.get("tipo") != "ciudad"]
         mismas.sort(key=lambda x: (x.get("ciudad") != g.get("ciudad") or not g.get("ciudad"),
                                    not set(x.get("procedimientos", [])) & set(g.get("procedimientos", []))))
         return mismas[:3]
@@ -96,18 +192,16 @@ def generar(b):
   %s
   %s
   <p class="art-aviso">%s</p>
-</div></section>''' % (t["hub"], t["hub_n"], t["por"], t["act"], fecha_txt(g.get("actualizado") or g["publicado"], g["lang"]), g["cuerpo"],
+</div></section>''' % (BLOG[g["lang"]]["archivo"], BLOG[g["lang"]]["nombre"], t["por"], t["act"], fecha_txt(g.get("actualizado") or g["publicado"], g["lang"]), g["cuerpo"],
                         ('<div class="art-procs"><p class="ceja">%s</p><div>%s</div></div>' % (t["proc"], "".join('<a href="%s">%s</a>' % (h, n) for n, h in procs))) if procs else "",
                         t["aviso"])
         if g.get("faq"):
             cuerpo += b.seccion(t["preg"], g.get("faq_titulo") or t["preg"], b.faq([("", p, r, []) for p, r in g["faq"]]), "marfil")
-        if rel:
-            cuerpo += b.seccion(t["rel"], "noon Clinic", '<ul class="lineas">%s</ul>' % "".join(
-                '<li class="rev"><b><a href="%s.html">%s</a></b><span>%s</span></li>' % (x["slug"], x["h1"].replace("<br>", " "), x["descripcion"]) for x in rel))
+        cuerpo += bloque_lecturas(rel, BLOG[g["lang"]]["nombre"], BLOG[g["lang"]]["rel_tit"], g["lang"])
         cuerpo += b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(msj), t["boton"]), fondo="seda-oscura")
 
         url = b.DOMINIO + "/" + g["slug"]
-        hub_url = b.DOMINIO + "/" + t["hub"][:-5]
+        blog_url = b.DOMINIO + "/" + BLOG[g["lang"]]["archivo"][:-5]
         esquema = [
             {"@context": "https://schema.org", "@type": "MedicalWebPage", "headline": g["title"], "description": g["descripcion"], "url": url,
              "inLanguage": "es-CO" if g["lang"] == "es" else "en-US", "datePublished": g["publicado"], "dateModified": g.get("actualizado") or g["publicado"],
@@ -115,7 +209,7 @@ def generar(b):
              "about": [enlace_proc(s)[0] for s in g.get("procedimientos", []) if enlace_proc(s)], "audience": {"@type": "Patient", "geographicArea": nombre_ciudad or "United States"}},
             {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "noon Clinic", "item": b.DOMINIO + "/"},
-                {"@type": "ListItem", "position": 2, "name": t["hub_n"], "item": hub_url},
+                {"@type": "ListItem", "position": 2, "name": BLOG[g["lang"]]["nombre"], "item": blog_url},
                 {"@type": "ListItem", "position": 3, "name": g["title"], "item": url}]},
         ]
         if g.get("faq"):
@@ -126,6 +220,7 @@ def generar(b):
                  etiquetas={"seccion": "internacional", "tipo": g.get("tipo", "guia"), "ciudad": g.get("ciudad") or "general"})
 
     hubs(b, guias)
+    blog(b, guias)
     sitemap(b, guias)
     return len(guias)
 
@@ -178,13 +273,57 @@ def hubs(b, guias):
                  etiquetas={"seccion": "internacional", "tipo": "hub"})
 
 
+BLOG = {
+    "es": {"archivo": "blog.html", "nombre": "Blog", "ver_todo": "Ver todo el blog", "rel_tit": "Sigue <em>leyendo</em>.", "todo": "Todo",
+           "titulo": "Blog: cirugía plástica y medicina estética en Medellín", "h1": "Para leer <em>con calma</em>.",
+           "desc": "Guías de noon Clinic sobre cada procedimiento, la recuperación, la seguridad y cómo organizar tu viaje a Medellín.",
+           "sub": "Guías del equipo de noon Clinic para decidir con información: cada procedimiento, la recuperación, la seguridad y cómo organizar tu viaje.",
+           "c_ceja": "Por ciudad", "c_tit": "Si vives en <em>Estados Unidos</em>.", "desde": "Desde", "hub": ("pacientes-internacionales.html", "Cómo organizar tu viaje"),
+           "otro": "guides.html", "filtrar": "Filtrar por tema"},
+    "en": {"archivo": "guides.html", "nombre": "Guides", "ver_todo": "See all guides", "rel_tit": "Keep <em>reading</em>.", "todo": "All",
+           "titulo": "Guides: plastic surgery in Medellín, Colombia from the US", "h1": "Before you <em>decide</em>.",
+           "desc": "noon Clinic guides on each procedure, recovery, safety and planning your trip to Medellín, Colombia from the United States.",
+           "sub": "Guides from the noon Clinic team on each procedure, recovery, safety and planning your trip to Medellín from the United States.",
+           "c_ceja": "By city", "c_tit": "Flying in from <em>your city</em>.", "desde": "From", "hub": ("international-patients.html", "Plan your trip"),
+           "otro": "blog.html", "filtrar": "Filter by topic"},
+}
+
+
+def blog(b, guias):
+    """Página del blog: filtros por tema, la guía más reciente en grande, las demás en tarjetas y las guías por ciudad."""
+    for lang, h in BLOG.items():
+        t = T[lang]
+        mias = [g for g in guias if g["lang"] == lang and g.get("tipo") != "ciudad"]
+        ciudades = {g["ciudad"]: g for g in guias if g["lang"] == lang and g.get("tipo") == "ciudad" and g.get("ciudad")}
+        hay = {g["_cat"] for g in mias}
+        filtros = '<button type="button" class="on" data-t="" aria-pressed="true">%s</button>' % h["todo"] + "".join(
+            '<button type="button" data-t="%s" aria-pressed="false">%s</button>' % (k, n) for k, n in CATS[lang] if k in hay)
+        # filas siempre completas: si sobran 1 o 2 tarjetas, las primeras van de a 2 por fila (más grandes) y el resto de a 3
+        medias = {0: 0, 1: 4, 2: 2}[(len(mias) - 1) % 3] if len(mias) > 4 else 0
+        tarjetas = "".join(tarjeta(g, destacada=(i == 0), media=(0 < i <= medias), d=((i - 1) % (2 if i <= medias else 3)) * 120 if i else 0) for i, g in enumerate(mias))
+        lista_c = "".join('<li class="rev"><a href="%s.html"><span class="ceja">%s</span><b>%s</b><span class="fl" aria-hidden="true">→</span></a></li>' % (
+            ciudades[k]["slug"], h["desde"], v[0] if lang == "es" else v[1]) for k, v in CIUDADES.items() if k in ciudades)
+        cuerpo = (b.hero("seda-noche", h["nombre"], h["h1"], h["sub"], "medio")
+                  + '<section class="sec marfil bl-pag"><div class="bl-in"><div class="bl-filtros rev" role="group" aria-label="%s">%s</div><div class="bl-grid bl-lista">%s</div></div></section>' % (h["filtrar"], filtros, tarjetas)
+                  + ('<section class="sec bl-fila"><div class="bl-in"><header class="bl-cab"><div><p class="ceja rev">%s</p><h2 class="rev">%s</h2></div><a class="enlace rev" href="%s">%s</a></header><ul class="bl-ciudades">%s</ul></div></section>' % (
+                      h["c_ceja"], h["c_tit"], h["hub"][0], h["hub"][1], lista_c) if lista_c else "")
+                  + (b.cierre() if lang == "es" else b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(t["wa_gen"]), t["boton"]), fondo="seda-oscura")))
+        esquema = [{"@context": "https://schema.org", "@type": "Blog", "name": h["titulo"], "description": h["desc"], "url": b.DOMINIO + "/" + h["archivo"][:-5],
+                    "inLanguage": "es-CO" if lang == "es" else "en-US", "publisher": {"@id": b.DOMINIO + "/#clinica"},
+                    "blogPost": [{"@type": "BlogPosting", "headline": g["title"], "url": b.DOMINIO + "/" + g["slug"], "datePublished": g["publicado"],
+                                  "dateModified": g.get("actualizado") or g["publicado"], "image": b.DOMINIO + "/assets/" + g["_foto"] + ".jpg"} for g in mias]}]
+        b.pagina(h["archivo"], h["titulo"], h["desc"], cuerpo, lang=lang, alterna=h["otro"], esquema=esquema, foto="seda-noche",
+                 etiquetas={"seccion": "blog", "tipo": "listado"})
+
+
 def sitemap(b, guias):
     hoy = date.today().isoformat()
     fechas = {g["slug"] + ".html": g.get("actualizado") or g["publicado"] for g in guias}
     pares = {g["slug"] + ".html": g["par"] + ".html" for g in guias if g.get("par")}
-    pares.update({"pacientes-internacionales.html": "international-patients.html", "international-patients.html": "pacientes-internacionales.html"})
+    pares.update({"pacientes-internacionales.html": "international-patients.html", "international-patients.html": "pacientes-internacionales.html",
+                  "blog.html": "guides.html", "guides.html": "blog.html"})
     idioma = {g["slug"] + ".html": g["lang"] for g in guias}
-    idioma["international-patients.html"] = "en"
+    idioma["international-patients.html"] = idioma["guides.html"] = "en"
     urls = []
     for a in sorted(set(b.HECHAS)):
         loc = b.DOMINIO + "/" + ("" if a == "index.html" else a[:-5])

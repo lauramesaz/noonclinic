@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # noon Clinic · v3 clínica completa: cirugía plástica + medicina estética, sin precios, con especialistas
 # Genera todas las páginas a partir de datos.py.   Uso:  python3 build.py
-import os, time, json, re
+import os, sys, time, json, re
 from html import escape
 from urllib.parse import quote
 from datos import *
@@ -101,19 +101,19 @@ MENU_ES = """<div class="menu" id="menu" hidden>
 </div>"""
 MENU_EN = """<div class="menu" id="menu" hidden>
   <div class="menu-in tres">
-    <div class="menu-col"><p class="ceja">International patients</p><nav class="grande"><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="international-patients.html#guides">Guides</a></nav></div>
+    <div class="menu-col"><p class="ceja">International patients</p><nav class="grande"><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></nav></div>
     <div class="menu-col"><p class="ceja">noon Clinic</p><nav class="grande"><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></nav></div>
     <div class="menu-col"><p class="ceja">Contact</p><nav><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp</a></nav>
       <a class="boton" href="%(wa)s" target="_blank" rel="noopener">Book a consultation</a></div>
   </div>
 </div>""" % {"wa": "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA)}
-PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
+PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="blog.html">Blog</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
 PIE_EN = """<footer class="pie">
   <div class="pie-in">
     <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
     <p class="lema">Plastic surgery and aesthetic medicine, with judgment. Medellín, Colombia.</p>
     <div class="pie-cols cuatro">
-      <div><p class="ceja">International patients</p><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="international-patients.html#guides">Guides</a></div>
+      <div><p class="ceja">International patients</p><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></div>
       <div><p class="ceja">noon Clinic</p><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></div>
       <div><p class="ceja">En español</p><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a></div>
       <div><p class="ceja">Contact</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a></div>
@@ -157,7 +157,8 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
     tags = dict({"idioma": lang, "pagina": limpio or "inicio"}, **(etiquetas or {}))
     seo += '\n<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","%s");%s</script>' % (
         CLARITY_ID, "".join('clarity("set",%s,%s);' % (json.dumps(k), json.dumps(v)) for k, v in tags.items()))
-    idioma = ('<a class="idioma" href="%s" hreflang="%s" lang="%s">%s</a>' % (alterna, "es" if en else "en", "es" if en else "en", "Español" if en else "English")) if alterna else ""
+    idioma = ('<a class="idioma" href="%s" hreflang="%s" lang="%s" aria-label="%s"><span class="largo">%s</span><span class="corto">%s</span></a>' % (
+        alterna, "es" if en else "en", "es" if en else "en", "Español" if en else "English", "Español" if en else "English", "ES" if en else "EN")) if alterna else ""
     html = """<!doctype html>
 <html lang="%(lang)s">
 <head>
@@ -314,6 +315,8 @@ def datos_js():
 
 
 datos_js()
+import guias as G
+GUIAS = G.leer()  # artículos de la agencia: tarjetas del blog en el inicio y "lecturas relacionadas" en cada cirugía
 MENU = [
     ("especialistas.html", "Especialistas"),
     ("seguridad.html", "Seguridad"),
@@ -321,6 +324,7 @@ MENU = [
     ("formas-de-pago.html", "Pagos"),
     ("otra-ciudad.html", "Si vienes de lejos"),
     ("pacientes-internacionales.html", "Pacientes en EE. UU."),
+    ("blog.html", "Blog"),
     ("preguntas-frecuentes.html", "Preguntas"),
 ]
 
@@ -533,6 +537,7 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
                ("I", "Valoración", "Te escuchamos, te examinamos y te decimos qué tiene sentido para ti."),
                ("II", "Tu plan por escrito", "Procedimiento, tiempos, cuidados y presupuesto, claros desde el principio."),
                ("III", "Procedimiento y seguimiento", "Con acompañamiento cercano hasta el alta.")]))
+       + G.bloque_lecturas(G.ultimas(GUIAS), "Blog", "Para leer <em>antes de decidir</em>.", sid="blog")
        + cierre())
 
 
@@ -565,6 +570,7 @@ for c in CIRUGIAS_NOON:
            + seccion("Recuperación", "Paso a paso", linea_tiempo(c["recuperacion"]) + '<p class="pista rev">Tiempos de guía. Tu cirujano te da los exactos.</p>', sid="recuperacion")
            + bloque_especialista("cirugia", "Tu valoración de %s es con el especialista que te opera." % c["nombre"].lower())
            + seccion("Preguntas", "Sobre " + c["nombre"].lower(), faq([("", q, r, []) for q, r in c["faq"]]) + '<a class="enlace rev" href="preguntas-frecuentes.html">Todas las preguntas</a>', "marfil", sid="preguntas")
+           + G.bloque_lecturas(G.de_procedimiento(GUIAS, c["slug"]), "Blog", "Lecturas <em>relacionadas</em>.", sid="lecturas")
            + (seccion("También en " + cat_n.lower(), "Otras cirugías", catalogo(otras, "cx")) if otras else "")
            + cierre(c["nombre"], "Todo empieza con tu valoración: te decimos si es para ti y recibes tu plan por escrito.",
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (c["slug"], wa(msj)), fondo=f)

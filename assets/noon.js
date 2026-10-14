@@ -356,6 +356,21 @@
     window.addEventListener("scroll", espiar, { passive: true }); espiar();
   }
 
+  // ---------- blog: filtrar las tarjetas por tema
+  var blf = document.querySelector(".bl-filtros");
+  if (blf) blf.addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (!b) return;
+    blf.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    var t = b.dataset.t, lista = document.querySelector(".bl-lista");
+    lista.classList.toggle("filtrando", !!t);
+    lista.querySelectorAll(".bl-card").forEach(function (c) {
+      var ok = !t || c.dataset.t === t;
+      c.hidden = !ok;
+      if (ok) c.classList.add("on");
+    });
+  });
+
   // ---------- filtros de los catálogos (buscar + categorías)
   var fh = document.querySelector(".filtro-hub");
   if (fh) {

@@ -64,6 +64,12 @@ cada guía tiene su versión en español y su versión en inglés, enlazadas ent
   Inglés: `plastic-surgery-in-medellin-from-miami`.
 - Direcciones limpias: los enlaces van como `seguridad.html` en la fuente; `build.py` les quita el
   `.html` solo.
+- **Blog:** cada guía publicada sale sola como tarjeta con foto en `/blog` (español) y `/guides`
+  (inglés), en "Lecturas relacionadas" de las cirugías de su `procedimientos` y, si es de las 3 más
+  nuevas, en el inicio. El tema (Procedimientos / Viaje y recuperación / Seguridad) y la foto se
+  eligen solos (reglas `TEMAS` en `guias.py`); opcional en la cabecera: `"categoria"` y `"foto"`
+  (ruta dentro de `assets/` sin `.jpg`, ej. `"noon/foto-luz"`). El `intro` es el texto de la tarjeta:
+  que se entienda solo.
 
 ## 4. Que suene a persona, no a IA
 

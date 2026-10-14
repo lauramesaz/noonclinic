@@ -1006,4 +1006,81 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
 .art-aviso { margin-top: 44px; padding-top: 22px; border-top: 1px solid rgba(189, 164, 123, .5); font-size: 14px !important; color: var(--tenue); }
 .lineas b a { text-decoration: none; }
 .lineas b a:hover { text-decoration: underline; text-underline-offset: 4px; }
-@media (max-width: 700px) { .idioma { font-size: 10px; letter-spacing: .14em; } .articulo p, .articulo li { font-size: 16.5px; } }
+.idioma .corto { display: none; }
+@media (max-width: 420px) { .cab-der { gap: 12px; } }
+@media (max-width: 700px) { .idioma { font-size: 10px; letter-spacing: .14em; } .idioma .largo { display: none; } .idioma .corto { display: inline; } .articulo p, .articulo li { font-size: 16.5px; } }
+
+/* ---------------------------------------------------------------- blog (página /blog, últimos del inicio, lecturas de cada cirugía) */
+.bl-in { max-width: 1400px; margin: 0 auto; }
+.bl-cab { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; border-top: 1px solid var(--linea); padding-top: 40px; margin-bottom: clamp(40px, 4.5vw, 64px); }
+.bl-cab h2 { font-size: clamp(30px, 3.4vw, 50px); line-height: 1.1; letter-spacing: -.01em; }
+.bl-cab .ceja { margin-bottom: 20px; }
+.bl-cab .enlace { margin: 0 0 8px; flex: none; }
+.bl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(48px, 5vw, 72px) clamp(22px, 2.6vw, 40px); }
+.bl-card { display: flex; flex-direction: column; color: inherit; text-decoration: none; }
+.bl-card[hidden] { display: none; }
+.js .bl-card.rev { transition-delay: var(--d, 0ms); }
+.bl-foto { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--espresso); margin-bottom: 24px; }
+.bl-foto img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.86); transition: transform 1.4s var(--ease); }
+.bl-card:hover .bl-foto img { transform: scale(1.045); }
+.bl-txt { display: flex; flex-direction: column; flex: 1; }
+.bl-meta { font: 400 10.5px/1.5 var(--display); letter-spacing: .26em; text-transform: uppercase; color: var(--tenue); margin-bottom: 14px; }
+.bl-tit { font: 300 clamp(22px, 1.9vw, 28px)/1.22 var(--display); letter-spacing: -.005em; }
+.bl-tit em { font-family: var(--serif-it); font-style: italic; font-weight: 300; font-size: 1.12em; line-height: .9; }
+.bl-desc { margin-top: 12px; font-size: 15.5px; line-height: 1.6; color: var(--tenue); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.bl-ir { position: relative; align-self: flex-start; margin-top: auto; padding: 20px 0 7px; font: 400 10.5px var(--display); letter-spacing: .28em; text-transform: uppercase; }
+.bl-ir::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%; background: currentColor; transform-origin: left; transform: scaleX(.35); transition: transform .8s var(--ease); }
+.bl-card:hover .bl-ir::after { transform: scaleX(1); }
+/* la más reciente, en grande */
+.bl-dest { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4.5vw, 72px); align-items: center; }
+.bl-dest .bl-foto { aspect-ratio: 16 / 10; margin: 0; }
+.bl-dest .bl-tit { font-size: clamp(32px, 3.4vw, 50px); line-height: 1.1; }
+.bl-dest .bl-desc { font-size: 17px; -webkit-line-clamp: 4; margin-top: 18px; }
+.bl-dest .bl-ir { margin-top: 30px; padding-top: 0; }
+/* página del blog: rejilla de 6 columnas = tarjetas de a 3 por fila (o de a 2, más grandes, para no dejar huecos) */
+.sec.bl-pag { padding-top: clamp(56px, 7vw, 96px); }
+.bl-lista { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.bl-lista .bl-card { grid-column: span 2; }
+.bl-lista .bl-card.bl-media { grid-column: span 3; }
+.bl-lista .bl-card.bl-media .bl-foto { aspect-ratio: 16 / 10; }
+.bl-lista .bl-card.bl-dest { grid-column: 1 / -1; }
+.bl-lista.filtrando .bl-card:not(.bl-dest), .bl-lista.filtrando .bl-card.bl-dest { grid-column: span 2; display: flex; gap: 0; align-items: stretch; }
+.bl-lista.filtrando .bl-card.bl-dest .bl-foto, .bl-lista.filtrando .bl-card.bl-media .bl-foto { aspect-ratio: 4 / 3; margin: 0 0 24px; }
+.bl-lista.filtrando .bl-card.bl-dest .bl-tit { font-size: clamp(22px, 1.9vw, 28px); line-height: 1.22; }
+.bl-lista.filtrando .bl-card.bl-dest .bl-desc { font-size: 15.5px; -webkit-line-clamp: 3; margin-top: 12px; }
+.bl-lista.filtrando .bl-card.bl-dest .bl-ir { margin-top: auto; padding-top: 20px; }
+.bl-lista.filtrando .bl-card[hidden] { display: none; }
+.bl-filtros { display: flex; flex-wrap: wrap; gap: 4px 30px; margin-bottom: clamp(44px, 5vw, 72px); border-bottom: 1px solid var(--linea); }
+.bl-filtros button { background: none; border: 0; border-bottom: 1px solid transparent; margin-bottom: -1px; padding: 14px 0; min-height: 44px; cursor: pointer; font: 400 11px var(--display); letter-spacing: .22em; text-transform: uppercase; color: var(--tenue); transition: color .3s, border-color .3s; }
+.bl-filtros button:hover { color: var(--txt); }
+.bl-filtros button.on { color: var(--txt); border-color: currentColor; }
+.bl-ciudades { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(22px, 2.6vw, 40px); }
+.bl-ciudades a { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 6px 16px; padding: 26px 0 28px; border-bottom: 1px solid var(--linea); color: inherit; text-decoration: none; }
+.bl-ciudades .ceja { grid-column: 1 / -1; margin: 0; font-size: 10px; }
+.bl-ciudades b { font: 300 clamp(21px, 1.8vw, 26px)/1.2 var(--display); transition: transform .8s var(--ease); }
+.bl-ciudades .fl { color: var(--champagne); transition: transform .6s var(--ease); }
+.bl-ciudades a:hover b { transform: translateX(6px); }
+.bl-ciudades a:hover .fl { transform: translateX(4px); }
+@media (max-width: 960px) {
+  .bl-grid, .bl-lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bl-lista .bl-card, .bl-lista .bl-card.bl-media, .bl-lista.filtrando .bl-card:not(.bl-dest), .bl-lista.filtrando .bl-card.bl-dest { grid-column: auto; }
+  .bl-lista .bl-card.bl-dest { grid-column: 1 / -1; }
+  .bl-lista .bl-card.bl-media .bl-foto { aspect-ratio: 4 / 3; }
+  .bl-dest { grid-template-columns: 1fr; gap: 26px; }
+  .bl-ciudades { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .bl-cab { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .bl-grid, .bl-lista { grid-template-columns: 1fr; }
+  .bl-lista.filtrando .bl-card.bl-dest { grid-column: auto; }
+  /* en celular, las filas de 3 se deslizan de lado */
+  .bl-grid.tres { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 80%; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(var(--lado) * -1); padding: 0 var(--lado); scroll-padding: 0 var(--lado); }
+  .bl-grid.tres::-webkit-scrollbar { display: none; }
+  .bl-grid.tres .bl-card { scroll-snap-align: start; }
+  .bl-filtros { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 24px; margin-left: calc(var(--lado) * -1); margin-right: calc(var(--lado) * -1); padding: 0 var(--lado); }
+  .bl-filtros::-webkit-scrollbar { display: none; }
+  .bl-filtros button { white-space: nowrap; font-size: 11.5px; }
+  .bl-ciudades { grid-template-columns: 1fr; }
+  .bl-meta, .bl-ir { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { .bl-foto img, .bl-ciudades b, .bl-ciudades .fl { transition: none; } }
