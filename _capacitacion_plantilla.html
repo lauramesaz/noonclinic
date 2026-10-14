@@ -9,7 +9,7 @@
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,600..900,100;1,9..144,600..900,100&family=Jost:wght@300;400;500&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
 <style>
 :root { --fondo:#ffffff; --panel:#F7F5F1; --panel2:#EFEBE4; --linea:#ECE6DC; --txt:#28231F; --tenue:#5E554D; --acento:#6D2835; --acento-suave:#F7EFF0; --champagne:#BDA47B;
   --display:"Jost",Futura,sans-serif; --texto:"Nunito Sans","Avenir Next",-apple-system,sans-serif; --r:16px; --lateral:264px; --ease:cubic-bezier(.2,.7,.1,1);
@@ -342,6 +342,68 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 @media (max-width:900px) { .pp { grid-template-columns:48px minmax(0,1fr); } .pp-tel { grid-column:2; } .pp-num { font-size:36px; } .confirma { grid-template-columns:1fr; } .tres, .oro { grid-template-columns:1fr; } .carta { height:120px; } }
 @media (max-width:640px) { .pp { grid-template-columns:1fr; gap:12px; } .pp-tel { grid-column:auto; } .progreso .lbl { min-width:0; } .progreso .lbl span { display:none; } }
 @media (prefers-reduced-motion:reduce) { .burb, .escribiendo i { animation:none !important; } .anim .pp > * { transform:none !important; opacity:1 !important; } }
+
+/* ---------- camino: alto contraste + tipografía gruesa (sobre la base sobria) ---------- */
+:root { --gorda:"Fraunces",Georgia,serif; --tinta:#16110F; --vinoF:#7A1F33; }
+.camino-v { --acento:var(--vinoF); color:var(--tinta); }
+.camino-v h1, .camino-v h2, .camino-v h3, .camino-v .pp-num, .camino-v .preg .n, .camino-v .preg b, .camino-v .carta .frente b, .camino-v .quiz .sit, .camino-v .final .score, .banner-camino b
+  { font-family:var(--gorda) !important; font-variation-settings:"SOFT" 100, "opsz" 72; letter-spacing:-.02em; }
+.camino-v em, .banner-camino b em { font-family:var(--gorda) !important; font-style:italic !important; font-weight:800 !important; font-size:1em !important; font-variation-settings:"SOFT" 100, "opsz" 72; color:var(--vinoF) !important; }
+.c-hero { background:var(--tinta); color:#fff; }
+.c-hero .eti { color:var(--champagne); font-weight:700; }
+.c-hero h1 { font-weight:900 !important; font-size:clamp(40px,6vw,68px); line-height:1; }
+.c-hero h1 em { color:#F2B8C4 !important; }
+.c-hero p { color:#E9E3DA; font-size:18px; }
+.c-hero .ruta { border-top-color:rgba(255,255,255,.15); }
+.c-hero .ruta a { color:#fff; font-weight:700; }
+.c-hero .ruta a:hover { color:#F2B8C4; }
+.c-hero .ruta a + a::before { background:var(--champagne); }
+.progreso .lbl { color:var(--tinta); font-weight:700; }
+.segs button { height:6px; background:#E9E4DC; } .segs button.hecha { background:var(--tinta); } .segs button.on { background:var(--vinoF); }
+.pp { border-bottom:2px solid var(--tinta); }
+.pp-num { font-weight:900; font-size:64px; color:#E6DFD5; }
+.pp.visto .pp-num { color:var(--vinoF); }
+.pp-quien { color:var(--tinta); font-weight:800; }
+.pp-quien .av { background-color:var(--tinta); color:#fff; }
+.pp h2 { font-weight:800 !important; font-size:clamp(28px,3.4vw,42px); line-height:1.05; }
+.pp .como { color:#3B332E; font-weight:600; }
+.pp-ojo { border:0; background:var(--tinta); color:#fff; border-radius:14px; padding:12px 16px; align-items:center; }
+.pp-ojo b { background:var(--champagne); color:var(--tinta); border-radius:999px; padding:3px 9px; font-weight:700; }
+.pp-tel { background:#F4F0EA; border:2px solid var(--tinta); }
+.pp-tel .top { background:var(--tinta); border-radius:20px 20px 0 0; border:0; }
+.pp-tel .top img { filter:brightness(0) invert(1); }
+.pp-tel .top small { color:var(--champagne); font-weight:700; }
+.burb { font-weight:600; }
+.burb.noon { background:var(--vinoF); color:#fff; } .burb.noon small { color:#F2B8C4; }
+.burb.int { background:var(--champagne); border:0; color:var(--tinta); }
+.pp-tel .repetir { color:var(--vinoF); font-weight:800; }
+.c-tit h2 { font-weight:800 !important; font-size:clamp(30px,3.6vw,44px); }
+.c-tit span { color:#3B332E; font-weight:600; }
+.preg { border:2px solid var(--tinta); }
+.preg:nth-child(2) { background:var(--tinta); color:#fff; } .preg:nth-child(2) span { color:#E9E3DA; } .preg:nth-child(2) .n { color:#F2B8C4; } .preg:nth-child(2) .opc i { background:rgba(255,255,255,.12); }
+.preg .n { font-style:normal; font-weight:900; font-size:52px; color:var(--vinoF); }
+.preg b { font-weight:800 !important; font-size:24px; }
+.preg .opc i { font-weight:800; background:#F1ECE5; }
+.confirma h3 { font-weight:700 !important; font-size:28px; }
+.confirma .copiar { background:var(--vinoF); border-color:var(--vinoF); color:#fff; font-weight:800; }
+.carta .frente { border:2px solid var(--tinta); }
+.carta:nth-child(odd) .frente { background:var(--tinta); color:#fff; } .carta:nth-child(odd) .frente small { color:#F2B8C4; }
+.carta .frente b { font-weight:800 !important; font-size:23px; }
+.carta .frente small { font-weight:800; color:var(--vinoF); }
+.carta .reves { background:var(--vinoF); color:#fff; font-weight:700; }
+.quiz { background:var(--vinoF); }
+.quiz .sit { font-weight:700 !important; font-size:clamp(25px,3vw,34px); }
+.opcion { background:#fff; color:var(--tinta); border:0; font-weight:800; }
+.opcion:hover:not([disabled]) { background:#F2B8C4; }
+.opcion .l { background:var(--tinta); color:#fff; border:0; }
+.opcion.ok { background:var(--champagne); color:var(--tinta); } .opcion.ok .l { background:var(--tinta); color:#fff; }
+.opcion.mal { background:var(--tinta); color:#fff; } .opcion.mal .l { background:#fff; color:var(--tinta); }
+.quiz .barra-q i { height:6px; background:rgba(255,255,255,.22); } .quiz .barra-q i.mal { background:var(--tinta); }
+.explica { border-top-color:rgba(255,255,255,.25); } .explica p { color:#fff; } .explica p b { color:var(--champagne); }
+.final .score { font-weight:900; } .final h3 { font-weight:800; color:#fff !important; }
+.banner-camino { background:var(--tinta); border:0; }
+.banner-camino b { color:#fff; font-weight:800; } .banner-camino b em { color:#F2B8C4 !important; }
+.banner-camino span { color:#E9E3DA; } .banner-camino .ir { background:var(--vinoF); }
 
 @media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
 @media (max-width:900px) {
