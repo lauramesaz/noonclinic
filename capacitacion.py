@@ -309,6 +309,64 @@ CHAT_WA = [
 ]
 
 
+# ---------------------------------------------------------------- SIMULADOR (sin IA, con guion)
+# Cada caso: nodos. Nodo = mensajes del paciente + opciones [(texto que envía la comercial, bien?, por qué, reacción del paciente [])]
+SIMULADOR = [
+    {"nombre": "Ana Gómez", "nivel": "Fácil", "resumen": "Quiere lipo. Escribe desde Medellín y pregunta el precio de una.", "nodos": [
+        {"pac": ["Hola 👋 quiero información de la lipo, ¿cuánto vale?"], "op": [
+            ("¡Hola, Ana! Qué gusto saludarte, te habla Sofía de noon Clinic 🤍 El valor de la lipo se define en tu valoración, porque cada plan es personal. ¿Desde qué ciudad nos escribes?", True, "Saludas con calidez, no inventas precios y terminas con la pregunta de la ciudad.", []),
+            ("La lipo cuesta más o menos 12 millones.", False, "Nunca des precios que no están en la lista. El valor de la lipo se define en la valoración.", ["Ah ok… ¿y eso incluye todo?"]),
+            ("Hola, ¿qué te quieres hacer exactamente?", False, "Ya te dijo que quiere lipo, y no respondiste su pregunta. Lee bien antes de responder.", ["La lipo 😅"])]},
+        {"pac": ["Soy de Medellín. ¿Cómo hago para tener la cita?"], "op": [
+            ("¡Perfecto! ¿Prefieres tu cita de valoración presencial o virtual?", True, "Siempre pregunta si la cita es presencial o virtual.", []),
+            ("Te agendo para el jueves a las 10 con el Dr. Fernando.", False, "Te saltaste dos cosas: presencial o virtual, y el pago. Sin pago no hay cita.", ["Ah bueno… ¿pero es presencial?"])]},
+        {"pac": ["Presencial. ¿Y cuánto vale la cita?"], "op": [
+            ("La cita de valoración tiene un valor de $200.000 y con eso reservamos tu espacio. ¿Te comparto los datos para el pago?", True, "Precio claro, explicas para qué es y cierras con una pregunta.", []),
+            ("Es gratis si te operas con nosotros.", False, "La cita vale $200.000 y no se abona a la cirugía. No prometas cosas que no son.", ["¿Gratis? Ah, qué bien 😊"])]},
+        {"pac": ["Listo. ¿Esos 200 mil se me abonan a la cirugía?"], "op": [
+            ("Sí, claro, se descuentan de la cirugía.", False, "Los $200.000 NO se abonan. Es uno de los errores que más problemas trae después.", ["¡Súper!"]),
+            ("No, el valor de la cita no se abona a la cirugía: es la consulta con el especialista. ¿Te paso los datos para que reserves?", True, "Lo dices claro y con amabilidad, sin rodeos.", [])]},
+        {"pac": ["[img]Comprobante de pago", "Ya pagué ✨"], "op": [
+            ("¡Gracias, Ana! Ya mismo monto tu cita y te envío la confirmación con todos los detalles 💌", True, "Ahora te toca: comprobante al grupo, cita en Saneo y mensaje de confirmación.", []),
+            ("Gracias, después te digo la hora.", False, "Confirma de una: monta la cita en Saneo y envía el mensaje de confirmación.", ["Ok… quedo pendiente 😕"])]},
+    ]},
+    {"nombre": "Camila Restrepo", "nivel": "Media", "resumen": "Quiere aumento de senos. Vive en Pereira y prefiere cita virtual.", "nodos": [
+        {"pac": ["Buenas, vi su página. Quiero hacerme el aumento de senos"], "op": [
+            ("¡Hola, Camila! Qué bueno que nos escribes 🤍 ¿Desde qué ciudad nos escribes?", True, "Antes de cualquier cosa: la ciudad.", []),
+            ("¡Hola! Te agendo con el Dr. Fernando en Medellín, ¿qué día te sirve?", False, "No sabes de qué ciudad es. Cada ciudad tiene su médico.", ["Uy, pero yo vivo en Pereira 😕"])]},
+        {"pac": ["Estoy en Pereira"], "op": [
+            ("¡Perfecto! Te agendamos con el especialista de Pereira. ¿Prefieres la cita presencial o virtual?", True, "Paciente de Pereira = médico de Pereira. Y preguntaste la modalidad.", []),
+            ("No hay problema, igual el Dr. Fernando te atiende.", False, "Paciente de Pereira = médico de Pereira.", ["Ah, ¿tengo que viajar a Medellín?"])]},
+        {"pac": ["Virtual mejor, trabajo todo el día"], "op": [
+            ("¡Listo! La cita de valoración tiene un valor de $200.000. Antes de la cita, la Dra. Valeria te escribirá para pedirte unas fotos. ¿Te comparto los datos para el pago?", True, "Precio claro y le avisas que las fotos las pide la Dra. Valeria.", []),
+            ("Listo. Mándame unas fotos por aquí y te digo.", False, "Las fotos las pide la Dra. Valeria desde su número, no la comercial.", ["Ehh… ¿a ti? Me da un poco de pena 😳"])]},
+        {"pac": ["¿Y cuánto vale la cirugía?"], "op": [
+            ("El valor final te lo da la cotización después de tu valoración, porque cada plan es personal. ¿Te comparto los datos para reservar tu cita?", True, "No inventas y llevas la conversación de vuelta a reservar.", []),
+            ("Unos 8 millones, más o menos.", False, "Nunca inventes precios. El valor sale de la cotización.", ["¿8? Listo, eso me sirve"])]},
+        {"pac": ["Ok, ya te pago", "[img]Comprobante de pago"], "op": [
+            ("¡Gracias, Camila! Monto tu cita y te envío la confirmación. La Dra. Valeria te escribirá antes para las fotos 💌", True, "Confirmas, le dices qué sigue y envías la confirmación.", []),
+            ("Listo, gracias.", False, "Muy seco. Confirma, cuéntale qué sigue y envía la confirmación.", ["¿Y ya quedó? 🤔"])]},
+    ]},
+    {"nombre": "Daniela Ochoa", "nivel": "Difícil", "resumen": "Quiere rinoplastia. Pide apartar sin pagar, pregunta por devoluciones y quiere sumar otro procedimiento.", "nodos": [
+        {"pac": ["Hola, quiero rinoplastia. Soy de Medellín y quiero cita presencial 🙏"], "op": [
+            ("¡Hola, Daniela! Qué gusto 🤍 Para reservar tu valoración presencial el valor es de $200.000. ¿Te comparto los datos para el pago?", True, "Ya te dio ciudad y modalidad: no repreguntes, avanza.", []),
+            ("¡Hola! ¿Desde qué ciudad nos escribes?", False, "Ya te lo dijo. Lee bien antes de responder.", ["Te acabo de decir, Medellín 😅"])]},
+        {"pac": ["Te pago mañana, ¿me apartas la cita para el jueves?"], "op": [
+            ("Sí, claro, te la dejo apartada.", False, "Sin pago no hay cita. Si no paga, le quitas el espacio a otra paciente.", ["¡Gracias, eres un amor!"]),
+            ("¡Claro que sí! La cita queda reservada apenas recibamos el pago. Si pagas hoy te guardo el jueves. ¿Te paso los datos?", True, "Amable pero firme: sin pago no hay cita.", [])]},
+        {"pac": ["Y si no puedo ir, ¿me devuelven la plata?"], "op": [
+            ("Si necesitas cambiarla, avísanos con mínimo 24 horas y la reprogramamos. Todo está en nuestros términos y condiciones, que te llegan con la confirmación. ¿Te parece?", True, "Explicas la regla de las 24 horas y la remites a los términos.", []),
+            ("Sí, tranquila, te devolvemos todo.", False, "No prometas devoluciones. Explica la reprogramación con 24 horas y los términos.", ["Ah bueno, entonces no me preocupo"])]},
+        {"pac": ["[img]Comprobante de pago", "Listo, pagué. Ah, y de una vez quiero que me hagan la bichectomía"], "op": [
+            ("¡Gracias, Daniela! El Dr. Fernando lo revisa contigo en la valoración. Si se suma un procedimiento adicional, ese se paga aparte. ¿Te parece?", True, "Lo adicional se paga aparte, y lo dejas claro desde ya.", []),
+            ("¡Listo! Te la incluimos en el mismo precio.", False, "Lo adicional se paga aparte. Nunca lo regales.", ["¡Wow, qué buena promo! 😍"])]},
+        {"pac": ["Perfecto, gracias 😊"], "op": [
+            ("¡A ti! Ya te envío la confirmación con todos los detalles 💌", True, "Cierre perfecto. Ahora: Saneo, comprobante al grupo y confirmación.", []),
+            ("👍", False, "Un pulgar no es un cierre. Confirma y envía el mensaje de confirmación.", ["…"])]},
+    ]},
+]
+
+
 def _cirugias():
     # en la capacitación la mastopexia va dividida: con implantes y sin implantes
     out = []
@@ -340,7 +398,7 @@ def generar():
              "precio": PRECIO, "lista_precios": [(p["nombre"], it, v, p["slug"], p["tipo"]) for p in procs for it, v in p["precios"]],
              "otros_precios": OTROS_PRECIOS, "video": VIDEO,
              "inter_reglas": INTERNACIONAL_REGLAS, "inter": INTERNACIONAL,
-             "camino": CAMINO, "wa": CHAT_WA, "conf_ej": CONF_EJEMPLO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES}
+             "camino": CAMINO, "sim": SIMULADOR, "wa": CHAT_WA, "conf_ej": CONF_EJEMPLO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:

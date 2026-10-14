@@ -471,7 +471,7 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .wa-i { display:grid; place-items:center; opacity:.95; } .wa-i.der { margin-left:auto; } .wa-top .wa-i + .wa-i { margin-left:14px; }
 .wa-av { width:36px; height:36px; border-radius:50%; background:#DFE5E7; color:#54656F; display:grid; place-items:center; font-weight:700; font-size:16px; flex:none; }
 .wa-nom { display:flex; flex-direction:column; line-height:1.2; min-width:0; }
-.wa-nom b { font-weight:600; font-size:16px; } .wa-nom small { font-size:12.5px; opacity:.85; }
+.wa-nom b { font-weight:600; font-size:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } .wa-nom small { font-size:12.5px; opacity:.85; }
 .wa-chat { flex:1; overflow-y:auto; padding:10px 16px 14px; display:flex; flex-direction:column; gap:2px; background-color:#EFEAE2;
   background-image:radial-gradient(rgba(84,101,111,.09) 1.1px,transparent 1.3px),radial-gradient(rgba(84,101,111,.06) 1.1px,transparent 1.3px); background-size:22px 22px,22px 22px; background-position:0 0,11px 11px; }
 .wa-chip { align-self:center; background:#fff; color:#54656F; font-size:12px; font-weight:600; padding:5px 12px; border-radius:8px; box-shadow:0 1px .5px rgba(11,20,26,.13); margin:12px 0 6px; transition:background .3s,color .3s; }
@@ -583,6 +583,47 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .sv-nota { color:#A69A8B; font-size:12.5px; margin:8px 6px 2px; }
 @media (max-width:640px) { .sv-cap { font-size:15px; } .sv-player { padding:10px; border-radius:18px; } }
 
+/* ---------- simulador ---------- */
+.cabeza h1 em.it { font-family:var(--serif); font-style:italic; font-weight:500; font-size:1.1em; color:var(--acento); }
+.sim-casos { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:26px; }
+.sim-caso { text-align:left; background:#fff; border:1px solid var(--linea); border-radius:22px; padding:22px; display:flex; flex-direction:column; gap:8px; cursor:pointer; font:inherit; color:inherit; transition:border-color .25s, transform .25s var(--ease), box-shadow .25s; }
+.sim-caso:hover { border-color:var(--acento); transform:translateY(-3px); box-shadow:var(--sombra); }
+.sim-caso .wa-av { width:48px; height:48px; font-size:20px; }
+.sim-caso b { font:400 22px var(--display); }
+.sim-caso span:not(.wa-av):not(.sim-nivel) { color:var(--tenue); font-size:15px; }
+.sim-caso em { font-style:normal; font-weight:700; color:var(--acento); margin-top:auto; padding-top:6px; }
+.sim-nivel { align-self:flex-start; font-size:12px; font-weight:700; border-radius:999px; padding:3px 10px; background:var(--panel); }
+.sim-nivel.n0 { background:#E4F4EC; color:#12805A; } .sim-nivel.n1 { background:#FFF4DB; color:#946200; } .sim-nivel.n2 { background:#FDECEC; color:#B42323; }
+.sim { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; align-items:start; margin-top:10px; }
+.sim .col { display:flex; flex-direction:column; gap:10px; min-width:0; }
+.sim-panel { border:1px solid var(--linea); border-radius:24px; padding:clamp(20px,3vw,30px); box-shadow:0 10px 30px rgba(40,35,31,.07); min-height:300px; }
+.sim-prog { display:flex; gap:5px; margin-bottom:18px; } .sim-prog i { flex:1; height:5px; border-radius:5px; background:var(--linea); }
+.sim-prog i.ya { background:var(--txt); } .sim-prog i.ok { background:#12805A; } .sim-prog i.mal { background:#D63A3A; }
+.sim-espera { color:var(--tenue); font-style:italic; }
+.sim-eti { font:500 11px var(--display); letter-spacing:.16em; text-transform:uppercase; color:var(--tenue); }
+.sim-panel h3 { font:400 26px var(--display); margin:6px 0 14px; }
+.sim-ops { display:grid; gap:10px; }
+.sim-op { text-align:left; background:#fff; border:1.5px solid var(--linea); border-radius:16px; padding:13px 16px; font:500 15.5px/1.45 var(--texto); color:var(--txt); cursor:pointer; transition:border-color .2s, background .2s, transform .2s; }
+.sim-op:hover:not([disabled]) { border-color:var(--acento); background:var(--acento-suave); transform:translateX(3px); }
+.sim-op[disabled] { cursor:default; opacity:.45; }
+.sim-op.ok { opacity:1; background:#E4F4EC; border-color:#12805A; } .sim-op.mal { opacity:1; background:#FDECEC; border-color:#D63A3A; }
+.sim-op.era { opacity:1; border-color:#12805A; border-style:dashed; }
+.sim-fb { margin-top:16px; border-radius:16px; padding:16px 18px; animation:entra .4s var(--ease) both; }
+.sim-fb.si { background:#E4F4EC; color:#0B5A3E; } .sim-fb.no { background:#FDECEC; color:#8E1F1F; }
+.sim-fb b { font-size:17px; } .sim-fb p { margin:4px 0 12px; font-weight:600; }
+.sim-final .score { font:300 76px/1 var(--display); } .sim-final .score small { font-size:.4em; color:var(--tenue); }
+.sim-final h3 { font:italic 500 34px var(--serif) !important; color:var(--acento); margin:6px 0 4px !important; }
+.sim-final ul { list-style:none; padding:0; margin:16px 0 20px; display:grid; gap:8px; }
+.sim-final li { display:flex; gap:10px; font-size:15px; } .sim-final li b { width:22px; flex:none; } .sim-final li.si b { color:#12805A; } .sim-final li.no b { color:#D63A3A; }
+.sim-acc { display:flex; flex-wrap:wrap; gap:10px; }
+.sim-banner { display:flex; align-items:center; gap:18px; background:var(--panel); border:1px solid var(--linea); border-radius:22px; padding:22px 26px; margin:48px 0 0; transition:border-color .25s; }
+.sim-banner:hover { border-color:var(--acento); }
+.sim-banner b { font:300 24px/1.2 var(--display); display:block; } .sim-banner b em { font-family:var(--serif); font-style:italic; font-weight:500; color:var(--acento); font-size:1.1em; }
+.sim-banner span { color:var(--tenue); font-size:15px; }
+.sim-banner .ir { margin-left:auto; flex:none; width:44px; height:44px; border-radius:50%; background:var(--txt); color:#fff; display:grid; place-items:center; }
+.sim-banner + .cam-titulo { margin-top:48px; }
+@media (max-width:900px) { .sim-casos, .sim { grid-template-columns:1fr; } .sim .wa { height:460px; } }
+
 @media (max-width:1080px) { .cuerpo { grid-template-columns:1fr; } .lateral-ficha { position:static; } .datos { grid-template-columns:1fr 1fr; } }
 @media (max-width:900px) {
   .precio-card { grid-template-columns:1fr; }
@@ -682,7 +723,7 @@ $("#hamb").onclick = () => abrir(true); $("#velo").onclick = () => abrir(false);
 function menu() {
   const grupo = (id, nombre, icono, cats) => `<details ${location.hash.includes(id) ? "open" : ""}><summary data-r="${id}">${ico(icono)}${nombre}${ico("flecha", "i flecha")}</summary>
     <div class="sub"><a href="#${id}" data-r="${id}">Ver todos</a>${cats.map(c => `<a href="#${id}/${encodeURIComponent(c)}" data-r="${id}/${encodeURIComponent(c)}">${esc(c)}</a>`).join("")}</div></details>`;
-  $("#nav").innerHTML = `<a href="#inicio" data-r="inicio">${ico("casa")}Inicio</a><a href="#camino" data-r="camino">${ico("flecha")}El camino del paciente</a>
+  $("#nav").innerHTML = `<a href="#inicio" data-r="inicio">${ico("casa")}Inicio</a><a href="#camino" data-r="camino">${ico("flecha")}El camino del paciente</a><a href="#simulador" data-r="simulador">${ico("chat")}Simulador de chat</a>
     <p class="titulo-nav">Procedimientos</p>${grupo("cirugia", "Cirugía plástica", "bisturi", D.cats_cx)}${grupo("estetica", "Medicina estética", "gota", D.cats_me)}
     <p class="titulo-nav">Ventas</p><a href="#precios" data-r="precios">${ico("lista")}Lista de precios</a><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#exterior" data-r="exterior">${ico("chat")}Pacientes del exterior</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
 }
@@ -828,6 +869,7 @@ function camino() {
   <div class="cam-titulo"><h2>Reglas de <em>oro</em></h2><span>Toca cada carta.</span></div>
   <div class="oro">${D.reglas_oro.map(([, t, x]) => `<button class="carta" type="button"><span class="in"><span class="cara frente"><b>${esc(t)}</b><small>Toca para ver por qué →</small></span><span class="cara reves">${esc(x)}</span></span></button>`).join("")}</div>
 
+  <a class="sim-banner" href="#simulador"><div><b>Practica con el <em>simulador</em></b><span>Una paciente te escribe por WhatsApp y tú eliges qué responder. Te decimos al instante si estuvo bien.</span></div><span class="ir">${ico("flecha")}</span></a>
   <div class="cam-titulo"><h2>¿Tú qué <em>harías</em>?</h2><span>${D.quiz.length} situaciones reales. A ver cuántas aciertas.</span></div>
   <section class="quiz" id="quiz"></section></div>`;
 }
@@ -1070,13 +1112,77 @@ document.addEventListener("click", e => {
 });
 addEventListener("resize", svEscalar);
 
+/* ---------- simulador de chat (con guion) ---------- */
+const SIM = { caso: null, nodo: 0, ok: 0, res: [], min: 0 };
+let simT = [];
+function simulador() {
+  if (SIM.caso === null) return `<div class="camino-v"><nav class="migas"><a href="#inicio">Inicio</a>›<span>Simulador de chat</span></nav>
+    <div class="cabeza"><h1>Simulador de <em class="it">chat</em></h1><p>Elige una paciente. Ella te escribe por WhatsApp y tú eliges qué responder. Al final ves tu puntaje.</p></div>
+    <div class="sim-casos">${D.sim.map((c, i) => `<button class="sim-caso" type="button" data-sim="${i}"><span class="sim-nivel n${i}">${esc(c.nivel)}</span><span class="wa-av">${esc(c.nombre[0])}</span><b>${esc(c.nombre)}</b><span>${esc(c.resumen)}</span><em>Empezar →</em></button>`).join("")}</div></div>`;
+  const c = D.sim[SIM.caso];
+  return `<div class="camino-v"><nav class="migas"><a href="#inicio">Inicio</a>›<a href="#simulador" data-sim-salir="1">Simulador de chat</a>›<span>${esc(c.nombre)}</span></nav>
+    <div class="sim"><div class="col"><span class="leyenda">${ico("chat")}Tu WhatsApp</span>${waMarco("sim-chat", c.nombre, "en línea", "")}</div>
+      <div class="col"><span class="leyenda">${ico("lista")}Tu turno</span><div class="sim-panel" id="sim-panel"></div></div></div></div>`;
+}
+const simHora = () => { const m = 10 + SIM.min++; return `3:${String(m).padStart(2, "0")} p. m.`; };
+function simCola(fns) { let t = 0; fns.forEach(([d, f]) => { t += d; simT.push(setTimeout(f, t)); }); return t; }
+function simPac(textos, luego) {
+  const c = $("#sim-chat"); if (!c) return; const baja = () => c.scrollTo({ top: c.scrollHeight, behavior: "smooth" });
+  const pasos = [];
+  textos.forEach(tx => {
+    pasos.push([500, () => { const sb = $("#wa-sub"); if (sb) sb.textContent = "escribiendo…"; c.insertAdjacentHTML("beforeend", `<div class="wa-m in cola wa-esc"><i></i><i></i><i></i></div>`); baja(); }]);
+    pasos.push([1100, () => { c.querySelector(".wa-esc")?.remove(); const sb = $("#wa-sub"); if (sb) sb.textContent = "en línea"; c.insertAdjacentHTML("beforeend", waMsg(["pac", "", tx, simHora()], c.dataset.lado !== "pac", true)); c.dataset.lado = "pac"; baja(); }]);
+  });
+  pasos.push([250, luego]); simCola(pasos);
+}
+function simTuyo(tx) {
+  const c = $("#sim-chat"); c.insertAdjacentHTML("beforeend", waMsg(["noon", "", tx, simHora()], c.dataset.lado !== "noon", false)); c.dataset.lado = "noon";
+  const el = c.lastElementChild; simT.push(setTimeout(() => el.querySelector(".tick")?.classList.add("leido"), 700)); c.scrollTo({ top: c.scrollHeight, behavior: "smooth" });
+}
+function simBarra() { const c = D.sim[SIM.caso]; return `<div class="sim-prog">${c.nodos.map((_, i) => `<i class="${SIM.res[i] === true ? "ok" : SIM.res[i] === false ? "mal" : i === SIM.nodo ? "ya" : ""}"></i>`).join("")}</div>`; }
+function simNodo() {
+  simT.forEach(clearTimeout); simT = [];
+  const c = D.sim[SIM.caso], n = c.nodos[SIM.nodo], panel = $("#sim-panel"); if (!panel) return;
+  panel.innerHTML = `${simBarra()}<p class="sim-espera">${esc(c.nombre.split(" ")[0])} está escribiendo…</p>`;
+  simPac(n.pac, () => {
+    const orden = n.op.map((o, i) => i).sort(() => Math.random() - .5);
+    panel.innerHTML = `${simBarra()}<span class="sim-eti">Mensaje ${SIM.nodo + 1} de ${c.nodos.length}</span><h3>¿Qué le respondes?</h3>
+      <div class="sim-ops">${orden.map(i => `<button class="sim-op" type="button" data-op-sim="${i}">${esc(n.op[i][0])}</button>`).join("")}</div>`;
+  });
+}
+function simElige(i) {
+  const c = D.sim[SIM.caso], n = c.nodos[SIM.nodo], [tx, bien, porque, reac] = n.op[i], panel = $("#sim-panel");
+  SIM.res[SIM.nodo] = bien; if (bien) SIM.ok++;
+  $$(".sim-op").forEach(b => { b.disabled = true; const k = +b.dataset.opSim; if (k === i) b.classList.add(bien ? "ok" : "mal"); else if (n.op[k][1]) b.classList.add("era"); });
+  simTuyo(tx);
+  const ultimo = SIM.nodo === c.nodos.length - 1;
+  const fb = () => panel.insertAdjacentHTML("beforeend", `<div class="sim-fb ${bien ? "si" : "no"}"><b>${bien ? "¡Bien!" : "Ojo"}</b><p>${esc(porque)}</p>
+      <button class="btn" type="button" data-sim-sig="1">${ultimo ? "Ver mi resultado" : "Siguiente mensaje"} →</button></div>`);
+  panel.querySelector(".sim-prog").outerHTML = simBarra();
+  if (reac.length) simPac(reac, fb); else simT.push(setTimeout(fb, 400));
+}
+function simFin() {
+  const c = D.sim[SIM.caso], tot = c.nodos.length, panel = $("#sim-panel");
+  const m = SIM.ok === tot ? ["¡Perfecto!", "Atendiste a " + c.nombre.split(" ")[0] + " como una experta."] : SIM.ok >= tot - 1 ? ["¡Muy bien!", "Casi perfecto. Revisa la que fallaste."] : ["Vamos otra vez", "Repasa el camino del paciente y vuelve a intentarlo."];
+  panel.innerHTML = `${simBarra()}<div class="sim-final"><div class="score">${SIM.ok}<small>/${tot}</small></div><h3>${m[0]}</h3><p>${m[1]}</p>
+    <ul>${c.nodos.map((nd, i) => `<li class="${SIM.res[i] ? "si" : "no"}"><b>${SIM.res[i] ? "✓" : "✗"}</b><span>${esc(nd.pac[nd.pac.length - 1].replace("[img]", ""))}</span></li>`).join("")}</ul>
+    <div class="sim-acc"><button class="btn" type="button" data-sim="${SIM.caso}">Intentar otra vez</button><button class="btn claro" type="button" data-sim-salir="1">Otra paciente</button></div></div>`;
+}
+document.addEventListener("click", e => {
+  const cs = e.target.closest("[data-sim]"); if (cs) { simT.forEach(clearTimeout); Object.assign(SIM, { caso: +cs.dataset.sim, nodo: 0, ok: 0, res: [], min: 0 }); if (location.hash === "#simulador") ruta(); else location.hash = "simulador"; }
+  const sl = e.target.closest("[data-sim-salir]"); if (sl) { e.preventDefault(); simT.forEach(clearTimeout); SIM.caso = null; if (location.hash === "#simulador") ruta(); else location.hash = "simulador"; }
+  const op = e.target.closest("[data-op-sim]"); if (op && !op.disabled) simElige(+op.dataset.opSim);
+  if (e.target.closest("[data-sim-sig]")) { const c = D.sim[SIM.caso]; if (SIM.nodo === c.nodos.length - 1) simFin(); else { SIM.nodo++; simNodo(); } }
+});
+
 /* ---------- rutas ---------- */
 function ruta() {
   if ($("#app").hidden) return;
   const h = decodeURIComponent(location.hash.slice(1) || "inicio"), [a, b] = h.split("/");
-  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "camino" ? camino() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
+  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "camino" ? camino() : a === "simulador" ? simulador() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
   $("#vista").innerHTML = html;
   if (a === "camino") { irA(0, true); pintaQuiz(); montaVideo(); }
+  if (a === "simulador" && SIM.caso !== null) simNodo();
   const tipo = a === "p" ? (D.procs.find(x => x.slug === b) || {}).tipo : null;
   const actual = a === "p" ? (tipo === "me" ? "estetica" : "cirugia") : location.hash.slice(1) || "inicio";
   $$("#nav a").forEach(x => x.classList.toggle("activo", x.dataset.r === actual));
