@@ -741,8 +741,12 @@ pagina("terminos-y-condiciones.html", "Términos y condiciones", "Condiciones de
   <nav class="indice" aria-label="Contenido">%s</nav>%s
 </div></section>''' % ("".join("<li>%s</li>" % x for x in RESUMEN_TC), indice, bloques))
 
-# ================================================================ AGENCIA SEO INTERNACIONAL (guías ES/EN + hubs + sitemap + robots)
+# ================================================================ LANDING DE VENTA: CRIOLIPÓLISIS (antes de las guías, para que entre al sitemap)
 import sys
+from landing_criolipolisis import generar as _crio
+print("Landing: %s." % _crio(sys.modules[__name__]))
+
+# ================================================================ AGENCIA SEO INTERNACIONAL (guías ES/EN + hubs + sitemap + robots)
 from guias import generar as _guias
 print("Guías internacionales: %d." % _guias(sys.modules[__name__]))
 
