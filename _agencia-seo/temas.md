@@ -38,7 +38,7 @@ Siempre se escribe ES + EN. Prioridad: de arriba a abajo.
 | D2 | abdominoplastia | abdominoplastia en Colombia viniendo de EE. UU. | tummy tuck in Colombia | publicado 2026-10-12 |
 | D3 | mamoplastia-de-aumento | aumento de senos en Medellín desde Estados Unidos | breast augmentation in Medellin | publicado 2026-10-13 |
 | D4 | mommy-makeover | mommy makeover en Colombia | mommy makeover in Colombia | publicado 2026-10-14 |
-| D5 | rinoplastia | rinoplastia en Medellín para quien vive afuera | rhinoplasty in Medellin Colombia | pendiente |
+| D5 | rinoplastia | rinoplastia en Medellín para quien vive afuera | rhinoplasty in Medellin Colombia | publicado 2026-10-15 |
 | D6 | lipotransferencia-glutea | lipotransferencia glútea en Medellín | BBL in Medellin Colombia | pendiente |
 | D7 | blefaroplastia | blefaroplastia en Colombia en un viaje corto | eyelid surgery in Colombia | pendiente |
 
