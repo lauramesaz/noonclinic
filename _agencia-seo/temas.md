@@ -40,7 +40,7 @@ Siempre se escribe ES + EN. Prioridad: de arriba a abajo.
 | D4 | mommy-makeover | mommy makeover en Colombia | mommy makeover in Colombia | publicado 2026-10-14 |
 | D5 | rinoplastia | rinoplastia en Medellín para quien vive afuera | rhinoplasty in Medellin Colombia | publicado 2026-10-15 |
 | D6 | lipotransferencia-glutea | lipotransferencia glútea en Medellín | BBL in Medellin Colombia | publicado 2026-10-16 |
-| D7 | blefaroplastia | blefaroplastia en Colombia en un viaje corto | eyelid surgery in Colombia | pendiente |
+| D7 | blefaroplastia | blefaroplastia en Colombia en un viaje corto | eyelid surgery in Colombia | publicado 2026-10-17 |
 
 ## E. Temporadas
 | # | Keyword ES | Keyword EN | Estado |
