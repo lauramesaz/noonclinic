@@ -135,6 +135,23 @@ confirmado por cobertura de AP, CBS News y NBC de la misma semana; 10-oct-2026.)
   exige exámenes previos, decide con el especialista qué se combina en una misma cirugía y por
   qué el riesgo de coágulos (ya citado de ASPS, sección siguiente) se toma en serio.
 
+## Temporada decembrina en Colombia
+- **Alumbrados navideños de Medellín:** se encienden a finales de noviembre o comienzos de diciembre
+  y se apagan a mediados de enero (patrón de varios años, no una fecha fija). En la edición más
+  reciente (2025) el encendido fue el 28-nov-2025 y quedó activo hasta el 12-ene-2026, con horario
+  general de 6 p.m. a medianoche. No afirmar fechas exactas para el año en curso: decir "a finales de
+  noviembre o comienzos de diciembre, hasta mediados de enero" y sugerir confirmar el calendario
+  vigente. (Fuentes: El Colombiano y Minuto60, coberturas de los alumbrados navideños de Medellín;
+  18-oct-2026.)
+- **Vuelos más caros y con menos cupos en diciembre:** es un patrón que se repite año tras año:
+  diciembre y comienzos de enero son temporada alta hacia Colombia porque muchos colombianos que
+  viven en el exterior vuelven a ver a su familia; la demanda sube y con ella el precio de los
+  tiquetes y baja la disponibilidad de sillas. No citar cifras de un año puntual ni un rango de
+  fechas exacto (varían entre fuentes y quedan desactualizados): decir de forma general que
+  diciembre y comienzos de enero son los días de mayor movimiento, y que conviene reservar con
+  mucha anticipación y mantener tiquetes flexibles. (Fuente: Valora Analitik/Pulzo, cobertura sobre
+  precios de tiquetes a Colombia en temporada decembrina; 18-oct-2026.)
+
 ## Volar después de una cirugía (fuente: ASPS)
 - ASPS sugiere esperar antes de volar 5 a 7 días tras cirugías corporales (lipo, aumento de
   senos) y 7 a 10 días tras cirugías de la cara (lifting, párpados, rinoplastia).

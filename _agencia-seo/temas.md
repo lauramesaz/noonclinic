@@ -45,7 +45,7 @@ Siempre se escribe ES + EN. Prioridad: de arriba a abajo.
 ## E. Temporadas
 | # | Keyword ES | Keyword EN | Estado |
 |---|---|---|---|
-| E1 | operarme en diciembre en Colombia | plastic surgery in Colombia over the holidays | pendiente |
+| E1 | operarme en diciembre en Colombia | plastic surgery in Colombia over the holidays | publicado 2026-10-18 |
 | E2 | cirugía plástica en vacaciones de verano en Colombia | summer plastic surgery trip to Colombia | pendiente |
 | E3 | cirugía plástica en Thanksgiving en Medellín | Thanksgiving plastic surgery trip Medellin | pendiente |
 
