@@ -28,7 +28,7 @@ T = {
            "boton": "Escribir por WhatsApp", "wa": "Hola, vivo en %s y quiero información para hacerme un procedimiento en noon Clinic en Medellín.",
            "wa_gen": "Hola, vivo en EE. UU. y quiero información para hacerme un procedimiento en noon Clinic en Medellín.", "ver": "Ver"},
     "en": {"hub": "international-patients.html", "inicio": "Home", "hub_n": "International patients", "por": "noon Clinic team",
-           "act": "Updated", "proc": "Procedures in this guide (pages in Spanish)", "rel": "Keep reading", "preg": "Frequently asked questions",
+           "act": "Updated", "proc": "Procedures in this guide", "rel": "Keep reading", "preg": "Frequently asked questions",
            "aviso": "This guide is for information only and does not replace a medical consultation. Your specialist decides, in person, whether a procedure is right for you, your recovery time and when you can fly home. Every procedure carries risks and results vary from person to person.",
            "cierre": "Let's plan your trip", "cierre_t": "Message us from the US and we'll set your consultation, procedure and follow-up dates with you.",
            "boton": "Message us on WhatsApp", "wa": "Hi! I live in %s and I'd like information about having a procedure at noon Clinic in Medellín.",
@@ -179,8 +179,10 @@ def generar(b):
         if g.get("par") and g["par"] not in por_slug:
             g["par"] = None  # el par aún no existe: sin hreflang roto
 
-    def enlace_proc(slug):
+    def enlace_proc(slug, lang="es"):
         p = b.CX_N.get(slug) or b.TR_N.get(slug)
+        if p and lang == "en" and b.FE.en_de(slug):
+            return (b.FE.FICHAS_EN[slug]["nombre"], b.FE.en_de(slug))
         return (p["nombre"], slug + ".html") if p else None
 
     def relacionadas(g):
@@ -194,7 +196,7 @@ def generar(b):
         ciudad = CIUDADES.get(g.get("ciudad") or "")
         nombre_ciudad = (ciudad[0] if g["lang"] == "es" else ciudad[1]) if ciudad else None
         msj = (t["wa"] % nombre_ciudad) if nombre_ciudad else t["wa_gen"]
-        procs = [x for x in (enlace_proc(s) for s in g.get("procedimientos", [])) if x]
+        procs = [x for x in (enlace_proc(s, g["lang"]) for s in g.get("procedimientos", [])) if x]
         rel = relacionadas(g)
         cuerpo = b.hero(g.get("fondo", "seda-horizonte"), g["ceja"], g["h1"], g.get("intro", ""))
         cuerpo += '''<section class="sec marfil articulo-sec"><div class="sec-in solo articulo">
@@ -377,6 +379,9 @@ def sitemap(b, guias):
                   "blog.html": "guides.html", "guides.html": "blog.html"})
     idioma = {g["slug"] + ".html": g["lang"] for g in guias}
     idioma["international-patients.html"] = idioma["guides.html"] = "en"
+    for es, en in getattr(b, "PARES_EN", {}).items():  # fichas y hubs en inglés ↔ español
+        pares[es], pares[en] = en, es
+        idioma[en] = "en"
     urls = []
     for a in sorted(set(b.HECHAS)):
         loc = b.DOMINIO + "/" + ("" if a == "index.html" else a[:-5])
@@ -403,15 +408,16 @@ def llms(b, guias):
     d = b.DOMINIO
     wa = "https://wa.me/" + b.WHATSAPP
     def fila(slug):
-        return "- [%s](%s/%s)" % (b.NOMBRE_EN[slug], d, slug)
+        en = b.FE.en_de(slug)
+        return "- [%s](%s/%s)" % (b.NOMBRE_EN[slug], d, en[:-5] if en else slug)
     txt = ["# noon Clinic", "",
            "> Plastic surgery and aesthetic medicine clinic in Medellín, Colombia. Contact for patients (WhatsApp and phone): %s (%s). Website: %s" % (b.TEL_VISIBLE, wa, d), "",
            "## Key facts", ""] + ["- %s: %s" % (k, re.sub("<[^>]+>", "", v)) for k, v in b.DATOS_EN] + [
            "- Patients: people who live in Colombia and international patients.", "",
            "## About", "", "- [About noon Clinic (English)](%s/about-noon-clinic)" % d, "- [International patients](%s/international-patients)" % d,
            "- [Specialists (Spanish)](%s/especialistas)" % d, "- [Safety (Spanish)](%s/seguridad)" % d, "",
-           "## Plastic surgery (pages in Spanish)", ""] + [fila(c["slug"]) for c in b.CIRUGIAS_NOON] + [
-           "", "## Aesthetic medicine (pages in Spanish)", ""] + [fila(t["slug"]) for t in b.TRATAMIENTOS] + [
+           "## Plastic surgery", ""] + [fila(c["slug"]) for c in b.CIRUGIAS_NOON] + [
+           "", "## Aesthetic medicine", ""] + [fila(t["slug"]) for t in b.TRATAMIENTOS] + [
            "- [Cryolipolysis (fat freezing)](%s/criolipolisis)" % d, "",
            "## Guides in English", ""] + ["- [%s](%s/%s)" % (g["title"], d, g["slug"]) for g in guias if g["lang"] == "en"] + [
            "", "## Guías en español", ""] + ["- [%s](%s/%s)" % (g["title"], d, g["slug"]) for g in guias if g["lang"] == "es"] + [

@@ -68,7 +68,10 @@ Traer pacientes a noon Clinic (Medellín) desde Google. Desde el 19-oct-2026 hay
   Una guía nunca lleva como `title` o `keyword` solo "<procedimiento> en Medellín": siempre suma un
   ángulo o un calificador ("…: recuperación semana a semana", "… o …", "¿cuánto dura…?", "…desde
   EE. UU."). Antes de escribir, busca en `registro.md`, `articulos/` y `../datos_noon.py` si la
-  keyword ya tiene dueña.
+  keyword ya tiene dueña. **En inglés** (desde el 19-oct-2026) cada procedimiento tiene su página en
+  `../fichas_en.py` (`rhinoplasty-medellin`, `tummy-tuck-medellin`, `botox-medellin`…): esa página es
+  la dueña de "<procedure> in Medellín"; las guías en inglés llevan el ángulo de viaje ("…from the
+  US", "trip guide", "how long to stay") y enlazan a esa página en el texto.
 - **Enlace a la página que vende, dentro del texto:** en el primer tercio de la guía, un enlace
   natural a la página del procedimiento principal (ej. `<a href="mentoplastia.html">mentoplastia</a>`),
   además de los botones de `procedimientos`.
@@ -82,7 +85,7 @@ Traer pacientes a noon Clinic (Medellín) desde Google. Desde el 19-oct-2026 hay
 - **Enlaces internos:** cada pieza enlaza a 1–3 procedimientos (`procedimientos` en la cabecera,
   la plantilla pone los botones) + dentro del texto a 1–2 guías hermanas y a `otra-ciudad` o
   `seguridad` cuando aplique (`otra-ciudad` solo para quien viaja). En inglés las páginas de
-  procedimiento están en español: se avisa.
+  procedimiento tienen versión en inglés (los botones de `procedimientos` llevan solos a ella).
 - **FAQ:** 3 a 6 preguntas reales (las que la gente escribe en Google). La plantilla genera el
   JSON-LD `FAQPage`, `MedicalWebPage` y `BreadcrumbList` y el `hreflang`. No lo escribas a mano.
 - Slugs en minúsculas con guiones, sin tildes. Español: `cirugia-plastica-en-medellin-desde-miami`.

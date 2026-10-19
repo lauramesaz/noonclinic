@@ -6,6 +6,7 @@ from html import escape
 from urllib.parse import quote
 from datos import *
 from datos_noon import *
+import fichas_en as FE  # versión en inglés de las fichas (datos_noon_en.py)
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 CX = {c["slug"]: c for c in CIRUGIAS}
@@ -122,11 +123,12 @@ MENU_ES = """<div class="menu" id="menu" hidden>
 MENU_EN = """<div class="menu" id="menu" hidden>
   <div class="menu-in tres">
     <div class="menu-col"><p class="ceja">International patients</p><nav class="grande"><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></nav></div>
-    <div class="menu-col"><p class="ceja">noon Clinic</p><nav class="grande"><a href="about-noon-clinic.html">About noon</a><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></nav></div>
+    <div class="menu-col"><p class="ceja">noon Clinic</p><nav class="grande"><a href="about-noon-clinic.html">About noon</a>%(hubs_en)s<a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></nav></div>
     <div class="menu-col"><p class="ceja">Contact</p><nav><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp</a></nav>
       <a class="boton" href="%(wa)s" target="_blank" rel="noopener">Book a consultation</a></div>
   </div>
-</div>""" % {"wa": "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA)}
+</div>""" % {"wa": "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA),
+               "hubs_en": '<a href="plastic-surgery-medellin.html">Plastic surgery</a><a href="aesthetic-medicine-medellin.html">Aesthetic medicine</a>' if FE.FICHAS_EN else ""}
 PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="international-patients.html" hreflang="en" lang="en">English</a><a href="blog.html">Blog</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
 PIE_EN = """<footer class="pie">
   <div class="pie-in">
@@ -134,7 +136,7 @@ PIE_EN = """<footer class="pie">
     <p class="lema">Plastic surgery and aesthetic medicine, with judgment. Medellín, Colombia.</p>
     <div class="pie-cols cuatro">
       <div><p class="ceja">International patients</p><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></div>
-      <div><p class="ceja">noon Clinic</p><a href="about-noon-clinic.html">About noon Clinic</a><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></div>
+      <div><p class="ceja">noon Clinic</p><a href="about-noon-clinic.html">About noon Clinic</a><a href="plastic-surgery-medellin.html">Plastic surgery</a><a href="aesthetic-medicine-medellin.html">Aesthetic medicine</a><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></div>
       <div><p class="ceja">En español</p><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a></div>
       <div><p class="ceja">Contact</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="tel:+573022491937">Call +57 302 249 1937</a></div>
     </div>
@@ -628,7 +630,7 @@ pagina("cirugia-plastica.html", "Cirugía plástica", "Cirugía plástica en noo
        + cinta([c["nombre"] for c in CIRUGIAS_NOON], "suave")
        + bloques_cx
        + bloque_especialista("cirugia", "Te valora y te opera el mismo especialista, que te acompaña desde la primera consulta hasta el alta.")
-       + cierre())
+       + cierre(), alterna=FE.HUB_CX if FE.FICHAS_EN else None)
 
 # ================================================================ UNA PÁGINA POR CIRUGÍA
 for c in CIRUGIAS_NOON:
@@ -652,7 +654,7 @@ for c in CIRUGIAS_NOON:
            + cierre(c["nombre"], c.get("cierre_txt", "Todo empieza con tu valoración presencial en Medellín: te decimos si es para ti y recibes tu plan por escrito."),
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (c["slug"], wa(msj)), fondo=f)
            + barra_cta(c["nombre"], "Valoración con " + ESPECIALISTAS[0]["nombre"], c["slug"], msj),
-           esquema=esquema_ficha(c, cat_n, "cirugia-plastica", "Cirugía plástica", "MedicalProcedure"), og_tipo="website")
+           esquema=esquema_ficha(c, cat_n, "cirugia-plastica", "Cirugía plástica", "MedicalProcedure"), og_tipo="website", alterna=FE.en_de(c["slug"]))
 
 # ================================================================ MEDICINA ESTÉTICA (hub)
 FILA_CRIO = ('<li class="rev" data-q="criolipolisis criolipólisis crio frio frío congelar grasa localizada abdomen flancos papada brazos muslos sin cirugia">'
@@ -671,7 +673,7 @@ pagina("medicina-estetica.html", "Medicina estética", "Medicina estética en no
        + cinta([t["nombre"] for t in TRATAMIENTOS], "suave")
        + bloques_me
        + bloque_especialista("estetica", "Cada tratamiento empieza con una valoración para definir qué necesita tu piel y qué no.")
-       + cierre(fondo="seda-champan"))
+       + cierre(fondo="seda-champan"), alterna=FE.HUB_ME if FE.FICHAS_EN else None)
 
 # ================================================================ UNA PÁGINA POR TRATAMIENTO
 for t in TRATAMIENTOS:
@@ -694,7 +696,7 @@ for t in TRATAMIENTOS:
            + cierre(t["nombre"], "Agenda tu valoración en Medellín y armamos contigo el plan que tu piel necesita.",
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (t["slug"], wa(msj)), fondo=f)
            + barra_cta(t["nombre"], "Valoración con " + ESPECIALISTAS[1]["nombre"], t["slug"], msj),
-           esquema=esquema_ficha(t, cat_n, "medicina-estetica", "Medicina estética", "MedicalProcedure"), og_tipo="website")
+           esquema=esquema_ficha(t, cat_n, "medicina-estetica", "Medicina estética", "MedicalProcedure"), og_tipo="website", alterna=FE.en_de(t["slug"]))
 
 # ================================================================ ABOUT (inglés): ficha de datos de noon para pacientes extranjeros y buscadores con IA
 NOMBRE_EN = {
@@ -724,7 +726,8 @@ DATOS_EN = [
 
 
 def lista_en(slugs):
-    return '<ul class="lineas">%s</ul>' % "".join('<li class="rev"><b><a href="%s.html" hreflang="es">%s</a></b></li>' % (s, NOMBRE_EN[s]) for s in slugs)
+    return '<ul class="lineas">%s</ul>' % "".join(('<li class="rev"><b><a href="%s">%s</a></b></li>' % (FE.en_de(s), NOMBRE_EN[s])) if FE.en_de(s) else
+                                                 ('<li class="rev"><b><a href="%s.html" hreflang="es">%s</a></b></li>' % (s, NOMBRE_EN[s])) for s in slugs)
 
 
 pagina("about-noon-clinic.html", "Plastic surgery clinic in Medellín, Colombia",
@@ -732,8 +735,8 @@ pagina("about-noon-clinic.html", "Plastic surgery clinic in Medellín, Colombia"
        hero("seda-noche", "About noon Clinic", "Plastic surgery in <em>Medellín</em>, Colombia.",
             "A plastic surgery and aesthetic medicine clinic for patients from Colombia and abroad. WhatsApp " + TEL_VISIBLE + ".", "medio")
        + seccion("Quick facts", "noon Clinic <em>at a glance</em>.", lineas(DATOS_EN))
-       + seccion("Plastic surgery", "Surgical <em>procedures</em>.", lista_en([c["slug"] for c in CIRUGIAS_NOON]) + '<p class="pista rev">Procedure pages are in Spanish.</p>', "marfil")
-       + seccion("Aesthetic medicine", "Non-surgical <em>treatments</em>.", lista_en([t["slug"] for t in TRATAMIENTOS]) + '<p class="pista rev">Also: <a href="criolipolisis.html" hreflang="es">cryolipolysis (fat freezing)</a>. Treatment pages are in Spanish.</p>')
+       + seccion("Plastic surgery", "Surgical <em>procedures</em>.", lista_en([c["slug"] for c in CIRUGIAS_NOON]) + ('' if FE.FICHAS_EN else '<p class="pista rev">Procedure pages are in Spanish.</p>'), "marfil")
+       + seccion("Aesthetic medicine", "Non-surgical <em>treatments</em>.", lista_en([t["slug"] for t in TRATAMIENTOS]) + '<p class="pista rev">Also: <a href="criolipolisis.html" hreflang="es">cryolipolysis (fat freezing)</a>%s.</p>' % (" (page in Spanish)" if FE.FICHAS_EN else ". Treatment pages are in Spanish"))
        + seccion("Traveling for surgery", "Plan your <em>trip</em>.", lineas([
            ('<a href="international-patients.html">International patients</a>', "How a trip to Medellín for surgery works, step by step."),
            ('<a href="is-it-safe-to-get-plastic-surgery-in-colombia.html">Is it safe to get plastic surgery in Colombia?</a>', "What to check before you choose a clinic."),
@@ -890,6 +893,11 @@ pagina("terminos-y-condiciones.html", "Términos y condiciones", "Condiciones de
   <div class="resumen-tc"><p class="ceja">Lo más importante</p><ul>%s</ul><a class="boton champan" href="#t4">Política de devoluciones</a></div>
   <nav class="indice" aria-label="Contenido">%s</nav>%s
 </div></section>''' % ("".join("<li>%s</li>" % x for x in RESUMEN_TC), indice, bloques))
+
+# ================================================================ FICHAS EN INGLÉS (pacientes extranjeros y asistentes con IA)
+import sys
+PARES_EN = FE.generar(sys.modules[__name__]) if FE.FICHAS_EN else {}
+print("Fichas en inglés: %d." % len(PARES_EN))
 
 # ================================================================ LANDING DE VENTA: CRIOLIPÓLISIS (antes de las guías, para que entre al sitemap)
 import sys
