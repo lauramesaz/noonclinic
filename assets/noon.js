@@ -374,10 +374,10 @@
   // ---------- asistente "Encuentra tu procedimiento"
   var as = document.querySelector("[data-asistente]");
   if (as) {
-    var pasos = as.querySelectorAll(".as-paso"), prog = as.querySelectorAll(".as-prog li"), elegida = null;
+    var pasos = as.querySelectorAll(".as-paso"), progAs = as.querySelectorAll(".as-prog li"), elegida = null;  // progAs: "prog" ya lo usa la barra de progreso más abajo (misma función)
     var ir = function (n) {
       pasos.forEach(function (p) { p.hidden = p.dataset.paso !== String(n); });
-      prog.forEach(function (l, i) { l.classList.toggle("on", i < n); });
+      progAs.forEach(function (l, i) { l.classList.toggle("on", i < n); });
     };
     var porSlug = function (sl) { return datos().items.filter(function (it) { return it.s === sl; })[0]; };
     var pintar1 = function () {
