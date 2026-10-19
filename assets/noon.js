@@ -110,7 +110,7 @@
   var captura = document.documentElement.classList.contains("captura");
 
   // títulos: se parten en palabras para revelarlas una por una
-  document.querySelectorAll(".hero h1, .frase .grande, .foto-frase .grande, .cierre h2, .sec-cab h2, .dividir h2").forEach(function (el) {
+  document.querySelectorAll(".hero h1:not(.sub), .frase .grande, .foto-frase .grande, .cierre h2, .sec-cab h2, .dividir h2").forEach(function (el) {
     var i = 0;
     (function partir(nodo) {
       [].slice.call(nodo.childNodes).forEach(function (n) {

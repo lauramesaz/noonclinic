@@ -208,6 +208,14 @@ def generar(b):
         if g.get("faq"):
             cuerpo += b.seccion(t["preg"], g.get("faq_titulo") or t["preg"], b.faq([("", p, r, []) for p, r in g["faq"]]), "marfil")
         cuerpo += bloque_lecturas(rel, BLOG[g["lang"]]["nombre"], BLOG[g["lang"]]["rel_tit"], g["lang"])
+        if not local(g):  # quien vive en EE. UU.: las guías de cada ciudad, a un clic
+            ciudades_g = {x["ciudad"]: x for x in guias if x["lang"] == g["lang"] and x.get("tipo") == "ciudad" and x.get("ciudad") and x["slug"] != g["slug"]}
+            h = BLOG[g["lang"]]
+            lista_c = "".join('<li class="rev"><a href="%s.html"><span class="ceja">%s</span><b>%s</b><span class="fl" aria-hidden="true">→</span></a></li>' % (
+                ciudades_g[k]["slug"], h["desde"], v[0] if g["lang"] == "es" else v[1]) for k, v in CIUDADES.items() if k in ciudades_g)
+            if lista_c:
+                cuerpo += '<section class="sec bl-fila"><div class="bl-in"><header class="bl-cab"><div><p class="ceja rev">%s</p><h2 class="rev">%s</h2></div><a class="enlace rev" href="%s">%s</a></header><ul class="bl-ciudades">%s</ul></div></section>' % (
+                    h["c_ceja"], h["c_tit"], h["hub"][0], h["hub"][1], lista_c)
         if local(g):
             cuerpo += b.cierre()  # quien vive en Colombia: el mismo cierre de la web (valoración presencial en Medellín)
         else:

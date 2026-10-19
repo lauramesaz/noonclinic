@@ -27,9 +27,12 @@ def wa(mensaje=None):
     return "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA)
 
 
-def img(nombre):
+def img(nombre, jpg=False):
     if nombre.startswith("c:"):  # fotos reales de la clínica
         return "assets/clinica/%s.jpg" % nombre[2:]
+    # Sedas en WebP: la mitad de peso con el mismo tamaño y grano (la de arriba es lo que más tarda en celular).
+    if not jpg and nombre.startswith("seda-") and os.path.exists(os.path.join(AQUI, "assets", "noon", nombre + ".webp")):
+        return "assets/noon/%s.webp" % nombre
     return "assets/noon/%s.jpg" % nombre
 
 
@@ -111,7 +114,7 @@ MENU_EN = """<div class="menu" id="menu" hidden>
       <a class="boton" href="%(wa)s" target="_blank" rel="noopener">Book a consultation</a></div>
   </div>
 </div>""" % {"wa": "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA)}
-PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="blog.html">Blog</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
+PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="international-patients.html" hreflang="en" lang="en">English</a><a href="blog.html">Blog</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
 PIE_EN = """<footer class="pie">
   <div class="pie-in">
     <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
@@ -173,7 +176,7 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
         es_url, en_url = (url_alt, url) if en else (url, url_alt)
         seo += '\n<link rel="alternate" hreflang="es" href="%s">\n<link rel="alternate" hreflang="en" href="%s">\n<link rel="alternate" hreflang="x-default" href="%s">' % (es_url, en_url, es_url)
     seo += '\n<meta property="og:type" content="%s">\n<meta property="og:site_name" content="noon Clinic">\n<meta property="og:title" content="%s">\n<meta property="og:description" content="%s">\n<meta property="og:url" content="%s">\n<meta property="og:image" content="%s/%s">\n<meta property="og:locale" content="%s">' % (
-        og_tipo or ("article" if esquema else "website"), escape(titulo), escape(descripcion), url, DOMINIO, img(foto or "seda-oscura"), "en_US" if en else "es_CO")
+        og_tipo or ("article" if esquema else "website"), escape(titulo), escape(descripcion), url, DOMINIO, img(foto or "seda-oscura", jpg=True), "en_US" if en else "es_CO")
     for bloque in [CLINICA_LD] + (esquema or []):
         seo += '\n<script type="application/ld+json">%s</script>' % json.dumps(bloque, ensure_ascii=False)
     # Medición: Microsoft Clarity (proyecto "noon Clinic", ID yrmcw5m1wy). Etiquetas para filtrar por idioma, sección y ciudad.
@@ -333,6 +336,9 @@ def datos_js():
     for t in TRATAMIENTOS:
         items.append({"s": t["slug"], "n": t["nombre"], "c": t["corto"], "t": "Medicina estética", "k": CAT_ME[t["cat"]][0], "f": FONDO_ITEM[t["slug"]],
                       "d": t["datos"][0], "r": t["datos"][2], "p": PALABRAS.get(t["slug"], "")})
+    items.append({"s": "criolipolisis", "n": "Criolipólisis", "c": "Grasa localizada que se elimina con frío, sin cirugía.", "t": "Medicina estética",
+                  "k": CAT_ME["tecnologias"][0], "f": "seda-noche", "d": "1 a 3 sesiones por zona", "r": "Ninguna",
+                  "p": "crio criolipolisis frio congelar grasa localizada abdomen flancos papada brazos muslos sin cirugia rollito"})
     data = {"items": items, "asistente": [{"k": k, "n": n, "o": [{"n": o, "s": ss} for o, ss in ops]} for k, n, ops in ASISTENTE],
             "wa": WHATSAPP}
     with open(os.path.join(AQUI, "assets", "catalogo.js"), "w", encoding="utf-8") as fh:
@@ -534,6 +540,19 @@ def datos_barra(pares):
     return '<section class="datos">%s</section>' % "".join('<div><span class="ceja">%s</span><b>%s</b></div>' % p for p in pares)
 
 
+def ver_tambien(p):
+    """Una línea discreta que lleva a otra página relacionada (ej. la criolipólisis desde la lipo)."""
+    return "".join('<p class="pista rev ver-tambien">%s <a href="%s">%s</a></p>' % (antes, href, texto) for antes, href, texto in p.get("ver_tambien", []))
+
+
+def todo_sobre(p):
+    """Bloque plegable 'Todo sobre…' (riesgos, para quién no es, preparación…), con el mismo acordeón de las preguntas."""
+    if not p.get("todo"):
+        return ""
+    items = "".join('<details class="preg rev"><summary>%s</summary><div class="resp todo-resp">%s</div></details>' % (h, t) for h, t in p["todo"])
+    return seccion("Antes de decidir", p["todo_titulo"], '<div class="preguntas">%s</div>' % items, sid="todo")
+
+
 def esquema_ficha(p, cat_n, hub, hub_n, tipo):
     url = DOMINIO + "/" + p["slug"]
     out = [{"@context": "https://schema.org", "@type": "MedicalWebPage", "url": url, "name": p["nombre"], "inLanguage": "es-CO",
@@ -556,7 +575,7 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
        '''<section class="hero completo portada"><div class="capa" style="background-image:url(%s)"></div><canvas class="seda-viva" data-p="oscura" aria-hidden="true"></canvas><div class="hero-in">
   <img class="logo-hero rev" src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295">
   <p class="ceja rev">Estética con criterio</p>
-  <p class="sub rev">Cirugía plástica · Medicina estética</p>
+  <h1 class="sub rev">Cirugía plástica y medicina estética en Medellín</h1>
   <button class="hero-buscar rev" type="button" data-abrir-buscador><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span>¿Qué te gustaría mejorar?</span></button>
   <div class="hero-acciones rev"><a class="boton lleno" href="#encuentra">Encuentra tu procedimiento</a><a class="boton" href="valoracion.html">Agendar valoración</a></div>
 </div><a class="bajar" href="#clinica" aria-label="Bajar">Descubrir</a></section>''' % img("seda-oscura")
@@ -607,24 +626,31 @@ for c in CIRUGIAS_NOON:
     pagina(c["slug"] + ".html", c["nombre"], c["corto"],
            hero(f, "Cirugía plástica · " + cat_n, c["nombre"], c["corto"], "alto")
            + datos_barra([("Duración", d[0]), ("Anestesia", d[1]), ("Incapacidad aprox.", d[2]), ("Resultado final", d[3])])
-           + subnav([("que-es", "Qué es"), ("para-ti", "Para ti"), ("recuperacion", "Recuperación"), ("especialista", "Especialista"), ("preguntas", "Preguntas")])
+           + subnav([("que-es", "Qué es"), ("para-ti", "Para ti"), ("recuperacion", "Recuperación")] + ([("todo", "Antes de decidir")] if c.get("todo") else []) + [("especialista", "Especialista"), ("preguntas", "Preguntas")])
            + frase("El procedimiento", c["que_es"][0], c["que_es"][1] if len(c["que_es"]) > 1 else "", "media", sid="que-es")
-           + seccion("Es para ti si", "Lo que buscas", lineas([(x,) for x in c["ideal"]]) + '<p class="pista rev">La indicación final la da tu cirujano en la valoración.</p>', sid="para-ti")
+           + seccion("Es para ti si", "Lo que buscas", lineas([(x,) for x in c["ideal"]]) + '<p class="pista rev">La indicación final la da tu cirujano en la valoración.</p>' + ver_tambien(c), sid="para-ti")
            + seccion("Recuperación", "Paso a paso", linea_tiempo(c["recuperacion"]) + '<p class="pista rev">Tiempos de guía. Tu cirujano te da los exactos.</p>', sid="recuperacion")
+           + todo_sobre(c)
            + bloque_especialista("cirugia", "Tu valoración de %s es con el especialista que te opera." % c["nombre"].lower())
-           + seccion("Preguntas", "Sobre " + c["nombre"].lower(), faq([("", q, r, []) for q, r in c["faq"]]) + '<a class="enlace rev" href="preguntas-frecuentes.html">Todas las preguntas</a>', "marfil", sid="preguntas")
+           + seccion("Preguntas", "Sobre " + c["nombre"].lower(), faq([("", q, r, []) for q, r in list(c["faq"]) + list(c.get("faq_nuevas", []))]) + '<a class="enlace rev" href="preguntas-frecuentes.html">Todas las preguntas</a>', "marfil", sid="preguntas")
            + G.bloque_lecturas(G.de_procedimiento(GUIAS, c["slug"]), "Blog", "Lecturas <em>relacionadas</em>.", sid="lecturas")
            + (seccion("También en " + cat_n.lower(), "Otras cirugías", catalogo(otras, "cx")) if otras else "")
-           + cierre(c["nombre"], "Todo empieza con tu valoración: te decimos si es para ti y recibes tu plan por escrito.",
+           + cierre(c["nombre"], c.get("cierre_txt", "Todo empieza con tu valoración presencial en Medellín: te decimos si es para ti y recibes tu plan por escrito."),
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (c["slug"], wa(msj)), fondo=f)
            + barra_cta(c["nombre"], "Valoración con " + ESPECIALISTAS[0]["nombre"], c["slug"], msj),
            esquema=esquema_ficha(c, cat_n, "cirugia-plastica", "Cirugía plástica", "MedicalProcedure"), og_tipo="website")
 
 # ================================================================ MEDICINA ESTÉTICA (hub)
+FILA_CRIO = ('<li class="rev" data-q="criolipolisis criolipólisis crio frio frío congelar grasa localizada abdomen flancos papada brazos muslos sin cirugia">'
+             '<a href="criolipolisis.html" data-img="%s"><b>Criolipólisis</b><span class="c">Grasa localizada que se elimina con frío, sin cirugía ni incapacidad.</span>'
+             '<span class="m">1 a 3 sesiones por zona · Sin incapacidad</span><span class="fl" aria-hidden="true">→</span></a></li>') % img("seda-noche")
 bloques_me = ""
 for k, n, d, f in CATEGORIAS_ME:
     lista = [t for t in TRATAMIENTOS if t["cat"] == k]
-    bloques_me += '<section class="sec cat-bloque" id="%s"><div class="sec-in"><header class="sec-cab"><p class="ceja rev">Medicina estética</p><h2 class="rev">%s</h2><p class="sub rev">%s</p></header><div class="sec-cuerpo">%s</div></div></section>' % (k, n, d, catalogo(lista, "me"))
+    cat_html = catalogo(lista, "me")
+    if k == "tecnologias":  # la landing de criolipólisis no está en el catálogo: se suma como una fila más
+        cat_html = cat_html.replace("</ul>", FILA_CRIO + "</ul>")
+    bloques_me += '<section class="sec cat-bloque" id="%s"><div class="sec-in"><header class="sec-cab"><p class="ceja rev">Medicina estética</p><h2 class="rev">%s</h2><p class="sub rev">%s</p></header><div class="sec-cuerpo">%s</div></div></section>' % (k, n, d, cat_html)
 pagina("medicina-estetica.html", "Medicina estética", "Medicina estética en noon Clinic: toxina botulínica, ácido hialurónico, bioestimuladores, piel, láser, HIFU y bienestar.",
        hero("seda-champan", "Medicina estética", "Realzar lo tuyo,<br><em>sin cambiar quién eres</em>.", "Tratamientos médicos no quirúrgicos con resultados naturales.", "alto")
        + filtro_hub(CATEGORIAS_ME, "Busca un tratamiento: botox, manchas, láser…")
@@ -645,11 +671,13 @@ for t in TRATAMIENTOS:
            + datos_barra([("Sesiones", d[0]), ("Duración", d[1]), ("Recuperación", d[2]), ("Resultado", d[3])])
            + subnav([("que-es", "Qué es"), ("para-ti", "Indicado para"), ("especialista", "Especialista"), ("preguntas", "Preguntas")])
            + frase("El tratamiento", t["que_es"][0], t["que_es"][1] if len(t["que_es"]) > 1 else "", "media", sid="que-es")
-           + seccion("Indicado para", "Lo que buscas", lineas([(x,) for x in t["ideal"]]) + '<p class="pista rev">La indicación final la da tu médica en la valoración.</p>', sid="para-ti")
+           + seccion("Indicado para", "Lo que buscas", lineas([(x,) for x in t["ideal"]]) + '<p class="pista rev">La indicación final la da tu médica en la valoración.</p>' + ver_tambien(t), sid="para-ti")
            + bloque_especialista("estetica", "Tu valoración y tu tratamiento de %s los realiza la médica estética de noon." % t["nombre"].lower())
-           + seccion("Preguntas", "Sobre " + t["nombre"].lower(), faq([("", q, r, []) for q, r in t["faq"]]), "marfil", sid="preguntas")
+           + todo_sobre(t)
+           + seccion("Preguntas", "Sobre " + t["nombre"].lower(), faq([("", q, r, []) for q, r in list(t["faq"]) + list(t.get("faq_nuevas", []))]), "marfil", sid="preguntas")
+           + G.bloque_lecturas(G.de_procedimiento(GUIAS, t["slug"], relleno=False), "Blog", "Lecturas <em>relacionadas</em>.", sid="lecturas")
            + (seccion("También en " + cat_n.lower(), "Otros tratamientos", catalogo(otras, "me")) if otras else "")
-           + cierre(t["nombre"], "Agenda tu valoración y armamos contigo el plan que tu piel necesita.",
+           + cierre(t["nombre"], "Agenda tu valoración en Medellín y armamos contigo el plan que tu piel necesita.",
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (t["slug"], wa(msj)), fondo=f)
            + barra_cta(t["nombre"], "Valoración con " + ESPECIALISTAS[1]["nombre"], t["slug"], msj),
            esquema=esquema_ficha(t, cat_n, "medicina-estetica", "Medicina estética", "MedicalProcedure"), og_tipo="website")

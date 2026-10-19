@@ -44,7 +44,7 @@ h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 300; }
 .agendar:hover { border-color: currentColor; }
 
 /* menú a pantalla completa */
-.menu { position: fixed; inset: 0; z-index: 55; background: var(--negro) url(noon/seda-oscura.jpg) center / cover; overflow-y: auto; }
+.menu { position: fixed; inset: 0; z-index: 55; background: var(--negro) url(noon/seda-oscura.webp) center / cover; overflow-y: auto; }
 .menu::before { content: ""; position: fixed; inset: 0; background: rgba(18, 13, 10, .78); }
 .menu[hidden] { display: none; }
 .menu-in { position: relative; min-height: 100%; display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: center; padding: 130px var(--lado) 60px; }
@@ -791,7 +791,7 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
 .cinta-mov.suave .cm-g span { font-size: clamp(20px, 2vw, 28px); }
 
 /* retratos provisionales: seda + iniciales en cursiva, en vez del cuadro gris */
-.monograma { background: #1b1411 url(noon/seda-noche.jpg) center / cover; font: 300 italic clamp(44px, 5vw, 76px)/1 var(--serif-it); color: rgba(242, 239, 232, .85); letter-spacing: .02em; position: relative; }
+.monograma { background: #1b1411 url(noon/seda-noche.webp) center / cover; font: 300 italic clamp(44px, 5vw, 76px)/1 var(--serif-it); color: rgba(242, 239, 232, .85); letter-spacing: .02em; position: relative; }
 .monograma::after { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(242, 239, 232, .18); pointer-events: none; }
 .esp-duo { gap: 20px; }
 .esp-foto { aspect-ratio: 4 / 5; }
@@ -1084,3 +1084,13 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
   .bl-meta, .bl-ir { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) { .bl-foto img, .bl-ciudades b, .bl-ciudades .fl { transition: none; } }
+
+/* ---- SEO 19-oct: título principal del inicio (H1) con el mismo aspecto de la línea que había; enlace "ver también" en fichas */
+.portada h1.sub { font-family: var(--texto); line-height: 1.7; }
+.ver-tambien { margin-top: 10px; }
+.ver-tambien a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+.todo-resp p, .todo-resp li { color: var(--tenue); font-size: 16px; max-width: 680px; font-weight: 400; }
+.todo-resp p { padding-bottom: 12px; margin: 0; }
+.todo-resp ul { margin: 0 0 14px; padding-left: 20px; max-width: 680px; }
+.todo-resp li { padding: 3px 0; }
+.todo-resp a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
