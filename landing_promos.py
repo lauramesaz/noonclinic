@@ -251,6 +251,7 @@ def _pagina(b, items, actual):
 <html lang="es">
 <head>
 <meta charset="utf-8">
+%(medicion)s
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%(titulo)s · noon Clinic</title>
 <meta name="description" content="%(desc)s">
@@ -379,7 +380,7 @@ def _pagina(b, items, actual):
 <script src="/assets/promos.js?v=%(v)s" defer></script>
 </body>
 </html>
-""" % {"titulo": escape(titulo), "desc": escape(desc), "dominio": b.DOMINIO, "foto": foto, "clarity": clarity, "v": b.V,
+""" % {"medicion": b.HEAD_MEDICION, "titulo": escape(titulo), "desc": escape(desc), "dominio": b.DOMINIO, "foto": foto, "clarity": clarity, "v": b.V,
        "general": "" if it else " pr-general", "actual": actual or "", "wa": wa_actual, "flecha": ico("flecha", "ico-f"),
        "ico_lupa": ico("lupa"), "ico_medico": ico("medico"), "ico_cruz": ico("cruz"), "ico_reloj": ico("reloj"),
        "h1": _titulo(it), "precio": _precio(it), "incluye": _incluye(it, True), "atajos": atajos, "total": len(items),

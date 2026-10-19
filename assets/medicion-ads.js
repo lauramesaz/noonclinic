@@ -15,9 +15,9 @@
   function state(allowed) {
     return {ad_storage: allowed ? 'granted' : 'denied',
       ad_user_data: allowed ? 'granted' : 'denied',
-      ad_personalization: 'denied', analytics_storage: 'denied'};
+      ad_personalization: 'denied', analytics_storage: allowed ? 'granted' : 'denied'};
   }
-  window.gtag('consent', 'default', state(consent === 'yes'));
+  if (!window.__noonConsentDefault) window.gtag('consent', 'default', state(consent === 'yes'));  // normalmente ya lo puso la cabecera (Tag Manager)
   window.gtag('set', 'allow_ad_personalization_signals', false);
   window.gtag('set', 'ads_data_redaction', true);
   function start() {
@@ -47,8 +47,8 @@
   var text = document.createElement('p');
   text.style.cssText = 'margin:0 0 14px';
   text.textContent = english
-    ? 'May we use Google Ads cookies to measure visits and clicks to WhatsApp? This is optional. Your choice will not affect access to the website or WhatsApp.'
-    : '¿Nos permites usar cookies de Google Ads para medir visitas y clics a WhatsApp? Es opcional. Tu elección no afecta el acceso a la web ni a WhatsApp.';
+    ? 'May we use Google cookies (Analytics and Ads) to measure visits and clicks to WhatsApp? This is optional. Your choice will not affect access to the website or WhatsApp.'
+    : '¿Nos permites usar cookies de Google (Analytics y Ads) para medir visitas y clics a WhatsApp? Es opcional. Tu elección no afecta el acceso a la web ni a WhatsApp.';
   panel.appendChild(text);
   function choose(value) {
     consent = value;

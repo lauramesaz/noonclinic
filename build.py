@@ -96,6 +96,19 @@ def cierre(titulo="Tu <em>valoración</em>", texto=None, boton=None, fondo="seda
 # ---------------------------------------------------------------- piezas por idioma (cabecera, menú, pie) y SEO de todo el sitio
 DOMINIO = "https://noon.clinic"
 CLARITY_ID = "yrmcw5m1wy"
+# ---------------------------------------------------------------- MEDICIÓN: Google Tag Manager (GA4 + evento clic_whatsapp)
+# Cuenta de Tag Manager "noon Clinic" (GTM-TDZN86RZ) y Analytics "noon Clinic" (G-MLKMVQZT84), creadas el 19-oct-2026 con el correo
+# de Laura pero en cuentas aparte, solo de noon. El consentimiento por defecto va ANTES de Tag Manager: sin "Aceptar" en el aviso,
+# Google solo recibe señales sin cookies (modo de consentimiento). Cada clic a WhatsApp empuja el evento clic_whatsapp al dataLayer.
+GTM_ID = "GTM-TDZN86RZ"
+HEAD_MEDICION = """<script>
+window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments);};window.__noonConsentDefault=true;
+(function(){var c=null;try{c=localStorage.getItem("noon_measurement_consent_v1");}catch(e){}var ok=c==="yes";
+gtag("consent","default",{ad_storage:ok?"granted":"denied",ad_user_data:ok?"granted":"denied",ad_personalization:"denied",analytics_storage:ok?"granted":"denied",wait_for_update:500});
+gtag("set","ads_data_redaction",true);gtag("set","allow_ad_personalization_signals",false);})();
+document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href*="wa.me/"],a[href*="api.whatsapp.com"]');if(!a)return;var s=a.closest("section,header,footer,.pr-barra,.cl-barra");dataLayer.push({event:"clic_whatsapp",pagina:location.pathname,seccion:s?(s.id||String(s.className).split(" ")[0]||s.tagName.toLowerCase()):""});},true);
+</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','""" + GTM_ID + """');</script>"""
 WA_EN = "Hi! I live in the US and I'd like information about a consultation at noon Clinic in Medellín."
 BOTON_BUSCAR = '<button class="buscar-btn" type="button" aria-label="Buscar procedimiento"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="txt">Buscar</span></button>'
 MENU_ES = """<div class="menu" id="menu" hidden>
@@ -192,6 +205,7 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
 <html lang="%(lang)s">
 <head>
 <meta charset="utf-8">
+%(medicion)s
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%(titulo)s</title>
 <meta name="description" content="%(desc)s">
@@ -234,7 +248,7 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
 """ % {"titulo": escape(titulo + (" · noon Clinic" if archivo != "index.html" else "")), "desc": escape(descripcion), "cuerpo": cuerpo,
        "fuentes": FUENTES, "precarga": precarga,
        "menu_cx": menu_cx, "menu_me": menu_me, "menu": menu, "v": V, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO,
-       "lang": lang, "seo": seo, "idioma": idioma, "menu_html": menu_html, "pie_html": pie_html % {"menu_cx": menu_cx, "menu_me": menu_me, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO},
+       "medicion": HEAD_MEDICION, "lang": lang, "seo": seo, "idioma": idioma, "menu_html": menu_html, "pie_html": pie_html % {"menu_cx": menu_cx, "menu_me": menu_me, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO},
        "buscar": "" if en else boton_buscar, "t_menu": "Menu" if en else "Menú", "t_agendar": "Book" if en else "Agendar",
        "h_agendar": wa(WA_EN) if en else "valoracion.html", "t_blank": ' target="_blank" rel="noopener"' if en else ""}
     # Todo remite a WhatsApp (decisión de Laura, 2-oct-2026): los botones que iban al formulario de valoración
