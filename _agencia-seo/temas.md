@@ -1,7 +1,9 @@
-# Temas · Agencia SEO internacional
+# Temas · Agencia SEO de noon Clinic
 
 Estados: `pendiente` · `en curso` · `publicado` · `en pausa (motivo)`.
-Siempre se escribe ES + EN. Prioridad: de arriba a abajo.
+Secciones A–E: público EE. UU., siempre ES + EN. Secciones F en adelante: ver la columna Público
+(`colombia` = solo español; `eeuu` = ES + EN). Prioridad: E3 primero y luego la **lista de turnos**
+del final (mezcla Colombia, medicina estética y comparativas).
 
 ## A. Páginas de ciudad (tipo "ciudad")
 | # | Ciudad | Keyword ES | Keyword EN | Estado |
@@ -49,5 +51,58 @@ Siempre se escribe ES + EN. Prioridad: de arriba a abajo.
 | E2 | cirugía plástica en vacaciones de verano en Colombia | summer plastic surgery trip to Colombia | publicado 2026-10-19 |
 | E3 | cirugía plástica en Thanksgiving en Medellín | Thanksgiving plastic surgery trip Medellin | pendiente |
 
-Cuando queden menos de 5 `pendiente`, el Redactor propone 10 nuevos (dudas reales de pacientes
-que viven en EE. UU.) y los añade al final.
+## F. Pacientes en Colombia · cirugía (solo español)
+Ángulo informativo. La keyword "<procedimiento> en Medellín" es de la página del procedimiento: aquí nunca.
+| # | Procedimiento | Keyword ES | Público | Estado |
+|---|---|---|---|---|
+| F1 | rinoplastia + mentoplastia | rinoplastia y mentoplastia en la misma cirugía | colombia | pendiente |
+| F2 | abdominoplastia + lipotransferencia-glutea | lipoabdominoplastia con transferencia glútea: qué es y cómo es la recuperación | colombia | pendiente |
+| F3 | lipotransferencia-glutea | recuperación de la lipotransferencia glútea semana a semana (cuándo sentarse) | colombia | pendiente |
+| F4 | general | cómo prepararse para una cirugía plástica: exámenes, medicamentos y casa lista | colombia | pendiente |
+| F5 | mamoplastia-de-aumento | recuperación del aumento de senos: qué esperar las primeras semanas | colombia | pendiente |
+| F6 | liposuccion | cuándo se ve el resultado final de una liposucción | colombia | pendiente |
+
+F1 y F2: no afirmar que a toda paciente se le hacen juntas. Si se combinan o no, y en cuántos tiempos, lo
+decide el cirujano en la valoración presencial. Riesgos de combinar y de la lipotransferencia: solo con lo de
+`hechos.md` (CDC, ASPS). Search Console ya trae "mentoplastia y rinoplastia" (37 impresiones) y
+"lipoabdominoplastia con transferencia glutea" / "transferencia de grasa a gluteos" (17).
+
+## G. Medicina estética (solo español; `"categoria": "estetica"`)
+| # | Tratamiento | Keyword ES | Público | Estado |
+|---|---|---|---|---|
+| G1 | toxina-botulinica | cuánto dura el bótox y cada cuánto aplicarlo | colombia | pendiente |
+| G2 | acido-hialuronico | ácido hialurónico en labios: cómo es, cuánto dura y cuidados | colombia | pendiente |
+| G3 | bioestimuladores | bioestimuladores de colágeno: qué son y para quién | colombia | pendiente |
+| G4 | manchas-y-melasma | melasma: por qué aparece y cómo se trata (con el sol de Medellín) | colombia | pendiente |
+| G5 | hilos-tensores | hilos tensores: qué esperar y cuánto dura el efecto | colombia | pendiente |
+| G6 | lipopapada | papada: opciones con y sin cirugía | colombia | pendiente |
+
+Medicina estética: datos de duración, sesiones y cuidados SOLO de las fichas publicadas (`../datos_noon.py`,
+`criolipolisis.html`) o de fuentes oficiales agregadas a `hechos.md` (FDA, INVIMA, sociedades). Nada de marcas
+comerciales como promesa; si se nombran productos, solo los que noon usa y están en la web.
+
+## H. Comparativas entre dos servicios de noon (solo español; enlazan a las DOS páginas)
+| # | Procedimientos | Keyword ES | Público | Estado |
+|---|---|---|---|---|
+| H1 | criolipolisis + liposuccion | criolipólisis o liposucción: cuál te conviene | colombia | pendiente |
+| H2 | toxina-botulinica + acido-hialuronico | bótox o ácido hialurónico: diferencias | colombia | pendiente |
+| H3 | mini-abdominoplastia + abdominoplastia | mini abdominoplastia o abdominoplastia completa | colombia | pendiente |
+| H4 | hilos-tensores + lifting-facial | hilos tensores o lifting facial | colombia | pendiente |
+| H5 | acido-hialuronico + rinoplastia | rinomodelación con ácido hialurónico o rinoplastia | colombia | pendiente |
+
+H1: enlaza a la landing `criolipolisis.html` (no es del catálogo: va como enlace en el texto, no en `procedimientos`).
+
+## I. Costo, sin dar precios (ES + EN)
+| # | Keyword ES | Keyword EN | Público | Estado |
+|---|---|---|---|---|
+| I1 | de qué depende el precio de una cirugía plástica en Colombia | plastic surgery in Colombia cost: what the price depends on | eeuu | pendiente |
+
+I1: qué sube o baja una cotización y qué debe incluir un presupuesto honesto (`INSTRUCCIONES.md` §1). Nunca un precio de noon.
+Search Console ya muestra "colombian plastic surgery prices" y "rhinoplasty colombia cost".
+
+## Lista de turnos (después de E3, en este orden)
+F1 · H1 · G1 · F2 · I1 · H2 · G2 · F3 · H3 · G4 · F4 · G3 · H4 · F5 · G5 · H5 · F6 · G6
+
+Cuando queden menos de 5 `pendiente`, el Redactor propone 10 nuevos y los añade al final, mezclando
+los dos públicos (mitad Colombia, incluida medicina estética; mitad EE. UU.). Primero lee
+`search-console.md`: las consultas reales que ya traen impresiones mandan sobre las ideas propias.

@@ -1,5 +1,7 @@
 # Agente 2 · Adaptador al inglés
 
+Solo para piezas con `"publico": "eeuu"`. Si el público es `colombia`, este agente no corre.
+
 Lee la pieza en español, `../INSTRUCCIONES.md` §3 y `../notas-humanizador.md` (multas del Policía: no repitas esos vicios).
 
 1. Elige la keyword en inglés (`temas.md`) y el slug inglés; pon `"par"` cruzado en los dos archivos.

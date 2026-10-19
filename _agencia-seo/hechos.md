@@ -106,9 +106,16 @@ Colombia"; bluradio.com, "Cómo verificar un cirujano plástico certificado en C
   verificar si una clínica, hospital o sede quirúrgica está habilitada para hacer cirugía. Es el
   registro que respalda el concepto de "quirófano habilitado" que ya usa `hechos.md` (sección noon
   Clinic) y `seguridad.html`.
-- No hay un enlace único y estable para citar a RETHUS/REPS que se pueda verificar aquí mismo: en el
-  texto se dice "el portal del Ministerio de Salud", sin URL exacta, y se invita a confirmarlo antes
-  de usarlo.
+- **Enlaces oficiales (verificados con respuesta 200 el 19-oct-2026; usar estos y no otros):**
+  - Consulta pública de RETHUS (Ministerio de Salud / SISPRO, "Talento Humano en Salud"):
+    https://web.sispro.gov.co/THS/Cliente/ConsultasPublicas/ConsultaPublicaDeTHxIdentificacion.aspx
+  - Buscador del REPS ("Prestadores de Servicios de Salud", Ministerio de Salud y Protección Social):
+    https://prestadores.minsalud.gov.co/habilitacion/
+  - SCCP (Sociedad Colombiana de Cirugía Plástica Estética y Reconstructiva): https://www.cirugiaplastica.org.co/
+  - CDC, turismo médico ("Medical Tourism: Travel to Another Country for Medical Care"):
+    https://wwwnc.cdc.gov/travel/page/medical-tourism
+  - ASPS (American Society of Plastic Surgeons): https://www.plasticsurgery.org/
+  Si un enlace deja de abrir, se escribe "el portal del Ministerio de Salud" sin URL.
 
 ## Costos en EE. UU. (solo como referencia, nunca comparar con precio de noon)
 ASPS (American Society of Plastic Surgeons), páginas de costo, "últimas estadísticas" (año no

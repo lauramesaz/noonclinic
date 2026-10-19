@@ -1,19 +1,25 @@
-# Agencia SEO internacional · noon Clinic
+# Agencia SEO · noon Clinic
 
-> Manual compartido por todos los agentes. La carpeta empieza por `_` y `robots.txt` la bloquea:
-> no es parte de la web pública. Repositorio: `lauramesaz/noonclinic` (GitHub Pages, publica al hacer push).
+> Manual compartido por todos los agentes. La carpeta empieza por `_` y no es parte de la web
+> pública. Repositorio: `lauramesaz/noonclinic` (GitHub Pages, publica al hacer push).
 > Web: https://noon.clinic
 
 ## 0. Misión
 
-Traer a noon Clinic (Medellín) **pacientes que viven en Estados Unidos**, sobre todo colombianos y
-latinos de las ciudades de `estrategia.md` (Miami, Nueva York y Nueva Jersey, Orlando y Tampa,
-Houston, Atlanta, Boston). Lo logramos con páginas que Google posiciona para búsquedas como
-"cirugía plástica en Medellín desde Miami", "plastic surgery in Medellin Colombia", "cuánto tiempo
-quedarme en Colombia después de una lipo".
+Traer pacientes a noon Clinic (Medellín) desde Google. Desde el 19-oct-2026 hay **dos públicos**
+(cada pieza declara el suyo en la cabecera con `"publico"`):
 
-**Meta: 1 pieza nueva al día** (o 1 actualización de una vieja), siempre en **los dos idiomas**:
-cada guía tiene su versión en español y su versión en inglés, enlazadas entre sí (`par`).
+1. **`"publico": "colombia"`** · pacientes que viven en Colombia (Medellín, Antioquia y el resto del
+   país) y buscan en español la cirugía o el tratamiento en sí: "mentoplastia y rinoplastia",
+   "cuánto dura el bótox", "criolipólisis o lipo". Es lo que Google ya le está mostrando a noon
+   (Search Console, 19-oct: 66 de 129 impresiones). **Solo en español** (sin versión en inglés).
+   Incluye **medicina estética**, que hasta ahora no tenía ninguna guía.
+2. **`"publico": "eeuu"`** · pacientes que viven en Estados Unidos, sobre todo colombianos y latinos
+   de las ciudades de `estrategia.md` (Miami, Nueva York y Nueva Jersey, Orlando y Tampa, Houston,
+   Atlanta, Boston). Siempre en **los dos idiomas**: versión en español y versión en inglés,
+   enlazadas entre sí (`par`). Si una pieza no dice `publico`, se entiende `eeuu`.
+
+**Meta: 1 pieza nueva al día** (o 1 actualización de una vieja), en el orden de `temas.md`.
 
 ## 1. Marca noon (tono)
 
@@ -40,24 +46,43 @@ cada guía tiene su versión en español y su versión en inglés, enlazadas ent
 5. Viaja acompañada/acompañado si es cirugía (un adulto los primeros días).
 6. El aviso médico lo pone la plantilla automáticamente; no lo quites ni lo contradigas.
 
-## 3. SEO internacional (cómo posicionar)
+## 3. SEO (cómo posicionar)
 
 - **1 keyword principal por pieza** + 3 a 5 secundarias. Debe ir en `title`, `h1`, primer
   párrafo, un `<h2>` y la `descripcion`.
 - `title` ≤ 60 caracteres (la plantilla añade " · noon Clinic"). `descripcion` 140–160 caracteres,
   con un dato concreto, distinta en cada pieza.
-- **Español** = keyword en español como la escribe un latino en EE. UU. ("operarme en Colombia",
+- **Público Colombia** = keyword como la escribe alguien en Colombia, sin "desde" ni "viviendo en
+  EE. UU." ("rinoplastia y mentoplastia al mismo tiempo", "cuánto dura el ácido hialurónico en
+  labios", "criolipólisis o liposucción"). Situaciones reales de aquí: pedir la incapacidad en el
+  trabajo, quién te acompaña los primeros días, el sol de Medellín y las manchas, la temporada de
+  fin de año. El cierre y el WhatsApp los pone la plantilla según `publico`.
+- **Español (público EE. UU.)** = keyword en español como la escribe un latino en EE. UU. ("operarme en Colombia",
   "cirugía plástica en Medellín", "desde Miami"). **Inglés** = como la escribe un estadounidense
   ("plastic surgery in Medellin", "medical tourism Colombia", "tummy tuck Colombia"). La versión en
   inglés NO es una traducción literal: se adapta la keyword, los ejemplos y el orden.
 - **Medellín** aparece natural en el primer párrafo, en un `<h2>` y en la descripción.
+- **Cada búsqueda tiene UNA página dueña. Las guías no le roban la keyword a la página que vende.**
+  "Mentoplastia en Medellín", "lipotransferencia glútea en Medellín", "bótox en Medellín" (el nombre
+  del procedimiento + la ciudad, sin más) son de la página del procedimiento (`mentoplastia.html`…).
+  Una guía nunca lleva como `title` o `keyword` solo "<procedimiento> en Medellín": siempre suma un
+  ángulo o un calificador ("…: recuperación semana a semana", "… o …", "¿cuánto dura…?", "…desde
+  EE. UU."). Antes de escribir, busca en `registro.md`, `articulos/` y `../datos_noon.py` si la
+  keyword ya tiene dueña.
+- **Enlace a la página que vende, dentro del texto:** en el primer tercio de la guía, un enlace
+  natural a la página del procedimiento principal (ej. `<a href="mentoplastia.html">mentoplastia</a>`),
+  además de los botones de `procedimientos`.
+- **Fuentes oficiales:** cada guía con datos de salud enlaza al menos 1 fuente oficial que ya esté
+  en `hechos.md` (ASPS, FDA, CDC, MinSalud, INVIMA, RETHUS, REPS, SCCP). Si la guía dice "verifica a
+  tu cirujano en RETHUS" o "revisa el REPS", enlaza el buscador oficial (direcciones en `hechos.md`).
 - **Páginas de ciudad (`tipo: "ciudad"`) = una por ciudad e idioma.** Prohibido el "copia y
   cambia el nombre": Google castiga las páginas puerta (doorway pages). Cada página de ciudad
   debe tener al menos 4 elementos propios y verdaderos de esa ciudad (vuelos, comunidad,
   barrios, diferencia horaria, temporadas de viaje, cómo es la vuelta a casa en esa ruta).
 - **Enlaces internos:** cada pieza enlaza a 1–3 procedimientos (`procedimientos` en la cabecera,
   la plantilla pone los botones) + dentro del texto a 1–2 guías hermanas y a `otra-ciudad` o
-  `seguridad` cuando aplique. En inglés las páginas de procedimiento están en español: se avisa.
+  `seguridad` cuando aplique (`otra-ciudad` solo para quien viaja). En inglés las páginas de
+  procedimiento están en español: se avisa.
 - **FAQ:** 3 a 6 preguntas reales (las que la gente escribe en Google). La plantilla genera el
   JSON-LD `FAQPage`, `MedicalWebPage` y `BreadcrumbList` y el `hreflang`. No lo escribas a mano.
 - Slugs en minúsculas con guiones, sin tildes. Español: `cirugia-plastica-en-medellin-desde-miami`.
@@ -66,8 +91,8 @@ cada guía tiene su versión en español y su versión en inglés, enlazadas ent
   `.html` solo.
 - **Blog:** cada guía publicada sale sola como tarjeta con foto en `/blog` (español) y `/guides`
   (inglés), en "Lecturas relacionadas" de las cirugías de su `procedimientos` y, si es de las 3 más
-  nuevas, en el inicio. El tema (Procedimientos / Viaje y recuperación / Seguridad) y la foto se
-  eligen solos (reglas `TEMAS` en `guias.py`); opcional en la cabecera: `"categoria"` y `"foto"`
+  nuevas, en el inicio. El tema (Procedimientos / Medicina estética / Viaje y recuperación /
+  Seguridad) y la foto se eligen solos (reglas `TEMAS` en `guias.py`); opcional en la cabecera: `"categoria"` y `"foto"`
   (ruta dentro de `assets/` sin `.jpg`, ej. `"noon/foto-luz"`). El `intro` es el texto de la tarjeta:
   que se entienda solo.
 
@@ -77,13 +102,16 @@ Prohibido: raya larga (—) como muletilla, "En este artículo te contamos", "Es
 destacar", "En conclusión", "sumérgete", "descubre", listas de 3 adjetivos por costumbre,
 párrafos todos del mismo largo, cierres que repiten lo dicho. En inglés: "In today's world",
 "delve", "navigate the journey", "it's worth noting", "game-changer".
-Sí: situaciones reales del paciente que vive afuera (pedir vacaciones, la familia en Colombia,
-el vuelo de vuelta, el invierno de Boston), opiniones claras de la clínica respaldadas por las
+Sí: situaciones reales del lector (si vive afuera: pedir vacaciones, la familia en Colombia, el
+vuelo de vuelta, el invierno de Boston; si vive aquí: la incapacidad en el trabajo, quién te cuida
+en casa, el sol de Medellín, la cita entre semana), opiniones claras de la clínica respaldadas por las
 reglas médicas, y honestidad sobre límites ("no todo se puede hacer en un viaje de una semana").
 
 ## 5. Formato de cada pieza (lo que escribe el agente)
 
 Un archivo por idioma en `_agencia-seo/articulos/<slug>.html`. Ver `plantilla-articulo.html`.
+Cabecera con `"publico": "colombia"` o `"publico": "eeuu"`. Las de Colombia van sin `par` (solo
+español) y sin `ciudad`; si el procedimiento es de medicina estética, `"categoria": "estetica"`.
 Cabecera JSON dentro de `<!-- -->` + cuerpo HTML (solo `<p>`, `<h2>`, `<h3>`, `<ul>`, `<ol>`,
 `<strong>`, `<a>`, `<blockquote>` y el bloque `<div class="dato">`). Nada de estilos ni scripts.
 Primer párrafo con `class="entrada"`. Largo: 700–1.200 palabras.
@@ -91,16 +119,18 @@ Primer párrafo con `class="entrada"`. Largo: 700–1.200 palabras.
 ## 6. Publicar
 
 ```
-cd /Users/laura/noon-clinic-web
+cd <carpeta del repositorio>
 python3 build.py                      # genera páginas, hubs, sitemap.xml y robots.txt
 git add -A && git commit -m "guía: <título>"
 git pull --rebase && git push
 ```
 Luego verificar que `https://noon.clinic/<slug>` responde 200 (1–3 min) y anotar en `registro.md`.
-Fase actual: **manual con visto bueno de Laura** antes del push. Cuando ella lo apruebe, la
-rutina diaria publica sola con red de seguridad (se publica, se avisa y queda en el registro).
+Fase actual: **automática** (aprobada por Laura): la rutina diaria publica sola con red de
+seguridad (se publica, se avisa y queda en el registro).
 
 ## 7. Si algo no rinde
 
 Política: **actualizar, no borrar.** Si en 3 meses una pieza no tiene impresiones en Search
 Console, se mejora (título, profundidad, enlaces) y se cambia `actualizado`.
+Los datos de Search Console están en `search-console.md` (los actualiza cada lunes una tarea en la
+Mac de Laura, porque la nube no puede abrir Search Console). Úsalos para elegir y mejorar temas.

@@ -1,4 +1,4 @@
-# Pipeline diario · Agencia SEO internacional de noon Clinic
+# Pipeline diario · Agencia SEO de noon Clinic
 
 Conocimiento compartido: `INSTRUCCIONES.md`, `estrategia.md`, `hechos.md`, `temas.md`,
 `plantilla-articulo.html`, `registro.md`. Cada agente tiene su archivo en `agentes/`.
@@ -6,13 +6,13 @@ Conocimiento compartido: `INSTRUCCIONES.md`, `estrategia.md`, `hechos.md`, `tema
 | # | Agente | Archivo | Qué hace |
 |---|---|---|---|
 | 1 | Investigador-Redactor | `agentes/1-investigador-redactor.md` | Elige el tema, investiga y escribe la versión en ESPAÑOL |
-| 2 | Adaptador al inglés | `agentes/2-adaptador-ingles.md` | Escribe la versión en INGLÉS (adaptada, no traducida) con su keyword |
+| 2 | Adaptador al inglés | `agentes/2-adaptador-ingles.md` | Escribe la versión en INGLÉS (adaptada, no traducida) con su keyword. Solo público `eeuu` |
 | 3 | Policía humanizador | `agentes/3-humanizador.md` | Reescribe la forma en los dos idiomas (prueba de 10 puntos, aprueba con 8), pone multas en `notas-humanizador.md`, hace control final antes de publicar y limpia 1 guía vieja por día |
 | 4 | Verificador médico-legal | `agentes/4-verificador.md` | Cada dato contra `hechos.md` y las reglas de oro; puede BLOQUEAR |
 | 5 | Juez SEO | `agentes/5-juez-seo.md` | Puntúa el SEO (≥ 85/100) y corrige |
 | 6 | Publicador-Auditor | `agentes/6-publicador.md` | build, revisa la página generada, publica, verifica en vivo y registra |
 
-Semanal (no diario): `agentes/7-analista.md` revisa Search Console y mejora la pieza más floja.
+Semanal (no diario): `agentes/7-analista.md` lee `search-console.md` y mejora la pieza más floja.
 
 ```
 1 Redactor (ES) → 2 Adaptador (EN) → 3 Policía → 4 Verificador ──(bloquea)──┐

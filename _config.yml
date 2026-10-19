@@ -1,0 +1,15 @@
+# GitHub Pages: sin .nojekyll, Jekyll deja fuera todo lo que empieza por "_" (agencia SEO, tarifas del cotizador,
+# plantillas). Además no se publican los programas que arman la web. Ninguna página tiene cabecera YAML,
+# así que Jekyll copia los .html tal cual.
+exclude:
+  - "*.py"
+  - build.py
+  - datos.py
+  - datos_noon.py
+  - guias.py
+  - capacitacion.py
+  - cotizador.py
+  - landing_criolipolisis.py
+  - landing_promos.py
+  - seo_titulos.py
+  - indexnow.sh

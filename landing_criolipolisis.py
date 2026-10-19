@@ -217,10 +217,8 @@ def generar(b):
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="assets/favicon.png">
 <script>document.documentElement.className="js"</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/criolipolisis/sesion-aplicador.jpg">
+<link rel="preload" as="image" href="assets/criolipolisis/sesion-aplicador.jpg" fetchpriority="high">
+%(fuentes)s
 <link rel="stylesheet" href="assets/criolipolisis.css?v=%(v)s">
 </head>
 <body class="cl">
@@ -241,7 +239,7 @@ def generar(b):
       <ul class="cl-checks"><li>%(ico_check)s Sin cirugía</li><li>%(ico_check)s Sin agujas</li><li>%(ico_check)s Con valoración médica</li></ul>
     </div>
     <figure class="cl-portada-foto">
-      <img src="assets/criolipolisis/sesion-aplicador.jpg" alt="Aplicador sobre el abdomen durante una sesión de tratamiento corporal" width="1100" height="1375">
+      <img src="assets/criolipolisis/sesion-aplicador.jpg" fetchpriority="high" alt="Aplicador sobre el abdomen durante una sesión de tratamiento corporal" width="1100" height="1375">
       <div class="cl-flota cl-flota-1"><b>1 a 3</b><span>sesiones por zona</span></div>
       <div class="cl-flota cl-flota-2">%(ico_reloj)s<span><b>Desde la semana 3</b> notas el cambio</span></div>
     </figure>
@@ -393,7 +391,7 @@ def generar(b):
 <script src="assets/criolipolisis.js?v=%(v)s" defer></script>
 </body>
 </html>
-""" % {"titulo": escape(TITULO), "desc": escape(DESCRIPCION), "seo": seo, "v": v, "wa": _wa(b), "tel": b.TELEFONO,
+""" % {"titulo": escape(TITULO), "desc": escape(DESCRIPCION), "seo": seo, "v": v, "fuentes": b.FUENTES, "wa": _wa(b), "tel": b.TELEFONO,
        "btn_cab": _boton(b, "Agendar " + ico("flecha", "ico-f"), "cl-btn cl-btn-sm"),
        "btn_portada": cta("Quiero mi valoración", "cl-btn cl-btn-xl"), "btn_dolores": cta("Quiero mi valoración", "cl-btn"),
        "btn_camino": cta("Agendar mi valoración", "cl-btn cl-btn-xl"), "btn_medico": cta("Quiero mi valoración", "cl-btn"),

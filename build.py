@@ -9,7 +9,11 @@ from datos_noon import *
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 CX = {c["slug"]: c for c in CIRUGIAS}
-V = int(time.time())
+import hashlib
+# Versión de CSS/JS (?v=) = huella de su contenido: solo cambia cuando cambian esos archivos o el catálogo,
+# así una guía nueva no reescribe las 110 páginas ni les cambia la fecha en el sitemap.
+_HUELLA = sorted(os.path.join("assets", f) for f in os.listdir(os.path.join(AQUI, "assets")) if f.endswith((".css", ".js")) and f != "catalogo.js") + ["datos_noon.py", "datos.py"]
+V = hashlib.md5(b"".join(open(os.path.join(AQUI, r), "rb").read() for r in _HUELLA)).hexdigest()[:10]
 
 CLARO = {"seda-clara", "seda-horizonte", "seda-champan"}  # fondos claros: texto oscuro encima
 CX_N = {c["slug"]: c for c in CIRUGIAS_NOON}
@@ -123,15 +127,34 @@ PIE_EN = """<footer class="pie">
   </div>
 </footer>
 """
-CLINICA_LD = {"@context": "https://schema.org", "@type": "MedicalClinic", "@id": DOMINIO + "/#clinica", "name": "noon Clinic", "url": DOMINIO + "/",
-              "logo": DOMINIO + "/assets/logo-noon.png", "telephone": TELEFONO, "medicalSpecialty": ["PlasticSurgery", "Dermatology"],
+CLINICA_LD = {"@context": "https://schema.org", "@type": "MedicalClinic", "@id": DOMINIO + "/#clinica", "name": "noon Clinic",
+              "alternateName": "noon Clinic Medellín", "url": DOMINIO + "/", "logo": DOMINIO + "/assets/logo-noon.png",
+              "image": DOMINIO + "/assets/clinica/recepcion.jpg", "telephone": TELEFONO, "medicalSpecialty": "PlasticSurgery",
               "address": {"@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO"},
-              "areaServed": ["Colombia", "United States"], "availableLanguage": ["es", "en"]}
+              "areaServed": ["Colombia", "United States"],
+              "contactPoint": {"@type": "ContactPoint", "telephone": TELEFONO, "contactType": "customer service", "availableLanguage": ["es", "en"]}}
+
+# Títulos y descripciones para Google (seo_titulos.py): si una página está ahí, manda sobre el título/descripción del código.
+try:
+    from seo_titulos import SEO as SEO_TITULOS
+except ImportError:
+    SEO_TITULOS = {}
+
+# Letras alojadas en la propia web (antes venían de Google Fonts y frenaban el primer pintado ~1 s en celular).
+FUENTES = """<link rel="preload" href="assets/fuentes/nunito-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fuentes/jost.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:300 700;font-display:swap;src:url(assets/fuentes/cormorant-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Jost';font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fuentes/jost.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Nunito Sans';font-style:normal;font-weight:200 1000;font-stretch:100%;font-display:swap;src:url(assets/fuentes/nunito-sans.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>"""
 
 
-def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquema=None, foto=None, etiquetas=None):
+def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquema=None, foto=None, etiquetas=None, og_tipo=None):
     """lang: "es" o "en" · alterna: archivo de la misma página en el otro idioma · esquema: lista de JSON-LD extra."""
     en = lang == "en"
+    if archivo in SEO_TITULOS:
+        titulo, descripcion = SEO_TITULOS[archivo]
     menu_cx = "".join('<a href="cirugia-plastica.html#%s">%s</a>' % (k, n) for k, n, d, f in CATEGORIAS_CX)
     menu_me = "".join('<a href="medicina-estetica.html#%s">%s</a>' % (k, n) for k, n, d, f in CATEGORIAS_ME)
     menu = "".join('<a href="%s">%s</a>' % (h, t) for h, t in MENU)
@@ -150,13 +173,16 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
         es_url, en_url = (url_alt, url) if en else (url, url_alt)
         seo += '\n<link rel="alternate" hreflang="es" href="%s">\n<link rel="alternate" hreflang="en" href="%s">\n<link rel="alternate" hreflang="x-default" href="%s">' % (es_url, en_url, es_url)
     seo += '\n<meta property="og:type" content="%s">\n<meta property="og:site_name" content="noon Clinic">\n<meta property="og:title" content="%s">\n<meta property="og:description" content="%s">\n<meta property="og:url" content="%s">\n<meta property="og:image" content="%s/%s">\n<meta property="og:locale" content="%s">' % (
-        "article" if esquema else "website", escape(titulo), escape(descripcion), url, DOMINIO, img(foto or "seda-oscura"), "en_US" if en else "es_CO")
+        og_tipo or ("article" if esquema else "website"), escape(titulo), escape(descripcion), url, DOMINIO, img(foto or "seda-oscura"), "en_US" if en else "es_CO")
     for bloque in [CLINICA_LD] + (esquema or []):
         seo += '\n<script type="application/ld+json">%s</script>' % json.dumps(bloque, ensure_ascii=False)
     # Medición: Microsoft Clarity (proyecto "noon Clinic", ID yrmcw5m1wy). Etiquetas para filtrar por idioma, sección y ciudad.
     tags = dict({"idioma": lang, "pagina": limpio or "inicio"}, **(etiquetas or {}))
     seo += '\n<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","%s");%s</script>' % (
         CLARITY_ID, "".join('clarity("set",%s,%s);' % (json.dumps(k), json.dumps(v)) for k, v in tags.items()))
+    # La imagen de portada (la seda de arriba) es lo más grande que se ve en el celular: se pide primero y con prioridad.
+    m_portada = re.search(r'<section class="hero[^>]*><div class="capa" style="background-image:url\(([^)]+)\)', cuerpo)
+    precarga = ('<link rel="preload" href="%s" as="image" fetchpriority="high">\n' % m_portada.group(1)) if m_portada else ""
     idioma = ('<a class="idioma" href="%s" hreflang="%s" lang="%s" aria-label="%s"><span class="largo">%s</span><span class="corto">%s</span></a>' % (
         alterna, "es" if en else "en", "es" if en else "en", "Español" if en else "English", "Español" if en else "English", "ES" if en else "EN")) if alterna else ""
     html = """<!doctype html>
@@ -170,9 +196,7 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
 <meta name="theme-color" content="#120d0a">
 <link rel="icon" href="assets/favicon.png">
 <script>document.documentElement.className="js"</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Jost:wght@300;400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
+%(precarga)s%(fuentes)s
 <link rel="stylesheet" href="assets/noon.css?v=%(v)s">
 </head>
 <body>
@@ -200,11 +224,12 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
 </main>
 %(pie_html)s<a class="wa-flota" href="%(wa)s" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/><path d="M8.8 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2.1.4 0 .6l-.4.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.5c.2-.2.4-.2.6-.1l1.7.8c.3.1.4.3.4.5v.5c0 .4-.3 1-.9 1.2-.6.3-1.8.3-3.7-.8a9.6 9.6 0 0 1-3.4-3.5c-.9-1.6-.7-2.6-.4-3.1Z"/></svg><span>WhatsApp</span></a>
 <script src="assets/catalogo.js?v=%(v)s" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="assets/lenis.min.js" defer></script>
 <script src="assets/noon.js?v=%(v)s" defer></script>
 </body>
 </html>
 """ % {"titulo": escape(titulo + (" · noon Clinic" if archivo != "index.html" else "")), "desc": escape(descripcion), "cuerpo": cuerpo,
+       "fuentes": FUENTES, "precarga": precarga,
        "menu_cx": menu_cx, "menu_me": menu_me, "menu": menu, "v": V, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO,
        "lang": lang, "seo": seo, "idioma": idioma, "menu_html": menu_html, "pie_html": pie_html % {"menu_cx": menu_cx, "menu_me": menu_me, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO},
        "buscar": "" if en else boton_buscar, "t_menu": "Menu" if en else "Menú", "t_agendar": "Book" if en else "Agendar",
@@ -509,6 +534,22 @@ def datos_barra(pares):
     return '<section class="datos">%s</section>' % "".join('<div><span class="ceja">%s</span><b>%s</b></div>' % p for p in pares)
 
 
+def esquema_ficha(p, cat_n, hub, hub_n, tipo):
+    url = DOMINIO + "/" + p["slug"]
+    out = [{"@context": "https://schema.org", "@type": "MedicalWebPage", "url": url, "name": p["nombre"], "inLanguage": "es-CO",
+            "about": {"@type": tipo, "name": p["nombre"], "description": " ".join(p["que_es"])},
+            "publisher": {"@id": DOMINIO + "/#clinica"}},
+           {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+               {"@type": "ListItem", "position": 1, "name": "noon Clinic", "item": DOMINIO + "/"},
+               {"@type": "ListItem", "position": 2, "name": hub_n, "item": DOMINIO + "/" + hub},
+               {"@type": "ListItem", "position": 3, "name": p["nombre"], "item": url}]}]
+    preguntas = list(p["faq"]) + list(p.get("faq_nuevas", []))
+    if preguntas:
+        out.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": re.sub("<[^>]+>", "", q), "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", r)}} for q, r in preguntas]})
+    return out
+
+
 # ================================================================ INICIO
 pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
        "Clínica de cirugía plástica y medicina estética. Rostro, senos, contorno corporal, inyectables, piel y tecnologías, con médicos especializados.",
@@ -538,7 +579,9 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
                ("II", "Tu plan por escrito", "Procedimiento, tiempos, cuidados y presupuesto, claros desde el principio."),
                ("III", "Procedimiento y seguimiento", "Con acompañamiento cercano hasta el alta.")]))
        + G.bloque_lecturas(G.ultimas(GUIAS), "Blog", "Para leer <em>antes de decidir</em>.", sid="blog")
-       + cierre())
+       + cierre(),
+       esquema=[{"@context": "https://schema.org", "@type": "WebSite", "@id": DOMINIO + "/#web", "name": "noon Clinic", "url": DOMINIO + "/",
+                 "inLanguage": "es-CO", "publisher": {"@id": DOMINIO + "/#clinica"}}], og_tipo="website")
 
 
 # ================================================================ CIRUGÍA PLÁSTICA (hub)
@@ -574,7 +617,8 @@ for c in CIRUGIAS_NOON:
            + (seccion("También en " + cat_n.lower(), "Otras cirugías", catalogo(otras, "cx")) if otras else "")
            + cierre(c["nombre"], "Todo empieza con tu valoración: te decimos si es para ti y recibes tu plan por escrito.",
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (c["slug"], wa(msj)), fondo=f)
-           + barra_cta(c["nombre"], "Valoración con " + ESPECIALISTAS[0]["nombre"], c["slug"], msj))
+           + barra_cta(c["nombre"], "Valoración con " + ESPECIALISTAS[0]["nombre"], c["slug"], msj),
+           esquema=esquema_ficha(c, cat_n, "cirugia-plastica", "Cirugía plástica", "MedicalProcedure"), og_tipo="website")
 
 # ================================================================ MEDICINA ESTÉTICA (hub)
 bloques_me = ""
@@ -607,7 +651,8 @@ for t in TRATAMIENTOS:
            + (seccion("También en " + cat_n.lower(), "Otros tratamientos", catalogo(otras, "me")) if otras else "")
            + cierre(t["nombre"], "Agenda tu valoración y armamos contigo el plan que tu piel necesita.",
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (t["slug"], wa(msj)), fondo=f)
-           + barra_cta(t["nombre"], "Valoración con " + ESPECIALISTAS[1]["nombre"], t["slug"], msj))
+           + barra_cta(t["nombre"], "Valoración con " + ESPECIALISTAS[1]["nombre"], t["slug"], msj),
+           esquema=esquema_ficha(t, cat_n, "medicina-estetica", "Medicina estética", "MedicalProcedure"), og_tipo="website")
 
 # ================================================================ ESPECIALISTAS
 fichas = ""
@@ -622,7 +667,12 @@ pagina("especialistas.html", "Especialistas", "Conoce a los especialistas de noo
        hero("seda-noche", "Especialistas", "Médicos especializados.<br>Decisiones <em>personales</em>.", "Te escuchamos antes de proponer, te explicamos sin dramatizar y decidimos contigo.")
        + fichas
        + seccion("Cómo trabajamos", "Nuestros principios", lineas([("Escuchar antes de proponer",), ("Explicar sin dramatizar",), ("Decidir junto a la persona",), ("Cuidar también el seguimiento",)], numerar=True))
-       + cierre())
+       + cierre(),
+       # Solo lo que ya se ve en la página (nombre, rol, foto): sin registros ni formación hasta que Laura los confirme.
+       esquema=[{"@context": "https://schema.org", "@type": "Person", "@id": DOMINIO + "/especialistas#" + e["slug"], "name": e["nombre"], "jobTitle": e["rol"],
+                 "url": DOMINIO + "/especialistas#" + e["slug"], "worksFor": {"@id": DOMINIO + "/#clinica"},
+                 **({"image": DOMINIO + "/" + "assets/equipo/%s.jpg" % e["slug"]} if os.path.exists(os.path.join(AQUI, "assets", "equipo", e["slug"] + ".jpg")) else {})}
+                for e in ESPECIALISTAS], og_tipo="website")
 
 # ================================================================ SEGURIDAD
 ALERTAS = [

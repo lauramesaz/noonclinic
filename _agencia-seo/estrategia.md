@@ -1,6 +1,7 @@
-# Estrategia: pacientes de Estados Unidos para noon Clinic (Medellín)
+# Estrategia de la agencia SEO de noon Clinic (Medellín)
 
-Decidido con Laura el 2-oct-2026.
+Decidido con Laura el 2-oct-2026 (pacientes de EE. UU.). Ampliado con Laura el 19-oct-2026
+(pacientes en Colombia y medicina estética): ver la sección "Público Colombia" al final.
 
 ## Idea central
 
@@ -50,3 +51,22 @@ Fuera de EE. UU., más adelante: Puerto Rico y España (Madrid).
 
 Google Ads y Meta segmentados por ciudad, WhatsApp con número +1, influencers colombianos en
 Miami/Nueva York, ferias colombianas (20 de julio en Miami), referidos, videos de pacientes.
+
+## Público Colombia (ampliación del 19-oct-2026, aprobada por Laura)
+
+Search Console (30-sep a 17-oct): de 129 impresiones, 66 vienen de búsquedas en español sobre la
+cirugía en sí, hechas desde Colombia ("mentoplastia y rinoplastia" 37, "lipoabdominoplastia con
+transferencia glútea" 9, "transferencia de grasa a glúteos" 8, "lipotransferencia medellín" 4…).
+En inglés solo hubo 4. Las páginas que Google más muestra son las de cada procedimiento
+(`/mentoplastia` 40, `/lipotransferencia-glutea` 30), no las guías de viaje.
+
+Por eso la agencia suma un segundo público, sin quitar el de EE. UU.:
+- **Quién:** personas en Medellín, Antioquia y el resto de Colombia que están decidiendo una cirugía
+  o un tratamiento de medicina estética.
+- **Qué buscan:** dudas concretas antes de decidir: si dos cirugías se hacen juntas, cuánto dura un
+  tratamiento, cuál de dos opciones les conviene, cómo es la recuperación, de qué depende el precio.
+- **Idioma:** solo español. Sin "desde EE. UU.".
+- **Regla de oro:** la página de cada procedimiento es la dueña de "<procedimiento> en Medellín".
+  Las guías responden la duda y mandan a esa página; nunca compiten con ella por el mismo título.
+- **Medicina estética** entra por primera vez (bótox, ácido hialurónico, bioestimuladores, hilos,
+  melasma, criolipólisis…): hoy no tiene ninguna guía.

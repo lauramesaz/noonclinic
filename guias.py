@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-# Agencia SEO internacional de noon Clinic: guías y páginas por ciudad (español e inglés) para pacientes en EE. UU.
+# Agencia SEO de noon Clinic: guías del blog. Dos públicos ("publico" en la cabecera): "eeuu" (español + inglés, viaje desde EE. UU.)
+# y "colombia" (solo español: pacientes que viven en Colombia, cirugía y medicina estética).
 # Los textos los escriben los agentes en _agencia-seo/articulos/<slug>.html (cabecera JSON + cuerpo HTML).
 # build.py llama a generar() al final: crea cada página, los dos hubs, sitemap.xml y robots.txt.
-import os, json, re
+import os, json, re, hashlib
 from html import escape
 from datetime import date
 
@@ -81,9 +82,10 @@ TEMAS = [
     (r"alerta|red-flags", "seguridad", "noon/foto-pasillo"),
     (r"viviendo-en|us-resident", "viaje", "clinica/vista"),
 ]
-PROC_PAL = r"lipo|abdominoplastia|tummy|senos|breast|mommy|rinoplastia|rhinoplasty|blefaro|eyelid|glute|bbl|mastopexia|lift"
-CATS = {"es": [("procedimientos", "Procedimientos"), ("viaje", "Viaje y recuperación"), ("seguridad", "Seguridad")],
-        "en": [("procedimientos", "Procedures"), ("viaje", "Travel & recovery"), ("seguridad", "Safety")]}
+PROC_PAL = r"lipo|abdominoplastia|tummy|senos|breast|mommy|rinoplastia|rhinoplasty|blefaro|eyelid|glute|bbl|mastopexia|lift|mentoplastia"
+ESTETICA_PAL = r"botox|toxina|hialuron|bioestimul|hilos|skinbooster|plasma|peeling|microagujas|limpieza-facial|melasma|manchas|laser|hifu|radiofrecuencia|criolip|sueroterapia|papada"
+CATS = {"es": [("procedimientos", "Procedimientos"), ("estetica", "Medicina estética"), ("viaje", "Viaje y recuperación"), ("seguridad", "Seguridad")],
+        "en": [("procedimientos", "Procedures"), ("estetica", "Aesthetic medicine"), ("viaje", "Travel & recovery"), ("seguridad", "Safety")]}
 EXTRA = ["noon/foto-luz", "noon/foto-espera", "noon/foto-consulta", "noon/foto-detalle", "noon/foto-pasillo", "noon/foto-objetos", "noon/foto-recepcion"]
 MESES_C = {"es": ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
            "en": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
@@ -103,7 +105,8 @@ def preparar(guias):
         if g.get("tipo") == "ciudad":
             cat = "ciudad"
         else:
-            cat = g.get("categoria") or (regla[1] if regla else ("procedimientos" if re.search(PROC_PAL, g["slug"]) else "viaje"))
+            cat = g.get("categoria") or (regla[1] if regla else ("estetica" if re.search(ESTETICA_PAL, g["slug"]) and not re.search(PROC_PAL, g["slug"])
+                                                                   else "procedimientos" if re.search(PROC_PAL + "|" + ESTETICA_PAL, g["slug"]) else "viaje"))
         g["_cat"] = cat
         par = por_slug.get(g.get("par") or "")
         if cat == "ciudad":
@@ -150,14 +153,21 @@ def ultimas(guias, lang="es", n=3):
     return [g for g in guias if g["lang"] == lang and g.get("tipo") != "ciudad"][:n]
 
 
-def de_procedimiento(guias, slug, n=3):
-    """Lecturas para la página de una cirugía: primero las que tratan de ella, luego las de seguridad y viaje."""
+def local(g):
+    return g.get("publico") == "colombia"
+
+
+def de_procedimiento(guias, slug, n=3, relleno=True):
+    """Lecturas para la página de un procedimiento: primero las que tratan de él; luego (si relleno) las de quien vive
+    en Colombia y después las de seguridad y viaje."""
     mias = [g for g in guias if g["lang"] == "es" and g.get("tipo") != "ciudad"]
     sobre = [g for g in mias if slug in g.get("procedimientos", [])]
     raices = [p[:4] for p in slug.split("-") if len(p) > 3]  # "lipo", "aume"…: la guía la nombra en su dirección
     sobre.sort(key=lambda g: (not any(r in g["slug"] for r in raices), g.get("procedimientos", [None])[0] != slug, g["_cat"] != "procedimientos"))
+    if not relleno:
+        return sobre[:n]
     resto = [g for g in mias if g not in sobre]
-    resto.sort(key=lambda g: ({"seguridad": 0, "viaje": 1}.get(g["_cat"], 2)))
+    resto.sort(key=lambda g: (not local(g), {"seguridad": 0, "viaje": 1}.get(g["_cat"], 2)))
     return (sobre + resto)[:n]
 
 
@@ -175,7 +185,7 @@ def generar(b):
 
     def relacionadas(g):
         mismas = [x for x in guias if x["lang"] == g["lang"] and x["slug"] != g["slug"] and x.get("tipo") != "ciudad"]
-        mismas.sort(key=lambda x: (x.get("ciudad") != g.get("ciudad") or not g.get("ciudad"),
+        mismas.sort(key=lambda x: (local(x) != local(g), x.get("ciudad") != g.get("ciudad") or not g.get("ciudad"),
                                    not set(x.get("procedimientos", [])) & set(g.get("procedimientos", []))))
         return mismas[:3]
 
@@ -198,7 +208,10 @@ def generar(b):
         if g.get("faq"):
             cuerpo += b.seccion(t["preg"], g.get("faq_titulo") or t["preg"], b.faq([("", p, r, []) for p, r in g["faq"]]), "marfil")
         cuerpo += bloque_lecturas(rel, BLOG[g["lang"]]["nombre"], BLOG[g["lang"]]["rel_tit"], g["lang"])
-        cuerpo += b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(msj), t["boton"]), fondo="seda-oscura")
+        if local(g):
+            cuerpo += b.cierre()  # quien vive en Colombia: el mismo cierre de la web (valoración presencial en Medellín)
+        else:
+            cuerpo += b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(msj), t["boton"]), fondo="seda-oscura")
 
         url = b.DOMINIO + "/" + g["slug"]
         blog_url = b.DOMINIO + "/" + BLOG[g["lang"]]["archivo"][:-5]
@@ -206,7 +219,8 @@ def generar(b):
             {"@context": "https://schema.org", "@type": "MedicalWebPage", "headline": g["title"], "description": g["descripcion"], "url": url,
              "inLanguage": "es-CO" if g["lang"] == "es" else "en-US", "datePublished": g["publicado"], "dateModified": g.get("actualizado") or g["publicado"],
              "author": {"@type": "Organization", "name": "noon Clinic", "@id": b.DOMINIO + "/#clinica"}, "publisher": {"@id": b.DOMINIO + "/#clinica"},
-             "about": [enlace_proc(s)[0] for s in g.get("procedimientos", []) if enlace_proc(s)], "audience": {"@type": "Patient", "geographicArea": nombre_ciudad or "United States"}},
+             "about": [{"@type": "MedicalProcedure", "name": enlace_proc(s)[0], "url": b.DOMINIO + "/" + s} for s in g.get("procedimientos", []) if enlace_proc(s)],
+             "audience": {"@type": "Patient", "geographicArea": "Colombia" if local(g) else (nombre_ciudad or "United States")}},
             {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "noon Clinic", "item": b.DOMINIO + "/"},
                 {"@type": "ListItem", "position": 2, "name": BLOG[g["lang"]]["nombre"], "item": blog_url},
@@ -217,7 +231,7 @@ def generar(b):
                 {"@type": "Question", "name": re.sub("<[^>]+>", "", p), "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", r)}} for p, r in g["faq"]]})
         b.pagina(g["slug"] + ".html", g["title"], g["descripcion"], cuerpo, lang=g["lang"],
                  alterna=(g["par"] + ".html") if g.get("par") else None, esquema=esquema, foto=g.get("fondo"),
-                 etiquetas={"seccion": "internacional", "tipo": g.get("tipo", "guia"), "ciudad": g.get("ciudad") or "general"})
+                 etiquetas={"seccion": "blog" if local(g) else "internacional", "tipo": g.get("tipo", "guia"), "ciudad": g.get("ciudad") or ("colombia" if local(g) else "general")})
 
     hubs(b, guias)
     blog(b, guias)
@@ -254,7 +268,7 @@ HUB = {
 def hubs(b, guias):
     for lang, h in HUB.items():
         t = T[lang]
-        mias = [g for g in guias if g["lang"] == lang]
+        mias = [g for g in guias if g["lang"] == lang and not local(g)]  # las guías para quien vive en Colombia van solo en /blog
         ciudad_pag = {g["ciudad"]: g for g in mias if g.get("tipo") == "ciudad" and g.get("ciudad")}
         tiles = [("%s.html" % ciudad_pag[k]["slug"], h["c_ceja"], (v[0] if lang == "es" else v[1]), ciudad_pag[k]["ceja"], v[2])
                  for k, v in CIUDADES.items() if k in ciudad_pag]
@@ -316,9 +330,40 @@ def blog(b, guias):
                  etiquetas={"seccion": "blog", "tipo": "listado"})
 
 
+REGISTRO_FECHAS = os.path.join(AQUI, "_lastmod.json")  # {archivo: [huella del contenido, fecha del último cambio real]}
+
+
+def _huella(archivo):
+    """Solo cuenta lo que es contenido: título, descripción, datos para Google y el cuerpo de la página
+    (no letras, scripts ni versiones de archivos)."""
+    txt = open(os.path.join(AQUI, archivo), encoding="utf-8").read()
+    partes = re.findall(r"<title>.*?</title>|<meta name=\"description\"[^>]*>|<script type=\"application/ld\+json\">.*?</script>|<main>.*</main>", txt, re.S)
+    return hashlib.md5(re.sub(r"\?v=[0-9a-zA-Z]+", "", "".join(partes) or txt).encode("utf-8")).hexdigest()
+
+
+def fechas_reales(b, fechas_guias, hoy):
+    """Fecha honesta para el sitemap: la guía usa su 'actualizado'; el resto, el día en que su contenido cambió de verdad
+    (se compara la huella con la del build anterior, guardada en _lastmod.json, que va en el repositorio)."""
+    try:
+        reg = json.load(open(REGISTRO_FECHAS, encoding="utf-8"))
+    except (OSError, ValueError):
+        reg = {}
+    out = {}
+    for a in sorted(set(b.HECHAS)):
+        h = _huella(a)
+        if a in fechas_guias:
+            out[a] = fechas_guias[a]
+        else:
+            out[a] = reg[a][1] if a in reg and reg[a][0] == h else hoy
+        reg[a] = [h, out[a]]
+    with open(REGISTRO_FECHAS, "w", encoding="utf-8") as f:
+        json.dump(reg, f, ensure_ascii=False, indent=0, sort_keys=True)
+    return out
+
+
 def sitemap(b, guias):
     hoy = date.today().isoformat()
-    fechas = {g["slug"] + ".html": g.get("actualizado") or g["publicado"] for g in guias}
+    fechas = fechas_reales(b, {g["slug"] + ".html": g.get("actualizado") or g["publicado"] for g in guias}, hoy)
     pares = {g["slug"] + ".html": g["par"] + ".html" for g in guias if g.get("par")}
     pares.update({"pacientes-internacionales.html": "international-patients.html", "international-patients.html": "pacientes-internacionales.html",
                   "blog.html": "guides.html", "guides.html": "blog.html"})
@@ -327,7 +372,7 @@ def sitemap(b, guias):
     urls = []
     for a in sorted(set(b.HECHAS)):
         loc = b.DOMINIO + "/" + ("" if a == "index.html" else a[:-5])
-        x = "  <url>\n    <loc>%s</loc>\n    <lastmod>%s</lastmod>\n" % (loc, fechas.get(a, hoy))
+        x = "  <url>\n    <loc>%s</loc>\n    <lastmod>%s</lastmod>\n" % (loc, fechas[a])
         if a in pares:
             otro = pares[a]
             es_a, en_a = (a, otro) if idioma.get(a, "es") == "es" else (otro, a)
