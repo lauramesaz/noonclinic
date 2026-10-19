@@ -802,6 +802,10 @@ import sys
 from landing_criolipolisis import generar as _crio
 print("Landing: %s." % _crio(sys.modules[__name__]))
 
+# ================================================================ LANDING DE PROMOS DE FIN DE AÑO (pauta; con precios, noindex, fuera del sitemap)
+from landing_promos import generar as _promos
+print("Landing promos: %d páginas en promos/." % _promos(sys.modules[__name__]))
+
 # ================================================================ AGENCIA SEO INTERNACIONAL (guías ES/EN + hubs + sitemap + robots)
 from guias import generar as _guias
 print("Guías internacionales: %d." % _guias(sys.modules[__name__]))
