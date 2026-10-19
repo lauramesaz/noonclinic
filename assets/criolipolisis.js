@@ -1,4 +1,4 @@
-/* noon Clinic · Landing Criolipólisis (v4 alto contraste, estilo demoventas): cabecera, aparición suave, barra fija,
+/* noon Clinic · Landing Criolipólisis (v5 "Frío y vidrio"): cabecera, aparición suave, barra fija,
    test "¿eres candidata?", dibujo de capas (qué hace el frío) y medición en Clarity. */
 (function () {
   var quieto = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -154,7 +154,7 @@
     function fondoEtiqueta() {
       if (!etGrasa || !etGrasa.getBBox) return;
       var bb = etGrasa.getBBox();
-      if (!fondoEt) { fondoEt = document.createElementNS(NS, "rect"); fondoEt.setAttribute("fill", "#0b0b0b"); svg.insertBefore(fondoEt, etGrasa); }
+      if (!fondoEt) { fondoEt = document.createElementNS(NS, "rect"); fondoEt.setAttribute("class", "cl-et-fondo"); svg.insertBefore(fondoEt, etGrasa); }
       var px = bb.height * 0.45, py = bb.height * 0.22;
       fondoEt.setAttribute("x", (bb.x - px).toFixed(1)); fondoEt.setAttribute("y", (bb.y - py).toFixed(1));
       fondoEt.setAttribute("width", (bb.width + 2 * px).toFixed(1)); fondoEt.setAttribute("height", (bb.height + 2 * py).toFixed(1));
@@ -225,6 +225,38 @@
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (es) { if (es[0].isIntersecting) arrancar(); }, { threshold: 0.45 }).observe(vis);
     }
+  }
+
+  // ---------- zonas en pestañas (y atajo de zonas en la portada)
+  var panelZ = document.querySelector("[data-zonas]");
+  if (panelZ) {
+    var seg = document.querySelector(".cl-zonas-seg");
+    var tabs = seg.querySelectorAll('[role="tab"]');
+    var zonasP = panelZ.querySelectorAll(".cl-zona");
+    function abrirZona(k, foco) {
+      tabs.forEach(function (t) {
+        var on = t.dataset.zona === k;
+        t.classList.toggle("on", on); t.setAttribute("aria-selected", on ? "true" : "false"); t.tabIndex = on ? 0 : -1;
+        if (on) { seg.scrollTo({ left: t.offsetLeft - (seg.clientWidth - t.offsetWidth) / 2, behavior: "smooth" }); if (foco) t.focus(); }
+      });
+      zonasP.forEach(function (z) { z.hidden = z.dataset.zona !== k; });
+    }
+    abrirZona(tabs[0].dataset.zona);
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { abrirZona(t.dataset.zona); marcar("zona", t.dataset.zona); });
+      t.addEventListener("keydown", function (e) {
+        var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (d) { e.preventDefault(); abrirZona(tabs[(i + d + tabs.length) % tabs.length].dataset.zona, true); }
+      });
+    });
+    document.querySelectorAll(".cl-atajo [data-zona]").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        abrirZona(a.dataset.zona);
+        document.getElementById("zonas").scrollIntoView({ behavior: quieto ? "auto" : "smooth" });
+        marcar("zona_atajo", a.dataset.zona);
+      });
+    });
   }
 
   // ---------- medición: clic a WhatsApp (mismo evento que el resto de la web)

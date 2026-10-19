@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # noon Clinic · LANDING DE VENTA: Criolipólisis (noon.clinic/criolipolisis)
 # Enfocada en lo que hace la criolipólisis (el resultado en el cuerpo), no en la máquina.
-# v4 (14-oct): Laura pidió algo "como demoventas" (landing de Saneo) con ALTO CONTRASTE: títulos gruesos con palabras
-# resaltadas, tarjetas de "¿te pasa esto?" sobre negro, test interactivo "¿eres candidata?", franja de cifras en vino,
-# zonas en tarjetas, paso a paso, médica, preguntas y cierre. Negro, blanco y VINOTINTO de acento.
+# v5 (19-oct): la v4 negra/vino ya no le gustó a Laura ("no me gusta ni 5"). De 3 primeras pantallas (_propuestas-crio/)
+# eligió la B "Frío y vidrio": fondo perla con un aura de luz fría, tarjetas de vidrio, frase clave en degradé hielo → vino
+# y botones vinotinto. Foto nueva a color hecha en Higgsfield (assets/criolipolisis/portada*.webp).
+# Se mantienen el test "¿eres candidata?", el dibujo de capas, las zonas (ahora en pestañas), el paso a paso, la médica y las preguntas.
 # Sin menú (no distrae), sin precios (regla de la web pública), todo a WhatsApp.
 # build.py llama a generar() al final.
 import json, os
@@ -11,7 +12,7 @@ from html import escape
 from urllib.parse import quote
 
 ARCHIVO = "criolipolisis.html"
-TITULO = "Criolipólisis en Medellín: elimina la grasa localizada sin cirugía"
+TITULO = "Criolipólisis en Medellín sin cirugía"  # + " · noon Clinic" = 51 caracteres (Google corta en ~60)
 DESCRIPCION = ("Criolipólisis en Medellín con valoración médica: el frío controlado elimina la grasa localizada de abdomen, "
                "flancos, papada, brazos y muslos. Sin cirugía, sin agujas y sin incapacidad.")
 
@@ -35,6 +36,8 @@ ZONAS = [
     ("rodillas", "Rodillas", "La grasa que se acumula justo encima de la rodilla.",
      "Piernas más definidas cuando usas falda o short."),
 ]
+
+CORTO_Z = {"flancos": "Cintura"}  # nombre corto en las pestañas
 
 BOTON_Z = {"abdomen": "mi abdomen", "flancos": "mi cintura", "espalda": "mi espalda", "papada": "mi papada",
            "brazos": "mis brazos", "muslos": "mis muslos", "rodillas": "mis rodillas"}
@@ -165,22 +168,28 @@ def generar(b):
     """b = módulo build (WHATSAPP, TELEFONO, DOMINIO, CLARITY_ID, CLINICA_LD, ESPECIALISTAS, HECHAS, V, AQUI)."""
     v = b.V
     url = b.DOMINIO + "/criolipolisis"
-    cta = lambda texto="Quiero mi valoración", clase="cl-btn", extra="": _boton(b, texto + ' ' + ico("flecha", "ico-f"), clase, extra)
+    flecha = ico("flecha", "ico-f")
+    cta = lambda texto="Quiero mi valoración", clase="cl-btn", extra="": _boton(b, texto + ' ' + flecha, clase, extra)
 
-    dolores = "".join('<li class="cl-dolor cl-rev"><span class="cl-dolor-i">%s</span><p>%s</p></li>' % (ico("x"), t) for t in DOLORES)
-    cifras = "".join('<li class="cl-rev"><b>%s</b><span>%s</span></li>' % (n, t) for n, t in CIFRAS)
-    zonas = "".join('''<li class="cl-zona cl-rev"><a href="%s" target="_blank" rel="noopener">
-      <span class="cl-zona-n">%02d</span><h3>%s</h3><p>%s</p><span class="cl-zona-cta">Quiero tratar %s %s</span></a></li>''' % (
-        _wa(b, " para " + BOTON_Z[k].split(" ", 1)[1]), i, n, d, BOTON_Z[k], ico("flecha", "ico-f"))
-        for i, (k, n, d, r) in enumerate(ZONAS, 1))
-    zonas += '<li class="cl-zona cl-zona-test cl-rev"><a href="#test"><h3>¿No sabes cuál es la tuya?</h3><p>Haz el test de 1 minuto y te decimos qué te conviene.</p><span class="cl-zona-cta">Hacer el test %s</span></a></li>' % ico("flecha", "ico-f")
+    dolores = "".join('<li class="cl-dolor cl-vidrio cl-rev"><span class="cl-dolor-i">%s</span><p>%s</p></li>' % (ico("x"), t) for t in DOLORES)
+    cifras = "".join('<li><b>%s</b><span>%s</span></li>' % (n, t) for n, t in CIFRAS)
+    # atajo de zonas en la portada: lleva a la pestaña de esa zona
+    atajo = "".join('<a href="#zona-%s" data-zona="%s">%s</a>' % (k, k, CORTO_Z.get(k, n)) for k, n, d, r in ZONAS)
+    pestanas = "".join('<button type="button" role="tab" id="tab-%s" aria-controls="zona-%s" aria-selected="%s" data-zona="%s"%s>%s</button>' % (
+        k, k, "true" if i == 0 else "false", k, ' class="on"' if i == 0 else "", CORTO_Z.get(k, n)) for i, (k, n, d, r) in enumerate(ZONAS))
+    paneles = "".join('''<article class="cl-zona" id="zona-%s" role="tabpanel" aria-labelledby="tab-%s" data-zona="%s">
+        <div><span class="cl-zona-n">%02d / %02d</span><h3>%s</h3></div>
+        <div><dl><div><dt>Cómo lo vives</dt><dd>%s</dd></div><div><dt>Lo que buscamos</dt><dd>%s</dd></div></dl>%s</div>
+      </article>''' % (k, k, k, i + 1, len(ZONAS), n, d, r,
+                       _boton(b, "Quiero tratar " + BOTON_Z[k] + " " + flecha, "cl-btn", " para " + BOTON_Z[k].split(" ", 1)[1]))
+        for i, (k, n, d, r) in enumerate(ZONAS))
     botones_e = "".join('<button type="button" class="cl-e%s" data-e="%d"><span class="cl-en">%02d</span>%s</button>' % (
         " on" if i == 0 else "", i, i + 1, t) for i, (t, d) in enumerate(ETAPAS))
     textos_e = "".join('<p class="cl-et%s" data-e="%d">%s</p>' % (" on" if i == 0 else "", i, d) for i, (t, d) in enumerate(ETAPAS))
-    pasos = "".join('<li class="cl-rev"><span class="cl-pn">%s</span><h3>%s</h3><p>%s</p></li>' % (ico(ic), t, d)
+    pasos = "".join('<li class="cl-vidrio cl-rev"><span class="cl-pn">%s</span><h3>%s</h3><p>%s</p></li>' % (ico(ic), t, d)
                     for (t, d), ic in zip(PASOS, ["frio", "sin", "check"]))
-    camino = "".join('<li class="cl-rev"><span class="cl-cn">%d</span><h3>%s</h3><p>%s</p></li>' % (i, t, d) for i, (t, d) in enumerate(CAMINO, 1))
-    preguntas = "".join('<details class="cl-preg cl-rev"><summary>%s<span class="cl-mas" aria-hidden="true"></span></summary><div class="cl-resp"><p>%s</p></div></details>' % (p, r) for p, r in PREGUNTAS)
+    camino = "".join('<li class="cl-vidrio cl-rev"><span class="cl-cn">%d</span><div><h3>%s</h3><p>%s</p></div></li>' % (i, t, d) for i, (t, d) in enumerate(CAMINO, 1))
+    preguntas = "".join('<details class="cl-preg cl-vidrio cl-rev"><summary>%s<span class="cl-mas" aria-hidden="true"></span></summary><div class="cl-resp"><p>%s</p></div></details>' % (p, r) for p, r in PREGUNTAS)
     test = json.dumps({"preguntas": TEST, "resultados": RESULTADOS, "wa": b.WHATSAPP, "msj": MSJ}, ensure_ascii=False)
 
     med = [e for e in b.ESPECIALISTAS if e["area"] == "estetica"][0]
@@ -198,7 +207,7 @@ def generar(b):
     ]
     seo = '<link rel="canonical" href="%s">' % url
     seo += ('\n<meta property="og:type" content="website">\n<meta property="og:site_name" content="noon Clinic">\n<meta property="og:title" content="%s">'
-            '\n<meta property="og:description" content="%s">\n<meta property="og:url" content="%s">\n<meta property="og:image" content="%s/assets/criolipolisis/sesion-aplicador.jpg">'
+            '\n<meta property="og:description" content="%s">\n<meta property="og:url" content="%s">\n<meta property="og:image" content="%s/assets/criolipolisis/portada-ancha.jpg">'
             '\n<meta property="og:locale" content="es_CO">') % (escape(TITULO), escape(DESCRIPCION), url, b.DOMINIO)
     for bloque in [b.CLINICA_LD] + esquema:
         seo += '\n<script type="application/ld+json">%s</script>' % json.dumps(bloque, ensure_ascii=False)
@@ -214,56 +223,105 @@ def generar(b):
 <title>%(titulo)s · noon Clinic</title>
 <meta name="description" content="%(desc)s">
 %(seo)s
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#f6f8f8">
 <link rel="icon" href="assets/favicon.png">
 <script>document.documentElement.className="js"</script>
-<link rel="preload" as="image" href="assets/criolipolisis/sesion-aplicador.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/criolipolisis/portada.webp" fetchpriority="high">
 %(fuentes)s
 <link rel="stylesheet" href="assets/criolipolisis.css?v=%(v)s">
 </head>
 <body class="cl">
+<div class="cl-aura" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="cl-grano" aria-hidden="true"></div>
 <header class="cl-cab">
   <a class="cl-logo" href="./" aria-label="noon Clinic, inicio"><img src="assets/logo-noon.png" alt="noon Clinic" width="900" height="295"></a>
-  %(btn_cab)s
+  <a class="cl-btn2 cl-vidrio" href="%(wa)s" target="_blank" rel="noopener">Agendar</a>
 </header>
 <main>
 
 <!-- 1 · PORTADA: promesa + botón + prueba, todo en la primera pantalla -->
 <section class="cl-portada">
-  <div class="cl-in cl-portada-in">
+  <div class="cl-portada-in">
     <div class="cl-portada-txt">
-      <p class="cl-insignia">%(ico_frio)s Criolipólisis en Medellín</p>
-      <h1>Elimina la grasa que <mark>no se va</mark> con dieta ni ejercicio.</h1>
-      <p class="cl-lead">Enfriamos la grasa localizada de forma controlada y tu cuerpo la elimina solo. <b>Sin cirugía, sin agujas y sin incapacidad.</b></p>
-      <div class="cl-acciones">%(btn_portada)s<a class="cl-link" href="#test">¿Soy candidata? Haz el test (1 min)</a></div>
-      <ul class="cl-checks"><li>%(ico_check)s Sin cirugía</li><li>%(ico_check)s Sin agujas</li><li>%(ico_check)s Con valoración médica</li></ul>
+      <p class="cl-ceja cl-vidrio">%(ico_frio)s Criolipólisis · Medellín</p>
+      <h1>La grasa que no se va con nada, <span class="cl-hielo">se va con frío.</span></h1>
+      <p class="cl-lead">Enfriamos la grasa localizada y tu cuerpo la elimina solo. <b>Sin cirugía, sin agujas y sin incapacidad.</b></p>
+      <div class="cl-acciones">%(btn_portada)s<a class="cl-btn2 cl-vidrio" href="#test"><i></i>¿Soy candidata? Test de 1 min</a></div>
     </div>
-    <figure class="cl-portada-foto">
-      <img src="assets/criolipolisis/sesion-aplicador.jpg" fetchpriority="high" alt="Aplicador sobre el abdomen durante una sesión de tratamiento corporal" width="1100" height="1375">
-      <div class="cl-flota cl-flota-1"><b>1 a 3</b><span>sesiones por zona</span></div>
-      <div class="cl-flota cl-flota-2">%(ico_reloj)s<span><b>Desde la semana 3</b> notas el cambio</span></div>
+    <figure class="cl-foto">
+      <img src="assets/criolipolisis/portada.webp" fetchpriority="high" alt="Paciente recostada durante una sesión de criolipólisis en la cintura" width="1200" height="1500">
+      <div class="cl-tarjeta cl-proceso cl-vidrio">
+        <p>Tu proceso</p>
+        <ol class="cl-linea"><li><b>Hoy</b><span>Una sesión y sigues tu día</span></li><li><b>Semana 3</b><span>Empiezas a notarlo</span></li><li><b>Semana 12</b><span>Ves el resultado completo</span></li></ol>
+      </div>
+      <div class="cl-tarjeta cl-cero cl-vidrio"><b>0</b><span>días de<br>incapacidad</span></div>
     </figure>
+  </div>
+  <div class="cl-atajo">
+    <p>¿Qué zona te molesta?</p>
+    <nav class="cl-seg cl-vidrio" aria-label="Zonas">%(atajo)s</nav>
   </div>
 </section>
 
 <!-- 2 · ¿TE PASA ESTO? (dolores) -->
-<section class="cl-sec cl-negro" id="te-pasa">
+<section class="cl-sec" id="te-pasa">
   <div class="cl-in">
-    <header class="cl-cabeza cl-rev"><p class="cl-ceja">Si esto te pasa</p>
-      <h2>No es falta de disciplina. Es <mark>grasa terca</mark>.</h2>
+    <header class="cl-cabeza cl-rev"><p class="cl-ceja cl-vidrio">%(ico_frio)s Si esto te pasa</p>
+      <h2>No es falta de disciplina. Es <span class="cl-hielo">grasa terca.</span></h2>
       <p class="cl-sub">Hay grasa que no responde a la dieta ni al ejercicio: se acumula en zonas puntuales, muchas veces por genética.</p></header>
     <ul class="cl-dolores">%(dolores)s</ul>
-    <div class="cl-respuesta cl-rev"><p>La criolipólisis trata <b>justo esa grasa</b>: la localizada, la que se pellizca.</p>%(btn_dolores)s</div>
+    <div class="cl-respuesta cl-vidrio cl-rev"><p>La criolipólisis trata <b>justo esa grasa</b>: la localizada, la que se pellizca.</p>%(btn_dolores)s</div>
   </div>
 </section>
 
-<!-- 3 · TEST: ¿eres candidata? -->
-<section class="cl-sec cl-claro" id="test">
+<!-- 3 · QUÉ HACE: el frío en tu grasa -->
+<section class="cl-sec" id="que-hace">
+  <div class="cl-in">
+    <header class="cl-cabeza cl-rev"><p class="cl-ceja cl-vidrio">%(ico_frio)s Cómo funciona</p>
+      <h2>Lo que hace el <span class="cl-hielo">frío</span> en tu grasa.</h2>
+      <p class="cl-sub">No es una dieta ni un masaje: la criolipólisis elimina células de grasa de la zona tratada, y tu cuerpo hace el resto.</p></header>
+    <div class="cl-visual cl-vidrio cl-rev" data-capas>
+      <svg class="cl-svg" viewBox="0 0 800 380" role="img" aria-label="Corte de la piel, la grasa y el músculo: con el frío, la capa de grasa de la zona tratada se vuelve más delgada">
+        <defs>
+          <linearGradient id="cl-g-frio" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcdbe6" stop-opacity=".75"/><stop offset="1" stop-color="#bcdbe6" stop-opacity="0"/></linearGradient>
+          <linearGradient id="cl-g-grasa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbeedd"/><stop offset="1" stop-color="#f5e3cc"/></linearGradient>
+          <clipPath id="cl-clip"><path class="cl-grasa-clip"/></clipPath>
+          <pattern id="cl-rayas" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(255,255,255,.18)" stroke-width="1"/></pattern>
+        </defs>
+        <rect x="0" y="320" width="800" height="60" fill="#7a2f3d"/>
+        <rect x="0" y="320" width="800" height="60" fill="url(#cl-rayas)"/>
+        <path class="cl-grasa" fill="url(#cl-g-grasa)"/>
+        <g class="cl-celulas" clip-path="url(#cl-clip)"></g>
+        <rect class="cl-frio" x="225" y="0" width="350" height="320" fill="url(#cl-g-frio)" clip-path="url(#cl-clip)"/>
+        <path class="cl-piel" fill="none" stroke="#e2c6b6" stroke-width="10" stroke-linecap="round"/>
+        <path class="cl-corchete" d="M235,40 V32 H565 V40" fill="none" stroke="#6D2835" stroke-width="1.5"/>
+        <text class="cl-et-svg cl-et-frio" x="400" y="20" text-anchor="middle">Zona tratada</text>
+        <text class="cl-et-svg" x="16" y="114">Piel</text>
+        <text class="cl-et-svg cl-et-grasa" x="20" y="240">Grasa</text>
+        <text class="cl-et-svg" x="16" y="358" style="fill:#fff">Músculo</text>
+      </svg>
+      <div class="cl-etapas" role="group" aria-label="Etapas">%(botones_e)s</div>
+      <div class="cl-etextos" aria-live="polite">%(textos_e)s</div>
+    </div>
+    <ol class="cl-pasos">%(pasos)s</ol>
+  </div>
+</section>
+
+<!-- 4 · CIFRAS + botón (ruptura) -->
+<section class="cl-sec cl-sec-cifras">
+  <div class="cl-in">
+    <ul class="cl-cifras cl-vidrio cl-rev">%(cifras)s</ul>
+    <div class="cl-centro cl-mas-btn cl-rev">%(btn_cifras)s</div>
+  </div>
+</section>
+
+<!-- 5 · TEST: ¿eres candidata? -->
+<section class="cl-sec" id="test">
   <div class="cl-in cl-test-in">
-    <header class="cl-cabeza cl-rev"><p class="cl-ceja">Test de 1 minuto</p>
-      <h2>¿Eres <mark>candidata</mark> a criolipólisis?</h2>
+    <header class="cl-cabeza cl-rev"><p class="cl-ceja cl-vidrio">%(ico_frio)s Test de 1 minuto</p>
+      <h2>¿Eres <span class="cl-hielo">candidata</span> a criolipólisis?</h2>
       <p class="cl-sub">Cinco preguntas de un toque. Al final te decimos qué te conviene, con honestidad.</p></header>
-    <div class="cl-test cl-rev" data-test aria-live="polite">
+    <div class="cl-test cl-vidrio cl-rev" data-test aria-live="polite">
       <div class="cl-test-barra" aria-hidden="true"></div>
       <p class="cl-test-paso"></p>
       <h3 class="cl-test-p"></h3>
@@ -281,78 +339,45 @@ def generar(b):
   <script type="application/json" id="cl-test-datos">%(test)s</script>
 </section>
 
-<!-- 4 · QUÉ HACE: el frío en tu grasa -->
-<section class="cl-sec cl-gris" id="que-hace">
+<!-- 6 · ZONAS (pestañas) -->
+<section class="cl-sec" id="zonas">
   <div class="cl-in">
-    <header class="cl-cabeza cl-rev"><p class="cl-ceja">Cómo funciona</p>
-      <h2>Lo que hace el <mark>frío</mark> en tu grasa.</h2>
-      <p class="cl-sub">No es una dieta ni un masaje: la criolipólisis elimina células de grasa de la zona tratada, y tu cuerpo hace el resto.</p></header>
-    <div class="cl-visual cl-rev" data-capas>
-      <svg class="cl-svg" viewBox="0 0 800 380" role="img" aria-label="Corte de la piel, la grasa y el músculo: con el frío, la capa de grasa de la zona tratada se vuelve más delgada">
-        <defs>
-          <linearGradient id="cl-g-frio" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9EEEE" stop-opacity=".32"/><stop offset="1" stop-color="#E9EEEE" stop-opacity="0"/></linearGradient>
-          <clipPath id="cl-clip"><path class="cl-grasa-clip"/></clipPath>
-          <pattern id="cl-rayas" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(255,255,255,.22)" stroke-width="1"/></pattern>
-        </defs>
-        <rect x="0" y="320" width="800" height="60" fill="#5a1f2b"/>
-        <rect x="0" y="320" width="800" height="60" fill="url(#cl-rayas)"/>
-        <path class="cl-grasa" fill="rgba(255,255,255,.03)"/>
-        <g class="cl-celulas" clip-path="url(#cl-clip)"></g>
-        <rect class="cl-frio" x="225" y="0" width="350" height="320" fill="url(#cl-g-frio)" clip-path="url(#cl-clip)"/>
-        <path class="cl-piel" fill="none" stroke="#e5e5e5" stroke-width="10" stroke-linecap="round"/>
-        <path class="cl-corchete" d="M235,40 V32 H565 V40" fill="none" stroke="#e07a8f" stroke-width="1.5"/>
-        <text class="cl-et-svg cl-et-frio" x="400" y="20" text-anchor="middle">Zona tratada</text>
-        <text class="cl-et-svg" x="16" y="114">Piel</text>
-        <text class="cl-et-svg cl-et-grasa" x="20" y="240">Grasa</text>
-        <text class="cl-et-svg" x="16" y="358">Músculo</text>
-      </svg>
-      <div class="cl-etapas" role="group" aria-label="Etapas">%(botones_e)s</div>
-      <div class="cl-etextos" aria-live="polite">%(textos_e)s</div>
+    <header class="cl-cabeza cl-rev"><p class="cl-ceja cl-vidrio">%(ico_frio)s Zonas que tratamos</p>
+      <h2>¿Dónde está <span class="cl-hielo">tu</span> grasa terca?</h2>
+      <p class="cl-sub">Elige tu zona: te contamos qué buscamos ahí y nos escribes con un toque.</p></header>
+    <div class="cl-rev">
+      <div class="cl-seg cl-zonas-seg cl-vidrio" role="tablist" aria-label="Zonas">%(pestanas)s</div>
+      <div class="cl-zona-panel cl-vidrio" data-zonas>%(paneles)s</div>
+      <p class="cl-zona-nota">¿No sabes cuál es la tuya? <a href="#test">Haz el test de 1 minuto</a>.</p>
     </div>
-    <ol class="cl-pasos">%(pasos)s</ol>
   </div>
 </section>
 
-<!-- 5 · CIFRAS (franja vino) -->
-<section class="cl-cifras">
-  <ul class="cl-in">%(cifras)s</ul>
-</section>
-
-<!-- 6 · ZONAS -->
-<section class="cl-sec cl-claro" id="zonas">
-  <div class="cl-in">
-    <header class="cl-cabeza cl-rev"><p class="cl-ceja">Zonas que tratamos</p>
-      <h2>¿Dónde está <mark>tu</mark> grasa terca?</h2>
-      <p class="cl-sub">Toca tu zona y te escribimos con lo que necesitas saber.</p></header>
-    <ul class="cl-zonas">%(zonas)s</ul>
-  </div>
-</section>
-
-<!-- 7 · PASO A PASO + fotos -->
-<section class="cl-sec cl-negro" id="paso-a-paso">
-  <div class="cl-in">
-    <header class="cl-cabeza cl-rev"><p class="cl-ceja">Paso a paso</p>
-      <h2>Una sesión, y tu vida <mark>sigue</mark>.</h2></header>
-    <div class="cl-camino-grid">
+<!-- 7 · PASO A PASO -->
+<section class="cl-sec" id="paso-a-paso">
+  <div class="cl-in cl-camino-grid">
+    <figure class="cl-camino-foto cl-rev"><img src="assets/criolipolisis/portada-2.webp" alt="Sesión de criolipólisis en el abdomen, en una sala de noon" width="1200" height="1500" loading="lazy"><figcaption class="cl-vidrio">Sin agujas, sin cortes y sin incapacidad.</figcaption></figure>
+    <div>
+      <header class="cl-cabeza cl-rev"><p class="cl-ceja cl-vidrio">%(ico_frio)s Paso a paso</p>
+        <h2>Una sesión, y tu vida <span class="cl-hielo">sigue.</span></h2></header>
       <ol class="cl-camino">%(camino)s</ol>
-      <figure class="cl-camino-foto cl-rev"><img src="assets/criolipolisis/sesion-aparato.jpg" alt="Tratamiento corporal sin cirugía sobre el abdomen" width="1400" height="933" loading="lazy"><figcaption>Sin agujas, sin cortes y sin incapacidad.</figcaption></figure>
+      <div class="cl-mas-btn cl-rev">%(btn_camino)s</div>
     </div>
-    <div class="cl-centro cl-rev">%(btn_camino)s</div>
   </div>
 </section>
 
 <!-- 8 · MÉDICA -->
-<section class="cl-sec cl-claro">
+<section class="cl-sec">
   <div class="cl-in cl-medico">
-    <figure class="cl-med-foto cl-rev"><img src="assets/equipo/%(med_foto)s" alt="%(med_nombre)s, %(med_rol)s de noon Clinic" loading="lazy"><figcaption><b>%(med_nombre)s</b><span>%(med_rol_m)s · noon Clinic</span></figcaption></figure>
+    <figure class="cl-med-foto cl-rev"><img src="assets/equipo/%(med_foto)s" alt="%(med_nombre)s, %(med_rol)s de noon Clinic" loading="lazy"><figcaption class="cl-vidrio"><b>%(med_nombre)s</b><span>%(med_rol_m)s · noon Clinic</span></figcaption></figure>
     <div class="cl-rev">
-      <p class="cl-ceja">Por qué en noon</p>
-      <h2>Antes del frío, <mark>una médica</mark>.</h2>
+      <p class="cl-ceja cl-vidrio">%(ico_frio)s Por qué en noon</p>
+      <h2>Antes del frío, <span class="cl-hielo">una médica.</span></h2>
       <p class="cl-sub">La criolipólisis funciona cuando se indica bien. Por eso en noon no empieza en la máquina: empieza en tu valoración.</p>
       <ul class="cl-razones">
-        <li>%(ico_medica)s<div><b>Valoración médica primero</b><span>Revisa la zona, tu historia y si eres candidata.</span></div></li>
-        <li>%(ico_plan)s<div><b>Tu plan por escrito</b><span>Qué zonas, cuántas sesiones, cada cuánto y qué esperar.</span></div></li>
-        <li>%(ico_control)s<div><b>Te volvemos a ver</b><span>Control entre la semana 8 y la 12 para medir el resultado.</span></div></li>
+        <li class="cl-vidrio">%(ico_medica)s<div><b>Valoración médica primero</b><span>Revisa la zona, tu historia y si eres candidata.</span></div></li>
+        <li class="cl-vidrio">%(ico_plan)s<div><b>Tu plan por escrito</b><span>Qué zonas, cuántas sesiones, cada cuánto y qué esperar.</span></div></li>
+        <li class="cl-vidrio">%(ico_control)s<div><b>Te volvemos a ver</b><span>Control entre la semana 8 y la 12 para medir el resultado.</span></div></li>
       </ul>
       %(btn_medico)s
     </div>
@@ -360,18 +385,18 @@ def generar(b):
 </section>
 
 <!-- 9 · PREGUNTAS -->
-<section class="cl-sec cl-gris" id="preguntas">
-  <div class="cl-in cl-faq-in">
-    <header class="cl-cabeza cl-rev"><p class="cl-ceja">Antes de que preguntes</p><h2>Lo que todas <mark>preguntan</mark>.</h2></header>
+<section class="cl-sec" id="preguntas">
+  <div class="cl-in">
+    <header class="cl-cabeza cl-centro cl-rev"><p class="cl-ceja cl-vidrio">%(ico_frio)s Antes de que preguntes</p><h2>Lo que todas <span class="cl-hielo">preguntan.</span></h2></header>
     <div class="cl-faq">%(preguntas)s</div>
   </div>
 </section>
 
 <!-- 10 · CIERRE -->
 <section class="cl-cierre" id="agendar">
-  <div class="cl-in cl-cierre-in cl-rev">
-    <p class="cl-ceja">noon Clinic · Medellín</p>
-    <h2>Tu primer paso es la <mark>valoración</mark>.</h2>
+  <div class="cl-cierre-in cl-rev">
+    <p class="cl-ceja">%(ico_frio)s noon Clinic · Medellín</p>
+    <h2>Tu primer paso es la <span>valoración.</span></h2>
     <p class="cl-sub">Te decimos qué se puede lograr en tu zona, cuántas sesiones necesitas y si eres candidata. Sin compromiso de hacerte el tratamiento.</p>
     %(btn_cierre)s
     <p class="cl-nota">La valoración no se abona al tratamiento y su valor no se devuelve. <a href="terminos-y-condiciones">Términos y condiciones</a></p>
@@ -384,21 +409,22 @@ def generar(b):
     <a class="cl-logo" href="./"><img src="assets/logo-noon.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
     <nav><a href="./">Conoce noon</a><a href="medicina-estetica">Medicina estética</a><a href="especialistas">Especialistas</a><a href="terminos-y-condiciones">Términos</a><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a></nav>
   </div>
-  <p class="cl-in cl-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Los resultados varían de una persona a otra. Fotos: Laura Beauty Designer en Pexels; Patient Perfect en Unsplash. © noon Clinic</p>
+  <p class="cl-in cl-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Los resultados varían de una persona a otra. Las fotos de las sesiones son ilustrativas. © noon Clinic</p>
 </footer>
-<div class="cl-barra" aria-hidden="true">%(btn_barra)s</div>
+<div class="cl-barra cl-vidrio" aria-hidden="true">%(btn_barra)s</div>
 <script src="assets/medicion-ads.js?v=%(v)s" defer></script>
 <script src="assets/criolipolisis.js?v=%(v)s" defer></script>
 </body>
 </html>
 """ % {"titulo": escape(TITULO), "desc": escape(DESCRIPCION), "seo": seo, "v": v, "fuentes": b.FUENTES, "wa": _wa(b), "tel": b.TELEFONO,
-       "btn_cab": _boton(b, "Agendar " + ico("flecha", "ico-f"), "cl-btn cl-btn-sm"),
        "btn_portada": cta("Quiero mi valoración", "cl-btn cl-btn-xl"), "btn_dolores": cta("Quiero mi valoración", "cl-btn"),
-       "btn_camino": cta("Agendar mi valoración", "cl-btn cl-btn-xl"), "btn_medico": cta("Quiero mi valoración", "cl-btn"),
+       "btn_cifras": cta("Agendar mi valoración", "cl-btn cl-btn-xl"),
+       "btn_camino": cta("Agendar mi valoración", "cl-btn"), "btn_medico": cta("Quiero mi valoración", "cl-btn"),
        "btn_cierre": cta("Quiero mi valoración", "cl-btn cl-btn-xl cl-btn-blanco"), "btn_barra": cta("Quiero mi valoración", "cl-btn"),
-       "ico_frio": ico("frio"), "ico_check": ico("check"), "ico_reloj": ico("reloj"), "ico_flecha": ico("flecha", "ico-f"),
+       "ico_frio": ico("frio"), "ico_flecha": flecha,
        "ico_medica": ico("medica"), "ico_plan": ico("plan"), "ico_control": ico("control"),
-       "dolores": dolores, "cifras": cifras, "zonas": zonas, "botones_e": botones_e, "textos_e": textos_e, "pasos": pasos,
+       "dolores": dolores, "cifras": cifras, "atajo": atajo, "pestanas": pestanas, "paneles": paneles,
+       "botones_e": botones_e, "textos_e": textos_e, "pasos": pasos,
        "camino": camino, "preguntas": preguntas, "test": test.replace("</", "<\\/"),
        "med_foto": med["foto"], "med_nombre": med["nombre"], "med_rol": med["rol"].lower(), "med_rol_m": med["rol"]}
 
