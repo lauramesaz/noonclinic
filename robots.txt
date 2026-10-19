@@ -1,6 +1,25 @@
 User-agent: *
 Allow: /
 Disallow: /capacitacion-comercial
+Disallow: /cotizador
+Disallow: /_agencia-seo/
+
+# Buscadores y asistentes con IA: bienvenidos (mismas reglas)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bingbot
+User-agent: meta-externalagent
+Allow: /
+Disallow: /capacitacion-comercial
+Disallow: /cotizador
 Disallow: /_agencia-seo/
 
 Sitemap: https://noon.clinic/sitemap.xml

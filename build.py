@@ -109,7 +109,7 @@ MENU_ES = """<div class="menu" id="menu" hidden>
 MENU_EN = """<div class="menu" id="menu" hidden>
   <div class="menu-in tres">
     <div class="menu-col"><p class="ceja">International patients</p><nav class="grande"><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></nav></div>
-    <div class="menu-col"><p class="ceja">noon Clinic</p><nav class="grande"><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></nav></div>
+    <div class="menu-col"><p class="ceja">noon Clinic</p><nav class="grande"><a href="about-noon-clinic.html">About noon</a><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></nav></div>
     <div class="menu-col"><p class="ceja">Contact</p><nav><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp</a></nav>
       <a class="boton" href="%(wa)s" target="_blank" rel="noopener">Book a consultation</a></div>
   </div>
@@ -121,9 +121,9 @@ PIE_EN = """<footer class="pie">
     <p class="lema">Plastic surgery and aesthetic medicine, with judgment. Medellín, Colombia.</p>
     <div class="pie-cols cuatro">
       <div><p class="ceja">International patients</p><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></div>
-      <div><p class="ceja">noon Clinic</p><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></div>
+      <div><p class="ceja">noon Clinic</p><a href="about-noon-clinic.html">About noon Clinic</a><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></div>
       <div><p class="ceja">En español</p><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a></div>
-      <div><p class="ceja">Contact</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a></div>
+      <div><p class="ceja">Contact</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="tel:+573022491937">Call +57 302 249 1937</a></div>
     </div>
     <a class="boton champan" href="terminos-y-condiciones.html">Terms and conditions (Spanish)</a>
     <p class="legal">The information on this site is for guidance only and does not replace a medical consultation. Every procedure carries risks and results vary from person to person. © noon Clinic</p>
@@ -681,6 +681,58 @@ for t in TRATAMIENTOS:
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (t["slug"], wa(msj)), fondo=f)
            + barra_cta(t["nombre"], "Valoración con " + ESPECIALISTAS[1]["nombre"], t["slug"], msj),
            esquema=esquema_ficha(t, cat_n, "medicina-estetica", "Medicina estética", "MedicalProcedure"), og_tipo="website")
+
+# ================================================================ ABOUT (inglés): ficha de datos de noon para pacientes extranjeros y buscadores con IA
+NOMBRE_EN = {
+    "blefaroplastia": "Eyelid surgery (blepharoplasty)", "rinoplastia": "Rhinoplasty (nose surgery)", "lifting-facial": "Facelift and neck lift",
+    "bichectomia": "Buccal fat removal", "mentoplastia": "Chin surgery (mentoplasty)", "otoplastia": "Ear surgery (otoplasty)",
+    "lipopapada": "Chin and neck liposuction", "mamoplastia-de-aumento": "Breast augmentation", "mastopexia": "Breast lift",
+    "mamoplastia-de-reduccion": "Breast reduction", "recambio-de-implantes": "Breast implant exchange or removal", "ginecomastia": "Gynecomastia surgery",
+    "liposuccion": "Liposuction", "lipotransferencia-glutea": "Brazilian butt lift (BBL, fat transfer)", "abdominoplastia": "Tummy tuck (abdominoplasty)",
+    "mini-abdominoplastia": "Mini tummy tuck", "braquioplastia": "Arm lift", "lifting-de-muslos": "Thigh lift",
+    "cirugia-post-bariatrica": "Body contouring after major weight loss", "mommy-makeover": "Mommy makeover", "labioplastia": "Labiaplasty",
+    "toxina-botulinica": "Botox (botulinum toxin)", "acido-hialuronico": "Hyaluronic acid fillers", "bioestimuladores": "Collagen biostimulators",
+    "hilos-tensores": "Thread lift", "skinboosters": "Skin boosters", "plasma-rico-en-plaquetas": "Platelet-rich plasma (PRP)",
+    "peelings": "Chemical peels", "microagujas": "Microneedling", "limpieza-facial-medica": "Medical facial", "manchas-y-melasma": "Dark spots and melasma",
+    "laser": "Laser skin treatments", "depilacion-laser": "Laser hair removal", "hifu": "HIFU", "radiofrecuencia": "Radiofrequency skin tightening",
+    "tratamientos-corporales": "Body treatments", "sueroterapia": "IV therapy", "manejo-medico-del-peso": "Medical weight management", "nutricion": "Nutrition",
+}
+TEL_VISIBLE = "+57 302 249 1937"
+DATOS_EN = [
+    ("Where", "Medellín, Antioquia, Colombia."),
+    ("Specialists", "Dr. Fernando Ruiz, plastic surgeon, and Dra. Valeria Enciso, aesthetic physician."),
+    ("Where surgery happens", "In licensed operating rooms (Q2), never in a doctor's office. Pre-op tests are mandatory."),
+    ("First step", "An in-person consultation in Medellín with the specialist who would treat you. WhatsApp is for questions and booking, not for diagnosis."),
+    ("Once you are back home", "Follow-up by WhatsApp or video call. It does not replace the in-person check-ups your specialist sets before you fly."),
+    ("Prices", "Not published online: you get a written plan and quote after your consultation."),
+    ("Contact", 'WhatsApp and phone <a href="%s" target="_blank" rel="noopener">%s</a>' % ("https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA), TEL_VISIBLE)),
+]
+
+
+def lista_en(slugs):
+    return '<ul class="lineas">%s</ul>' % "".join('<li class="rev"><b><a href="%s.html" hreflang="es">%s</a></b></li>' % (s, NOMBRE_EN[s]) for s in slugs)
+
+
+pagina("about-noon-clinic.html", "Plastic surgery clinic in Medellín, Colombia",
+       "noon Clinic is a plastic surgery and aesthetic medicine clinic in Medellín, Colombia. Surgery in licensed operating rooms. WhatsApp " + TEL_VISIBLE + ".",
+       hero("seda-noche", "About noon Clinic", "Plastic surgery in <em>Medellín</em>, Colombia.",
+            "A plastic surgery and aesthetic medicine clinic for patients from Colombia and abroad. WhatsApp " + TEL_VISIBLE + ".", "medio")
+       + seccion("Quick facts", "noon Clinic <em>at a glance</em>.", lineas(DATOS_EN))
+       + seccion("Plastic surgery", "Surgical <em>procedures</em>.", lista_en([c["slug"] for c in CIRUGIAS_NOON]) + '<p class="pista rev">Procedure pages are in Spanish.</p>', "marfil")
+       + seccion("Aesthetic medicine", "Non-surgical <em>treatments</em>.", lista_en([t["slug"] for t in TRATAMIENTOS]) + '<p class="pista rev">Also: <a href="criolipolisis.html" hreflang="es">cryolipolysis (fat freezing)</a>. Treatment pages are in Spanish.</p>')
+       + seccion("Traveling for surgery", "Plan your <em>trip</em>.", lineas([
+           ('<a href="international-patients.html">International patients</a>', "How a trip to Medellín for surgery works, step by step."),
+           ('<a href="is-it-safe-to-get-plastic-surgery-in-colombia.html">Is it safe to get plastic surgery in Colombia?</a>', "What to check before you choose a clinic."),
+           ('<a href="how-to-choose-a-plastic-surgeon-in-medellin.html">How to choose a plastic surgeon in Medellín</a>', "Credentials, operating rooms and red flags."),
+           ('<a href="how-long-to-stay-in-colombia-after-plastic-surgery.html">How long to stay after surgery</a>', "Recovery time before you fly home."),
+           ('<a href="guides.html">All guides</a>', "")]), "marfil")
+       + cierre("Talk to <em>us</em>", "Message us on WhatsApp at " + TEL_VISIBLE + " and we will plan your consultation, procedure and follow-up dates with you.",
+                '<a class="boton lleno" href="%s" target="_blank" rel="noopener">WhatsApp %s</a>' % (wa(), TEL_VISIBLE), fondo="seda-oscura"),
+       lang="en", foto="seda-noche", og_tipo="website",
+       esquema=[{"@context": "https://schema.org", "@type": "AboutPage", "url": DOMINIO + "/about-noon-clinic", "inLanguage": "en-US",
+                 "about": {"@id": DOMINIO + "/#clinica"}, "mainEntity": {"@id": DOMINIO + "/#clinica"}}],
+       etiquetas={"seccion": "internacional", "tipo": "about"})
+
 
 # ================================================================ ESPECIALISTAS
 fichas = ""

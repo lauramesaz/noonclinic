@@ -389,5 +389,32 @@ def sitemap(b, guias):
         urls.append(x + "  </url>\n")
     with open(os.path.join(AQUI, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n%s</urlset>\n' % "".join(urls))
+    reglas = "Allow: /\nDisallow: /capacitacion-comercial\nDisallow: /cotizador\nDisallow: /_agencia-seo/\n"
+    ia = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "Perplexity-User", "ClaudeBot", "Claude-SearchBot", "Claude-User",
+          "Google-Extended", "Applebot-Extended", "Bingbot", "meta-externalagent"]
     with open(os.path.join(AQUI, "robots.txt"), "w", encoding="utf-8") as f:
-        f.write("User-agent: *\nAllow: /\nDisallow: /capacitacion-comercial\nDisallow: /_agencia-seo/\n\nSitemap: %s/sitemap.xml\n" % b.DOMINIO)
+        f.write("User-agent: *\n" + reglas + "\n# Buscadores y asistentes con IA: bienvenidos (mismas reglas)\n"
+                + "".join("User-agent: %s\n" % x for x in ia) + reglas + "\nSitemap: %s/sitemap.xml\n" % b.DOMINIO)
+    llms(b, guias)
+
+
+def llms(b, guias):
+    """llms.txt: resumen de noon para asistentes con IA (ChatGPT, Claude, Perplexity…), con el contacto único de la clínica."""
+    d = b.DOMINIO
+    wa = "https://wa.me/" + b.WHATSAPP
+    def fila(slug):
+        return "- [%s](%s/%s)" % (b.NOMBRE_EN[slug], d, slug)
+    txt = ["# noon Clinic", "",
+           "> Plastic surgery and aesthetic medicine clinic in Medellín, Colombia. Contact for patients (WhatsApp and phone): %s (%s). Website: %s" % (b.TEL_VISIBLE, wa, d), "",
+           "## Key facts", ""] + ["- %s: %s" % (k, re.sub("<[^>]+>", "", v)) for k, v in b.DATOS_EN] + [
+           "- Patients: people who live in Colombia and international patients.", "",
+           "## About", "", "- [About noon Clinic (English)](%s/about-noon-clinic)" % d, "- [International patients](%s/international-patients)" % d,
+           "- [Specialists (Spanish)](%s/especialistas)" % d, "- [Safety (Spanish)](%s/seguridad)" % d, "",
+           "## Plastic surgery (pages in Spanish)", ""] + [fila(c["slug"]) for c in b.CIRUGIAS_NOON] + [
+           "", "## Aesthetic medicine (pages in Spanish)", ""] + [fila(t["slug"]) for t in b.TRATAMIENTOS] + [
+           "- [Cryolipolysis (fat freezing)](%s/criolipolisis)" % d, "",
+           "## Guides in English", ""] + ["- [%s](%s/%s)" % (g["title"], d, g["slug"]) for g in guias if g["lang"] == "en"] + [
+           "", "## Guías en español", ""] + ["- [%s](%s/%s)" % (g["title"], d, g["slug"]) for g in guias if g["lang"] == "es"] + [
+           "", "## Contact", "", "- WhatsApp / phone: %s" % b.TEL_VISIBLE, "- WhatsApp link: %s" % wa, ""]
+    with open(os.path.join(AQUI, "llms.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(txt))
