@@ -9,7 +9,7 @@
   function marcar(nombre, valor) { if (!window.clarity) return; if (valor === undefined) window.clarity("event", nombre); else window.clarity("set", nombre, valor); }
   function $(sel, raiz) { return (raiz || document).querySelector(sel); }
   function $$(sel, raiz) { return Array.prototype.slice.call((raiz || document).querySelectorAll(sel)); }
-  function wa(it) { return "https://wa.me/" + D.wa + "?text=" + encodeURIComponent(D.msj + it.nombre.toLowerCase()); }
+  function wa() { return "https://wa.me/" + D.wa + "?text=" + encodeURIComponent(D.msj); }
 
   // ---------- cabecera + barra fija en celular (aparece al pasar la portada, se esconde en el cierre)
   var cab = $(".pr-cab"), barra = $(".pr-barra"), portada = $(".pr-portada"), cierre = $(".pr-cierre");

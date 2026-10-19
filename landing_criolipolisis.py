@@ -19,7 +19,7 @@ DESCRIPCION = ("Criolipólisis en Medellín con valoración médica: el frío co
 # Línea de inmediatez junto al botón: dato real confirmado por Laura el 19-oct ("respondemos en minutos en horario de atención").
 INMEDIATO = "Te respondemos en minutos por WhatsApp, en horario de atención."
 
-MSJ = "Hola, vengo de la web y quiero una cita de criolipólisis"  # mismo inicio que el resto de la web (MENSAJE_WA)
+from datos import MENSAJE_WA as MSJ  # el mismo mensaje de toda la web, sin zona ni resultado del test (decisión de Laura, 19-oct-2026)
 
 # ---------------------------------------------------------------- zonas (la grasa "terca")
 # (clave, nombre, cómo lo vive la paciente, qué se busca)
@@ -120,7 +120,7 @@ PREGUNTAS = [
 
 
 def _wa(b, extra=""):
-    return "https://wa.me/" + b.WHATSAPP + "?text=" + quote(MSJ + extra)
+    return "https://wa.me/" + b.WHATSAPP + "?text=" + quote(MSJ)
 
 
 def _boton(b, texto="Quiero mi valoración", clase="cl-btn", extra=""):

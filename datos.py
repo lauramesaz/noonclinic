@@ -5,7 +5,7 @@
 
 WHATSAPP = "573022491937"
 TELEFONO = "+57 302 2491937"
-MENSAJE_WA = "Hola, vengo de la web y quiero una cita"  # TODOS los botones de WhatsApp de la web llevan este mensaje (decisión de Laura, 2-oct-2026)
+MENSAJE_WA = "Hola, vengo de la web y estoy interesado en una cita"  # TODOS los botones de WhatsApp de la web y de TODAS las landings llevan este mensaje, sin variaciones (decisión de Laura, 19-oct-2026)
 MARCA = "noon Clinic"  # nombre provisional del sitio (sin marca). Cámbialo aquí.
 SEDE_QX = "Q2"
 VALORACION = "$200.000"

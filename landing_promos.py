@@ -18,8 +18,7 @@ CARPETA = "promos"
 VIGENCIA = "15 de enero de 2027"   # = FECHA_LIMITE de datos.py (términos): la cirugía debe hacerse antes de esta fecha
 VALORACION = "$200.000"
 RETHUS = "https://web.sispro.gov.co/THS/Cliente/ConsultasPublicas/ConsultaPublicaDeTHxIdentificacion.aspx"
-MSJ = "Hola, vengo de la promo de fin de año y quiero una cita de valoración para "
-MSJ_GENERAL = "Hola, vengo de la promo de fin de año y quiero información de las cirugías"
+from datos import MENSAJE_WA as MSJ  # el mismo mensaje de toda la web, en todas las cirugías (decisión de Laura, 19-oct-2026)
 
 ZONAS = [("senos", "Senos"), ("cuerpo", "Cuerpo"), ("rostro", "Rostro"), ("combinadas", "Combinadas e íntima")]
 
@@ -155,8 +154,7 @@ def _items(b):
 
 
 def _wa(b, nombre=None):
-    texto = MSJ + nombre.lower() if nombre else MSJ_GENERAL
-    return "https://wa.me/" + b.WHATSAPP + "?text=" + quote(texto)
+    return "https://wa.me/" + b.WHATSAPP + "?text=" + quote(MSJ)
 
 
 def _lista_texto(xs):

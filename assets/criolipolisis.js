@@ -84,7 +84,7 @@
       res.querySelector(".cl-test-r-i").innerHTML = clave === "ok" ? ICO.check : ICO.info;
       res.querySelector(".cl-test-r-t").textContent = clave === "ok" && zona ? r.t + " en " + zona.toLowerCase() : r.t;
       res.querySelector(".cl-test-r-d").textContent = r.d;
-      var msj = D.msj + (zona ? " para " + zona.toLowerCase() : "") + ". Hice el test: " + r.t.toLowerCase() + ".";
+      var msj = D.msj;  // mismo mensaje de toda la web (decisión de Laura, 19-oct-2026)
       res.querySelector(".cl-test-wa").href = "https://wa.me/" + D.wa + "?text=" + encodeURIComponent(msj);
       var enl = res.querySelector(".cl-test-link");
       if (r.link) { enl.hidden = false; enl.href = r.link[0]; enl.textContent = r.link[1]; } else { enl.hidden = true; }
