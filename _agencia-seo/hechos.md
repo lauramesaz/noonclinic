@@ -152,6 +152,25 @@ confirmado por cobertura de AP, CBS News y NBC de la misma semana; 10-oct-2026.)
   mucha anticipación y mantener tiquetes flexibles. (Fuente: Valora Analitik/Pulzo, cobertura sobre
   precios de tiquetes a Colombia en temporada decembrina; 18-oct-2026.)
 
+## Vacaciones de mitad de año (verano en EE. UU.) en Colombia
+- **Vuelos más caros y con menos cupos entre junio y julio:** es un patrón que se repite cada año,
+  igual que en diciembre: junio y julio son temporada alta de vacaciones de mitad de año hacia
+  Colombia, con más pasajeros y tarifas más altas por la demanda. No citar cifras de pasajeros ni
+  precios de un año puntual (varían entre fuentes y quedan desactualizados): decir de forma general
+  que junio y julio son los meses de mayor movimiento, y que conviene reservar con anticipación y
+  mantener tiquetes flexibles. (Fuente: Prensa Latina, cobertura de la Aeronáutica Civil de Colombia
+  sobre movilidad aérea en vacaciones de mitad de año; La República, sección de turismo sobre
+  temporada de vacaciones de junio; 19-oct-2026.)
+- **Feria de las Flores de Medellín:** evento anual más grande de la ciudad, con desfiles (el más
+  conocido es el Desfile de Silleteros) y actividades gratuitas por toda la ciudad. Se repite cada
+  año entre finales de julio y mediados de agosto (patrón de varios años, no una fecha fija). En la
+  edición de 2026 fue del 31-jul al 9-ago-2026, con el Desfile de Silleteros el 9-ago-2026. No
+  afirmar fechas exactas para el año en curso: decir "entre finales de julio y mediados de agosto" y
+  sugerir confirmar el calendario oficial de la Alcaldía de Medellín. Durante la Feria, la ciudad
+  recibe más visitantes y el tráfico y la ocupación hotelera suben. (Fuentes: RCN Radio y Minuto60
+  -citando a la Alcaldía de Medellín-, cobertura de la programación de la Feria de las Flores 2026;
+  19-oct-2026.)
+
 ## Volar después de una cirugía (fuente: ASPS)
 - ASPS sugiere esperar antes de volar 5 a 7 días tras cirugías corporales (lipo, aumento de
   senos) y 7 a 10 días tras cirugías de la cara (lifting, párpados, rinoplastia).
