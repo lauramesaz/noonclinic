@@ -9,10 +9,7 @@
   function marcar(nombre, valor) { if (!window.clarity) return; if (valor === undefined) window.clarity("event", nombre); else window.clarity("set", nombre, valor); }
   function $(sel, raiz) { return (raiz || document).querySelector(sel); }
   function $$(sel, raiz) { return Array.prototype.slice.call((raiz || document).querySelectorAll(sel)); }
-  function wa(it) { return "https://wa.me/" + D.wa + "?text=" + encodeURIComponent(it ? D.msj + it.nombre.toLowerCase() : D.msjGeneral); }
-  var CHECK = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
-  var ESCUDO = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 2.6v5.4c0 4.3-2.9 7.7-7 9-4.1-1.3-7-4.7-7-9V6.1Z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg>';
-  function esc(t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
+  function wa(it) { return "https://wa.me/" + D.wa + "?text=" + encodeURIComponent(D.msj + it.nombre.toLowerCase()); }
 
   // ---------- cabecera + barra fija en celular (aparece al pasar la portada, se esconde en el cierre)
   var cab = $(".pr-cab"), barra = $(".pr-barra"), portada = $(".pr-portada"), cierre = $(".pr-cierre");
@@ -20,7 +17,7 @@
   function alBajar() {
     var y = window.scrollY || window.pageYOffset;
     cab.classList.toggle("solida", y > 10);
-    var on = y > portada.offsetHeight * 0.7 && !cierreVisible;
+    var on = y > portada.offsetHeight * 0.8 && !cierreVisible;
     barra.classList.toggle("on", on);
     barra.setAttribute("aria-hidden", on ? "false" : "true");
   }
@@ -60,15 +57,14 @@
     document.body.setAttribute("data-cx", slug);
     $('[data-h="titulo"]').innerHTML = D.titulo[slug];
     $('[data-h="precio"]').innerHTML = D.precio[slug];
-    var inc = it.incluye.length ? it.incluye : ["Cirujano plástico", "Quirófano", "Póliza de complicaciones"];
-    $('[data-h="incluye"]').innerHTML = inc.map(function (x) { return "<li>" + CHECK + esc(x) + "</li>"; }).join("");
-    $('[data-h="flota"]').innerHTML = ESCUDO + "<span>" + (it.precio ? "<b>Póliza y bomba de dolor</b> incluidas" : "<b>Póliza de complicaciones</b> en tu cirugía") + "</span>";
+    $('[data-h="incluye"]').innerHTML = D.incluye[slug];
     if (foto.getAttribute("src") !== it.foto) {
       foto.classList.add("cambia");
       var nueva = new Image();
-      nueva.onload = nueva.onerror = function () { foto.src = it.foto; foto.classList.remove("cambia"); };
+      nueva.onload = nueva.onerror = function () { setTimeout(function () { foto.src = it.foto; foto.classList.remove("cambia"); }, 200); };
       nueva.src = it.foto;
     }
+    $$(".pr-pill[data-ir]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-ir") === slug); });
     $('[data-h="barra-n"]').textContent = it.nombre;
     $('[data-h="barra-p"]').textContent = it.precio ? (it.desde ? "Desde " : "") + it.precio : "Precio en tu valoración";
     // los botones generales llevan la cirugía elegida (los de cada fila ya tienen la suya)
@@ -78,6 +74,12 @@
       history.replaceState(null, "", "/promos/" + slug + location.search);
     }
     marcar("cx", slug);
+  }
+  function abrirFila(slug) {
+    var fila = $('.pr-cx[data-slug="' + slug + '"]');
+    if (!fila) return;
+    zona(fila.getAttribute("data-zona"));
+    fila.open = true;
   }
 
   // abrir una fila = elegir esa cirugía (y cerrar las demás, para navegadores sin <details name>)
@@ -89,14 +91,13 @@
     });
   });
 
-  // tarjetas de precio de la portada general: eligen la cirugía y la dejan abierta en la lista
-  $$(".pr-tarj").forEach(function (b) {
+  // atajos de la portada: cambian la portada ahí mismo y dejan esa cirugía abierta en la lista
+  $$(".pr-pill[data-ir]").forEach(function (b) {
     b.addEventListener("click", function () {
-      var slug = b.getAttribute("data-ir"), fila = $('.pr-cx[data-slug="' + slug + '"]');
-      zona(fila.getAttribute("data-zona"));
-      fila.open = true;
+      var slug = b.getAttribute("data-ir");
       elegir(slug);
-      marcar("tarjeta_portada", slug);
+      abrirFila(slug);
+      marcar("atajo_portada", slug);
     });
   });
 

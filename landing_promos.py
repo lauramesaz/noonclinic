@@ -4,8 +4,9 @@
 # /promos/mamoplastia-de-aumento, …) y desde ahí la paciente puede mirar las demás sin salir de la página.
 # Pedido de Laura (19-oct-2026): promos de fin de año, cirujano plástico reconstructivo con ReTHUS, los mejores
 # quirófanos de la ciudad, la misión (precios bajos para combatir la ilegalidad) y los precios de promo.
-# Estilo de landing de venta (ver criolipolisis): ALTO CONTRASTE negro / blanco / VINOTINTO, títulos gruesos con
-# palabras resaltadas, botones llenos, barra fija en celular. Sin menú. Todo a WhatsApp.
+# DISEÑO "A · Blanco y arco" (elegido por Laura el 19-oct entre 3 propuestas; la v1 negra/vino le pareció horrible):
+# estilo Apple (blanco, mucho aire, letra grande y apretada con la 2.ª línea en gris cálido), toques marfil, foto en ARCO,
+# un solo contraste = botón NEGRO, punto champaña como detalle de fin de año. Sin menú. Todo a WhatsApp.
 # OJO: aquí van SOLO precios de venta. Nunca costos internos, honorarios ni márgenes.
 # Fuera del sitemap y con noindex: es la página de la pauta (la web pública sigue sin precios).
 # build.py llama a generar() al final.
@@ -36,6 +37,11 @@ INC = {
     "preconsulta": "Preconsulta",
 }
 
+# versión corta para la línea "Todo incluido: …" (se escanea, no se lee). En la portada se omite el instrumentador.
+INC_CORTO = {"cirujano": "cirujano", "instrumentador": "instrumentador", "quirofano": "quirófano", "implantes": "implantes",
+             "brasier": "brasier", "faja": "faja", "poliza": "póliza", "bomba": "bomba de dolor", "masajes": "masajes",
+             "preconsulta": "preconsulta"}
+
 # ---------------------------------------------------------------- PROMOS CON PRECIO (precios de venta de la capacitación / piezas)
 # slug: datos de la promo. "h1" = cómo se nombra en el título ("Tu ___ a precio de fin de año").
 PROMOS = {
@@ -57,7 +63,7 @@ PROMOS = {
         "ideal": ["Tus senos cayeron, pero te gusta tu volumen.", "No quieres implantes.", "Buscas un seno firme y en su lugar, con resultado natural."],
         "datos": ("General", "2 a 3 semanas", "Aprox. 6 meses")},
     "lipo": {"precio": "$18.900.000", "desde": True, "h1": "lipo",
-        "nombre": "Lipo y lipotransferencia", "foto": "c:abdomen-bn",
+        "nombre": "Lipo y lipotransferencia", "foto": "abdominoplastia",
         "incluye": ["cirujano", "instrumentador", "quirofano", "faja", "poliza", "bomba", "masajes"],
         "corto": "Retira la grasa que no se va con nada y define tu contorno. Con los masajes de la recuperación.",
         "ideal": ["Tienes grasa localizada que no cede con dieta ni ejercicio.", "Estás en un peso estable, cerca de tu peso saludable.", "Quieres definir cintura, abdomen, espalda o glúteos."],
@@ -71,57 +77,50 @@ ORDEN = {
     "rostro": ["rinoplastia", "blefaroplastia", "lifting-facial", "bichectomia", "mentoplastia", "otoplastia", "lipopapada"],
     "combinadas": ["mommy-makeover", "labioplastia"],
 }
-FOTO = {"abdominoplastia": "mini-abdominoplastia", "mini-abdominoplastia": "abdominoplastia"}  # para no repetir la foto de lipo
+FOTO = {"abdominoplastia": "mini-abdominoplastia", "mini-abdominoplastia": "liposuccion"}  # para no repetir la foto de lipo
 H1 = {"lifting-facial": "lifting facial", "recambio-de-implantes": "recambio de implantes", "cirugia-post-bariatrica": "cirugía tras bajar de peso"}
 
 # ---------------------------------------------------------------- misión
 MISION = [
     ("medico", "Cirujano plástico certificado", "Especialista en cirugía plástica, estética y reconstructiva, con registro en ReTHUS."),
-    ("cruz", "En quirófano, nunca en un consultorio", "Te operamos en los mejores quirófanos de la ciudad."),
+    ("cruz", "En quirófano, nunca en consultorio", "Te operamos en los mejores quirófanos de la ciudad."),
     ("escudo", "Póliza de complicaciones", "Si algo pasa, no lo enfrentas sola ni con tu bolsillo."),
 ]
 REVISA = [
-    "Busca a tu cirujano en ReTHUS: debe aparecer como especialista en cirugía plástica.",
-    "Pregunta dónde te van a operar: tiene que ser una sala de cirugía habilitada.",
-    "Pide por escrito qué incluye el precio y si trae póliza de complicaciones.",
-]
-CIFRAS = [
-    ("1", "precio cerrado, sin sumas de última hora"),
-    ("100%", "de las cirugías en quirófano"),
-    ("Póliza", "de complicaciones en tu cirugía"),
-    ("15 ene", "fecha límite para operarte con la promo"),
+    "Busca a tu cirujano en ReTHUS.",
+    "Pregunta dónde te van a operar.",
+    "Pide por escrito qué incluye el precio.",
 ]
 PASOS = [
-    ("Escríbenos", "Por WhatsApp te contamos la promo y agendamos tu valoración."),
-    ("Valoración con el cirujano", "Te examina, resuelve tus dudas y define tu plan. Cuesta " + VALORACION + "."),
-    ("Exámenes y tu fecha", "Con los exámenes prequirúrgicos al día, separas tu fecha con un abono."),
-    ("Tu cirugía", "En quirófano, con todo lo que incluye tu promo, antes del " + VIGENCIA + "."),
+    ("Escríbenos", "Te contamos la promo por WhatsApp."),
+    ("Valoración", "Con el cirujano. Cuesta " + VALORACION + "."),
+    ("Exámenes y fecha", "Separas tu fecha con un abono."),
+    ("Tu cirugía", "Antes del 15 de enero."),
 ]
 PREGUNTAS = [
     ("¿El precio de la promo es el precio final?", "Sí. Es un paquete cerrado: incluye los honorarios del cirujano, el instrumentador, el quirófano, la póliza de complicaciones, la bomba de dolor y tu prenda posquirúrgica; además los implantes o los masajes cuando tu cirugía los lleva. Si en la valoración se define algo adicional, te lo cotizamos por escrito antes de que decidas."),
     ("¿Qué no está incluido?", "La cita de valoración (" + VALORACION + "), los exámenes prequirúrgicos, los medicamentos para tomar en casa y, si vienes de otra ciudad, tu viaje y hospedaje."),
     ("¿Por qué es más barato que en otros lugares?", "Porque es nuestra misión: que el precio no empuje a nadie a operarse con quien no es cirujano plástico o en un lugar que no es un quirófano. Es el mismo cirujano, el mismo quirófano y los mismos estándares; lo que cambia es que te damos un solo precio con todo adentro."),
-    ("¿Quién me opera?", "El Dr. Fernando Ruiz, cirujano plástico, estético y reconstructivo, con registro en ReTHUS. Te conoce desde la valoración y te acompaña en tus controles."),
     ("¿Dónde me operan?", "En los mejores quirófanos de la ciudad, en salas de cirugía habilitadas. Nunca operamos en consultorios."),
     ("¿Hasta cuándo es la promo?", "Los precios de fin de año aplican para cirugías realizadas antes del " + VIGENCIA + ". Escríbenos y te confirmamos las fechas de quirófano disponibles."),
-    ("¿Y las cirugías que no muestran precio?", "Te las cotizamos en tu valoración, con todo por escrito y antes de que tomes cualquier decisión."),
     ("¿Me va a doler?", "Vas a sentir molestia los primeros días, y para eso está la bomba de dolor: entrega analgesia de forma continua en los días más incómodos. Va incluida en las promos."),
+    ("¿Y las cirugías que no muestran precio?", "Te las cotizamos en tu valoración, con todo por escrito y antes de que tomes cualquier decisión."),
     ("¿La valoración tiene costo?", "Sí, " + VALORACION + ". Es una consulta médica completa con el cirujano: te examina y te dice qué cirugía es para ti, o si no eres candidata. No se abona a la cirugía y su valor no se devuelve."),
     ("Si abono y me arrepiento, ¿me devuelven el dinero?", "Sí, con una retención del 20% de lo abonado por gastos administrativos. El detalle está en los términos y condiciones."),
 ]
+# atajos de la portada (las más buscadas); "Ver las 21" lleva a la lista completa
+ATAJOS = ["lipo", "mamoplastia-de-aumento", "mastopexia-con-implantes", "abdominoplastia", "rinoplastia"]
+CORTOS = {"lipo": "Lipo", "mamoplastia-de-aumento": "Aumento de senos", "mastopexia-con-implantes": "Mastopexia", "abdominoplastia": "Abdomen", "rinoplastia": "Rinoplastia"}
 
 # ---------------------------------------------------------------- íconos (trazo fino, toman el color del texto)
 ICONOS = {
     "check": '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
     "flecha": '<path d="M5 12h14M13 6l6 6-6 6"/>',
-    "abajo": '<path d="M12 5v14M6 13l6 6 6-6"/>',
-    "brillo": '<path d="M12 3.5l1.9 5.6 5.6 1.9-5.6 1.9L12 18.5l-1.9-5.6L4.5 11l5.6-1.9Z"/>',
     "medico": '<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.5 20.5c.8-3.6 3.8-6 7.5-6s6.7 2.4 7.5 6"/><path d="M16.5 17.5v3M15 19h3"/>',
-    "cruz": '<rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/>',
+    "cruz": '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><path d="M12 8v8M8 12h8"/>',
     "escudo": '<path d="M12 3.5l7 2.6v5.4c0 4.3-2.9 7.7-7 9-4.1-1.3-7-4.7-7-9V6.1Z"/><path d="M9 12l2.2 2.2L15.5 10"/>',
     "lupa": '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/>',
     "reloj": '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
-    "mas": '<path d="M12 5v14M5 12h14"/>',
 }
 
 
@@ -135,22 +134,22 @@ def _items(b):
     out = []
     for zona, slugs in ORDEN.items():
         for s in slugs:
-            p = PROMOS.get(s)
+            p = PROMOS.get(s) or {}
             c = cat.get(s, {})
             d = c.get("datos", ("", "", "", ""))
             it = {
                 "slug": s, "zona": zona,
-                "nombre": (p or {}).get("nombre") or c.get("nombre"),
-                "corto": (p or {}).get("corto") or c.get("corto"),
-                "ideal": (p or {}).get("ideal") or c.get("ideal", [])[:3],
-                "datos": list((p or {}).get("datos") or (d[1], d[2], d[3])),
-                "precio": (p or {}).get("precio", ""),
-                "desde": bool((p or {}).get("desde")),
-                "incluye": [INC[k] for k in (p or {}).get("incluye", [])],
-                "h1": (p or {}).get("h1") or H1.get(s) or c.get("nombre", "").lower(),
+                "nombre": p.get("nombre") or c.get("nombre"),
+                "corto": p.get("corto") or c.get("corto"),
+                "ideal": p.get("ideal") or c.get("ideal", [])[:3],
+                "datos": list(p.get("datos") or (d[1], d[2], d[3])),
+                "precio": p.get("precio", ""),
+                "desde": bool(p.get("desde")),
+                "incluye": [INC[k] for k in p.get("incluye", [])],
+                "inc": p.get("incluye", []),
+                "h1": p.get("h1") or H1.get(s) or c.get("nombre", "").lower(),
+                "foto": "/assets/capacitacion/%s.jpg" % (p.get("foto") or FOTO.get(s, s)),
             }
-            f = (p or {}).get("foto") or FOTO.get(s, s)
-            it["foto"] = "/assets/criolipolisis/%s.jpg" % f[2:] if f.startswith("c:") else "/assets/capacitacion/%s.jpg" % f
             out.append(it)
     return out
 
@@ -160,54 +159,57 @@ def _wa(b, nombre=None):
     return "https://wa.me/" + b.WHATSAPP + "?text=" + quote(texto)
 
 
-def _precio_html(it):
-    """Bloque de precio de la portada."""
-    if it and it["precio"]:
-        return ('<p class="pr-precio-et">Precio de fin de año</p><p class="pr-precio-n">%s<b>%s</b></p>'
-                '<p class="pr-precio-s">Todo incluido · precio cerrado</p>') % ('<span>Desde</span>' if it["desde"] else "", it["precio"])
-    if it:
-        return ('<p class="pr-precio-et">Precio</p><p class="pr-precio-n pr-precio-txt"><b>Según tu caso</b></p>'
-                '<p class="pr-precio-s">Te lo damos en tu valoración, por escrito</p>')
-    return ('<p class="pr-precio-et">Precios de fin de año</p><p class="pr-precio-n"><span>Desde</span><b>$10.900.000</b></p>'
-            '<p class="pr-precio-s">Todo incluido · precio cerrado</p>')
+def _lista_texto(xs):
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else "".join(xs)
 
 
-def _incluye_html(it):
-    lista = it["incluye"] if it and it["incluye"] else ["Cirujano plástico", "Quirófano", "Póliza de complicaciones"]
-    return "".join("<li>%s%s</li>" % (ico("check"), escape(x)) for x in lista)
-
-
+# ---------------------------------------------------------------- piezas de la portada (también van al JSON para el cambio en vivo)
 def _titulo(it):
     if not it:
-        return "Promos de fin de año en <mark>cirugía plástica</mark>."
+        return "Promos de fin de año<br><span>en cirugía plástica.</span>"
     if it["precio"]:
-        return "Tu <mark>%s</mark> a precio de fin de año." % escape(it["h1"])
-    return "Tu <mark>%s</mark>, en manos de un cirujano plástico." % escape(it["h1"])
+        return "Tu %s,<br><span>a precio de fin de año.</span>" % escape(it["h1"])
+    return "Tu %s,<br><span>con un cirujano plástico certificado.</span>" % escape(it["h1"])
+
+
+def _precio(it):
+    if not it:
+        return '<small>Desde</small><b>$10.900.000</b>'
+    if it["precio"]:
+        return ('<small>Desde</small>' if it["desde"] else "") + '<b>%s</b>' % it["precio"]
+    return '<b class="pr-sin">Precio según tu caso</b>'
+
+
+def _incluye(it, portada=False):
+    if not it:
+        return "Todo incluido: cirujano, quirófano, póliza y bomba de dolor."
+    if it["inc"]:
+        claves = [k for k in it["inc"] if not (portada and k == "instrumentador")]
+        return "Todo incluido: %s." % escape(_lista_texto([INC_CORTO[k] for k in claves]))
+    return "En quirófano y con póliza de complicaciones. El valor te lo damos por escrito en tu valoración."
 
 
 def _fila(b, it, abierta):
-    precio = ('<span class="pr-cx-p">%s%s</span>' % ("<small>Desde</small>" if it["desde"] else "", it["precio"])) if it["precio"] \
-        else '<span class="pr-cx-p pr-cx-p0">Cotízala</span>'
-    datos = "".join('<li><span>%s</span><b>%s</b></li>' % (t, escape(v)) for t, v in zip(["Anestesia", "Incapacidad", "Resultado final"], it["datos"]) if v)
-    ideal = "".join("<li>%s%s</li>" % (ico("check"), escape(x)) for x in it["ideal"])
-    if it["incluye"]:
-        incluye = '<p class="pr-mini">Incluye</p><ul class="pr-chips">%s</ul>' % "".join("<li>%s</li>" % escape(x) for x in it["incluye"])
+    if it["precio"]:
+        precio = '<span class="pr-cx-p">%s%s</span>' % ("<small>Desde</small>" if it["desde"] else "", it["precio"])
     else:
-        incluye = '<p class="pr-nota-cx">El valor se define en tu valoración, con todo por escrito antes de que decidas.</p>'
-    return '''<details class="pr-cx%(cls)s" name="cx" data-slug="%(slug)s" data-zona="%(zona)s"%(open)s>
+        precio = '<span class="pr-cx-p pr-cx-p0">Cotízala</span>'
+    datos = "".join('<li><span>%s</span>%s</li>' % (t, escape(v)) for t, v in zip(["Anestesia", "Incapacidad", "Resultado"], it["datos"]) if v)
+    ideal = "".join("<li>%s%s</li>" % (ico("check"), escape(x)) for x in it["ideal"])
+    return '''<details class="pr-cx" name="cx" data-slug="%(slug)s" data-zona="%(zona)s"%(open)s>
   <summary><span class="pr-cx-n"><b>%(nombre)s</b><span>%(corto)s</span></span>%(precio)s<span class="pr-mas" aria-hidden="true"></span></summary>
   <div class="pr-cx-in">
     <img src="%(foto)s" alt="" width="1200" height="900" loading="lazy">
-    <div class="pr-cx-txt">
+    <div>
       <p class="pr-mini">Es para ti si</p><ul class="pr-ideal">%(ideal)s</ul>
       <ul class="pr-datos">%(datos)s</ul>
-      %(incluye)s
-      <div class="pr-acciones"><a class="pr-btn" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración %(flecha)s</a></div>
+      <p class="pr-cx-inc">%(incluye)s</p>
+      <a class="pr-btn" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración %(flecha)s</a>
     </div>
   </div>
-</details>''' % {"cls": " pr-cx-promo" if it["precio"] else "", "slug": it["slug"], "zona": it["zona"], "open": " open" if abierta else "",
-                 "nombre": escape(it["nombre"]), "corto": escape(it["corto"]), "precio": precio, "foto": it["foto"], "ideal": ideal,
-                 "datos": datos, "incluye": incluye, "wa": _wa(b, it["nombre"]), "flecha": ico("flecha", "ico-f")}
+</details>''' % {"slug": it["slug"], "zona": it["zona"], "open": " open" if abierta else "", "nombre": escape(it["nombre"]),
+                 "corto": escape(it["corto"]), "precio": precio, "foto": it["foto"], "ideal": ideal, "datos": datos,
+                 "incluye": _incluye(it), "wa": _wa(b, it["nombre"]), "flecha": ico("flecha", "ico-f")}
 
 
 def _pagina(b, items, actual):
@@ -215,7 +217,7 @@ def _pagina(b, items, actual):
     it = next((x for x in items if x["slug"] == actual), None)
     zona = it["zona"] if it else "senos"
     doc = [e for e in b.ESPECIALISTAS if e["area"] == "cirugia"][0]
-    promos = [x for x in items if x["precio"]]
+    doc_foto = "/assets/equipo/" + doc["foto"]
 
     if it:
         titulo = "%s en Medellín · Promo de fin de año" % it["nombre"]
@@ -225,22 +227,19 @@ def _pagina(b, items, actual):
         titulo = "Promos de fin de año en cirugía plástica · Medellín"
         desc = "Precios de fin de año en cirugía plástica en Medellín: aumento de senos, mastopexia y lipo con todo incluido, cirujano plástico certificado y póliza de complicaciones."
 
-    tabs = "".join('<button type="button" class="pr-tab%s" data-zona="%s" aria-pressed="%s">%s <span>%d</span></button>' % (
-        " on" if k == zona else "", k, "true" if k == zona else "false", n, len(ORDEN[k])) for k, n in ZONAS)
+    atajos = "".join('<button type="button" class="pr-pill%s" data-ir="%s">%s</button>' % (" on" if s == actual else "", s, CORTOS[s]) for s in ATAJOS)
+    tabs = "".join('<button type="button" class="pr-tab%s" data-zona="%s" aria-pressed="%s">%s</button>' % (
+        " on" if k == zona else "", k, "true" if k == zona else "false", n) for k, n in ZONAS)
     filas = "".join(_fila(b, x, x["slug"] == actual) for x in items)
-    tarjetas = "".join('''<button type="button" class="pr-tarj" data-ir="%s"><span>%s</span><b>%s%s</b>%s</button>''' % (
-        x["slug"], escape(x["nombre"]), "<small>Desde</small>" if x["desde"] else "", x["precio"], ico("flecha", "ico-f")) for x in promos)
-    mision = "".join('<li class="pr-rev"><span class="pr-mi-i">%s</span><h3>%s</h3><p>%s</p></li>' % (ico(i), t, d) for i, t, d in MISION)
-    revisa = "".join("<li>%s<span>%s</span></li>" % (ico("check"), t) for t in REVISA)
-    cifras = "".join('<li class="pr-rev"><b>%s</b><span>%s</span></li>' % (n, t) for n, t in CIFRAS)
+    mision = "".join('<li class="pr-rev"><span class="pr-ic">%s</span><h3>%s</h3><p>%s</p></li>' % (ico(i), t, d) for i, t, d in MISION)
+    revisa = "".join("<li><span>%d</span>%s</li>" % (i, t) for i, t in enumerate(REVISA, 1))
     pasos = "".join('<li class="pr-rev"><span class="pr-pn">%d</span><h3>%s</h3><p>%s</p></li>' % (i, t, d) for i, (t, d) in enumerate(PASOS, 1))
-    preguntas = "".join('<details class="pr-preg pr-rev"><summary>%s<span class="pr-mas" aria-hidden="true"></span></summary><div class="pr-resp"><p>%s</p></div></details>' % (p, r) for p, r in PREGUNTAS)
+    preguntas = "".join('<details class="pr-preg pr-rev"><summary>%s<span class="pr-mas" aria-hidden="true"></span></summary><p>%s</p></details>' % (p, r) for p, r in PREGUNTAS)
     datos = json.dumps({"items": {x["slug"]: x for x in items}, "titulo": {x["slug"]: _titulo(x) for x in items},
-                        "precio": {x["slug"]: _precio_html(x) for x in items}, "general": {"titulo": _titulo(None), "precio": _precio_html(None)},
-                        "wa": b.WHATSAPP, "msj": MSJ, "msjGeneral": MSJ_GENERAL}, ensure_ascii=False).replace("</", "<\\/")
+                        "precio": {x["slug"]: _precio(x) for x in items}, "incluye": {x["slug"]: _incluye(x, True) for x in items},
+                        "wa": b.WHATSAPP, "msj": MSJ}, ensure_ascii=False).replace("</", "<\\/")
 
-    foto = it["foto"] if it else "/assets/equipo/%s" % doc["foto"]
-    flota2 = ("<b>Póliza y bomba de dolor</b> incluidas" if it["precio"] else "<b>Póliza de complicaciones</b> en tu cirugía") if it else "<b>Cirujano reconstructivo</b> con ReTHUS"
+    foto = it["foto"] if it else doc_foto
     wa_actual = _wa(b, it["nombre"]) if it else _wa(b)
     barra_n = escape(it["nombre"]) if it else "Promos de fin de año"
     barra_p = (("Desde " if it["desde"] else "") + it["precio"] if it["precio"] else "Precio en tu valoración") if it else "Desde $10.900.000"
@@ -265,132 +264,113 @@ def _pagina(b, items, actual):
 <meta property="og:image" content="%(dominio)s%(foto)s">
 <meta property="og:locale" content="es_CO">
 %(clarity)s
-<meta name="theme-color" content="#0b0b0b">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href="/assets/favicon.png">
 <script>document.documentElement.className="js"</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="%(foto)s">
 <link rel="stylesheet" href="/assets/promos.css?v=%(v)s">
 </head>
 <body class="pr%(general)s" data-cx="%(actual)s">
 <header class="pr-cab">
-  <a class="pr-logo" href="/" aria-label="noon Clinic, inicio"><img src="/assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295"></a>
-  <p class="pr-cinta">%(ico_brillo)s Promos de fin de año</p>
-  <a class="pr-btn pr-btn-sm" href="%(wa)s" target="_blank" rel="noopener" data-wa>Agendar %(flecha)s</a>
+  <a class="pr-logo" href="/" aria-label="noon Clinic, inicio"><img src="/assets/logo-noon.png" alt="noon Clinic" width="900" height="295"></a>
+  <a class="pr-btn-borde" href="%(wa)s" target="_blank" rel="noopener" data-wa>Agendar</a>
 </header>
 <main>
 
-<!-- 1 · PORTADA: la cirugía del anuncio (o la promo general), precio, botón y sellos -->
+<!-- 1 · PORTADA: la cirugía del anuncio, precio, botón y foto en arco -->
 <section class="pr-portada">
-  <div class="pr-in pr-portada-in">
+  <div class="pr-portada-in">
     <div class="pr-portada-txt">
-      <p class="pr-insignia">%(ico_brillo)s Promo de fin de año · Medellín</p>
+      <p class="pr-ceja"><i></i>Promos de fin de año · Medellín</p>
       <h1 data-h="titulo">%(h1)s</h1>
-      <div class="pr-precio" data-h="precio">%(precio)s</div>
-      <ul class="pr-incluye" data-h="incluye">%(incluye)s</ul>
-      <div class="pr-tarjetas" data-h="tarjetas">%(tarjetas)s</div>
-      <div class="pr-acciones">
-        <a class="pr-btn pr-btn-xl" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración %(flecha)s</a>
-        <a class="pr-link pr-link-claro" href="#cirugias">Ver todas las cirugías y precios %(ico_abajo)s</a>
-      </div>
+      <p class="pr-precio" data-h="precio">%(precio)s</p>
+      <p class="pr-inc" data-h="incluye">%(incluye)s</p>
+      <a class="pr-btn pr-btn-xl" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración %(flecha)s</a>
+      <p class="pr-ya"><i></i>Te respondemos en minutos por WhatsApp</p>
     </div>
-    <figure class="pr-portada-foto">
+    <figure class="pr-arco">
       <img data-h="foto" src="%(foto)s" alt="" width="1200" height="900">
-      <div class="pr-flota pr-flota-1"><span>Cirugías hasta el</span><b>15 de enero</b></div>
-      <div class="pr-flota pr-flota-2" data-h="flota">%(ico_escudo)s<span>%(flota2)s</span></div>
+      <div class="pr-doc"><img src="%(doc_foto)s" alt="" width="1120" height="1400"><div>%(doc)s<span>Cirujano plástico reconstructivo · ReTHUS</span></div></div>
     </figure>
   </div>
-  <ul class="pr-in pr-sellos">
-    <li>%(ico_medico)s<span><b>Cirujano plástico reconstructivo</b> con ReTHUS</span></li>
-    <li>%(ico_cruz)s<span><b>Los mejores quirófanos</b> de la ciudad</span></li>
-    <li>%(ico_escudo)s<span><b>Póliza de complicaciones</b> incluida</span></li>
-  </ul>
+  <div class="pr-atajos">
+    <p>¿Buscas otra cirugía?</p>
+    <div class="pr-pills">%(atajos)s<a class="pr-pill pr-pill-todas" href="#cirugias">Ver las %(total)d</a></div>
+  </div>
 </section>
 
-<!-- 2 · TODAS LAS CIRUGÍAS: la del anuncio llega abierta; las demás, a un toque -->
-<section class="pr-sec pr-claro" id="cirugias">
-  <div class="pr-in">
-    <header class="pr-cabeza pr-rev"><p class="pr-ceja">Todas las cirugías</p>
-      <h2>Mira las demás <mark>cirugías</mark>.</h2>
-      <p class="pr-sub">Toca cualquiera para ver qué incluye y para quién es. Las que están en promo muestran su precio de fin de año; las demás te las cotizamos en tu valoración.</p></header>
+<!-- 2 · TODAS LAS CIRUGÍAS: la del anuncio llega abierta -->
+<section class="pr-sec" id="cirugias">
+  <div class="pr-panel pr-marfil">
+    <header class="pr-cabeza pr-rev"><p class="pr-ceja"><i></i>Todas las cirugías</p>
+      <h2>Elige la tuya,<br><span>mira qué incluye.</span></h2></header>
     <div class="pr-tabs" role="group" aria-label="Zonas">%(tabs)s</div>
     <div class="pr-lista" data-zona="%(zona)s">%(filas)s</div>
   </div>
 </section>
 
-<!-- 3 · MISIÓN: precios bajos para combatir la ilegalidad -->
-<section class="pr-sec pr-negro" id="mision">
-  <div class="pr-in">
-    <header class="pr-cabeza pr-rev"><p class="pr-ceja">Nuestra misión</p>
-      <h2>Precios bajos para <mark>combatir la ilegalidad</mark>.</h2>
-      <p class="pr-sub">Mucha gente termina operándose con quien no es cirujano plástico, o en un lugar que no es un quirófano, porque es lo que puede pagar. Bajamos los precios para que operarte bien no sea un lujo.</p></header>
-    <ul class="pr-mision">%(mision)s</ul>
-    <div class="pr-revisa pr-rev">
-      <div><p class="pr-ceja">Antes de operarte en cualquier lugar</p><h3>Revisa estas tres cosas.</h3></div>
-      <ul>%(revisa)s</ul>
-      <a class="pr-link pr-link-claro" href="%(rethus)s" target="_blank" rel="noopener">%(ico_lupa)s Buscar un cirujano en ReTHUS</a>
-    </div>
+<!-- 3 · MISIÓN -->
+<section class="pr-sec pr-mision-sec" id="mision">
+  <header class="pr-cabeza pr-centro pr-rev"><p class="pr-ceja"><i></i>Nuestra misión</p>
+    <h2>Precios bajos para<br><span>combatir la ilegalidad.</span></h2>
+    <p class="pr-sub">Mucha gente se opera con quien no es cirujano plástico, o en un lugar que no es un quirófano, porque es lo que puede pagar. Bajamos los precios para que operarte bien no sea un lujo.</p></header>
+  <ul class="pr-mision">%(mision)s</ul>
+  <div class="pr-revisa pr-rev">
+    <h3>Antes de operarte en cualquier lugar:</h3>
+    <ol>%(revisa)s</ol>
+    <a class="pr-link" href="%(rethus)s" target="_blank" rel="noopener">%(ico_lupa)s Buscar un cirujano en ReTHUS</a>
   </div>
 </section>
 
-<!-- 4 · CIFRAS (franja vino) -->
-<section class="pr-cifras"><ul class="pr-in">%(cifras)s</ul></section>
-
-<!-- 5 · QUIÉN Y DÓNDE: el cirujano y los quirófanos -->
-<section class="pr-sec pr-claro" id="cirujano">
-  <div class="pr-in pr-medico">
-    <figure class="pr-med-foto pr-rev"><img src="/assets/equipo/%(doc_foto)s" alt="%(doc)s, cirujano plástico de noon Clinic" width="1120" height="1400" loading="lazy"><figcaption><b>%(doc)s</b><span>Cirujano plástico, estético y reconstructivo</span></figcaption></figure>
+<!-- 4 · EL CIRUJANO -->
+<section class="pr-sec" id="cirujano">
+  <div class="pr-panel pr-gris pr-medico">
+    <figure class="pr-arco pr-arco-doc pr-rev"><img src="%(doc_foto)s" alt="%(doc)s, cirujano plástico de noon Clinic" width="1120" height="1400" loading="lazy"></figure>
     <div class="pr-rev">
-      <p class="pr-ceja">Quién te opera y dónde</p>
-      <h2>Un cirujano plástico <mark>reconstructivo</mark>, con ReTHUS.</h2>
-      <p class="pr-sub">El %(doc)s es especialista en cirugía plástica, estética y reconstructiva. Te valora, te opera y te acompaña en tus controles.</p>
+      <p class="pr-ceja"><i></i>Quién te opera</p>
+      <h2>%(doc)s,<br><span>cirujano plástico reconstructivo.</span></h2>
       <ul class="pr-razones">
-        <li>%(ico_medico)s<div><b>Registro en ReTHUS</b><span>El registro oficial del Ministerio de Salud. <a href="%(rethus)s" target="_blank" rel="noopener">Verifícalo tú misma</a>.</span></div></li>
-        <li>%(ico_cruz)s<div><b>Los mejores quirófanos de la ciudad</b><span>Salas de cirugía habilitadas. Nunca operamos en consultorios.</span></div></li>
-        <li>%(ico_reloj)s<div><b>Exámenes antes de operarte</b><span>Si no es seguro para ti, no te operamos. Primero tu salud.</span></div></li>
+        <li>%(ico_medico)s<div><b>Registro en ReTHUS</b><span>El registro oficial del Ministerio de Salud. <a href="%(rethus)s" target="_blank" rel="noopener">Verifícalo tú misma</a></span></div></li>
+        <li>%(ico_cruz)s<div><b>Los mejores quirófanos de la ciudad</b><span>Salas de cirugía habilitadas, nunca un consultorio.</span></div></li>
+        <li>%(ico_reloj)s<div><b>Te ve antes, durante y después</b><span>Te valora, te opera y te acompaña en tus controles.</span></div></li>
       </ul>
       <a class="pr-btn" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración %(flecha)s</a>
     </div>
   </div>
 </section>
 
-<!-- 6 · CÓMO FUNCIONA -->
-<section class="pr-sec pr-negro" id="como">
-  <div class="pr-in">
-    <header class="pr-cabeza pr-rev"><p class="pr-ceja">Cómo funciona</p><h2>De tu mensaje a tu cirugía, en <mark>4 pasos</mark>.</h2></header>
-    <ol class="pr-pasos">%(pasos)s</ol>
-    <div class="pr-centro pr-rev"><a class="pr-btn pr-btn-xl" href="%(wa)s" target="_blank" rel="noopener" data-wa>Empezar por WhatsApp %(flecha)s</a></div>
-  </div>
+<!-- 5 · CÓMO FUNCIONA -->
+<section class="pr-sec" id="como">
+  <header class="pr-cabeza pr-centro pr-rev"><p class="pr-ceja"><i></i>Cómo funciona</p><h2>Cuatro pasos,<br><span>sin enredos.</span></h2></header>
+  <ol class="pr-pasos">%(pasos)s</ol>
 </section>
 
-<!-- 7 · PREGUNTAS -->
-<section class="pr-sec pr-gris" id="preguntas">
-  <div class="pr-in pr-faq-in">
-    <header class="pr-cabeza pr-rev"><p class="pr-ceja">Antes de que preguntes</p><h2>Lo que todas <mark>preguntan</mark>.</h2></header>
+<!-- 6 · PREGUNTAS -->
+<section class="pr-sec" id="preguntas">
+  <div class="pr-faq-in">
+    <header class="pr-cabeza pr-rev"><p class="pr-ceja"><i></i>Preguntas</p><h2>Lo que todas<br><span>preguntan.</span></h2></header>
     <div class="pr-faq">%(preguntas)s</div>
   </div>
 </section>
 
-<!-- 8 · CIERRE -->
-<section class="pr-cierre" id="agendar">
-  <div class="pr-in pr-cierre-in pr-rev">
-    <p class="pr-ceja">%(ico_brillo)s Promos de fin de año</p>
-    <h2>Cierra el año con la cirugía que <mark>llevas tiempo</mark> pensando.</h2>
-    <p class="pr-sub">Escríbenos, te contamos la promo y agendamos tu valoración con el %(doc)s.</p>
-    <a class="pr-btn pr-btn-xl pr-btn-blanco" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración %(flecha)s</a>
-    <p class="pr-nota">Precios de fin de año para cirugías realizadas antes del %(vigencia)s. La valoración (%(valoracion)s) no se abona a la cirugía y su valor no se devuelve. <a href="/terminos-y-condiciones">Términos y condiciones</a></p>
+<!-- 7 · CIERRE -->
+<section class="pr-sec pr-cierre" id="agendar">
+  <div class="pr-panel pr-marfil pr-cierre-in pr-rev">
+    <p class="pr-ceja"><i></i>Promos de fin de año</p>
+    <h2>Cierra el año con la cirugía<br><span>que llevas tiempo pensando.</span></h2>
+    <a class="pr-btn pr-btn-xl" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración %(flecha)s</a>
+    <p class="pr-nota">Precios para cirugías realizadas antes del %(vigencia)s. La valoración (%(valoracion)s) no se abona a la cirugía y su valor no se devuelve. <a href="/terminos-y-condiciones">Términos y condiciones</a></p>
   </div>
 </section>
 
 </main>
 <footer class="pr-pie">
-  <div class="pr-in pr-pie-in">
-    <a class="pr-logo" href="/"><img src="/assets/logo-noon.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
-    <nav><a href="/">Conoce noon</a><a href="/cirugia-plastica">Cirugía plástica</a><a href="/especialistas">Especialistas</a><a href="/terminos-y-condiciones">Términos</a><a href="%(wa)s" target="_blank" rel="noopener" data-wa>WhatsApp %(tel)s</a></nav>
-  </div>
-  <p class="pr-in pr-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Toda cirugía tiene riesgos y los resultados varían de una persona a otra. Fotos ilustrativas: Unsplash y Pexels. © noon Clinic</p>
+  <a class="pr-logo" href="/"><img src="/assets/logo-noon.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
+  <nav><a href="/">Conoce noon</a><a href="/especialistas">Especialistas</a><a href="/terminos-y-condiciones">Términos</a><a href="%(wa)s" target="_blank" rel="noopener" data-wa>WhatsApp %(tel)s</a></nav>
+  <p class="pr-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Toda cirugía tiene riesgos y los resultados varían de una persona a otra. Fotos ilustrativas: Unsplash. © noon Clinic</p>
 </footer>
 <div class="pr-barra" aria-hidden="true">
   <div class="pr-barra-txt"><b data-h="barra-n">%(barra_n)s</b><span data-h="barra-p">%(barra_p)s</span></div>
@@ -403,12 +383,11 @@ def _pagina(b, items, actual):
 </html>
 """ % {"titulo": escape(titulo), "desc": escape(desc), "dominio": b.DOMINIO, "foto": foto, "clarity": clarity, "v": b.V,
        "general": "" if it else " pr-general", "actual": actual or "", "wa": wa_actual, "flecha": ico("flecha", "ico-f"),
-       "ico_brillo": ico("brillo"), "ico_abajo": ico("abajo", "ico-f"), "ico_escudo": ico("escudo"), "ico_medico": ico("medico"),
-       "ico_cruz": ico("cruz"), "ico_lupa": ico("lupa"), "ico_reloj": ico("reloj"),
-       "h1": _titulo(it), "precio": _precio_html(it), "incluye": _incluye_html(it), "tarjetas": tarjetas, "flota2": flota2,
-       "tabs": tabs, "zona": zona, "filas": filas, "mision": mision, "revisa": revisa, "cifras": cifras, "pasos": pasos,
-       "preguntas": preguntas, "rethus": RETHUS, "doc": doc["nombre"], "doc_foto": doc["foto"], "vigencia": VIGENCIA,
-       "valoracion": VALORACION, "tel": b.TELEFONO, "barra_n": barra_n, "barra_p": barra_p, "datos": datos}
+       "ico_lupa": ico("lupa"), "ico_medico": ico("medico"), "ico_cruz": ico("cruz"), "ico_reloj": ico("reloj"),
+       "h1": _titulo(it), "precio": _precio(it), "incluye": _incluye(it, True), "atajos": atajos, "total": len(items),
+       "tabs": tabs, "zona": zona, "filas": filas, "mision": mision, "revisa": revisa, "pasos": pasos, "preguntas": preguntas,
+       "rethus": RETHUS, "doc": doc["nombre"], "doc_foto": doc_foto, "vigencia": VIGENCIA, "valoracion": VALORACION,
+       "tel": b.TELEFONO, "barra_n": barra_n, "barra_p": barra_p, "datos": datos}
 
 
 def generar(b):
