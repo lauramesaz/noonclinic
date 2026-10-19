@@ -12,7 +12,7 @@ INSTRUMENTADOR_HORA = 200000
 HOSPITALIZACION_NOCHE = 1380000  # habitación individual, tarifa Q2 2026
 VIGENCIA_MESES = 3
 POLIZA = 600000  # va siempre, en todas las cotizaciones
-RAPIDOS = [  # botones de "Otros elementos" en las dos sedes
+RAPIDOS = [  # botones de "Otros elementos" en todas las sedes
     ["Bomba del dolor (3 días)", 550000],
 ]
 FAJAS_RECARGO = 0.30  # sobre el precio de la tienda, redondeado al mil
@@ -75,6 +75,10 @@ def generar():
         # Bogotá (Cirulaser): {proc: [[h | None, anestesia, v]]}; None = precio fijo sin horas
         "bogota": {"nombre": "Bogotá", "quirofano": "Cirulaser", "tarifas": _json("tarifas-bogota-2026.json"), "incluye": QUIROFANO_INCLUYE_BOGOTA,
                    "rapidos": BOGOTA_RAPIDOS},
+        # Pereira: mientras llega su tarifario, precios de quirófano iguales a Medellín (decisión de Laura, 19-oct-2026)
+        "pereira": {"nombre": "Pereira", "quirofano": "Pereira", "tarifas": q2, "incluye": QUIROFANO_INCLUYE,
+                    "rapidos": [["Noche de hospitalización (habitación individual)", HOSPITALIZACION_NOCHE]],
+                    "nota": "Precios de quirófano iguales a Medellín (Quirófanos 2 Sur) mientras llega el tarifario de Pereira."},
     }
     config = {
         "codigo": CODIGO, "correo": CORREO, "envio": ENVIO, "instrumentador": INSTRUMENTADOR_HORA,

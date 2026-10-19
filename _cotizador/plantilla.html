@@ -172,7 +172,7 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
 <main>
   <div>
     <div class="sede"><span>Sede</span>
-      <div class="sede-op" id="sede"><button type="button" data-sede="medellin" class="activa">Medellín</button><button type="button" data-sede="bogota">Bogotá</button></div>
+      <div class="sede-op" id="sede"><button type="button" data-sede="medellin" class="activa">Medellín</button><button type="button" data-sede="bogota">Bogotá</button><button type="button" data-sede="pereira">Pereira</button></div>
     </div>
     <section class="paso">
       <h2><span>01</span>Paciente</h2>
@@ -273,7 +273,7 @@ function ponerSede(id){
   SEDE = id;
   document.querySelectorAll("#sede button").forEach(b => b.classList.toggle("activa", b.dataset.sede === id));
   $("#procs").innerHTML = ""; agregarProc();
-  $("#ayuda-q").textContent = `Tarifario ${S().quirofano} 2026 (sede ${S().nombre}). El precio del quirófano y el del instrumentador salen solos.`;
+  $("#ayuda-q").textContent = `${S().nota || `Tarifario ${S().quirofano} 2026 (sede ${S().nombre}).`} El precio del quirófano y el del instrumentador salen solos.`;
   document.querySelectorAll(".btn-rapido").forEach(b => b.remove());
   C.rapidos.concat(S().rapidos).forEach(([d, v]) => {
     const b = document.createElement("button"); b.type = "button"; b.className = "btn-linea btn-rapido";
