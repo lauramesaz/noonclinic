@@ -16,6 +16,9 @@ TITULO = "Criolipólisis en Medellín sin cirugía"  # + " · noon Clinic" = 51 
 DESCRIPCION = ("Criolipólisis en Medellín con valoración médica: el frío controlado elimina la grasa localizada de abdomen, "
                "flancos, papada, brazos y muslos. Sin cirugía, sin agujas y sin incapacidad.")
 
+# Línea de inmediatez junto al botón: dato real confirmado por Laura el 19-oct ("respondemos en minutos en horario de atención").
+INMEDIATO = "Te respondemos en minutos por WhatsApp, en horario de atención."
+
 MSJ = "Hola, vengo de la web y quiero una cita de criolipólisis"  # mismo inicio que el resto de la web (MENSAJE_WA)
 
 # ---------------------------------------------------------------- zonas (la grasa "terca")
@@ -247,6 +250,7 @@ def generar(b):
       <h1>La grasa que no se va con nada, <span class="cl-hielo">se va con frío.</span></h1>
       <p class="cl-lead">Enfriamos la grasa localizada y tu cuerpo la elimina solo. <b>Sin cirugía, sin agujas y sin incapacidad.</b></p>
       <div class="cl-acciones">%(btn_portada)s<a class="cl-btn2 cl-vidrio" href="#test"><i></i>¿Soy candidata? Test de 1 min</a></div>
+      <p class="cl-inmediato">%(ico_reloj)s %(inmediato)s</p>
     </div>
     <figure class="cl-foto">
       <img src="assets/criolipolisis/portada.webp" fetchpriority="high" alt="Paciente recostada durante una sesión de criolipólisis en la cintura" width="1200" height="1500">
@@ -399,6 +403,7 @@ def generar(b):
     <h2>Tu primer paso es la <span>valoración.</span></h2>
     <p class="cl-sub">Te decimos qué se puede lograr en tu zona, cuántas sesiones necesitas y si eres candidata. Sin compromiso de hacerte el tratamiento.</p>
     %(btn_cierre)s
+    <p class="cl-inmediato">%(ico_reloj)s %(inmediato)s</p>
     <p class="cl-nota">La valoración no se abona al tratamiento y su valor no se devuelve. <a href="terminos-y-condiciones">Términos y condiciones</a></p>
   </div>
 </section>
@@ -421,7 +426,7 @@ def generar(b):
        "btn_cifras": cta("Agendar mi valoración", "cl-btn cl-btn-xl"),
        "btn_camino": cta("Agendar mi valoración", "cl-btn"), "btn_medico": cta("Quiero mi valoración", "cl-btn"),
        "btn_cierre": cta("Quiero mi valoración", "cl-btn cl-btn-xl cl-btn-blanco"), "btn_barra": cta("Quiero mi valoración", "cl-btn"),
-       "ico_frio": ico("frio"), "ico_flecha": flecha,
+       "ico_frio": ico("frio"), "ico_flecha": flecha, "ico_reloj": ico("reloj"), "inmediato": INMEDIATO,
        "ico_medica": ico("medica"), "ico_plan": ico("plan"), "ico_control": ico("control"),
        "dolores": dolores, "cifras": cifras, "atajo": atajo, "pestanas": pestanas, "paneles": paneles,
        "botones_e": botones_e, "textos_e": textos_e, "pasos": pasos,
