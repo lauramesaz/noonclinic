@@ -85,6 +85,10 @@ h3 { letter-spacing: -.02em; }
 .cl-portada h1 { font-size: clamp(40px, 5.2vw, 72px); line-height: 1.02; }
 .cl-lead { margin: 22px 0 30px; max-width: 490px; font-size: clamp(17px, 1.4vw, 19px); color: var(--tenue); }
 .cl-lead b { color: var(--tinta); font-weight: 600; }
+.cl-precio { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; margin: -8px 0 26px; }
+.cl-precio span { font: 500 15px/1.2 var(--display); color: var(--tenue); }
+.cl-precio b { font: 600 clamp(30px, 3vw, 38px)/1 var(--display); letter-spacing: -.035em; color: var(--tinta); }
+.cl-precio small { font: 500 14px/1.2 var(--display); color: #56636a; }
 .cl-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; }
 .cl-inmediato { display: flex; align-items: center; gap: 8px; margin: 18px 0 0; font: 500 14px/1.35 var(--display); color: #4f5d64; }
 .cl-inmediato .ico { width: 17px; height: 17px; color: var(--vino); }
@@ -293,6 +297,8 @@ h3 { letter-spacing: -.02em; }
   .cl-portada h1 { font-size: clamp(36px, 10.2vw, 44px); }
   .cl-ceja { margin-bottom: 14px; }
   .cl-lead { margin: 16px 0 22px; font-size: 16.5px; }
+  .cl-precio { margin: -6px 0 20px; }
+  .cl-precio small { flex-basis: 100%; }
   .cl-acciones .cl-btn, .cl-acciones .cl-btn2 { width: 100%; }
   .cl-portada .cl-inmediato { justify-content: center; margin-top: 14px; text-align: center; }
   .cl-btn-xl { padding: 19px 24px; }

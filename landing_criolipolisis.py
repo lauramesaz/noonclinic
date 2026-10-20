@@ -13,13 +13,18 @@ from urllib.parse import quote
 
 ARCHIVO = "criolipolisis.html"
 TITULO = "Criolipólisis en Medellín sin cirugía"  # + " · noon Clinic" = 51 caracteres (Google corta en ~60)
-DESCRIPCION = ("Criolipólisis en Medellín con valoración médica: el frío controlado elimina la grasa localizada de abdomen, "
-               "flancos, papada, brazos y muslos. Sin cirugía, sin agujas y sin incapacidad.")
+DESCRIPCION = ("Criolipólisis en Medellín: $800.000 la sesión por zona, con valoración médica. El frío elimina la grasa localizada "
+               "de abdomen, flancos, papada, brazos y muslos. Sin cirugía ni incapacidad.")
 
 # Línea de inmediatez junto al botón: dato real confirmado por Laura el 19-oct ("respondemos en minutos en horario de atención").
 INMEDIATO = "Te respondemos en minutos por WhatsApp, en horario de atención."
 
-from datos import MENSAJE_WA as MSJ  # el mismo mensaje de toda la web, sin zona ni resultado del test (decisión de Laura, 19-oct-2026)
+# EXCEPCIÓN al mensaje único de la web (datos.MENSAJE_WA): para la pauta de criolipólisis Laura pidió el 19-oct que dijera
+# exactamente "hola quiero una cita de criolipólisis". Sin variaciones por zona ni por test.
+MSJ = "Hola, quiero una cita de criolipólisis"
+
+# Precio confirmado por Laura el 19-oct: $800.000 por sesión, por zona. La valoración médica se paga aparte.
+PRECIO = "$800.000"
 
 # ---------------------------------------------------------------- zonas (la grasa "terca")
 # (clave, nombre, cómo lo vive la paciente, qué se busca)
@@ -115,7 +120,7 @@ PREGUNTAS = [
     ("¿Tiene riesgos?", "Lo habitual es enrojecimiento, sensibilidad o adormecimiento temporal en la zona. Muy rara vez la grasa de la zona puede reaccionar al revés y aumentar; si pasa, tiene manejo. Por eso la indica y la controla un médico."),
     ("¿Quién no se la puede hacer?", "No se recomienda en embarazo o lactancia, en personas con enfermedades que reaccionan al frío (como urticaria por frío), con hernias en la zona o con problemas de circulación en el área. Lo revisamos en tu valoración."),
     ("¿Puedo combinarla con otros tratamientos?", "Sí. Se combina muy bien con radiofrecuencia para mejorar la firmeza de la piel, y con hábitos de alimentación y ejercicio para mantener el resultado."),
-    ("¿Cuánto cuesta?", "Depende de las zonas que quieras tratar y del número de sesiones. El valor se define el día de tu cita de valoración, con tu plan completo por escrito."),
+    ("¿Cuánto cuesta?", "Cada sesión cuesta $800.000 por zona. Muchas personas necesitan entre 1 y 3 sesiones por zona: en tu valoración médica te decimos cuántas necesitas tú y te damos el plan por escrito. La valoración se paga aparte."),
 ]
 
 
@@ -182,8 +187,8 @@ def generar(b):
         k, k, "true" if i == 0 else "false", k, ' class="on"' if i == 0 else "", CORTO_Z.get(k, n)) for i, (k, n, d, r) in enumerate(ZONAS))
     paneles = "".join('''<article class="cl-zona" id="zona-%s" role="tabpanel" aria-labelledby="tab-%s" data-zona="%s">
         <div><span class="cl-zona-n">%02d / %02d</span><h3>%s</h3></div>
-        <div><dl><div><dt>Cómo lo vives</dt><dd>%s</dd></div><div><dt>Lo que buscamos</dt><dd>%s</dd></div></dl>%s</div>
-      </article>''' % (k, k, k, i + 1, len(ZONAS), n, d, r,
+        <div><dl><div><dt>Cómo lo vives</dt><dd>%s</dd></div><div><dt>Lo que buscamos</dt><dd>%s</dd></div><div><dt>Precio</dt><dd>%s por sesión</dd></div></dl>%s</div>
+      </article>''' % (k, k, k, i + 1, len(ZONAS), n, d, r, PRECIO,
                        _boton(b, "Quiero tratar " + BOTON_Z[k] + " " + flecha, "cl-btn", " para " + BOTON_Z[k].split(" ", 1)[1]))
         for i, (k, n, d, r) in enumerate(ZONAS))
     botones_e = "".join('<button type="button" class="cl-e%s" data-e="%d"><span class="cl-en">%02d</span>%s</button>' % (
@@ -250,6 +255,7 @@ def generar(b):
       <p class="cl-ceja cl-vidrio">%(ico_frio)s Criolipólisis · Medellín</p>
       <h1>La grasa que no se va con nada, <span class="cl-hielo">se va con frío.</span></h1>
       <p class="cl-lead">Enfriamos la grasa localizada y tu cuerpo la elimina solo. <b>Sin cirugía, sin agujas y sin incapacidad.</b></p>
+      <p class="cl-precio"><span>Sesión por zona</span><b>%(precio)s</b><small>+ valoración médica previa</small></p>
       <div class="cl-acciones">%(btn_portada)s<a class="cl-btn2 cl-vidrio" href="#test"><i></i>¿Soy candidata? Test de 1 min</a></div>
       <p class="cl-inmediato">%(ico_reloj)s %(inmediato)s</p>
     </div>
@@ -427,7 +433,7 @@ def generar(b):
        "btn_cifras": cta("Agendar mi valoración", "cl-btn cl-btn-xl"),
        "btn_camino": cta("Agendar mi valoración", "cl-btn"), "btn_medico": cta("Quiero mi valoración", "cl-btn"),
        "btn_cierre": cta("Quiero mi valoración", "cl-btn cl-btn-xl cl-btn-blanco"), "btn_barra": cta("Quiero mi valoración", "cl-btn"),
-       "ico_frio": ico("frio"), "ico_flecha": flecha, "ico_reloj": ico("reloj"), "inmediato": INMEDIATO,
+       "ico_frio": ico("frio"), "ico_flecha": flecha, "ico_reloj": ico("reloj"), "inmediato": INMEDIATO, "precio": PRECIO,
        "ico_medica": ico("medica"), "ico_plan": ico("plan"), "ico_control": ico("control"),
        "dolores": dolores, "cifras": cifras, "atajo": atajo, "pestanas": pestanas, "paneles": paneles,
        "botones_e": botones_e, "textos_e": textos_e, "pasos": pasos,
