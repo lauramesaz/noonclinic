@@ -1,4 +1,7 @@
-// Noon Clinic: medición opcional de clics a WhatsApp, sin datos clínicos.
+// Noon Clinic: medición de visitas y clics a WhatsApp (Google Ads), sin datos clínicos ni personales.
+// Desde el 19-oct-2026 (decisión de Laura, igual que en Seravena) la medición está PRENDIDA por defecto y ya no sale ningún
+// aviso que estorbe. En Europa sigue apagada hasta que la persona la permita (lo pone la cabecera: HEAD_MEDICION en build.py).
+// Quien quiera desactivarla lo hace en "Preferencias de medición", la línea pequeña al final de cada página.
 (function () {
   'use strict';
   var KEY = 'noon_measurement_consent_v1';
@@ -14,7 +17,7 @@
       ad_user_data: allowed ? 'granted' : 'denied',
       ad_personalization: 'denied', analytics_storage: allowed ? 'granted' : 'denied'};
   }
-  if (!window.__noonConsentDefault) window.gtag('consent', 'default', state(consent === 'yes'));  // normalmente ya lo puso la cabecera (Tag Manager)
+  if (!window.__noonConsentDefault) window.gtag('consent', 'default', state(consent !== 'no'));  // normalmente ya lo puso la cabecera (Tag Manager)
   window.gtag('set', 'allow_ad_personalization_signals', false);
   window.gtag('set', 'ads_data_redaction', true);
   function start() {
@@ -36,7 +39,8 @@
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + TAG;
     document.head.appendChild(script);
   }
-  if (consent === 'yes') start();
+  if (consent !== 'no') start();
+  // Panel de preferencias: ya NO aparece solo; se abre desde la línea del pie de página.
   var panel = document.createElement('section');
   panel.setAttribute('role', 'region');
   panel.setAttribute('aria-label', english ? 'Measurement preferences' : 'Preferencias de medición');
@@ -44,8 +48,8 @@
   var text = document.createElement('p');
   text.style.cssText = 'margin:0 0 14px';
   text.textContent = english
-    ? 'May we use Google cookies (Analytics and Ads) to measure visits and clicks to WhatsApp? This is optional. Your choice will not affect access to the website or WhatsApp.'
-    : '¿Nos permites usar cookies de Google (Analytics y Ads) para medir visitas y clics a WhatsApp? Es opcional. Tu elección no afecta el acceso a la web ni a WhatsApp.';
+    ? 'We measure visits and clicks to WhatsApp with Google Analytics, Google Ads and Microsoft Clarity, without personal data. You can turn it off at any time; it will not affect your access to the website or WhatsApp.'
+    : 'Medimos visitas y clics a WhatsApp con Google Analytics, Google Ads y Microsoft Clarity, sin datos personales. Puedes desactivarlo cuando quieras; no afecta tu acceso a la web ni a WhatsApp.';
   panel.appendChild(text);
   function choose(value) {
     consent = value;
@@ -54,23 +58,23 @@
     if (value === 'yes') start();
     panel.hidden = true;
   }
-  [['no', english ? 'Reject' : 'Rechazar'], ['yes', english ? 'Accept' : 'Aceptar']].forEach(function (item) {
+  [['no', english ? 'Turn off' : 'Desactivar'], ['yes', english ? 'Allow' : 'Permitir']].forEach(function (item) {
     var button = document.createElement('button');
     button.type = 'button'; button.textContent = item[1];
     button.style.cssText = 'padding:10px 18px;margin:0 10px 0 0;border:1px solid #555;border-radius:6px;background:#fff;color:#222;font:inherit;cursor:pointer';
     button.addEventListener('click', function () { choose(item[0]); });
     panel.appendChild(button);
   });
-  panel.hidden = consent === 'yes' || consent === 'no';
+  panel.hidden = true;
   document.body.appendChild(panel);
   var settings = document.createElement('button');
   settings.type = 'button';
   settings.textContent = english ? 'Measurement preferences' : 'Preferencias de medición';
-  settings.style.cssText = 'display:block;margin:16px auto;padding:10px;background:transparent;border:1px solid currentColor;border-radius:6px;color:inherit;font:inherit;cursor:pointer';
+  settings.style.cssText = 'display:block;margin:14px auto 0;padding:6px 8px;background:transparent;border:0;color:inherit;opacity:.7;font:inherit;font-size:13px;text-decoration:underline;text-underline-offset:3px;cursor:pointer';
   settings.addEventListener('click', function () { panel.hidden = false; panel.querySelector('button').focus(); });
   (document.querySelector('footer') || document.body).appendChild(settings);
   function track(event) {
-    if (consent !== 'yes' || reported || (event.type === 'auxclick' && event.button !== 1)) return;
+    if (consent === 'no' || reported || (event.type === 'auxclick' && event.button !== 1)) return;
     var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
     if (!link) return;
     var url;

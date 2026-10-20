@@ -12,7 +12,7 @@ VALORACION = "$200.000"
 # Política de devoluciones (se usa en términos, pagos y preguntas). Cambia aquí.
 RETENCION = "20%"                       # se retiene del valor abonado por gastos administrativos
 FECHA_LIMITE = "15 de enero de 2027"    # la cirugía debe realizarse antes de esta fecha
-TERMINOS_FECHA = "21 de septiembre de 2026"
+TERMINOS_FECHA = "19 de octubre de 2026"
 
 # Qué significa cada cosa incluida (se usa en "Todo incluido" y en cada cirugía)
 INCLUIDOS = {
@@ -322,8 +322,10 @@ TERMINOS = [
         "Si tu cirugía se aplaza o no se realiza por razones médicas o por cualquiera de las situaciones de estos términos, no se reembolsan gastos de viaje. Por eso te recomendamos comprar tiquetes y hospedaje flexibles.",
         "Solo puedes viajar de regreso cuando tu cirujano lo autorice en el control.",
     ], False),
-    ("10. Tus datos personales", [
+    ("10. Tus datos personales y la medición del sitio", [
         "Los datos que compartes con nosotros se usan únicamente para contactarte y gestionar tu atención, conforme a la Ley 1581 de 2012 de protección de datos personales. Puedes pedir que los actualicemos o eliminemos escribiéndonos por nuestros canales de contacto.",
+        "<strong>Medición del sitio y cookies.</strong> Para saber cómo se usa este sitio y mejorarlo, medimos de forma agregada las páginas que se visitan, de dónde llegan las visitas y los clics al botón de WhatsApp, con Google Analytics, Google Ads y Microsoft Clarity, que pueden usar cookies. No recogemos tu nombre, tu teléfono ni el contenido de tus mensajes, y no usamos esta información para mostrarte publicidad personalizada.",
+        "Puedes desactivar esta medición en cualquier momento desde <strong>“Preferencias de medición”</strong>, al final de cada página, o borrando las cookies de tu navegador. Desactivarla no afecta tu acceso al sitio ni a WhatsApp.",
     ], False),
     ("11. Cambios en estos términos", [
         "Podemos actualizar estos términos en cualquier momento. A cada paciente le aplican los términos que estaban publicados el día de su pago. Última actualización: " + TERMINOS_FECHA + ".",

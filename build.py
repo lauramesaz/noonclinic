@@ -99,13 +99,17 @@ DOMINIO = "https://noon.clinic"
 CLARITY_ID = "yrmcw5m1wy"
 # ---------------------------------------------------------------- MEDICIÓN: Google Tag Manager (GA4 + evento clic_whatsapp)
 # Cuenta de Tag Manager "noon Clinic" (GTM-TDZN86RZ) y Analytics "noon Clinic" (G-MLKMVQZT84), creadas el 19-oct-2026 con el correo
-# de Laura pero en cuentas aparte, solo de noon. El consentimiento por defecto va ANTES de Tag Manager: sin "Aceptar" en el aviso,
-# Google solo recibe señales sin cookies (modo de consentimiento). Cada clic a WhatsApp empuja el evento clic_whatsapp al dataLayer.
+# de Laura pero en cuentas aparte, solo de noon. El consentimiento por defecto va ANTES de Tag Manager. Desde el 19-oct-2026
+# (decisión de Laura, como en Seravena) la medición está PRENDIDA por defecto, sin aviso; en Europa (EEE, Reino Unido, Suiza) sigue
+# apagada salvo que la persona la permita en "Preferencias de medición" (pie de página). Quien elige "Desactivar" queda apagado.
+# Nunca publicidad personalizada (salud). Cada clic a WhatsApp empuja el evento clic_whatsapp al dataLayer.
 GTM_ID = "GTM-TDZN86RZ"
 HEAD_MEDICION = """<script>
 window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments);};window.__noonConsentDefault=true;
-(function(){var c=null;try{c=localStorage.getItem("noon_measurement_consent_v1");}catch(e){}var ok=c==="yes";
+(function(){var c=null;try{c=localStorage.getItem("noon_measurement_consent_v1");}catch(e){}var ok=c!=="no";
+gtag("consent","default",{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied",analytics_storage:"denied",region:["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"],wait_for_update:500});
 gtag("consent","default",{ad_storage:ok?"granted":"denied",ad_user_data:ok?"granted":"denied",ad_personalization:"denied",analytics_storage:ok?"granted":"denied",wait_for_update:500});
+if(c==="yes")gtag("consent","update",{ad_storage:"granted",ad_user_data:"granted",ad_personalization:"denied",analytics_storage:"granted"});
 gtag("set","ads_data_redaction",true);gtag("set","allow_ad_personalization_signals",false);})();
 document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href*="wa.me/"],a[href*="api.whatsapp.com"]');if(!a)return;var s=a.closest("section,header,footer,.pr-barra,.cl-barra");dataLayer.push({event:"clic_whatsapp",pagina:location.pathname,seccion:s?(s.id||String(s.className).split(" ")[0]||s.tagName.toLowerCase()):""});},true);
 </script>
