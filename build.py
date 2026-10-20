@@ -103,6 +103,8 @@ CLARITY_ID = "yrmcw5m1wy"
 # (decisión de Laura, como en Seravena) la medición está PRENDIDA por defecto, sin aviso; en Europa (EEE, Reino Unido, Suiza) sigue
 # apagada salvo que la persona la permita en "Preferencias de medición" (pie de página). Quien elige "Desactivar" queda apagado.
 # Nunca publicidad personalizada (salud). Cada clic a WhatsApp empuja el evento clic_whatsapp al dataLayer.
+# 20-oct-2026: cada clic a WhatsApp manda también la conversión de Google Ads "Clic a WhatsApp - web Noon Clinic"
+# (cuenta Noon Clinic 525-396-6272, AW-18513507492). Antes no había etiqueta de Ads y la pauta no contaba ningún contacto.
 GTM_ID = "GTM-TDZN86RZ"
 HEAD_MEDICION = """<script>
 window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments);};window.__noonConsentDefault=true;
@@ -111,9 +113,11 @@ gtag("consent","default",{ad_storage:"denied",ad_user_data:"denied",ad_personali
 gtag("consent","default",{ad_storage:ok?"granted":"denied",ad_user_data:ok?"granted":"denied",ad_personalization:"denied",analytics_storage:ok?"granted":"denied",wait_for_update:500});
 if(c==="yes")gtag("consent","update",{ad_storage:"granted",ad_user_data:"granted",ad_personalization:"denied",analytics_storage:"granted"});
 gtag("set","ads_data_redaction",true);gtag("set","allow_ad_personalization_signals",false);})();
-document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href*="wa.me/"],a[href*="api.whatsapp.com"]');if(!a)return;var s=a.closest("section,header,footer,.pr-barra,.cl-barra");dataLayer.push({event:"clic_whatsapp",pagina:location.pathname,seccion:s?(s.id||String(s.className).split(" ")[0]||s.tagName.toLowerCase()):""});},true);
+document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href*="wa.me/"],a[href*="api.whatsapp.com"]');if(!a)return;var s=a.closest("section,header,footer,.pr-barra,.cl-barra");dataLayer.push({event:"clic_whatsapp",pagina:location.pathname,seccion:s?(s.id||String(s.className).split(" ")[0]||s.tagName.toLowerCase()):""});gtag("event","conversion",{send_to:"AW-18513507492/9R4bCKTkjZ0dEKTp9vtE"});},true);
 </script>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','""" + GTM_ID + """');</script>"""
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','""" + GTM_ID + """');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18513507492"></script>
+<script>gtag("js",new Date());gtag("config","AW-18513507492");</script>"""
 WA_EN = "Hi! I live in the US and I'd like information about a consultation at noon Clinic in Medellín."
 BOTON_BUSCAR = '<button class="buscar-btn" type="button" aria-label="Buscar procedimiento"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="txt">Buscar</span></button>'
 MENU_ES = """<div class="menu" id="menu" hidden>
