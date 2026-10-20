@@ -788,6 +788,13 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://noon.clinic/cirugia-plastica"/>
   </url>
   <url>
+    <loc>https://noon.clinic/por-que-noon</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://noon.clinic/por-que-noon"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://noon.clinic/why-noon-clinic"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://noon.clinic/por-que-noon"/>
+  </url>
+  <url>
     <loc>https://noon.clinic/preguntas-frecuentes</loc>
     <lastmod>2026-10-19</lastmod>
   </url>
@@ -995,5 +1002,12 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://noon.clinic/recuperacion-de-cirugia-plastica-en-medellin-donde-quedarse"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://noon.clinic/where-to-stay-in-medellin-to-recover-after-surgery"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://noon.clinic/recuperacion-de-cirugia-plastica-en-medellin-donde-quedarse"/>
+  </url>
+  <url>
+    <loc>https://noon.clinic/why-noon-clinic</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://noon.clinic/por-que-noon"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://noon.clinic/why-noon-clinic"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://noon.clinic/por-que-noon"/>
   </url>
 </urlset>

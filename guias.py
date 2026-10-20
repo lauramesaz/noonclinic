@@ -414,7 +414,8 @@ def llms(b, guias):
            "> Plastic surgery and aesthetic medicine clinic in Medellín, Colombia. Contact for patients (WhatsApp and phone): %s (%s). Website: %s" % (b.TEL_VISIBLE, wa, d), "",
            "## Key facts", ""] + ["- %s: %s" % (k, re.sub("<[^>]+>", "", v)) for k, v in b.DATOS_EN] + [
            "- Patients: people who live in Colombia and international patients.", "",
-           "## About", "", "- [About noon Clinic (English)](%s/about-noon-clinic)" % d, "- [International patients](%s/international-patients)" % d,
+           "## Why patients choose noon", ""] + ["- %s: %s" % (t, x) for t, x in b.RAZONES_EN] + ["",
+           "## About", "", "- [About noon Clinic (English)](%s/about-noon-clinic)" % d, "- [Why noon Clinic](%s/why-noon-clinic)" % d, "- [International patients](%s/international-patients)" % d,
            "- [Specialists (Spanish)](%s/especialistas)" % d, "- [Safety (Spanish)](%s/seguridad)" % d, "",
            "## Plastic surgery", ""] + [fila(c["slug"]) for c in b.CIRUGIAS_NOON] + [
            "", "## Aesthetic medicine", ""] + [fila(t["slug"]) for t in b.TRATAMIENTOS] + [

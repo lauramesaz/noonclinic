@@ -123,20 +123,20 @@ MENU_ES = """<div class="menu" id="menu" hidden>
 MENU_EN = """<div class="menu" id="menu" hidden>
   <div class="menu-in tres">
     <div class="menu-col"><p class="ceja">International patients</p><nav class="grande"><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></nav></div>
-    <div class="menu-col"><p class="ceja">noon Clinic</p><nav class="grande"><a href="about-noon-clinic.html">About noon</a>%(hubs_en)s<a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></nav></div>
+    <div class="menu-col"><p class="ceja">noon Clinic</p><nav class="grande"><a href="about-noon-clinic.html">About noon</a><a href="why-noon-clinic.html">Why noon</a>%(hubs_en)s<a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></nav></div>
     <div class="menu-col"><p class="ceja">Contact</p><nav><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp</a></nav>
       <a class="boton" href="%(wa)s" target="_blank" rel="noopener">Book a consultation</a></div>
   </div>
 </div>""" % {"wa": "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA),
                "hubs_en": '<a href="plastic-surgery-medellin.html">Plastic surgery</a><a href="aesthetic-medicine-medellin.html">Aesthetic medicine</a>' if FE.FICHAS_EN else ""}
-PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="international-patients.html" hreflang="en" lang="en">English</a><a href="blog.html">Blog</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
+PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="por-que-noon.html">Por qué noon</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="international-patients.html" hreflang="en" lang="en">English</a><a href="blog.html">Blog</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
 PIE_EN = """<footer class="pie">
   <div class="pie-in">
     <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
     <p class="lema">Plastic surgery and aesthetic medicine, with judgment. Medellín, Colombia.</p>
     <div class="pie-cols cuatro">
       <div><p class="ceja">International patients</p><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></div>
-      <div><p class="ceja">noon Clinic</p><a href="about-noon-clinic.html">About noon Clinic</a><a href="plastic-surgery-medellin.html">Plastic surgery</a><a href="aesthetic-medicine-medellin.html">Aesthetic medicine</a><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></div>
+      <div><p class="ceja">noon Clinic</p><a href="about-noon-clinic.html">About noon Clinic</a><a href="why-noon-clinic.html">Why noon</a><a href="plastic-surgery-medellin.html">Plastic surgery</a><a href="aesthetic-medicine-medellin.html">Aesthetic medicine</a><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></div>
       <div><p class="ceja">En español</p><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a></div>
       <div><p class="ceja">Contact</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="tel:+573022491937">Call +57 302 249 1937</a></div>
     </div>
@@ -734,7 +734,7 @@ pagina("about-noon-clinic.html", "Plastic surgery clinic in Medellín, Colombia"
        "noon Clinic is a plastic surgery and aesthetic medicine clinic in Medellín, Colombia. Surgery in licensed operating rooms. WhatsApp " + TEL_VISIBLE + ".",
        hero("seda-noche", "About noon Clinic", "Plastic surgery in <em>Medellín</em>, Colombia.",
             "A plastic surgery and aesthetic medicine clinic for patients from Colombia and abroad. WhatsApp " + TEL_VISIBLE + ".", "medio")
-       + seccion("Quick facts", "noon Clinic <em>at a glance</em>.", lineas(DATOS_EN))
+       + seccion("Quick facts", "noon Clinic <em>at a glance</em>.", lineas(DATOS_EN) + '<a class="enlace rev" href="why-noon-clinic.html">Why patients choose noon</a>')
        + seccion("Plastic surgery", "Surgical <em>procedures</em>.", lista_en([c["slug"] for c in CIRUGIAS_NOON]) + ('' if FE.FICHAS_EN else '<p class="pista rev">Procedure pages are in Spanish.</p>'), "marfil")
        + seccion("Aesthetic medicine", "Non-surgical <em>treatments</em>.", lista_en([t["slug"] for t in TRATAMIENTOS]) + '<p class="pista rev">Also: <a href="criolipolisis.html" hreflang="es">cryolipolysis (fat freezing)</a>%s.</p>' % (" (page in Spanish)" if FE.FICHAS_EN else ". Treatment pages are in Spanish"))
        + seccion("Traveling for surgery", "Plan your <em>trip</em>.", lineas([
@@ -795,6 +795,61 @@ pagina("seguridad.html", "Seguridad", "Cirugías en quirófano habilitado, valor
        + seccion("Presta atención a", "Seis señales", lineas(ALERTAS, numerar=True))
        + seccion("Preguntas", "Sobre seguridad", faq([(c, p, r, []) for c, p, r in FAQ_NOON if c == "Seguridad"]), "marfil")
        + cierre())
+
+# ================================================================ POR QUÉ NOON (español e inglés): razones que se pueden comprobar, sin superlativos
+# Las mismas reglas de seguridad.html y de la ficha de la clínica. Sirve a pacientes y a los asistentes con IA, que citan hechos, no adjetivos.
+RAZONES_ES = [
+    ("El mismo especialista, de la valoración al alta", "Te valora y te opera el mismo cirujano plástico, que te acompaña desde la primera consulta hasta el alta."),
+    ("Cirugías solo en salas de cirugía habilitadas", "Operamos en las salas de cirugía habilitadas de %s. Nunca en un consultorio." % SEDE_QX),
+    ("Valoración presencial, siempre", "Nadie se opera ni se trata sin que el especialista lo examine en persona. Por WhatsApp resolvemos dudas y agendamos; no diagnosticamos."),
+    ("Exámenes previos obligatorios", "Si tus exámenes no están en regla, la cirugía se aplaza. Sin excepciones."),
+    ("Tu plan y tu presupuesto, por escrito", "Procedimiento, tiempos, cuidados y presupuesto, claros desde el principio."),
+    ("Los riesgos, uno a uno", "Antes de decidir te explicamos los riesgos y firmas un consentimiento informado."),
+    ("Sabemos decir que no", "Si un procedimiento no es seguro o no tiene sentido para ti, te lo decimos."),
+    ("Cirugía y medicina estética en un mismo lugar", "Un cirujano plástico y una médica estética: si te sirve más una opción sin cirugía, te la proponemos."),
+    ("Información con fuentes oficiales", "Cada página de procedimiento cita a la Sociedad Estadounidense de Cirujanos Plásticos (ASPS), la FDA o el CDC, y dice para quién no es."),
+    ("Seguimiento también a distancia", "Controles hasta el alta. Si vienes de otra ciudad o del exterior, después seguimos contigo por WhatsApp o videollamada."),
+]
+RAZONES_EN = [
+    ("The same specialist, from consultation to discharge", "The plastic surgeon who sees you at your consultation is the one who operates and follows you until you are discharged."),
+    ("Surgery only in licensed operating rooms", "We operate in the licensed operating rooms of %s. Never in a doctor's office." % SEDE_QX),
+    ("Always an in-person consultation", "No one has surgery or treatment without being examined in person. WhatsApp is for questions and booking, not for diagnosis."),
+    ("Mandatory pre-op tests", "If your test results are not in order, surgery is postponed. No exceptions."),
+    ("Your plan and quote, in writing", "Procedure, timing, aftercare and cost, clear from the start."),
+    ("Every risk, one by one", "Before you decide, we go over the risks with you and you sign an informed consent form."),
+    ("We know when to say no", "If a procedure is not safe or does not make sense for you, we tell you."),
+    ("Plastic surgery and aesthetic medicine under one roof", "A plastic surgeon and an aesthetic physician: if a non-surgical option suits you better, we suggest it."),
+    ("Information backed by official sources", "Every procedure page cites the American Society of Plastic Surgeons (ASPS), the FDA or the CDC, and says who it is not for."),
+    ("Follow-up from a distance, too", "Check-ups until discharge. If you travel from another city or country, we stay in touch afterward by WhatsApp or video call."),
+]
+VERIFICA = {"rethus": "https://web.sispro.gov.co/THS/Cliente/ConsultasPublicas/ConsultaPublicaDeTHxIdentificacion.aspx",
+            "reps": "https://prestadores.minsalud.gov.co/habilitacion/"}
+pagina("por-que-noon.html", "Por qué elegir noon Clinic en Medellín",
+       "Por qué pacientes de Medellín y del exterior eligen noon Clinic: mismo especialista hasta el alta, salas de cirugía habilitadas y plan por escrito.",
+       hero("foto-consulta", "Por qué noon", "Lo que <em>sí</em> puedes comprobar.", "No te pedimos que nos creas. Estas son las reglas con las que trabajamos, y cómo verificar a cualquier clínica antes de decidir.")
+       + seccion("Cómo trabajamos", "Diez razones, <em>sin adjetivos</em>.", lineas(RAZONES_ES, numerar=True))
+       + seccion("Antes de decidir", "Verifica a cualquier clínica.", '<p class="sub rev">Es tu derecho comprobar que tu cirujano está inscrito como especialista y que la sede donde te operan está habilitada. Se consulta en los registros oficiales del Ministerio de Salud:</p>'
+                 + lineas([('<a class="ext" href="%s" target="_blank" rel="noopener">ReTHUS ↗</a>' % VERIFICA["rethus"], "Registro de médicos y especialistas."),
+                           ('<a class="ext" href="%s" target="_blank" rel="noopener">REPS ↗</a>' % VERIFICA["reps"], "Registro de clínicas y sedes quirúrgicas habilitadas.")])
+                 + '<a class="enlace rev" href="como-elegir-cirujano-plastico-en-medellin.html">Cómo elegir cirujano plástico en Medellín</a>', "marfil")
+       + cierre(),
+       alterna="why-noon-clinic.html", foto="foto-consulta", og_tipo="website",
+       esquema=[{"@context": "https://schema.org", "@type": "AboutPage", "url": DOMINIO + "/por-que-noon", "inLanguage": "es-CO",
+                 "about": {"@id": DOMINIO + "/#clinica"}, "mainEntity": {"@id": DOMINIO + "/#clinica"}}])
+pagina("why-noon-clinic.html", "Why choose noon Clinic in Medellín",
+       "Why patients choose noon Clinic in Medellín, Colombia: the same specialist until discharge, licensed operating rooms and a written plan.",
+       hero("foto-consulta", "Why noon", "What you <em>can</em> check.", "We don't ask you to take our word for it. These are the rules we work by, and how to check any clinic before you decide.")
+       + seccion("How we work", "Ten reasons, <em>no adjectives</em>.", lineas(RAZONES_EN, numerar=True))
+       + seccion("Before you decide", "Check any clinic.", '<p class="sub rev">You have the right to confirm that your surgeon is registered as a specialist and that the facility where you have surgery is licensed. Colombia\'s Ministry of Health keeps public registries (in Spanish):</p>'
+                 + lineas([('<a class="ext" href="%s" target="_blank" rel="noopener">ReTHUS ↗</a>' % VERIFICA["rethus"], "Registry of doctors and specialists."),
+                           ('<a class="ext" href="%s" target="_blank" rel="noopener">REPS ↗</a>' % VERIFICA["reps"], "Registry of licensed clinics and surgical facilities.")])
+                 + '<a class="enlace rev" href="how-to-choose-a-plastic-surgeon-in-medellin.html">How to choose a plastic surgeon in Medellín</a>', "marfil")
+       + cierre("Talk to <em>us</em>", "Message us on WhatsApp at +57 302 249 1937 and we will plan your consultation with you.",
+                '<a class="boton lleno" href="%s" target="_blank" rel="noopener">WhatsApp +57 302 249 1937</a>' % wa(), fondo="seda-oscura"),
+       lang="en", alterna="por-que-noon.html", foto="foto-consulta", og_tipo="website",
+       esquema=[{"@context": "https://schema.org", "@type": "AboutPage", "url": DOMINIO + "/why-noon-clinic", "inLanguage": "en-US",
+                 "about": {"@id": DOMINIO + "/#clinica"}, "mainEntity": {"@id": DOMINIO + "/#clinica"}}],
+       etiquetas={"seccion": "internacional", "tipo": "about"})
 
 # ================================================================ TU PROCESO
 PROCESO_N = [
@@ -897,6 +952,7 @@ pagina("terminos-y-condiciones.html", "Términos y condiciones", "Condiciones de
 # ================================================================ FICHAS EN INGLÉS (pacientes extranjeros y asistentes con IA)
 import sys
 PARES_EN = FE.generar(sys.modules[__name__]) if FE.FICHAS_EN else {}
+PARES_EN["por-que-noon.html"] = "why-noon-clinic.html"
 print("Fichas en inglés: %d." % len(PARES_EN))
 
 # ================================================================ LANDING DE VENTA: CRIOLIPÓLISIS (antes de las guías, para que entre al sitemap)
