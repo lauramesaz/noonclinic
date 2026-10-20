@@ -1095,3 +1095,15 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
 .todo-resp li { padding: 3px 0; }
 .todo-resp a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .lineas a.ext { text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+
+/* ---- 20-oct: la primera pantalla aparece sola con CSS (no espera a que cargue el JS: el inicio tardaba ~10 s en celular) */
+@keyframes noon-entra { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.js .hero .rev:not(.partido) { opacity: 1; transform: none; transition: none; animation: noon-entra 1.1s var(--ease) both; }
+.js .portada .logo-hero.rev { filter: none; animation-duration: 1.6s; }
+.js .portada .ceja.rev { animation-delay: .35s; } .js .portada .sub.rev { animation-delay: .55s; }
+.js .portada .hero-buscar.rev { animation-delay: .7s; } .js .portada .hero-acciones.rev { animation-delay: .85s; }
+.captura .hero .rev { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .js .hero .rev { animation: none; } }
+/* qué pasa cuando escribes (bajo los botones del cierre) */
+.nota-wa { margin: 22px 0 0; max-width: 520px; font-size: 13.5px; line-height: 1.6; opacity: .82; }
+.nota-wa a { color: inherit; border-bottom: 1px solid currentColor; text-decoration: none; padding-bottom: 1px; }

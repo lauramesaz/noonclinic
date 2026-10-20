@@ -1006,6 +1006,84 @@ FICHAS_EN = {
         "seo_title": "Labiaplasty in Medellín, Colombia",
         "seo_desc": "Labiaplasty in Medellín, Colombia: intimate surgery to reduce or reshape the labia minora, done discreetly. In-person consultation with a plastic surgeon."
 },
+    'labios-con-acido-hialuronico': {
+        "nombre": "Lip filler",
+        "corto": "Volume, definition and hydration for your lips, without surgery.",
+        "que_es": [
+                "A hyaluronic acid filler for the lips: it adds volume, defines the outline and hydrates. It's reabsorbable, which means your body gradually absorbs it.",
+                "The goal is harmony with the rest of your face: enhancing your lips without changing who you are."
+        ],
+        "ideal": [
+                "Thin lips or lips with little volume",
+                "A lip outline that lacks definition",
+                "Dehydrated lips or fine lines on the lips"
+        ],
+        "datos": [
+                "1 session",
+                "30 to 60 minutes",
+                "Mild swelling for 2 to 5 days",
+                "Immediate; lasts 6 to 18 months depending on the area"
+        ],
+        "recuperacion": [],
+        "faq": [
+                {
+                        "q": "Does lip filler hurt?",
+                        "a": "We use a topical anesthetic, and most products have an anesthetic built in. Before you start, you'll talk with your doctor about how to manage any discomfort."
+                },
+                {
+                        "q": "Will my lips look natural?",
+                        "a": "The goal is harmony with your face, not a dramatic change. That's why your doctor decides on the product and the amount when she examines you, based on your lips and what you want to achieve."
+                }
+        ],
+        "faq_nuevas": [
+                {
+                        "q": "How long does lip filler last?",
+                        "a": "It isn't permanent: your body gradually absorbs the gel, so the effect fades over time. Hyaluronic acid filler lasts 6 to 18 months depending on the area. Talk with your doctor about when it makes sense to repeat it."
+                },
+                {
+                        "q": "How long does swelling last after lip filler?",
+                        "a": "You may have mild swelling for 2 to 5 days. At first, you may also have some bruising, or your lips may feel firmer. If the pain gets worse instead of better, you notice changes in your vision, or the skin looks white, gray or bluish, get medical care right away."
+                },
+                {
+                        "q": "Can lip filler be dissolved?",
+                        "a": "Yes. If needed, hyaluronic acid can be dissolved with an enzyme, and according to the American Society of Plastic Surgeons (ASPS), this type of filler dissolves easily if complications occur. It's a medical procedure, so don't try to remove it at home: talk to your doctor."
+                },
+                {
+                        "q": "What should I avoid after lip filler?",
+                        "a": "Don't touch or massage the area unless your doctor tells you to. Avoid strenuous exercise, sun exposure and tanning beds, and ask her when you can wear makeup or use a sauna or steam room. The ASPS also recommends not kissing for the first 24 hours, to keep the filler from shifting and to help prevent infection."
+                }
+        ],
+        "todo_titulo": "All about lip filler",
+        "todo": [
+                {
+                        "h": "Lip filler, lip injections or lip augmentation: what we mean",
+                        "p": "<p>Lip filler, lip injections or lip augmentation: that's how people usually search for this treatment. In Spanish, it's labios con ácido hialurónico. It's a hyaluronic acid gel injected into the lip to add volume, define its shape or soften fine lines. According to the <a href=\"https://www.plasticsurgery.org/news/articles/from-gloss-to-surgery-every-lip-augmentation-option-ranked\">American Society of Plastic Surgeons (ASPS)</a>, it's the most popular type of lip filler, and because it attracts moisture, it makes the lips look fuller. It isn't the same as lip blushing, which is a cosmetic lip tattoo. For other areas of the face, see <a href=\"dermal-fillers-medellin.html\">dermal fillers</a>.</p>"
+                },
+                {
+                        "h": "How it's done, and how natural it looks",
+                        "p": "<p>Every mouth needs something different: more volume, a more defined outline or softer fine lines. According to the <a href=\"https://www.accessdata.fda.gov/cdrh_docs/pdf17/P170002S030D.pdf\">patient information for an FDA-approved lip filler</a>, the amount used depends on how full your lips are and on your goals. An <a href=\"https://www.plasticsurgery.org/news/articles/this-kiss-this-kiss-exploring-the-love-story-patients-have-with-lip-fillers\">ASPS article</a> warns that overfilling can change the shape of your mouth and take away its natural movement when you smile or talk. That's why your aesthetic physician chooses the product and the amount at your in-person consultation. It's a single session of 30 to 60 minutes.</p>"
+                },
+                {
+                        "h": "Who it's not for, or when to wait",
+                        "p": "<p>According to the <a href=\"https://www.fda.gov/medical-devices/aesthetic-cosmetic-devices/dermal-fillers-soft-tissue-fillers\">FDA</a>, before treatment you should tell your doctor if:</p><ul><li>Your skin is inflamed or infected: treatment is postponed.</li><li>You have a bleeding disorder or severe allergies.</li><li>You're allergic to lidocaine or other local anesthetics.</li><li>You get cold sores (oral herpes): the <a href=\"https://www.accessdata.fda.gov/cdrh_docs/pdf17/P170002S030D.pdf\">patient information</a> for the approved lip filler warns that the injection may trigger an outbreak.</li></ul><p>Its safety during pregnancy or breastfeeding isn't known. And if your lips are very thin, the <a href=\"https://www.aad.org/public/cosmetic/wrinkles/fillers-faqs\">American Academy of Dermatology (AAD)</a> advises against aiming for a dramatic change.</p>"
+                },
+                {
+                        "h": "Risks you should know about",
+                        "p": "<p>Every procedure has risks. The <a href=\"https://www.fda.gov/consumers/articulos-para-el-consumidor-en-espanol/que-hacer-y-que-no-hacer-con-los-rellenos-dermicos-para-las-arrugas-los-labios-y-otras-partes\">FDA</a>, the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/dermal-fillers/safety\">ASPS</a> and the <a href=\"https://www.accessdata.fda.gov/cdrh_docs/pdf17/P170002S030D.pdf\">patient information</a> for an approved lip filler list these, among others:</p><ul><li>Bruising, swelling, redness, pain or itching.</li><li>Bumps or nodules, even months later.</li><li>Asymmetry, or a correction that falls short or goes too far.</li><li>The gel moving out of the treated area, known as “filler migration.”</li><li>Infection or an allergic reaction.</li><li>Rarely, filler getting into a blood vessel and causing skin loss, blindness or a stroke.</li></ul><p>If you have unusual pain, changes in your vision, or skin that looks white, gray or bluish, get medical care right away.</p>"
+                },
+                {
+                        "h": "How to prepare, and care afterward",
+                        "p": "<p>Tell your doctor about your medications and any lip filler you've had before. If you take blood thinners, don't stop them on your own: the FDA-approved <a href=\"https://www.accessdata.fda.gov/cdrh_docs/pdf17/P170002S030D.pdf\">patient information</a> says to talk first with your prescribing doctor. Ask for the product name and check its registration with INVIMA, Colombia's health products regulator, in its <a href=\"https://www.invima.gov.co/consulta-registros-sanitarios\">online registry (in Spanish)</a>. Afterward, you may have mild swelling for 2 to 5 days. Don't touch the area unless told to. Ask when you can resume strenuous exercise, sun, saunas or steam rooms and, as the <a href=\"https://www.plasticsurgery.org/news/articles/this-kiss-this-kiss-exploring-the-love-story-patients-have-with-lip-fillers\">ASPS</a> advises, don't kiss for 24 hours.</p>"
+                },
+                {
+                        "h": "When another option is a better fit",
+                        "p": "<p>Lip filler adds volume, defines and hydrates. If your concern is something else, another option may suit you better:</p><ul><li>Volume in under-eye hollows, folds, cheekbones, chin or jawline, or shaping the nose: <a href=\"dermal-fillers-medellin.html\">hyaluronic acid filler</a> in other areas.</li><li>Expression lines on the forehead, between the brows or at the corners of the eyes: <a href=\"botox-medellin.html\">botulinum toxin</a>.</li><li>Dull or dehydrated facial skin: <a href=\"skin-boosters-medellin.html\">skin boosters</a>.</li><li>Loss of firmness in the face: <a href=\"collagen-biostimulators-medellin.html\">collagen biostimulators</a>.</li></ul><p>Your specialist decides what makes sense for you at your in-person consultation.</p>"
+                }
+        ],
+        "cierre_txt": "Everything starts with an in-person consultation in Medellín with Dr. Valeria Enciso, an aesthetic physician. She looks at your lips together with the rest of your face, tells you whether hyaluronic acid filler is right for you, and you get your plan in writing.",
+        "seo_title": "Lip Filler in Medellín, Colombia",
+        "seo_desc": "Hyaluronic acid lip filler to add volume, define the outline and hydrate your lips. It's temporary: your body absorbs it. In-person consultation in Medellín."
+},
     'laser': {
         "nombre": "Laser skin treatment",
         "corto": "Skin rejuvenation, dark spots, texture and vascular lesions.",
@@ -1335,6 +1413,196 @@ FICHAS_EN = {
         "cierre_txt": "Everything starts with an in-person consultation in Medellín: the aesthetic physician examines your skin, tells you whether a facial is what you need or whether another treatment makes more sense, and decides with you how often to have it.",
         "seo_title": "Deep Cleansing Facial in Medellín, Colombia",
         "seo_desc": "A deep cleansing medical facial in Medellín, Colombia: extractions, exfoliation and active ingredients for your skin type, after an in-person consultation."
+},
+    'lipo-360': {
+        "nombre": "Lipo 360",
+        "corto": "Abdomen, waist and back in a single surgery.",
+        "que_es": [
+                "It's liposuction that treats your whole torso in a single surgery, all the way around: abdomen, waist, flanks and back.",
+                "It shapes your contour; it isn't a way to lose weight, and it doesn't tighten skin. If your surgeon recommends it, it can be combined with moving that same fat to your buttocks."
+        ],
+        "ideal": [
+                "Localized fat on your abdomen, waist and back",
+                "A stable weight, close to your healthy weight",
+                "Firm, elastic skin"
+        ],
+        "datos": [
+                "2 to 5 hours",
+                "General or spinal",
+                "2 to 3 weeks",
+                "3 to 6 months"
+        ],
+        "recuperacion": [
+                {
+                        "t": "Surgery day",
+                        "d": "You leave wearing a compression garment. You need someone with you."
+                },
+                {
+                        "t": "Week 1",
+                        "d": "Short walks and lymphatic drainage massages."
+                },
+                {
+                        "t": "Weeks 2 to 4",
+                        "d": "Compression garment and massages; you get back to your routine."
+                },
+                {
+                        "t": "Months 3 to 6",
+                        "d": "The swelling goes down completely."
+                }
+        ],
+        "faq": [
+                {
+                        "q": "What areas does lipo 360 include?",
+                        "a": "Your abdomen, waist, flanks and back. Arms and thighs are separate areas. Your surgeon decides what's included in your case at your in-person consultation."
+                },
+                {
+                        "q": "Does lipo 360 replace a tummy tuck?",
+                        "a": "No. It removes fat, but it doesn't remove extra skin or repair diastasis recti (separated abdominal muscles). That's what a tummy tuck is for, and it's often combined with lipo."
+                }
+        ],
+        "faq_nuevas": [
+                {
+                        "q": "Is lipo 360 different from regular liposuction?",
+                        "a": "It's the same surgery, done on more areas: lipo 360 is liposuction that treats your whole torso, meaning your abdomen, waist, flanks and back, in a single surgery. You may also see it called 360 liposculpture. Liposculpture is another name for liposuction, one that puts the emphasis on shaping. Your surgeon decides which areas are included in your case at your in-person consultation."
+                },
+                {
+                        "q": "Is lipo 360 the same as a BBL?",
+                        "a": "No. Lipo 360 removes fat from your abdomen, waist and back. A BBL, or Brazilian butt lift, takes fat out with liposuction, purifies it and moves it to your buttocks. They can be done in the same surgery, but then they're two procedures: whether to combine them is up to your surgeon at your in-person consultation, and it's confirmed with your pre-op test results."
+                },
+                {
+                        "q": "How long is lipo 360 recovery?",
+                        "a": "You'll need about 2 to 3 weeks off work. In the first week, you take short walks and have lymphatic drainage massages; between weeks 2 and 4, you keep wearing the compression garment, continue the massages and get back to your routine. The swelling goes down completely between months 3 and 6. If it's combined with another surgery, your surgeon will confirm the timing."
+                },
+                {
+                        "q": "Is lipo 360 safe?",
+                        "a": "Every procedure carries risks, and lipo does too: the ASPS lists anesthesia risks, deep vein thrombosis and irregular contours, among others. The US CDC identified obesity and having several procedures in the same surgery as risk factors for embolism. That's why we don't operate unless your pre-op tests are in order, and your surgeon decides what gets combined."
+                }
+        ],
+        "todo_titulo": "What to know about lipo 360",
+        "todo": [
+                {
+                        "h": "What lipo 360 is, and the names people search for",
+                        "p": "<p>Lipo 360, 360 liposuction and 360 liposculpture are names for the same thing: <a href=\"liposuction-medellin.html\">liposuction</a> that treats your whole torso in a single surgery. In an article from the <a href=\"https://www.plasticsurgery.org/news/articles/sculpting-the-male-physique-through-liposuction\">American Society of Plastic Surgeons (ASPS)</a>, a member surgeon describes it as lipo of the abdomen done together with the flanks, treating the front and back of the torso. That's why it covers your abdomen, waist, flanks and back. The 360 isn't a technique or a device: it refers to the areas being treated.</p>"
+                },
+                {
+                        "h": "How it differs from lipo on a single area",
+                        "p": "<p>It's the same surgery with more areas, done through small incisions in the licensed operating rooms at Q2 in Medellín, never in a doctor's office. Liposuction takes 2 to 5 hours; your surgeon will tell you how long yours will take at your in-person consultation. More areas can mean more fat removed, and the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/liposuction/safety\">ASPS</a> notes that special considerations are needed when large amounts are suctioned: your health sets that limit. If your surgeon recommends it, you can add a <a href=\"brazilian-butt-lift-medellin.html\">fat transfer to your buttocks (BBL)</a>, a 3- to 5-hour surgery under general anesthesia.</p>"
+                },
+                {
+                        "h": "Who it's not for",
+                        "p": "<p>The <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/liposuction/candidates\">ASPS</a> describes a good candidate as an adult close to their ideal weight, with firm, elastic skin and good health, who doesn't smoke or vape and has clear goals. Lipo 360 isn't for you, or not right now, if:</p><ul><li>What you're looking for is weight loss.</li><li>Your weight goes up and down.</li><li>What bothers you most is loose skin on your abdomen: lipo doesn't tighten it.</li><li>You have a condition that makes healing harder.</li><li>You smoke or vape and won't quit before surgery.</li></ul><p>Your surgeon makes the final call, with your pre-op test results.</p>"
+                },
+                {
+                        "h": "Risks you should know about",
+                        "p": "<p>Every surgery carries risks. For liposuction, the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/liposuction/safety\">ASPS</a> lists these, among others:</p><ul><li>Anesthesia risks.</li><li>Bruising, swelling or fluid buildup.</li><li>Infection or poor wound healing.</li><li>Irregular contours, asymmetry or rippling.</li><li>Changes in skin sensation.</li><li>Deep vein thrombosis and heart or lung complications.</li></ul><p>The <a href=\"https://www.cdc.gov/mmwr/volumes/73/wr/mm7303a3.htm\">CDC</a> reviewed deaths of US citizens after cosmetic surgery abroad and identified obesity and having several procedures in the same surgery as risk factors for embolism. That's why your surgeon decides what gets added to lipo 360, and <a href=\"is-it-safe-to-get-plastic-surgery-in-colombia.html\">we don't operate unless your pre-op tests are in order</a>.</p>"
+                },
+                {
+                        "h": "How to prepare, and care afterward",
+                        "p": "<p>You get your pre-op tests, stop smoking or vaping and go over your medications with your specialist: the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/liposuction/preparation\">ASPS</a> warns that aspirin, anti-inflammatory drugs and herbal supplements can increase bleeding. <a href=\"international-patients.html\">We tell you what to stop taking</a>. An adult takes you home and stays with you the first night.</p><p>The <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/liposuction/recovery\">ASPS</a> says the compression garment helps control swelling. The first week, you take short walks and have lymphatic drainage massages. If fat was also moved to your buttocks, you avoid direct pressure on them as your surgeon instructs. Your surgeon decides when you're cleared to <a href=\"when-can-i-fly-after-liposuction.html\">fly after lipo</a>.</p>"
+                },
+                {
+                        "h": "When another option makes more sense",
+                        "p": "<p>Some things lipo 360 doesn't fix.</p><ul><li>If you have extra skin on your abdomen or diastasis recti: a <a href=\"tummy-tuck-medellin.html\">tummy tuck</a>, which is often combined with lipo, or a <a href=\"mini-tummy-tuck-medellin.html\">mini tummy tuck</a> if the extra skin is minimal and below the belly button.</li><li>If only one area bothers you: <a href=\"liposuction-medellin.html\">liposuction</a> of that area or, if you'd rather not have surgery, <a href=\"criolipolisis.html\">cryolipolysis (in Spanish)</a>.</li><li>If you want to lose weight: <a href=\"medical-weight-loss-medellin.html\">medical weight loss</a>.</li><li>If your breasts and abdomen changed after pregnancy: a <a href=\"mommy-makeover-medellin.html\">mommy makeover</a>.</li></ul><p>At your consultation, we'll tell you what makes sense for you.</p>"
+                }
+        ],
+        "cierre_txt": "Everything starts with your in-person consultation in Medellín: Dr. Fernando Ruiz, plastic surgeon, looks at where the fat is and the condition of your skin, tells you whether lipo 360 is right for you or another option makes more sense, and you get your plan in writing.",
+        "seo_title": "Lipo 360 in Medellín, Colombia",
+        "seo_desc": "Lipo 360 in Medellín, Colombia: abdomen, waist and back liposuction in one surgery. It's not for weight loss and doesn't tighten skin. In-person consultation."
+},
+    'lipoabdominoplastia-con-transferencia-glutea': {
+        "nombre": "Tummy Tuck and BBL",
+        "corto": "A tummy tuck, lipo and fat transfer to your buttocks, in one plan.",
+        "que_es": [
+                "It combines a tummy tuck, which removes extra skin and fat from the abdomen and repairs diastasis recti when needed, with liposuction to define the waist and the transfer of that fat, once purified, to your buttocks.",
+                "It's a bigger surgery than any of the three on its own. Your surgeon decides at your in-person consultation whether everything is done together or in separate stages, and your test results confirm it."
+        ],
+        "ideal": [
+                "Extra skin on your abdomen, or diastasis recti",
+                "Fat at your waist or back that can be moved to your buttocks",
+                "A stable weight, good health and no plans for more pregnancies"
+        ],
+        "datos": [
+                "Depends on what's combined",
+                "General",
+                "2 to 3 weeks or more",
+                "6 to 12 months"
+        ],
+        "recuperacion": [
+                {
+                        "t": "Week 1",
+                        "d": "You walk slightly bent forward, wear a compression garment, keep activity light and have a companion."
+                },
+                {
+                        "t": "Through week 3",
+                        "d": "No direct pressure on your buttocks, as directed. Compression garment and massage."
+                },
+                {
+                        "t": "Months 1 to 3",
+                        "d": "Gradual return to exercise, once you're cleared."
+                },
+                {
+                        "t": "Month 6 to year 1",
+                        "d": "The volume in your buttocks is stable, and the scar on your abdomen matures."
+                }
+        ],
+        "faq": [
+                {
+                        "q": "Can I have children afterward?",
+                        "a": "Yes, but ideally you have surgery once you're no longer planning more pregnancies, so you keep your result."
+                },
+                {
+                        "q": "How much of the volume in my buttocks stays?",
+                        "a": "Part of the fat is reabsorbed. What integrates in the first few months is permanent."
+                }
+        ],
+        "faq_nuevas": [
+                {
+                        "q": "Lipoabdominoplasty vs. tummy tuck: what's the difference?",
+                        "a": "A tummy tuck removes extra skin and fat from the abdomen and, if needed, repairs diastasis recti. When liposuction is added to define the waist, it's called a lipoabdominoplasty. If that fat is also moved to your buttocks, it's a lipoabdominoplasty with BBL, often simply called a tummy tuck and BBL. Your surgeon tells you which one you need after examining you."
+                },
+                {
+                        "q": "Can you get a tummy tuck and BBL at the same time?",
+                        "a": "You can, but not in every case. Together they make a bigger surgery, and the CDC points to obesity and having several procedures in the same operation as risk factors for embolism. Your surgeon decides at your in-person consultation, with your test results, whether everything is done at once or in separate stages."
+                },
+                {
+                        "q": "How do you sleep after a tummy tuck and BBL?",
+                        "a": "Two kinds of care overlap here. For your buttocks, the ASPS recommends sleeping face down or on your side. When the abdomen is tightened, the ASPS says you may be asked to avoid standing fully upright and to sleep with pillows elevating your knees. Before surgery, your surgeon tells you how to position yourself for both. Don't work it out on your own."
+                },
+                {
+                        "q": "How long does a tummy tuck and BBL take?",
+                        "a": "It depends on what's combined. On their own, a tummy tuck takes 3 to 4 hours and a BBL 3 to 5 hours, both under general anesthesia; together, the surgery takes longer. Time off work for each one alone is 2 to 3 weeks, and combined it can be more. Your surgeon gives you the timing for your case at your in-person consultation."
+                }
+        ],
+        "todo_titulo": "All about lipoabdominoplasty with BBL",
+        "todo": [
+                {
+                        "h": "Tummy tuck and BBL, or lipoabdominoplasty with BBL: what it is",
+                        "p": "<p>Tummy tuck and BBL, tummy tuck with lipo and BBL, lipoabdominoplasty with BBL or, in Spanish, lipoabdominoplastia con transferencia glútea: they're all names for the same combination of three surgeries. A <a href=\"tummy-tuck-medellin.html\">tummy tuck</a> removes the extra skin and fat on the abdomen. <a href=\"liposuction-medellin.html\">Liposuction</a> defines the waist and back. And a <a href=\"brazilian-butt-lift-medellin.html\">Brazilian butt lift (BBL)</a> moves that fat, once purified, to the buttocks. It isn't a fixed package: what gets combined depends on your body and your test results.</p>"
+                },
+                {
+                        "h": "What changes compared with each surgery on its own",
+                        "p": "<p>Each part has its own goal. On the abdomen, the extra skin is removed, the muscles are repaired if there's diastasis, and the scar sits low, covered by underwear. In the buttocks, the fat is placed above the muscle, never inside it. The difference is how big the surgery is: on its own, a tummy tuck takes 3 to 4 hours and a BBL 3 to 5 hours; together, it takes longer. Recovery also means caring for two areas at once. Plan ahead for time off work and for who will take care of you in the first days.</p>"
+                },
+                {
+                        "h": "Who it isn't for, or not yet",
+                        "p": "<p>According to the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/tummy-tuck/candidates\">American Society of Plastic Surgeons (ASPS)</a>, a good tummy tuck candidate is in good health, at a stable weight, has realistic expectations and doesn't smoke. For fat transfer to the buttocks, the <a href=\"https://www.plasticsurgery.org/news/articles/seven-things-you-need-to-know-about-a-brazilian-butt-lift\">ASPS</a> adds being close to your ideal weight. It's better to wait if:</p><ul><li>You plan to lose a lot of weight: that comes first, with a <a href=\"medical-weight-loss-medellin.html\">medical weight-loss plan</a>.</li><li>You want more children.</li><li>You have little fat elsewhere: there may not be enough to transfer.</li><li>You smoke and won't quit beforehand.</li><li>You expect to erase cellulite or all your stretch marks.</li></ul>"
+                },
+                {
+                        "h": "Risks: why combining calls for extra care",
+                        "p": "<p>Here the risks of three surgeries add up. For a <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/tummy-tuck/safety\">tummy tuck</a> and <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/liposuction/safety\">liposuction</a>, the ASPS lists, among others, infection, poor wound healing, fluid buildup, deep vein thrombosis and heart or lung complications. In the buttocks, the most serious risk is <a href=\"https://www.plasticsurgery.org/news/articles/the-possible-dangerous-complications-of-brazilian-butt-lifts-and-how-to-prevent-them\">fat embolism</a>, which can happen if fat is accidentally injected into the muscle. Reviewing deaths after cosmetic surgery, the <a href=\"https://www.cdc.gov/mmwr/volumes/73/wr/mm7303a3.htm\">CDC</a> identified obesity and having several procedures in the same operation as risk factors for embolism. That's why <a href=\"is-it-safe-to-get-plastic-surgery-in-colombia.html\">we don't operate until your pre-op tests are in order</a>, and you sign an informed consent form.</p>"
+                },
+                {
+                        "h": "How to prepare, and aftercare",
+                        "p": "<p>Beforehand, you get pre-op tests, stop smoking and review your medications: according to the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/tummy-tuck/preparation\">ASPS</a>, aspirin, anti-inflammatory drugs and herbal supplements can increase bleeding. <a href=\"international-patients.html\">We tell you what to stop taking</a>. An adult stays with you from the first night. The first week, you walk slightly bent forward, in a compression garment. Through week 3, you avoid direct pressure on your buttocks, as your surgeon directs, and for sitting, the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/buttock-augmentation/recovery\">ASPS</a> recommends a cushion under the back of your thighs. If you have shortness of breath, chest pain or an irregular heartbeat, get medical care right away.</p>"
+                },
+                {
+                        "h": "When another option makes more sense",
+                        "p": "<p>You don't always need all three. Depending on what bothers you, other options include:</p><ul><li>Just your abdomen, if you aren't looking for volume in your buttocks: a <a href=\"tummy-tuck-medellin.html\">tummy tuck</a>, often with lipo.</li><li>Just your buttocks and waist, if you don't have extra skin: a <a href=\"brazilian-butt-lift-medellin.html\">BBL</a>.</li><li>A little extra skin, only below the belly button: a <a href=\"mini-tummy-tuck-medellin.html\">mini tummy tuck</a>.</li><li>Breasts and abdomen after pregnancy: a <a href=\"mommy-makeover-medellin.html\">mommy makeover</a>.</li><li>Loose skin in several areas after losing a lot of weight: <a href=\"body-contouring-after-weight-loss-medellin.html\">body contouring after major weight loss</a>, in stages.</li></ul>"
+                }
+        ],
+        "cierre_txt": "Everything starts with an in-person consultation in Medellín: Dr. Fernando Ruiz examines your abdomen, your skin and how much fat you have available to transfer, tells you whether it makes sense to do everything at once or in stages, and you get your plan in writing.",
+        "seo_title": "Tummy Tuck and BBL in Medellín, Colombia",
+        "seo_desc": "Lipoabdominoplasty with BBL: a tummy tuck, lipo and fat transfer to your buttocks. Your surgeon decides at your Medellín consultation: one surgery or stages."
 },
     'lipopapada': {
         "nombre": "Chin liposuction",
@@ -2034,6 +2302,275 @@ FICHAS_EN = {
         "seo_title": "Breast Lift (Mastopexy) in Medellín, Colombia",
         "seo_desc": "Breast lift (mastopexy) in Colombia: lifts sagging breasts and raises the areola and nipple, with or without implants. In-person consultation in Medellín."
 },
+    'mastopexia-con-implantes': {
+        "nombre": "Breast Lift with Implants",
+        "corto": "Lifts sagging breasts and adds volume with implants.",
+        "que_es": [
+                "Surgery that lifts sagging breasts and, as part of the same plan, adds volume with implants: it removes extra skin, reshapes the breast tissue, and raises the areola and nipple.",
+                "At your in-person consultation, Dr. Fernando Ruiz decides with you on your scar pattern, the size and placement of the implant, and whether everything is done in one surgery."
+        ],
+        "ideal": [
+                "Breasts that sag and have also lost volume",
+                "An 'empty' upper breast after pregnancy, breastfeeding, or weight loss",
+                "Areolas and nipples that sit low or point downward"
+        ],
+        "datos": [
+                "3 to 5 hours",
+                "General",
+                "2 to 3 weeks",
+                "About 6 months"
+        ],
+        "recuperacion": [
+                {
+                        "t": "Surgery day",
+                        "d": "You leave wearing a post-surgical bra. You need someone with you."
+                },
+                {
+                        "t": "Week 1",
+                        "d": "Take it easy, care for your incisions, and come in for your first follow-up visit."
+                },
+                {
+                        "t": "Weeks 2 to 4",
+                        "d": "A gradual return to your routine, with no strenuous activity."
+                },
+                {
+                        "t": "Months 3 to 6",
+                        "d": "The implants settle, and around month 6 you see the final result. Your scars keep fading through the first year."
+                }
+        ],
+        "faq": [
+                {
+                        "q": "Is it all done in one surgery?",
+                        "a": "Often, yes. According to the ASPS, the lift can be done in the same surgery as the augmentation, although sometimes it requires a separate operation. Your surgeon decides this at your in-person consultation."
+                },
+                {
+                        "q": "How do I know if I also need a lift?",
+                        "a": "An implant adds volume, but it doesn't lift: the ASPS makes clear that augmentation doesn't correct severely sagging breasts. Among the signs it links to a lift are nipples that sit below the breast crease when you're not wearing a bra, and areolas and nipples that point downward. Your surgeon confirms this during your exam."
+                }
+        ],
+        "faq_nuevas": [
+                {
+                        "q": "How long is the recovery from a breast lift with implants?",
+                        "a": "You'll need about 2 to 3 weeks off work. The first week is for taking it easy and caring for your incisions, and between the second and fourth week you gradually return to your routine, with no strenuous activity. The implants settle between months 3 and 6, and you see the final result around month 6. If it's combined with another surgery, the timing changes: your surgeon decides this at your in-person consultation."
+                },
+                {
+                        "q": "Is there a scarless breast lift with implants?",
+                        "a": "No. Lifting the breast means removing extra skin, and that leaves a scar. According to the ASPS, the scar can go around the areola only, around the areola and straight down to the crease beneath the breast, or along that crease as well. That last pattern is known as an anchor scar. Which one you need depends on how much lift is required. The scars are permanent. In most cases they fade over time, and they keep fading for up to a year."
+                },
+                {
+                        "q": "How long do the results of a breast lift with implants last?",
+                        "a": "According to the ASPS, the results of a lift are long-lasting, but your breasts keep changing with age and gravity, and a pregnancy or significant weight loss can affect them. Implants aren't lifetime devices either: the FDA explains that there's no way to predict how long an implant will last, and that the longer you have implants, the more likely you are to need them removed or replaced."
+                },
+                {
+                        "q": "Can I get small implants with a breast lift?",
+                        "a": "Yes. The implant doesn't have to be big: implants come in a range of sizes, and yours is chosen based on the width of your chest, your skin, and what you're looking for. Sometimes the goal is simply to fill out the upper breast. Your surgeon decides this at your in-person consultation."
+                }
+        ],
+        "todo_titulo": "All about a breast lift with implants",
+        "todo": [
+                {
+                        "h": "Breast lift with implants or augmentation mastopexy: the same surgery",
+                        "p": "<p>You may also see it called a breast lift with augmentation, or breast lift and augmentation. In Colombia it's known as mastopexia con implantes or pexia con implantes. It raises a sagging breast and, as part of the same plan, adds volume. It's one form of <a href=\"breast-lift-medellin.html\">breast lift</a>, which can also be done with your own tissue alone. According to the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift\">American Society of Plastic Surgeons (ASPS)</a>, a lift on its own doesn't significantly change breast size or fill out the upper breast. If you want a fuller look, the ASPS suggests adding an augmentation.</p>"
+                },
+                {
+                        "h": "What changes compared with a breast lift alone",
+                        "p": "<p>The lift itself is the same: extra skin is removed, the tissue is reshaped, and the areola and nipple are moved higher. What's added is the implant. The <a href=\"https://www.fda.gov/medical-devices/breast-implants/types-breast-implants\">FDA</a> has approved two types, saline and silicone gel, and according to the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-augmentation/procedure\">ASPS</a>, the implant can go under or over the pectoral muscle. The <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-augmentation\">ASPS</a> explains that the lift can often be done in the same surgery as the augmentation, though sometimes it requires a separate operation. Surgery takes 3 to 5 hours, under general anesthesia. Your surgeon decides how it's done in your case.</p>"
+                },
+                {
+                        "h": "Who it isn't for, or not yet",
+                        "p": "<p>Based on what the ASPS says about candidates for a <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift/candidates\">lift</a> and for an <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-augmentation/candidates\">augmentation</a>, you may be a candidate if you're healthy, your weight is stable, you don't smoke, your breasts are fully developed, and your expectations are realistic. It's better to wait, or to think it over carefully, if:</p><ul><li>You're pregnant or breastfeeding.</li><li>You're planning more pregnancies: according to the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift/results\">ASPS</a>, they can reduce or undo the lift.</li><li>Your weight is still changing.</li><li>You're doing it for someone else: it should be your decision.</li></ul><p>Your surgeon makes the final call at your in-person consultation.</p>"
+                },
+                {
+                        "h": "Risks you should know about",
+                        "p": "<p>Every surgery has risks. These are some the ASPS lists for a <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift/safety\">breast lift</a> and for <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-augmentation/safety\">augmentation</a>:</p><ul><li>Anesthesia risks, bleeding, hematoma, infection, and fluid buildup.</li><li>Asymmetry, poor scarring, and changes in nipple or breast sensation.</li><li>Fat necrosis, and partial or total loss of the nipple and areola.</li><li>Capsular contracture, and implant rupture or malposition.</li><li>A lymphoma associated with breast implants (BIA-ALCL), or other very rare cancers in the capsule.</li><li>Deep vein thrombosis, heart and lung complications, and possible revision surgery.</li></ul><p>We go over each one with you, and you sign an informed consent form.</p>"
+                },
+                {
+                        "h": "How to prepare, and what recovery is like",
+                        "p": "<p>Before surgery, you get your pre-op tests, stop smoking, and review everything you take: according to the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift/preparation\">ASPS</a>, aspirin, anti-inflammatory drugs, and herbal supplements can increase bleeding. <a href=\"international-patients.html\">We'll tell you what to stop taking and what to bring</a>. You leave wearing a post-surgical bra, and you need an adult to stay with you the first night. The first week is for taking it easy and caring for your incisions. Between weeks 2 and 4 you ease back in, with no strenuous activity. The implants settle between months 3 and 6. If they're silicone, the <a href=\"https://www.fda.gov/consumers/consumer-updates/what-know-about-breast-implants\">FDA</a> recommends periodic screening.</p>"
+                },
+                {
+                        "h": "When another option makes more sense",
+                        "p": "<p>You don't always need both.</p><ul><li>If your breasts don't sag and you only want volume, we look at <a href=\"breast-augmentation-medellin.html\">breast augmentation</a>.</li><li>If you like your size and only the sagging bothers you, a <a href=\"breast-lift-medellin.html\">breast lift</a> alone may be enough.</li><li>If you already have implants and your breasts have also dropped, a <a href=\"breast-implant-exchange-medellin.html\">breast implant exchange</a> can include a lift.</li><li>If your abdomen also changed after pregnancy, we look at a <a href=\"mommy-makeover-medellin.html\">mommy makeover</a>.</li><li>If you've lost a lot of weight, the lift can be part of <a href=\"body-contouring-after-weight-loss-medellin.html\">body contouring after major weight loss</a>.</li></ul><p>Your surgeon decides this at your in-person consultation.</p>"
+                }
+        ],
+        "cierre_txt": "Everything starts with an in-person consultation in Medellín: Dr. Fernando Ruiz examines your skin and takes your measurements, tells you whether you need a lift, an implant, or both, and whether it makes sense to do it in one surgery or two. You get your plan in writing.",
+        "seo_title": "Breast Lift with Implants in Medellín, Colombia",
+        "seo_desc": "Breast lift with implants lifts sagging breasts and adds volume. Scars, risks, recovery, and when it fits. In-person consultation with a surgeon in Medellín."
+},
+    'mastopexia-sin-implantes': {
+        "nombre": "Breast Lift Without Implants",
+        "corto": "Lifts and reshapes your breasts using your own tissue, without implants.",
+        "que_es": [
+                "Surgery that lifts sagging breasts using only your own tissue: it removes extra skin, reshapes the breast, and raises the areola and nipple.",
+                "No implant is placed, so your volume doesn't change in any significant way. It's often the choice when you like your size and the sagging is what bothers you."
+        ],
+        "ideal": [
+                "You like your volume, but your breasts have sagged after pregnancy, breastfeeding, weight changes, or with age",
+                "Areolas and nipples that sit low or point downward",
+                "One breast that sits lower than the other",
+                "You don't want implants"
+        ],
+        "datos": [
+                "3 to 5 hours",
+                "General",
+                "2 to 3 weeks",
+                "About 6 months"
+        ],
+        "recuperacion": [
+                {
+                        "t": "Surgery day",
+                        "d": "You leave wearing a post-surgical bra. You need someone with you."
+                },
+                {
+                        "t": "Week 1",
+                        "d": "Take it easy and care for your incisions."
+                },
+                {
+                        "t": "Weeks 2 to 4",
+                        "d": "A gradual return to your routine, with no strenuous activity."
+                },
+                {
+                        "t": "Month 6",
+                        "d": "Final result. Your scars keep fading through the first year."
+                }
+        ],
+        "faq": [
+                {
+                        "q": "Will my breasts end up smaller?",
+                        "a": "Not in any significant way. They're lifted and reshaped, but the volume is still your own. If you want more, we look at a lift with implants."
+                },
+                {
+                        "q": "How long does the surgery take?",
+                        "a": "Between 3 and 5 hours, under general anesthesia, in an operating room. Your surgeon confirms the time for your case."
+                }
+        ],
+        "faq_nuevas": [
+                {
+                        "q": "Which is better, a breast lift with or without implants?",
+                        "a": "Neither one is better for everyone: it depends on your volume and on what you want. According to the ASPS, a lift on its own doesn't significantly change breast size or fill out the upper part of the breast. If you like your volume, we look at a lift without implants. If you also want a fuller upper breast, we look at adding implants. Your specialist decides this at your in-person consultation."
+                },
+                {
+                        "q": "Can I get a breast lift without implants if my breasts are small?",
+                        "a": "It depends on how much tissue you have and how you feel about your size. A breast lift raises and reshapes, but it doesn't add volume: if your breasts feel small to you now, they won't be bigger after the lift, and that's when we look at implants. If you like your size, even if it's small, it may be an option. Your specialist decides this at your in-person consultation."
+                },
+                {
+                        "q": "Will my breasts sag again after a breast lift without implants?",
+                        "a": "According to the ASPS, results are usually long-lasting, but your breasts keep changing with age and gravity. A pregnancy can reduce or undo the lift, and losing a significant amount of weight after surgery can change how your breasts look. Keeping your weight stable and having surgery once you're no longer planning more pregnancies helps you keep your result."
+                },
+                {
+                        "q": "Does a breast lift without implants leave scars?",
+                        "a": "Yes. According to the ASPS, the scars are permanent, but in most cases they fade over time. They can go around the areola only, around the areola and straight down, or also along the crease beneath the breast, in an anchor shape. Which pattern you need depends on how much lift is required, and your surgeon decides after examining you."
+                }
+        ],
+        "todo_titulo": "All about a breast lift without implants",
+        "todo": [
+                {
+                        "h": "Without implants or with your own tissue: the same surgery",
+                        "p": "<p>Breast lift without implants, mastopexy without implants, or a lift using your own tissue: these are all names for the same surgery. In Colombia you'll hear it called mastopexia sin implantes. It's a <a href=\"breast-lift-medellin.html\">breast lift</a> in which no implant is placed. Your surgeon removes extra skin, reshapes the breast, and raises the areola and nipple. According to the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift\">American Society of Plastic Surgeons (ASPS)</a>, a lift doesn't significantly change breast size. That's why it's an option if you like your volume. In Medellín, we perform it in the licensed operating rooms at Q2, never in a doctor's office.</p>"
+                },
+                {
+                        "h": "How it differs from a breast lift with implants",
+                        "p": "<p>The difference is that no volume is added. The <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift\">ASPS</a> also notes that a lift on its own doesn't fill out the upper part of the breast, the part you see in a low-cut top. If that's what you miss, we look at a <a href=\"breast-lift-with-implants-medellin.html\">breast lift with implants</a>.</p><p>Your scars depend on how much lift you need and on your anatomy. The <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift/procedure\">ASPS</a> describes three incision patterns: around the areola; around the areola and straight down; or, in addition, along the crease beneath the breast. They're permanent and, in most cases, fade over time.</p>"
+                },
+                {
+                        "h": "Who it's for, who it isn't, and who should wait",
+                        "p": "<p>According to the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift/candidates\">ASPS</a>, you may be a candidate if you're healthy, have a stable weight, don't smoke, and are bothered by sagging, nipples that fall below the breast crease when unsupported, or one breast that sits lower than the other. Without implants, it's also best if you like your volume. It's better to wait or think it over if:</p><ul><li>You're planning more pregnancies: the ASPS says they can reduce or undo the lift.</li><li>Your weight isn't stable.</li><li>You smoke and don't plan to quit.</li><li>You want bigger breasts or a fuller upper breast: this surgery doesn't do that.</li></ul>"
+                },
+                {
+                        "h": "Risks you should know about",
+                        "p": "<p>Even without an implant, this is surgery, and it has risks. The <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift/safety\">ASPS</a> lists these, among others:</p><ul><li>Anesthesia risks, bleeding or hematoma, infection, and fluid buildup.</li><li>Asymmetry or irregularities in breast shape.</li><li>Changes in nipple or breast sensation, which may be temporary or permanent.</li><li>Poor wound healing.</li><li>Fat necrosis, meaning some of the fatty tissue under the skin dies.</li><li>Partial or total loss of the nipple and areola.</li><li>Deep vein thrombosis, and heart and lung complications.</li><li>The possibility of revision surgery.</li></ul><p>Before you decide, we go over each one with you, and you sign an informed consent form.</p>"
+                },
+                {
+                        "h": "How to prepare, and what recovery is like",
+                        "p": "<p>You get your pre-op tests, stop smoking, and review what you take with your specialist: according to the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/breast-lift/preparation\">ASPS</a>, aspirin, anti-inflammatory drugs, and herbal supplements can increase bleeding. <a href=\"international-patients.html\">We'll tell you what to stop taking</a> and what to bring. You need an adult to take you home and stay with you at least the first night.</p><p>You leave wearing a post-surgical bra. The first week is for taking it easy and caring for your incisions. Between weeks 2 and 4, you ease back into your routine, with no strenuous activity. Plan on about 2 to 3 weeks off work.</p>"
+                },
+                {
+                        "h": "When another option makes more sense",
+                        "p": "<p>If a lift isn't all you're after, a different surgery may suit you better:</p><ul><li>You want a lift and more volume: <a href=\"breast-lift-with-implants-medellin.html\">breast lift with implants</a>.</li><li>Your breasts don't sag and you want more size: <a href=\"breast-augmentation-medellin.html\">breast augmentation</a>.</li><li>You want smaller breasts: the ASPS suggests combining the lift with a <a href=\"breast-reduction-medellin.html\">breast reduction</a>.</li><li>You have implants and want them removed: <a href=\"breast-implant-exchange-medellin.html\">implant exchange or removal</a> can be done along with the lift.</li><li>You're also concerned about your stomach after pregnancy: <a href=\"mommy-makeover-medellin.html\">mommy makeover</a>.</li></ul><p>At your consultation, we'll tell you what makes sense for you.</p>"
+                }
+        ],
+        "cierre_txt": "Everything starts with your in-person consultation in Medellín: Dr. Fernando Ruiz, plastic surgeon, examines you, tells you whether your breasts can be lifted with your own tissue alone or whether adding implants makes sense, and you get your plan in writing.",
+        "seo_title": "Breast Lift Without Implants in Medellín",
+        "seo_desc": "Breast lift without implants in Medellín: raises sagging breasts using your own tissue if you like your size. Risks, scars, and an in-person consultation."
+},
+    'menton-y-mandibula-con-acido-hialuronico': {
+        "nombre": "Chin and jawline filler",
+        "corto": "Projection for the chin and definition for the jawline, without surgery.",
+        "que_es": [
+                "A hyaluronic acid filler injected into the chin and along the jawline to add projection and define the contour of your face, without surgery.",
+                "Your body gradually absorbs it, so the effect is temporary. If your profile needs a structural change, we evaluate chin surgery."
+        ],
+        "ideal": [
+                "A chin that lacks projection",
+                "A jawline that lacks definition",
+                "Wanting to improve your profile without surgery"
+        ],
+        "datos": [
+                "1 session",
+                "30 to 60 minutes",
+                "Mild swelling for 2 to 5 days",
+                "Immediate; lasts 6 to 18 months depending on the area"
+        ],
+        "recuperacion": [],
+        "faq": [
+                {
+                        "q": "Can chin and jawline filler be reversed?",
+                        "a": "Yes. If needed, hyaluronic acid can be dissolved with an enzyme."
+                },
+                {
+                        "q": "Does chin filler hurt?",
+                        "a": "We use a topical anesthetic, and most products have an anesthetic built in."
+                }
+        ],
+        "faq_nuevas": [
+                {
+                        "q": "How long does jawline filler last?",
+                        "a": "It's temporary: your body gradually absorbs the filler, and the effect lasts 6 to 18 months depending on the area. If you want to keep the result, your doctor will tell you when it makes sense to repeat the treatment."
+                },
+                {
+                        "q": "Chin filler or chin implant: which is better?",
+                        "a": "It depends on how much change your profile needs. Filler adds volume without surgery, and the effect is temporary. A chin implant means surgery: chin surgery changes the structure, either with an implant over the bone or by reshaping your own bone, and that's the way to reduce a chin that sticks out. Which one makes sense for you is up to your specialist at your in-person consultation."
+                },
+                {
+                        "q": "Does chin filler get rid of a double chin?",
+                        "a": "It doesn't remove fat. According to an article from the American Society of Plastic Surgeons (ASPS), when the chin lacks structure, that can contribute to the look of a double chin, and a chin implant or filler can add projection. If the issue is fat, we look at chin liposuction or cryolipolysis, also called fat freezing. What applies to you is up to your specialist at your in-person consultation."
+                },
+                {
+                        "q": "Can men get jawline filler?",
+                        "a": "Yes. According to the ASPS, filler alone is enough for some men to get more definition in the jawline and more projection in the chin; others need surgery, especially if they have loose skin. What applies to you is up to your specialist at your in-person consultation."
+                }
+        ],
+        "todo_titulo": "What to know about chin and jawline filler",
+        "todo": [
+                {
+                        "h": "Jawline filler or chin filler: what we mean",
+                        "p": "<p>You'll see it called jawline filler, chin filler or non-surgical chin augmentation. It's the same <a href=\"dermal-fillers-medellin.html\">hyaluronic acid filler</a> used on other areas of the face, placed in the chin and along the jawline. According to an <a href=\"https://www.plasticsurgery.org/news/articles/sculpting-the-male-jawline-chin-and-neck-contouring-101\">article from the American Society of Plastic Surgeons (ASPS)</a>, filler can add volume and definition to the jawline and more projection to the chin. The <a href=\"https://www.fda.gov/consumers/consumer-updates/dermal-filler-dos-and-donts-wrinkles-lips-and-more\">U.S. Food and Drug Administration (FDA)</a> lists the chin and jawline among approved uses, for people 22 and older, and notes that these fillers are temporary: your body breaks them down and absorbs them over time.</p>"
+                },
+                {
+                        "h": "How it differs from chin surgery",
+                        "p": "<p>Filler involves no incisions and no operating room. It's a single session of 30 to 60 minutes with a topical anesthetic, and you see the change right away. You may have mild swelling for 2 to 5 days, and the effect lasts 6 to 18 months depending on the area. <a href=\"chin-surgery-medellin.html\">Chin surgery</a> is different: a 1- to 2-hour operation that changes the structure, with an implant over the bone or by reshaping the bone, followed by 7 to 10 days off work. Your aesthetic physician decides where and how much to inject when she examines your face.</p>"
+                },
+                {
+                        "h": "Who it's not for, or when to wait",
+                        "p": "<p>According to the <a href=\"https://www.fda.gov/medical-devices/aesthetic-cosmetic-devices/dermal-fillers-soft-tissue-fillers\">FDA</a>, before treatment you should tell your doctor if:</p><ul><li>The skin in the area is inflamed or infected: treatment is postponed.</li><li>You have a bleeding disorder.</li><li>You have severe allergies or have had anaphylaxis, or you're allergic to lidocaine or other local anesthetics.</li></ul><p>The FDA also notes that safety is not known during pregnancy or breastfeeding, in people under 22 or in people who tend to form keloids. With that information, your doctor will tell you whether it's right for you or whether it's better to wait.</p>"
+                },
+                {
+                        "h": "Risks you should know about",
+                        "p": "<p>Every procedure has risks, and this one does too. The <a href=\"https://www.fda.gov/consumers/consumer-updates/dermal-filler-dos-and-donts-wrinkles-lips-and-more\">FDA</a> and the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/dermal-fillers/safety\">ASPS</a> list these, among others:</p><ul><li>Bruising, redness, swelling or pain.</li><li>Bumps, or filler you can feel under the skin.</li><li>Asymmetry, or a correction that falls short or goes too far.</li><li>Infection or an allergic reaction.</li><li>Rarely, filler getting into a blood vessel and causing skin loss, blindness or a stroke.</li></ul><p>According to the FDA, if you feel unusual pain, notice changes in your vision or see that the skin looks white, gray or bluish, get medical care right away.</p>"
+                },
+                {
+                        "h": "How to prepare, and care afterward",
+                        "p": "<p>Tell your doctor about any medications and herbal supplements you take, your allergies, whether you smoke and whether you've had fillers or botulinum toxin before, as the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/dermal-fillers/consultation\">ASPS</a> suggests. Ask for the product name: <a href=\"https://www.invima.gov.co/biblioteca/preview/101499\">INVIMA</a>, Colombia's national health regulator, recommends checking that it has a current registration in its <a href=\"https://www.invima.gov.co/consulta-registros-sanitarios\">online registry (in Spanish)</a>. Afterward, the <a href=\"https://www.aad.org/public/cosmetic/wrinkles/fillers-faqs\">American Academy of Dermatology (AAD)</a> recommends:</p><ul><li>Holding off on strenuous exercise.</li><li>Not touching the area, unless you're told to massage it.</li><li>Protecting your skin from the sun and staying away from tanning beds.</li></ul>"
+                },
+                {
+                        "h": "When another option is a better fit",
+                        "p": "<p>Filler doesn't solve everything. That same <a href=\"https://www.plasticsurgery.org/news/articles/sculpting-the-male-jawline-chin-and-neck-contouring-101\">ASPS article</a>, written for men, explains that filler alone is enough for some, while others need surgery, especially if they have loose skin. Depending on what bothers you, we look at:</p><ul><li>A chin that needs much more projection, or sticks out too much: <a href=\"chin-surgery-medellin.html\">chin surgery</a>, with our plastic surgeon.</li><li>Fat under the chin: <a href=\"chin-liposuction-medellin.html\">chin liposuction</a> or, without surgery, <a href=\"criolipolisis.html\">cryolipolysis (in Spanish)</a>.</li><li>Mild sagging along the jawline: a <a href=\"thread-lift-medellin.html\">thread lift</a> or <a href=\"hifu-medellin.html\">HIFU</a>; if it's more pronounced, a <a href=\"facelift-medellin.html\">facelift</a>.</li><li>Clenching or grinding your teeth (bruxism): <a href=\"botox-medellin.html\">botulinum toxin</a>.</li></ul>"
+                }
+        ],
+        "cierre_txt": "Everything starts with an in-person consultation in Medellín with Dr. Valeria Enciso, aesthetic physician. She looks at your whole profile, tells you whether chin and jawline filler is right for you or whether it makes sense to consider chin surgery with our plastic surgeon, and you get your plan in writing.",
+        "seo_title": "Chin and jawline filler in Medellín, Colombia",
+        "seo_desc": "Chin and jawline filler with hyaluronic acid in Medellín, Colombia: how long it lasts, how it compares with chin surgery, risks and aftercare."
+},
     'mentoplastia': {
         "nombre": "Chin Surgery",
         "corto": "A chin in proportion with your nose and your profile.",
@@ -2446,6 +2983,84 @@ FICHAS_EN = {
         "seo_title": "Nutrition Counseling in Medellín, Colombia",
         "seo_desc": "A personalized meal plan to improve your health, prepare for surgery, or keep your results. In-person consultation in Medellín with Dr. Valeria Enciso."
 },
+    'ojeras-con-acido-hialuronico': {
+        "nombre": "Under-eye filler",
+        "corto": "Hyaluronic acid in the tear trough to soften hollow under-eyes.",
+        "que_es": [
+                "Hyaluronic acid filler placed in the tear trough, the line that separates your lower eyelid from your cheek, to soften the hollow and the shadow that show up as dark circles.",
+                "It helps when your dark circles come from a hollow. If they're discoloration or bags, there are other options, and that's decided at your in-person consultation."
+        ],
+        "ideal": [
+                "Hollow under-eyes or a deep tear trough",
+                "Under-eye shadows that come from a hollow, not from discoloration",
+                "A tired look from volume lost over the years"
+        ],
+        "datos": [
+                "1 session",
+                "30 to 60 minutes",
+                "Mild swelling for 2 to 5 days",
+                "Immediate; lasts 6 to 18 months depending on the area"
+        ],
+        "recuperacion": [],
+        "faq": [
+                {
+                        "q": "Can under-eye filler be reversed?",
+                        "a": "Yes. If needed, hyaluronic acid can be dissolved with an enzyme, for example if the area takes on a bluish tint. Your doctor checks whether that's needed."
+                },
+                {
+                        "q": "Does under-eye filler hurt?",
+                        "a": "We use a topical anesthetic, and most products have an anesthetic built in."
+                }
+        ],
+        "faq_nuevas": [
+                {
+                        "q": "How long does under-eye filler last?",
+                        "a": "It's temporary, because your body gradually absorbs it. In general, it lasts 6 to 18 months depending on the area. How long it may last under your eyes depends on the product and on your case, and your specialist determines that at your in-person consultation."
+                },
+                {
+                        "q": "Does under-eye filler work for dark circles or bags?",
+                        "a": "It mainly works for hollow under-eyes, the kind that cast a shadow. According to the ASPS, dark circles can come from genetics, lack of sleep, dehydration or sun exposure. And if you have bags caused by fat, filler can make the puffiness worse; in that case, eyelid surgery is evaluated. Your specialist determines what's behind your dark circles at your in-person consultation."
+                },
+                {
+                        "q": "Is under-eye filler safe?",
+                        "a": "Every procedure carries risks. The most common are bruising, redness and swelling, and bumps sometimes appear. The ASPS also mentions a bluish tint if the filler sits too close to the surface and, in extremely rare cases, vision loss if filler gets into a blood vessel. That's why it should be done by a licensed health professional in a clinical setting."
+                },
+                {
+                        "q": "How long does swelling last after under-eye filler?",
+                        "a": "Mild swelling for 2 to 5 days is typical. If the swelling doesn't go down, a bump appears or you notice a bluish tint that doesn't fade, let your doctor know so she can take a look. If you have unusual pain or notice changes in your vision, get medical care right away."
+                }
+        ],
+        "todo_titulo": "What to know about under-eye filler",
+        "todo": [
+                {
+                        "h": "Under-eye filler: what it is and which dark circles it helps",
+                        "p": "<p>Under-eye filler, tear trough filler or hyaluronic acid under the eyes: they're all names for the same thing. It's <a href=\"dermal-fillers-medellin.html\">hyaluronic acid filler</a> placed in the tear trough, the groove between your lower eyelid and your cheek. According to the <a href=\"https://www.plasticsurgery.org/news/articles/bright-eyes-for-the-new-year-rejuvenate-your-look\">American Society of Plastic Surgeons (ASPS)</a>, with the right technique and product selection it can smooth that groove and reduce shadowing. But not every dark circle is a hollow. It can also be discoloration, a bag or skin that thins with age, and each one is treated differently.</p>"
+                },
+                {
+                        "h": "How it's done, and what's different under the eyes",
+                        "p": "<p>It's a single session of 30 to 60 minutes, and you see the effect right away, just like in other areas. The difference is that this area calls for extra care. The <a href=\"https://www.plasticsurgery.org/news/articles/a-true-awakening-procedures-to-eliminate-undereye-bags\">ASPS</a> cautions against overfilling under the eyes, so your doctor decides on the product, the amount and the depth after examining you. According to the <a href=\"https://www.fda.gov/medical-devices/aesthetic-cosmetic-devices/dermal-fillers-soft-tissue-fillers\">U.S. Food and Drug Administration (FDA)</a>, fillers should be injected with a needle or cannula by a licensed health care provider, and never with needle-free devices.</p>"
+                },
+                {
+                        "h": "Who it's not for, or when to wait",
+                        "p": "<p>If your concern is bags, meaning fat that bulges under the eye, filler usually isn't the answer. The <a href=\"https://www.plasticsurgery.org/news/articles/a-true-awakening-procedures-to-eliminate-undereye-bags\">ASPS</a> warns that it can make the puffiness worse or give the skin a bluish tint. Also, according to the <a href=\"https://www.fda.gov/medical-devices/aesthetic-cosmetic-devices/dermal-fillers-soft-tissue-fillers\">FDA</a>, tell your doctor if:</p><ul><li>Your skin is inflamed or infected.</li><li>You have a bleeding disorder.</li><li>You have severe allergies, a history of anaphylaxis or an allergy to lidocaine.</li><li>You're pregnant or breastfeeding, since the safety of fillers isn't known in either case.</li></ul>"
+                },
+                {
+                        "h": "Risks you should know about",
+                        "p": "<p>Every procedure carries risks. With any filler, the <a href=\"https://www.fda.gov/medical-devices/aesthetic-cosmetic-devices/dermal-fillers-soft-tissue-fillers\">FDA</a> lists bruising, redness and swelling as common, and bumps as less frequent. The <a href=\"https://www.plasticsurgery.org/news/blog/how-to-avoid-complications-from-dermal-fillers\">ASPS</a> adds two that matter more here:</p><ul><li>The Tyndall effect: a bluish tint when the filler sits too close to the surface. It's more common under the eyes and around the lips.</li><li>Vision loss: extremely rare. It can happen when the tear trough is treated, if filler gets into a blood vessel.</li></ul><p>If you have unusual pain, vision changes or skin that looks white, gray or blue, the FDA says to get medical care right away.</p>"
+                },
+                {
+                        "h": "How to prepare, and care afterward",
+                        "p": "<p>At your consultation, tell your doctor about your medications, supplements, allergies and any past fillers, as the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/dermal-fillers/consultation\">ASPS</a> suggests. Ask for the product name. <a href=\"https://www.invima.gov.co/biblioteca/preview/101499\">INVIMA</a>, Colombia's health regulator (similar to the FDA), recommends making sure it has a current registration, which you can look up in its <a href=\"https://www.invima.gov.co/consulta-registros-sanitarios\">online registry (in Spanish)</a>. Afterward, you may have mild swelling for 2 to 5 days. The <a href=\"https://www.aad.org/public/cosmetic/wrinkles/fillers-faqs\">American Academy of Dermatology (AAD)</a> recommends:</p><ul><li>Not touching the area, unless your doctor tells you to massage it.</li><li>Waiting before strenuous exercise.</li><li>Staying out of the sun and away from tanning beds.</li></ul>"
+                },
+                {
+                        "h": "When another option is a better fit",
+                        "p": "<p>According to the <a href=\"https://www.plasticsurgery.org/news/blog/what-are-the-most-common-signs-of-aging-around-the-eyes-and-what-can-be-done-about-it\">ASPS</a>, dark circles can come from genetics, lack of sleep, dehydration or sun exposure. If yours don't come from a hollow, something else may suit you better:</p><ul><li>Bags or extra skin on the eyelid: <a href=\"eyelid-surgery-medellin.html\">eyelid surgery</a>, evaluated by Dr. Fernando Ruiz, our plastic surgeon.</li><li>Dark spots on the skin: assessed as part of a <a href=\"melasma-treatment-medellin.html\">melasma and dark spot treatment</a> plan.</li><li>Crow's feet: <a href=\"botox-medellin.html\">botulinum toxin</a>.</li><li>Lips, chin or facial folds: <a href=\"dermal-fillers-medellin.html\">hyaluronic acid filler</a> in other areas.</li></ul><p>That's why the first step is finding out what's behind your dark circles.</p>"
+                }
+        ],
+        "cierre_txt": "Everything starts with an in-person consultation in Medellín with Dr. Valeria Enciso, aesthetic physician. She takes a close look at your under-eyes and your face, tells you whether you're dealing with a hollow that hyaluronic acid can improve or whether another option makes more sense, and you get your plan in writing.",
+        "seo_title": "Under-Eye Filler in Medellín, Colombia",
+        "seo_desc": "Under-eye filler in Medellín: which dark circles it helps, which it doesn't, risks and aftercare. In-person consultation with an aesthetic physician."
+},
     'otoplastia': {
         "nombre": "Ear surgery (otoplasty)",
         "corto": "Corrects prominent ears, with the scar hidden behind the ear.",
@@ -2532,6 +3147,84 @@ FICHAS_EN = {
         "cierre_txt": "Everything starts with an in-person consultation in Medellín: Dr. Fernando Ruiz examines your ears, or your child's, tells you whether otoplasty makes sense and gives you your plan in writing.",
         "seo_title": "Ear surgery (otoplasty) in Medellín, Colombia",
         "seo_desc": "Otoplasty in Medellín, Colombia: ear surgery that sets prominent ears closer to the head, with the scar behind the ear. In-person consultation in Medellín."
+},
+    'papada-sin-cirugia': {
+        "nombre": "Nonsurgical double chin treatment",
+        "corto": "Cryolipolysis, HIFU or radiofrequency for a double chin, with no incisions.",
+        "que_es": [
+                "Aesthetic medicine options for a double chin: cryolipolysis for fat you can pinch, and HIFU or radiofrequency for mild sagging.",
+                "No incisions and no time off work. If there's a lot of fat or significant loose skin, we'll evaluate you for chin liposuction or a neck lift."
+        ],
+        "ideal": [
+                "Mild fat under the chin that you can pinch",
+                "Mild sagging under the chin and on the neck",
+                "Preferring not to have surgery"
+        ],
+        "datos": [
+                "1 to 8, depending on the option",
+                "30 to 90 minutes",
+                "None",
+                "Gradual"
+        ],
+        "recuperacion": [],
+        "faq": [
+                {
+                        "q": "HIFU or cryolipolysis: which is better for a double chin?",
+                        "a": "They treat different things: cryolipolysis works on fat, and HIFU on mild sagging. Your specialist decides which one suits you at your in-person consultation."
+                },
+                {
+                        "q": "Do I need time off work?",
+                        "a": "No. You go back to your routine as soon as you leave; the area may be red, swollen, tender or numb for a few days."
+                }
+        ],
+        "faq_nuevas": [
+                {
+                        "q": "Can you get rid of a double chin without surgery?",
+                        "a": "It depends on what's causing it. If it's fat you can pinch, cryolipolysis can reduce it over time; if it's mild sagging, HIFU or radiofrequency work on firmness. An ASPS member surgeon explains that nonsurgical options can help reduce fat under the chin in carefully selected candidates, though results are more gradual. If there's a lot of fat or significant loose skin, we'll evaluate you for chin liposuction or a neck lift. Your specialist will tell you which applies to you at your in-person consultation."
+                },
+                {
+                        "q": "Does cryolipolysis work on a double chin?",
+                        "a": "It can, when your double chin is fat you can pinch: in the United States, the FDA has cleared at least one cryolipolysis device for fat under the chin. Results are gradual: according to the AAD, you may notice changes as early as 3 weeks, and according to the FDA, your body usually clears the treated fat within two to three months. If loose skin is what stands out most, the ASPS says you may not be a good candidate."
+                },
+                {
+                        "q": "Will losing weight get rid of my double chin?",
+                        "a": "Not always. According to the ASPS, a double chin can come from genetics, excess fat or loose skin, so it isn't only about weight. And nonsurgical treatments aren't meant for weight loss: according to the AAD, good candidates have a small bulge of fat that remains despite diet and exercise, and a weight in the normal range for their height. If your goal is to lose weight, that's what medical weight management is for."
+                },
+                {
+                        "q": "Are “enzyme” injections for a double chin safe?",
+                        "a": "First, find out exactly what you'd be getting. INVIMA, Colombia's national regulator for medicines and health products, has warned about products sold as “fat-burning enzymes” without sanitary registration, which are illegal to sell in Colombia. And the FDA has received reports of permanent scarring, serious infections and deep, painful knots from fat-dissolving injections it has not approved. Before you let anyone give you a product, ask what it is and look up its sanitary registration on INVIMA's website."
+                }
+        ],
+        "todo_titulo": "All about nonsurgical double chin treatment",
+        "todo": [
+                {
+                        "h": "What nonsurgical double chin treatment is and what else it's called",
+                        "p": "<p>You may see it called double chin treatment, double chin removal without surgery or nonsurgical chin lipo, and in Spanish, papada sin cirugía. It isn't a single procedure: it's a set of aesthetic medicine options, chosen based on what's behind your double chin. According to the <a href=\"https://www.plasticsurgery.org/news/articles/double-chin-liposuction-the-key-to-a-chiseled-jawline\">American Society of Plastic Surgeons (ASPS)</a>, it can come from genetics, excess fat or loose skin. At noon Clinic in Medellín, the options are <a href=\"criolipolisis.html\">cryolipolysis (in Spanish)</a> for fat, and <a href=\"hifu-medellin.html\">HIFU</a> or <a href=\"radiofrequency-skin-tightening-medellin.html\">radiofrequency</a> for mild sagging. The surgical option is <a href=\"chin-liposuction-medellin.html\">chin liposuction</a>.</p>"
+                },
+                {
+                        "h": "How it works, and how it differs from chin liposuction",
+                        "p": "<p>None of the three involves incisions or time off work. With cryolipolysis, according to the <a href=\"https://www.fda.gov/medical-devices/aesthetic-cosmetic-devices/non-invasive-body-contouring-technologies\">FDA</a>, an applicator uses suction to draw in the fat you can pinch and cools it; your body clears it, usually within two to three months. In the United States, the FDA has cleared at least one <a href=\"https://www.accessdata.fda.gov/cdrh_docs/pdf15/K151179.pdf\">cryolipolysis device for fat under the chin</a> and one <a href=\"https://www.accessdata.fda.gov/cdrh_docs/pdf18/k180623.pdf\">HIFU device for loose tissue in that area</a>. HIFU and radiofrequency heat deep layers of the skin: they work on firmness, not fat. <a href=\"chin-liposuction-medellin.html\">Chin liposuction</a> is surgery, in an operating room, with 5 to 7 days off work.</p>"
+                },
+                {
+                        "h": "Who it's not for",
+                        "p": "<p>These options aren't a good fit if:</p><ul><li>You have a lot of loose skin: according to the <a href=\"https://www.aad.org/public/cosmetic/younger-looking/firm-sagging-skin\">AAD</a>, tightening may not help, and the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/nonsurgical-fat-reduction/cryolipolysis\">ASPS</a> says cryolipolysis may not be right for you.</li><li>You want to lose weight: the FDA notes that nonsurgical body contouring doesn't treat obesity.</li><li>You're pregnant, or you're breastfeeding and considering cryolipolysis.</li><li>You have cold urticaria, cryoglobulinemia, Raynaud's or another cold sensitivity condition, or poor circulation in the area: the FDA advises against cryolipolysis.</li><li>You have a pacemaker or another active implant, or metal in the area: HIFU and radiofrequency aren't used in that case.</li></ul>"
+                },
+                {
+                        "h": "Risks you should know about",
+                        "p": "<p>Every procedure has risks. For cryolipolysis, the <a href=\"https://www.fda.gov/medical-devices/aesthetic-cosmetic-devices/non-invasive-body-contouring-technologies\">FDA</a> lists, among others:</p><ul><li>Redness, bruising, swelling, pain or skin discoloration, which usually fade on their own.</li><li>Numbness that can last several weeks, nodules or freeze burns, which can be severe.</li><li>Under the chin, a temporary feeling of fullness at the back of the throat; under the jawline, nerve damage that temporarily changes the position of the lip or tongue.</li><li>Rarely, the fat grows instead of shrinking; it doesn't resolve on its own and may need surgery.</li></ul><p>With <a href=\"hifu-medellin.html\">HIFU</a> and <a href=\"radiofrequency-skin-tightening-medellin.html\">radiofrequency</a>, the <a href=\"https://www.aad.org/public/cosmetic/younger-looking/firm-sagging-skin\">AAD</a> says the most common effects are temporary redness and swelling.</p>"
+                },
+                {
+                        "h": "How to prepare and what to expect afterward",
+                        "p": "<p>For your consultation, bring a list of what you take, including supplements, and tell your doctor if you're pregnant or breastfeeding, if you have implants and what you've had done on your neck or chin. You go back to your routine right away; the area may be red, swollen, tender or numb for a few days. With cryolipolysis, the <a href=\"https://www.aad.org/public/cosmetic/fat-removal/non-invasive-what-to-expect\">AAD</a> says you may notice changes as early as 3 weeks. With HIFU, the effect builds over 2 to 3 months. Radiofrequency usually takes 4 to 8 sessions. If you notice blisters, a burn or the area getting bigger, message us.</p>"
+                },
+                {
+                        "h": "When another option makes more sense",
+                        "p": "<p>If we see at your consultation that what you need goes beyond what these options can do, we'll tell you:</p><ul><li>A lot of fat, or you'd rather remove it in a single surgery: <a href=\"chin-liposuction-medellin.html\">chin liposuction</a>, with Dr. Fernando Ruiz, a plastic surgeon.</li><li>Significant loose skin on the neck: a <a href=\"facelift-medellin.html\">neck lift</a>. According to the <a href=\"https://www.plasticsurgery.org/news/articles/say-goodbye-to-turkey-neck-reclaiming-your-neckline-with-plastic-surgery\">ASPS</a>, nonsurgical tightening doesn't match the improvement in sagging that surgery achieves.</li><li>A chin with little projection, which makes a double chin more noticeable: <a href=\"dermal-fillers-medellin.html\">hyaluronic acid fillers</a> or <a href=\"chin-surgery-medellin.html\">chin surgery</a>.</li><li>Losing weight: <a href=\"medical-weight-loss-medellin.html\">medical weight management</a>.</li></ul>"
+                }
+        ],
+        "cierre_txt": "Everything starts with an in-person consultation in Medellín with Dr. Valeria Enciso, an aesthetic physician: she checks whether what you notice is fat, loose skin or your chin, tells you which option makes sense for you, and you get your plan in writing. If your case calls for surgery, Dr. Fernando Ruiz, a plastic surgeon, will evaluate you.",
+        "seo_title": "Nonsurgical Double Chin Treatment in Medellín",
+        "seo_desc": "Nonsurgical double chin treatment in Medellín: cryolipolysis for fat, HIFU or radiofrequency for mild sagging, with no incisions or time off work."
 },
     'peelings': {
         "nombre": "Chemical Peels",
@@ -2841,6 +3534,84 @@ FICHAS_EN = {
         "seo_title": "Breast Implant Removal or Exchange in Medellín",
         "seo_desc": "Breast implant exchange or removal (explant) in Colombia, with or without a breast lift. It starts with an in-person consultation in Medellín."
 },
+    'rinomodelacion': {
+        "nombre": "Nonsurgical rhinoplasty",
+        "corto": "Shapes your nose without surgery, using hyaluronic acid filler.",
+        "que_es": [
+                "Hyaluronic acid filler injected into the nose to shape it without surgery: it can camouflage a small bump or improve the contour of the tip. You see the change right away, and it's temporary.",
+                "It only adds volume: it doesn't make your nose smaller or help you breathe better. That's what rhinoplasty is for."
+        ],
+        "ideal": [
+                "A small bump you'd like to camouflage",
+                "A nose tip you'd like to shape",
+                "A small change, without surgery"
+        ],
+        "datos": [
+                "1 session",
+                "30 to 60 minutes",
+                "Mild swelling for 2 to 5 days",
+                "Immediate; it's temporary"
+        ],
+        "recuperacion": [],
+        "faq": [
+                {
+                        "q": "Does nonsurgical rhinoplasty hurt?",
+                        "a": "We use a topical anesthetic, and most products have an anesthetic built in."
+                },
+                {
+                        "q": "Can a nonsurgical rhinoplasty be reversed?",
+                        "a": "Yes. If needed, hyaluronic acid can be dissolved with an enzyme."
+                }
+        ],
+        "faq_nuevas": [
+                {
+                        "q": "How long does a nonsurgical rhinoplasty last?",
+                        "a": "It's temporary: your body gradually absorbs the hyaluronic acid. In general, this filler lasts 6 to 18 months depending on the area. Your doctor will tell you at your in-person consultation how long it may last in your nose and when it makes sense to repeat it."
+                },
+                {
+                        "q": "Can a liquid nose job make my nose smaller or narrower?",
+                        "a": "No. According to the American Society of Plastic Surgeons (ASPS), filler only adds volume: it doesn't make the nose smaller or remove any part of it. It can improve the contour of the tip or camouflage a small bump. If you want a smaller or narrower nose, the procedure to evaluate is rhinoplasty, with our plastic surgeon."
+                },
+                {
+                        "q": "Does nonsurgical rhinoplasty work for a bump or hump on the nose?",
+                        "a": "It can help if the bump is small. According to the ASPS, filler camouflages it by filling in the areas on either side, but it doesn't remove it. If the bump is large or you want to change the structure of your nose, the procedure to evaluate is rhinoplasty instead. Your specialist decides at your in-person consultation."
+                },
+                {
+                        "q": "Can I get a nonsurgical rhinoplasty if I've already had nose surgery?",
+                        "a": "Tell your doctor about it. According to the ASPS, after a rhinoplasty the blood supply to the skin of the nose changes, so filler carries a higher risk of affecting circulation. Your specialist decides at your in-person consultation whether it's right for you."
+                }
+        ],
+        "todo_titulo": "What to know about nonsurgical rhinoplasty",
+        "todo": [
+                {
+                        "h": "Nonsurgical rhinoplasty or liquid nose job: what we mean",
+                        "p": "<p>Nonsurgical rhinoplasty, non-surgical nose job, liquid rhinoplasty, liquid nose job: they're all names for this same treatment. It's <a href=\"dermal-fillers-medellin.html\">hyaluronic acid filler</a> injected into the nose to shape it, with no incisions and no operating room. The <a href=\"https://www.plasticsurgery.org/news/articles/the-nonsurgical-nose-job-an-in-depth-examination-of-liquid-rhinoplasty\">American Society of Plastic Surgeons (ASPS)</a> describes it as an outpatient procedure that uses dermal fillers to make cosmetic changes to small imperfections of the nose. The effect is temporary, because your body absorbs the gel over time. At noon Clinic, it's done by Dr. Valeria Enciso, aesthetic physician, in Medellín.</p>"
+                },
+                {
+                        "h": "What it can change and what it can't",
+                        "p": "<p>It's hyaluronic acid, like the filler used on lips or chin, but the nose is more delicate. According to the <a href=\"https://www.plasticsurgery.org/news/articles/the-nonsurgical-nose-job-an-in-depth-examination-of-liquid-rhinoplasty\">ASPS</a>, filler only adds volume, so it can be used to:</p><ul><li>Camouflage a small bump on the bridge by filling in the areas on either side.</li><li>Improve the contour of the tip.</li></ul><p>It can't make your nose smaller, remove any part of it or help you breathe better. It's a single 30- to 60-minute session with a topical anesthetic, and you see the change right away. Your doctor decides how much to use, and where, at your in-person consultation.</p>"
+                },
+                {
+                        "h": "Who it's not for, or when to wait",
+                        "p": "<p>It's not for you if you want a smaller nose, a big change in shape or easier breathing. For that, according to the <a href=\"https://www.plasticsurgery.org/news/articles/the-nonsurgical-nose-job-an-in-depth-examination-of-liquid-rhinoplasty\">ASPS</a>, a plastic surgeon may suggest surgery. The <a href=\"https://www.fda.gov/medical-devices/aesthetic-cosmetic-devices/dermal-fillers-soft-tissue-fillers\">U.S. Food and Drug Administration (FDA)</a> says to tell your doctor if:</p><ul><li>The skin in the area is inflamed or infected.</li><li>You have a bleeding disorder.</li><li>You have severe allergies or are allergic to lidocaine or other local anesthetics.</li></ul><p>It also notes that the safety of these fillers is not known during pregnancy or breastfeeding, in people under 22 or in people prone to keloids.</p>"
+                },
+                {
+                        "h": "Risks you should know about",
+                        "p": "<p>Every procedure carries risks. According to the <a href=\"https://www.plasticsurgery.org/news/articles/the-nonsurgical-nose-job-an-in-depth-examination-of-liquid-rhinoplasty\">ASPS</a>, most people have minor swelling or bruising, but the nose is a high-risk area: filler can cause skin necrosis (death of skin tissue) or irreversible blindness, and the risk is higher if you've already had nose surgery. In the United States, the <a href=\"https://www.fda.gov/medical-devices/aesthetic-cosmetic-devices/dermal-fillers-soft-tissue-fillers\">FDA</a> hasn't approved fillers for injection into the nose and recommends against using them there. If you feel unusual pain or notice changes in your vision, or skin nearby that looks white, gray or bluish, get medical care right away. You sign an informed consent form before treatment.</p>"
+                },
+                {
+                        "h": "How to prepare, and care afterward",
+                        "p": "<p>At your consultation, tell your doctor about your medications, vitamins, supplements and allergies, and any past fillers or nose surgery, as the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/dermal-fillers/consultation\">ASPS</a> suggests. Don't stop taking anything on your own: she'll tell you what to do. Ask for the product name and check that its registration is current in the <a href=\"https://www.invima.gov.co/consulta-registros-sanitarios\">online registry (in Spanish)</a> of INVIMA, Colombia's regulator, similar to the FDA. Afterward, mild swelling may last 2 to 5 days. The <a href=\"https://www.aad.org/public/cosmetic/wrinkles/fillers-faqs\">American Academy of Dermatology (AAD)</a> recommends:</p><ul><li>Not touching the area, unless you're told to massage it.</li><li>Avoiding strenuous exercise right after.</li><li>Protecting your skin from the sun.</li></ul>"
+                },
+                {
+                        "h": "When rhinoplasty or another option is a better fit",
+                        "p": "<p>Nonsurgical rhinoplasty is for a small change. If you're looking for something else, another option may suit you better:</p><ul><li>Making your nose smaller, correcting a drooping or wide tip, or breathing better: <a href=\"rhinoplasty-medellin.html\">rhinoplasty</a>, with Dr. Fernando Ruiz, plastic surgeon. According to the <a href=\"https://www.plasticsurgery.org/news/articles/the-nonsurgical-nose-job-an-in-depth-examination-of-liquid-rhinoplasty\">ASPS</a>, surgery can change the structure of the nose and make it larger or smaller.</li><li>A small chin can make your nose look bigger. In that case, <a href=\"chin-surgery-medellin.html\">chin surgery</a> may be worth evaluating.</li></ul><p>If you're not sure which applies to you, we'll go over it with you at your consultation.</p>"
+                }
+        ],
+        "cierre_txt": "Everything starts with an in-person consultation in Medellín with Dr. Valeria Enciso, aesthetic physician. She looks at your nose as part of your whole face, tells you whether nonsurgical rhinoplasty is right for you or whether it makes more sense to talk with our plastic surgeon, and you get your plan in writing.",
+        "seo_title": "Nonsurgical Rhinoplasty in Medellín, Colombia",
+        "seo_desc": "Nonsurgical rhinoplasty in Medellín: hyaluronic acid filler to shape the tip or soften a small bump. It won't make your nose smaller. In-person consultation."
+},
     'rinoplastia': {
         "nombre": "Rhinoplasty",
         "corto": "Balance between your nose and the rest of your face, with your breathing in mind too.",
@@ -2935,6 +3706,101 @@ FICHAS_EN = {
         "cierre_txt": "Everything starts with an in-person consultation in Medellín: we look at how you breathe and how your nose fits with the rest of your face, tell you whether rhinoplasty is right for you, and give you your plan in writing.",
         "seo_title": "Rhinoplasty (Nose Job) in Medellín, Colombia",
         "seo_desc": "Rhinoplasty (nose job) changes the shape, size or proportions of your nose and can include septoplasty for breathing. In-person consultation in Medellín."
+},
+    'rinoplastia-y-mentoplastia': {
+        "nombre": "Rhinoplasty and Chin Surgery",
+        "corto": "Your nose and chin in the same surgery, planned with your whole profile in mind.",
+        "que_es": [
+                "Rhinoplasty and chin surgery in the same operation to bring your profile into balance. It's also known as profileplasty.",
+                "It's only planned if your profile needs it and your health allows it. Your surgeon decides at your consultation whether both are done together or in two stages."
+        ],
+        "ideal": [
+                "A receding chin that makes your nose look bigger",
+                "A bump, a prominent bridge or a drooping tip",
+                "A nose and chin that look out of balance in profile"
+        ],
+        "datos": [
+                "Set by your surgeon",
+                "General",
+                "10 to 15 days or more",
+                "Up to 12 months"
+        ],
+        "recuperacion": [
+                {
+                        "t": "Week 1",
+                        "d": "Nasal splint, a support bandage on your chin and swelling around your eyes."
+                },
+                {
+                        "t": "Week 2",
+                        "d": "The splint comes off; you go back to light activity."
+                },
+                {
+                        "t": "Months 1 to 3",
+                        "d": "Most of the swelling goes down and your chin settles in."
+                },
+                {
+                        "t": "Year 1",
+                        "d": "The tip of your nose becomes fully defined."
+                }
+        ],
+        "faq": [
+                {
+                        "q": "Do I have to get both?",
+                        "a": "No. If your profile only needs one, you only have that one. Your surgeon decides at your consultation."
+                },
+                {
+                        "q": "When will I see the final result?",
+                        "a": "Your chin settles in between months 1 and 3; the tip of your nose becomes fully defined at around one year."
+                }
+        ],
+        "faq_nuevas": [
+                {
+                        "q": "What's the difference between rhinoplasty and chin surgery?",
+                        "a": "Rhinoplasty changes the shape, size or proportions of the nose. Chin surgery gives the chin more projection or reduces it, using an implant or by reshaping the bone. The two are often combined because, according to the ASPS, the size of your chin can make your nose look bigger or smaller."
+                },
+                {
+                        "q": "What is profileplasty?",
+                        "a": "It's a name used for surgeries that aim to balance the profile, such as rhinoplasty with chin surgery. It isn't a separate technique: it refers to surgeries that are planned together, sometimes with another one added, such as chin liposuction. Your surgeon decides what your case includes at your in-person consultation."
+                },
+                {
+                        "q": "How much do rhinoplasty and chin surgery cost in Colombia?",
+                        "a": "At noon, we don't publish prices, because the cost depends on your case: which technique your nose needs, whether your chin is done with an implant or with your own bone, and how long the surgery takes. After your in-person consultation in Medellín, you get a written quote that spells out what's included."
+                },
+                {
+                        "q": "Can buccal fat removal be added to rhinoplasty and chin surgery?",
+                        "a": "It can be considered, but it isn't a set package. Buccal fat removal slims the cheeks, and it isn't for everyone: if your face is already thin, it can make you look older. Whether it makes sense to add it, and whether it's done in the same surgery, is up to your surgeon at your in-person consultation."
+                }
+        ],
+        "todo_titulo": "All about rhinoplasty with chin surgery",
+        "todo": [
+                {
+                        "h": "Profileplasty, or rhinoplasty with chin surgery: what it is",
+                        "p": "<p>It means having rhinoplasty and chin surgery in the same operation, so your nose and chin are in balance in your profile. You may also see it called profileplasty, or nose and chin surgery. In an <a href=\"https://www.plasticsurgery.org/news/articles/the-importance-of-chin-balancing-in-rhinoplasty-procedures\">article from the American Society of Plastic Surgeons (ASPS)</a>, one surgeon compares the nose and chin to a seesaw: if the chin gains projection, the nose can look smaller, and vice versa. The same article notes that balancing the chin alongside a <a href=\"rhinoplasty-medellin.html\">rhinoplasty</a> is very common. Your surgeon decides at your in-person consultation whether <a href=\"chin-surgery-medellin.html\">chin surgery</a> makes sense in your case.</p>"
+                },
+                {
+                        "h": "What changes compared with nose surgery alone",
+                        "p": "<p>Both are done in one surgical session, under general anesthesia, in the licensed operating rooms at Q2. The nose is operated on from the inside (closed technique) or through an incision across the columella (open). For the chin, an implant goes over the bone or the bone itself is reshaped. According to a surgeon on the <a href=\"https://www.plasticsurgery.org/news/blog/plastic-surgery-options-for-patients-with-a-small-or-recessed-chin\">ASPS blog</a>, moving the bone forward is a more extensive surgery than an implant, with a more involved recovery. On their own, rhinoplasty takes 2 to 3 hours and chin surgery 1 to 2. Your surgeon tells you how long both take together.</p>"
+                },
+                {
+                        "h": "Who it's not for, or not yet",
+                        "p": "<p>According to the ASPS, for <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/rhinoplasty/candidates\">rhinoplasty</a> your face must have finished growing, and for <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/chin-surgery/candidates\">chin surgery</a> a stable weight is recommended. For both: good health, not smoking and realistic goals. Now isn't the time if:</p><ul><li>Your face is still growing. If you're under 18, mention it when you book: in Colombia, Law 1799 of 2016 regulates these procedures for minors.</li><li>Your test results aren't in order: <a href=\"is-it-safe-to-get-plastic-surgery-in-colombia.html\">surgery is postponed</a>.</li><li>You want chin surgery only because someone else told you to. In the <a href=\"https://www.plasticsurgery.org/news/articles/the-importance-of-chin-balancing-in-rhinoplasty-procedures\">ASPS article</a>, a surgeon notes the decision has to come from you.</li></ul>"
+                },
+                {
+                        "h": "Risks you should know about",
+                        "p": "<p>Every surgery has risks, and this one carries those of both. The ASPS mentions, among others:</p><ul><li>For both: anesthesia risks, infection, poor healing, changes in skin sensation or color, and swelling.</li><li>For the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/rhinoplasty/safety\">nose</a>: difficulty breathing and, rarely, septal perforation (a hole in the septum).</li><li>For the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/chin-surgery/safety\">chin</a>: asymmetry, bleeding or a hematoma, deep vein thrombosis (DVT) and, with an implant, the implant shifting or thick scar tissue forming around it.</li><li>A result that isn't what you expected, or needing revision surgery.</li></ul><p>Before you decide, we go over them with you and you sign an informed consent form.</p>"
+                },
+                {
+                        "h": "How to prepare and care for yourself afterward",
+                        "p": "<p>Get your pre-op tests done, stop smoking and review your medications with your specialist: according to the <a href=\"https://www.plasticsurgery.org/cosmetic-procedures/chin-surgery/preparation\">ASPS</a>, aspirin, anti-inflammatory drugs and herbal supplements can increase bleeding. <a href=\"international-patients.html\">We tell you what to stop taking</a> and what to bring. An adult takes you home and stays with you the first night.</p><p>Afterward, you wear a nasal splint and a chin support bandage. If the chin incision is inside your mouth, you may need a liquid diet or mouth rinses. Plan on 10 to 15 days off work, as for rhinoplasty alone; your surgeon confirms whether the chin adds more.</p>"
+                },
+                {
+                        "h": "When another option makes more sense",
+                        "p": "<p>Not every profile needs both surgeries.</p><ul><li>If your nose bothers you and your chin is in proportion: <a href=\"rhinoplasty-medellin.html\">rhinoplasty</a>.</li><li>If you like your nose and your chin looks small or set back: <a href=\"chin-surgery-medellin.html\">chin surgery</a>.</li><li>If you'd rather not have surgery, in some cases the chin can be improved with <a href=\"dermal-fillers-medellin.html\">hyaluronic acid filler</a>, which is temporary; that consultation is with Dr. Valeria Enciso, our aesthetic physician. For the nose, according to the <a href=\"https://www.plasticsurgery.org/news/articles/the-nonsurgical-nose-job-an-in-depth-examination-of-liquid-rhinoplasty\">ASPS</a>, filler only adds volume: it doesn't make the nose smaller or improve breathing.</li><li>If what stands out is fat under your chin: <a href=\"chin-liposuction-medellin.html\">chin liposuction</a>.</li></ul>"
+                }
+        ],
+        "cierre_txt": "Everything starts with an in-person consultation in Medellín: we look at your whole profile and how you breathe, tell you whether it makes sense to do your nose and chin together or only one of them, and give you your plan in writing.",
+        "seo_title": "Rhinoplasty and Chin Surgery in Medellín",
+        "seo_desc": "Rhinoplasty and chin surgery in the same operation to balance your profile. Your surgeon decides at your in-person consultation in Medellín if you need both."
 },
     'skinboosters': {
         "nombre": "Skin boosters",

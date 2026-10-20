@@ -24,6 +24,16 @@ EN_SLUG = {
     "peelings": "chemical-peel-medellin", "microagujas": "microneedling-medellin", "limpieza-facial-medica": "medical-facial-medellin",
     "manchas-y-melasma": "melasma-treatment-medellin", "laser": "laser-skin-treatment-medellin", "depilacion-laser": "laser-hair-removal-medellin",
     "hifu": "hifu-medellin", "radiofrecuencia": "radiofrequency-skin-tightening-medellin", "tratamientos-corporales": "body-treatments-medellin",
+    "lipo-360": "lipo-360-medellin",
+    "lipoabdominoplastia-con-transferencia-glutea": "lipoabdominoplasty-with-bbl-medellin",
+    "rinoplastia-y-mentoplastia": "rhinoplasty-and-chin-surgery-medellin",
+    "mastopexia-con-implantes": "breast-lift-with-implants-medellin",
+    "mastopexia-sin-implantes": "breast-lift-without-implants-medellin",
+    "labios-con-acido-hialuronico": "lip-filler-medellin",
+    "ojeras-con-acido-hialuronico": "under-eye-filler-medellin",
+    "rinomodelacion": "nonsurgical-rhinoplasty-medellin",
+    "menton-y-mandibula-con-acido-hialuronico": "chin-and-jawline-filler-medellin",
+    "papada-sin-cirugia": "double-chin-treatment-medellin",
     "sueroterapia": "iv-therapy-medellin", "manejo-medico-del-peso": "medical-weight-loss-medellin", "nutricion": "nutrition-medellin",
 }
 HUB_CX, HUB_ME = "plastic-surgery-medellin.html", "aesthetic-medicine-medellin.html"
@@ -121,7 +131,7 @@ def generar(b):
         nav = [("que-es", "What it is"), ("para-ti", "Is it for you")] + ([("recuperacion", "Recovery")] if cx else []) + \
               ([("todo", "Before you decide")] if e.get("todo") else []) + [("viaje", "Coming from abroad"), ("especialista", "Specialist"), ("preguntas", "FAQ")]
         quien = "Dr. Fernando Ruiz, plastic surgeon" if cx else "Dr. Valeria Enciso, aesthetic physician"
-        cuerpo = (b.hero(f, ("Plastic surgery · " if cx else "Aesthetic medicine · ") + cat, e["nombre"], e["corto"], "alto" if cx else "medio")
+        cuerpo = (b.hero(f, ("Plastic surgery · " if cx else "Aesthetic medicine · ") + cat, e["nombre"] + " in <em>Medellín</em>", e["corto"], "alto" if cx else "medio")
                   + b.datos_barra(barra)
                   + subnav_en(nav)
                   + b.frase("The procedure" if cx else "The treatment", e["que_es"][0], e["que_es"][1] if len(e["que_es"]) > 1 else "", "media", sid="que-es")
@@ -135,7 +145,7 @@ def generar(b):
                   + b.seccion("FAQ", "Common <em>questions</em>", faq_en(list(e["faq"]) + list(e.get("faq_nuevas", []))), "marfil", sid="preguntas")
                   + guias_en(p["slug"])
                   + (b.seccion("Also in " + cat.lower(), "Other procedures" if cx else "Other treatments", catalogo_en(otras)) if otras else "")
-                  + b.cierre(e["nombre"], e["cierre_txt"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">Message us on WhatsApp</a>' % wa_en, fondo=f)
+                  + b.cierre(e["nombre"], e["cierre_txt"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">Message us on WhatsApp</a>' % wa_en, fondo=f, nota=b.NOTA_WA_EN)
                   + '''<div class="barra-cta" aria-label="Book"><div class="bc-t"><b>%s</b><span>Consultation with %s</span></div>
   <a class="boton lleno" href="%s" target="_blank" rel="noopener">Book<span class="solo-grande"> on WhatsApp</span></a></div>''' % (e["nombre"], quien.split(",")[0], wa_en))
         url = b.DOMINIO + "/" + archivo[:-5]
@@ -167,7 +177,7 @@ def generar(b):
             k, "Plastic surgery" if tipo == "cx" else "Aesthetic medicine", CAT_EN[k][0], CAT_EN[k][1], catalogo_en([(x, tipo) for x in lista if x["cat"] == k])) for k, n, dd, ff in cats)
         cuerpo = (b.hero(fondo, "Plastic surgery" if tipo == "cx" else "Aesthetic medicine", h1, sub, "alto") + bloques
                   + b.cierre("Talk to <em>us</em>", "Message us on WhatsApp at %s and we will plan your consultation with you." % b.TEL_VISIBLE,
-                             '<a class="boton lleno" href="%s" target="_blank" rel="noopener">WhatsApp %s</a>' % (wa_en, b.TEL_VISIBLE), fondo="seda-oscura"))
+                             '<a class="boton lleno" href="%s" target="_blank" rel="noopener">WhatsApp %s</a>' % (wa_en, b.TEL_VISIBLE), fondo="seda-oscura", nota=b.NOTA_WA_EN))
         b.SEO_TITULOS[archivo] = (titulo, desc)
         b.pagina(archivo, titulo, desc, cuerpo, lang="en", alterna=es, foto=fondo, og_tipo="website", etiquetas={"seccion": "procedimiento-en", "tipo": "hub"})
         pares[es] = archivo

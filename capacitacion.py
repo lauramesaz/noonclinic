@@ -371,6 +371,8 @@ def _cirugias():
     # en la capacitación la mastopexia va dividida: con implantes y sin implantes
     out = []
     for c in CIRUGIAS_NOON:
+        if c.get("nueva"):
+            continue  # las fichas nuevas de la web (variantes y combinaciones) no cambian la capacitación
         if c["slug"] != "mastopexia":
             out.append(c); continue
         out.append(dict(c, slug="mastopexia-con-implantes", nombre="Mastopexia con implantes",
@@ -390,7 +392,7 @@ def _cirugias():
 
 def generar():
     procs = ([_proc(c, "cx", {k: n for k, n, d, f in CATEGORIAS_CX}) for c in _cirugias()]
-             + [_proc(t, "me", {k: n for k, n, d, f in CATEGORIAS_ME}) for t in TRATAMIENTOS])
+             + [_proc(t, "me", {k: n for k, n, d, f in CATEGORIAS_ME}) for t in TRATAMIENTOS if not t.get("nueva")])
     for i, p in enumerate(procs):
         p["img"] = _imagen(p["slug"], i)
     datos = {"procs": procs, "cats_cx": [n for k, n, d, f in CATEGORIAS_CX], "cats_me": [n for k, n, d, f in CATEGORIAS_ME],

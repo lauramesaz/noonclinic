@@ -149,4 +149,34 @@ SEO = {
     # nutrición en Medellín
     'nutricion.html': ('Nutrición en Medellín: plan de alimentación',
                         'Plan de alimentación personalizado para cuidar tu salud, prepararte para una cirugía o mantener tus resultados. Acompañamiento nutricional en Medellín.'),
+    # Lipo 360
+    'lipo-360.html': ('Lipo 360 en Medellín: abdomen, cintura, espalda',
+                       'Lipo 360 en Medellín: liposucción de abdomen, cintura y espalda en una misma cirugía. No es para bajar de peso ni tensa la piel. Valoración presencial.'),
+    # Lipoabdominoplastia con transferencia glútea
+    'lipoabdominoplastia-con-transferencia-glutea.html': ('Lipoabdominoplastia con transferencia glútea',
+                                                           'Abdominoplastia, lipo y transferencia de grasa a los glúteos. Si va todo en una cirugía o por etapas lo decide tu cirujano al valorarte en Medellín.'),
+    # Rinoplastia y mentoplastia
+    'rinoplastia-y-mentoplastia.html': ('Rinoplastia y mentoplastia juntas en Medellín',
+                                         'Rinoplastia y mentoplastia en la misma cirugía para equilibrar el perfil. Si te conviene hacer las dos, lo define tu cirujano en la valoración en Medellín.'),
+    # Mastopexia con implantes
+    'mastopexia-con-implantes.html': ('Mastopexia con implantes en Medellín',
+                                       'Levanta el seno caído y le da volumen con implantes. Cicatrices, riesgos, recuperación y cuándo conviene. Valoración presencial con el cirujano en Medellín.'),
+    # Mastopexia sin implantes
+    'mastopexia-sin-implantes.html': ('Mastopexia sin implantes en Medellín',
+                                       'Mastopexia sin implantes en Medellín: levanta el seno caído con tu propio tejido si te gusta tu volumen. Riesgos, cicatrices y valoración presencial.'),
+    # Labios con ácido hialurónico
+    'labios-con-acido-hialuronico.html': ('Labios con ácido hialurónico en Medellín',
+                                           'Relleno de labios con ácido hialurónico para dar volumen, definir el contorno e hidratar. Es temporal y se reabsorbe. Valoración presencial en Medellín.'),
+    # Ojeras con ácido hialurónico
+    'ojeras-con-acido-hialuronico.html': ('Ácido hialurónico para ojeras en Medellín',
+                                           'Ácido hialurónico para ojeras hundidas en Medellín: qué ojeras mejora, cuáles no, sus riesgos y los cuidados. Valoración presencial con la médica estética.'),
+    # Rinomodelación
+    'rinomodelacion.html': ('Rinomodelación en Medellín: nariz sin cirugía',
+                             'Rinomodelación con ácido hialurónico en Medellín: perfila la punta o disimula una giba pequeña, sin cirugía. No reduce la nariz. Valoración presencial.'),
+    # Mentón y mandíbula con ácido hialurónico
+    'menton-y-mandibula-con-acido-hialuronico.html': ('Mentón y mandíbula con hialurónico en Medellín',
+                                                       'Marcación mandibular y relleno de mentón con ácido hialurónico en Medellín: cuánto dura, qué cambia frente a la mentoplastia, riesgos y cuidados.'),
+    # Papada sin cirugía
+    'papada-sin-cirugia.html': ('Papada sin cirugía en Medellín: tus opciones',
+                                 'Papada sin cirugía en Medellín: criolipólisis para la grasa y HIFU o radiofrecuencia para la flacidez leve, sin incisiones ni incapacidad.'),
 }

@@ -83,7 +83,14 @@ def seccion(ceja, titulo, contenido, clase="", intro="", sid=""):
         clase, ' id="%s"' % sid if sid else "", ceja, titulo, '<p class="sub rev">%s</p>' % intro if intro else "", contenido)
 
 
-def cierre(titulo="Tu <em>valoración</em>", texto=None, boton=None, fondo="seda-clara", cx=None, nota=""):
+NOTA_WA = ('<p class="nota-wa rev">Te respondemos en minutos por WhatsApp, en horario de atención. Resolvemos tus dudas y agendamos tu valoración presencial; '
+           'por WhatsApp no diagnosticamos. <a href="por-que-noon.html">Por qué noon</a></p>')
+NOTA_WA_EN = ('<p class="nota-wa rev">We reply on WhatsApp within minutes during business hours. We answer your questions and book your in-person consultation; '
+              'we never diagnose over WhatsApp. <a href="why-noon-clinic.html">Why noon</a></p>')
+
+
+def cierre(titulo="Tu <em>valoración</em>", texto=None, boton=None, fondo="seda-clara", cx=None, nota=None):
+    nota = NOTA_WA if nota is None else nota
     texto = texto or "Todo empieza con una conversación con nuestros especialistas."
     boton = boton or '<a class="boton lleno" href="valoracion.html%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (
         "?cx=" + cx["slug"] if cx else "", wa("Hola, quiero agendar mi valoración%s." % (" para " + cx["nombre"].lower() if cx else "")))
@@ -131,7 +138,7 @@ MENU_ES = """<div class="menu" id="menu" hidden>
 MENU_EN = """<div class="menu" id="menu" hidden>
   <div class="menu-in tres">
     <div class="menu-col"><p class="ceja">International patients</p><nav class="grande"><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></nav></div>
-    <div class="menu-col"><p class="ceja">noon Clinic</p><nav class="grande"><a href="about-noon-clinic.html">About noon</a><a href="why-noon-clinic.html">Why noon</a>%(hubs_en)s<a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></nav></div>
+    <div class="menu-col"><p class="ceja">noon Clinic</p><nav class="grande"><a href="about-noon-clinic.html">About noon</a><a href="why-noon-clinic.html">Why noon</a>%(hubs_en)s<a href="is-it-safe-to-get-plastic-surgery-in-colombia.html">Safety</a><a href="./" hreflang="es" lang="es">En español</a></nav></div>
     <div class="menu-col"><p class="ceja">Contact</p><nav><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp</a></nav>
       <a class="boton" href="%(wa)s" target="_blank" rel="noopener">Book a consultation</a></div>
   </div>
@@ -144,7 +151,7 @@ PIE_EN = """<footer class="pie">
     <p class="lema">Plastic surgery and aesthetic medicine, with judgment. Medellín, Colombia.</p>
     <div class="pie-cols cuatro">
       <div><p class="ceja">International patients</p><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></div>
-      <div><p class="ceja">noon Clinic</p><a href="about-noon-clinic.html">About noon Clinic</a><a href="why-noon-clinic.html">Why noon</a><a href="plastic-surgery-medellin.html">Plastic surgery</a><a href="aesthetic-medicine-medellin.html">Aesthetic medicine</a><a href="./">Clinic (Spanish)</a><a href="especialistas.html">Specialists</a><a href="seguridad.html">Safety</a></div>
+      <div><p class="ceja">noon Clinic</p><a href="about-noon-clinic.html">About noon Clinic</a><a href="why-noon-clinic.html">Why noon</a><a href="plastic-surgery-medellin.html">Plastic surgery</a><a href="aesthetic-medicine-medellin.html">Aesthetic medicine</a><a href="is-it-safe-to-get-plastic-surgery-in-colombia.html">Safety</a></div>
       <div><p class="ceja">En español</p><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a></div>
       <div><p class="ceja">Contact</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="tel:+573022491937">Call +57 302 249 1937</a></div>
     </div>
@@ -269,12 +276,26 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
     html = re.sub(r'href="valoracion\.html[^"]*"(?: target="_blank" rel="noopener")?', enlace_wa, html)
     html = re.sub(r'href="index\.html([?#][^"]*)?"', lambda m: 'href="./%s"' % (m.group(1) or ""), html)
     html = re.sub(r'href="([a-z0-9-]+)\.html([?#][^"]*)?"', lambda m: 'href="%s%s"' % (m.group(1), m.group(2) or ""), html)
+    if en:  # en inglés nada salta al español: cabecera, buscador y botón flotante
+        for a, b in EN_TEXTOS:
+            html = html.replace(a, b)
     with open(os.path.join(AQUI, archivo), "w", encoding="utf-8") as f:
         f.write(html)
     HECHAS.append(archivo)
 
 
 HECHAS = []
+EN_TEXTOS = [
+    ('<a class="logo" href="./" aria-label="noon Clinic, inicio">', '<a class="logo" href="about-noon-clinic" aria-label="noon Clinic, home">'),
+    ('aria-label="Buscar procedimiento"', 'aria-label="Search procedures"'),
+    ('placeholder="¿Qué te gustaría mejorar? Ej: nariz, manchas, papada…"', 'placeholder="What would you like to improve? E.g. nose, dark spots, double chin…"'),
+    ('aria-label="Buscar">', 'aria-label="Search">'), ('aria-label="Cerrar">Cerrar</button>', 'aria-label="Close">Close</button>'),
+    ('<span>Lo más buscado</span><button type="button">Rinoplastia</button><button type="button">Lipo</button><button type="button">Senos</button><button type="button">Botox</button><button type="button">Manchas</button><button type="button">Abdomen</button>',
+     '<span>Most searched</span><button type="button">Rinoplastia</button><button type="button">Lipo</button><button type="button">Senos</button><button type="button">Botox</button><button type="button">Manchas</button><button type="button">Abdomen</button>'),
+    ('No encontramos eso. <a href="#" class="bc-wa" target="_blank" rel="noopener">Pregúntanos por WhatsApp</a>', 'Nothing found. <a href="#" class="bc-wa" target="_blank" rel="noopener">Ask us on WhatsApp</a>'),
+    ('aria-label="Escríbenos por WhatsApp"', 'aria-label="Message us on WhatsApp"'),
+    ('aria-label="Agendar"', 'aria-label="Book"'),
+]
 
 # ---------------------------------------------------------------- datos para el buscador, el explorador y el asistente
 ASISTENTE = [
@@ -349,7 +370,10 @@ PALABRAS = {  # sinónimos para que el buscador entienda cómo habla la gente
 
 
 SEDAS = ["seda-clara", "seda-burdeos", "seda-cafe", "seda-champan", "seda-noche", "seda-horizonte"]
-FONDO_ITEM = {sl: SEDAS[i % len(SEDAS)] for i, sl in enumerate([c["slug"] for c in CIRUGIAS_NOON] + [t["slug"] for t in TRATAMIENTOS])}
+# las fichas nuevas ("nueva": True) van al final del reparto, así ninguna ficha vieja cambia de fondo
+_ORDEN_FONDO = [c for c in CIRUGIAS_NOON if not c.get("nueva")] + [t for t in TRATAMIENTOS if not t.get("nueva")] + [x for x in CIRUGIAS_NOON + TRATAMIENTOS if x.get("nueva")]
+PALABRAS.update({x["slug"]: x["palabras"] for x in CIRUGIAS_NOON + TRATAMIENTOS if x.get("palabras")})
+FONDO_ITEM = {x["slug"]: SEDAS[i % len(SEDAS)] for i, x in enumerate(_ORDEN_FONDO)}
 
 
 def datos_js():
@@ -633,7 +657,7 @@ for k, n, d, f in CATEGORIAS_CX:
     lista = [c for c in CIRUGIAS_NOON if c["cat"] == k]
     bloques_cx += '<section class="sec cat-bloque" id="%s"><div class="sec-in"><header class="sec-cab"><p class="ceja rev">Cirugía plástica</p><h2 class="rev">%s</h2><p class="sub rev">%s</p></header><div class="sec-cuerpo">%s</div></div></section>' % (k, n, d, catalogo(lista, "cx"))
 pagina("cirugia-plastica.html", "Cirugía plástica", "Cirugía plástica en noon Clinic: rostro, senos, contorno corporal y procedimientos combinados.",
-       hero("seda-burdeos", "Cirugía plástica", "Cirugía plástica<br><em>con criterio</em>.", "Cada cirugía empieza entendiendo qué quieres lograr y qué quieres preservar.", "alto")
+       hero("seda-burdeos", "Cirugía plástica", "Cirugía plástica<br>en <em>Medellín</em>.", "Con criterio: cada cirugía empieza entendiendo qué quieres lograr y qué quieres preservar.", "alto")
        + filtro_hub(CATEGORIAS_CX, "Busca una cirugía: nariz, abdomen, senos…")
        + cinta([c["nombre"] for c in CIRUGIAS_NOON], "suave")
        + bloques_cx
@@ -648,7 +672,7 @@ for c in CIRUGIAS_NOON:
     otras = [x for x in CIRUGIAS_NOON if x["cat"] == c["cat"] and x["slug"] != c["slug"]]
     msj = "Hola, quiero agendar mi valoración para %s en noon Clinic." % c["nombre"].lower()
     pagina(c["slug"] + ".html", c["nombre"], c["corto"],
-           hero(f, "Cirugía plástica · " + cat_n, c["nombre"], c["corto"], "alto")
+           hero(f, "Cirugía plástica · " + cat_n, c["nombre"] + " en <em>Medellín</em>", c["corto"], "alto")
            + datos_barra([("Duración", d[0]), ("Anestesia", d[1]), ("Incapacidad aprox.", d[2]), ("Resultado final", d[3])])
            + subnav([("que-es", "Qué es"), ("para-ti", "Para ti"), ("recuperacion", "Recuperación")] + ([("todo", "Antes de decidir")] if c.get("todo") else []) + [("especialista", "Especialista"), ("preguntas", "Preguntas")])
            + frase("El procedimiento", c["que_es"][0], c["que_es"][1] if len(c["que_es"]) > 1 else "", "media", sid="que-es")
@@ -676,7 +700,7 @@ for k, n, d, f in CATEGORIAS_ME:
         cat_html = cat_html.replace("</ul>", FILA_CRIO + "</ul>")
     bloques_me += '<section class="sec cat-bloque" id="%s"><div class="sec-in"><header class="sec-cab"><p class="ceja rev">Medicina estética</p><h2 class="rev">%s</h2><p class="sub rev">%s</p></header><div class="sec-cuerpo">%s</div></div></section>' % (k, n, d, cat_html)
 pagina("medicina-estetica.html", "Medicina estética", "Medicina estética en noon Clinic: toxina botulínica, ácido hialurónico, bioestimuladores, piel, láser, HIFU y bienestar.",
-       hero("seda-champan", "Medicina estética", "Realzar lo tuyo,<br><em>sin cambiar quién eres</em>.", "Tratamientos médicos no quirúrgicos con resultados naturales.", "alto")
+       hero("seda-champan", "Medicina estética", "Medicina estética<br>en <em>Medellín</em>.", "Realzar lo tuyo, sin cambiar quién eres: tratamientos médicos no quirúrgicos.", "alto")
        + filtro_hub(CATEGORIAS_ME, "Busca un tratamiento: botox, manchas, láser…")
        + cinta([t["nombre"] for t in TRATAMIENTOS], "suave")
        + bloques_me
@@ -691,7 +715,7 @@ for t in TRATAMIENTOS:
     otras = [x for x in TRATAMIENTOS if x["cat"] == t["cat"] and x["slug"] != t["slug"]]
     msj = "Hola, quiero agendar una valoración para %s en noon Clinic." % t["nombre"].lower()
     pagina(t["slug"] + ".html", t["nombre"], t["corto"],
-           hero(f, "Medicina estética · " + cat_n, t["nombre"], t["corto"], "medio")
+           hero(f, "Medicina estética · " + cat_n, t["nombre"] + " en <em>Medellín</em>", t["corto"], "medio")
            + datos_barra([("Sesiones", d[0]), ("Duración", d[1]), ("Recuperación", d[2]), ("Resultado", d[3])])
            + subnav([("que-es", "Qué es"), ("para-ti", "Indicado para"), ("especialista", "Especialista"), ("preguntas", "Preguntas")])
            + frase("El tratamiento", t["que_es"][0], t["que_es"][1] if len(t["que_es"]) > 1 else "", "media", sid="que-es")
@@ -701,7 +725,7 @@ for t in TRATAMIENTOS:
            + seccion("Preguntas", "Sobre " + t["nombre"].lower(), faq([("", q, r, []) for q, r in list(t["faq"]) + list(t.get("faq_nuevas", []))]), "marfil", sid="preguntas")
            + G.bloque_lecturas(G.de_procedimiento(GUIAS, t["slug"], relleno=False), "Blog", "Lecturas <em>relacionadas</em>.", sid="lecturas")
            + (seccion("También en " + cat_n.lower(), "Otros tratamientos", catalogo(otras, "me")) if otras else "")
-           + cierre(t["nombre"], "Agenda tu valoración en Medellín y armamos contigo el plan que tu piel necesita.",
+           + cierre(t["nombre"], t.get("cierre_txt", "Agenda tu valoración en Medellín y armamos contigo el plan que tu piel necesita."),
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (t["slug"], wa(msj)), fondo=f)
            + barra_cta(t["nombre"], "Valoración con " + ESPECIALISTAS[1]["nombre"], t["slug"], msj),
            esquema=esquema_ficha(t, cat_n, "medicina-estetica", "Medicina estética", "MedicalProcedure"), og_tipo="website", alterna=FE.en_de(t["slug"]))
@@ -721,6 +745,16 @@ NOMBRE_EN = {
     "laser": "Laser skin treatments", "depilacion-laser": "Laser hair removal", "hifu": "HIFU", "radiofrecuencia": "Radiofrequency skin tightening",
     "tratamientos-corporales": "Body treatments", "sueroterapia": "IV therapy", "manejo-medico-del-peso": "Medical weight management", "nutricion": "Nutrition",
 }
+NOMBRE_EN['lipo-360'] = 'Lipo 360'
+NOMBRE_EN['lipoabdominoplastia-con-transferencia-glutea'] = 'Tummy Tuck and BBL'
+NOMBRE_EN['rinoplastia-y-mentoplastia'] = 'Rhinoplasty and Chin Surgery'
+NOMBRE_EN['mastopexia-con-implantes'] = 'Breast Lift with Implants'
+NOMBRE_EN['mastopexia-sin-implantes'] = 'Breast Lift Without Implants'
+NOMBRE_EN['labios-con-acido-hialuronico'] = 'Lip filler'
+NOMBRE_EN['ojeras-con-acido-hialuronico'] = 'Under-eye filler'
+NOMBRE_EN['rinomodelacion'] = 'Nonsurgical rhinoplasty'
+NOMBRE_EN['menton-y-mandibula-con-acido-hialuronico'] = 'Chin and jawline filler'
+NOMBRE_EN['papada-sin-cirugia'] = 'Nonsurgical double chin treatment'
 TEL_VISIBLE = "+57 302 249 1937"
 DATOS_EN = [
     ("Where", "Medellín, Antioquia, Colombia."),
@@ -752,7 +786,7 @@ pagina("about-noon-clinic.html", "Plastic surgery clinic in Medellín, Colombia"
            ('<a href="how-long-to-stay-in-colombia-after-plastic-surgery.html">How long to stay after surgery</a>', "Recovery time before you fly home."),
            ('<a href="guides.html">All guides</a>', "")]), "marfil")
        + cierre("Talk to <em>us</em>", "Message us on WhatsApp at " + TEL_VISIBLE + " and we will plan your consultation, procedure and follow-up dates with you.",
-                '<a class="boton lleno" href="%s" target="_blank" rel="noopener">WhatsApp %s</a>' % (wa(), TEL_VISIBLE), fondo="seda-oscura"),
+                '<a class="boton lleno" href="%s" target="_blank" rel="noopener">WhatsApp %s</a>' % (wa(), TEL_VISIBLE), fondo="seda-oscura", nota=NOTA_WA_EN),
        lang="en", foto="seda-noche", og_tipo="website",
        esquema=[{"@context": "https://schema.org", "@type": "AboutPage", "url": DOMINIO + "/about-noon-clinic", "inLanguage": "en-US",
                  "about": {"@id": DOMINIO + "/#clinica"}, "mainEntity": {"@id": DOMINIO + "/#clinica"}}],
@@ -853,7 +887,7 @@ pagina("why-noon-clinic.html", "Why choose noon Clinic in Medellín",
                            ('<a class="ext" href="%s" target="_blank" rel="noopener">REPS ↗</a>' % VERIFICA["reps"], "Registry of licensed clinics and surgical facilities.")])
                  + '<a class="enlace rev" href="how-to-choose-a-plastic-surgeon-in-medellin.html">How to choose a plastic surgeon in Medellín</a>', "marfil")
        + cierre("Talk to <em>us</em>", "Message us on WhatsApp at +57 302 249 1937 and we will plan your consultation with you.",
-                '<a class="boton lleno" href="%s" target="_blank" rel="noopener">WhatsApp +57 302 249 1937</a>' % wa(), fondo="seda-oscura"),
+                '<a class="boton lleno" href="%s" target="_blank" rel="noopener">WhatsApp +57 302 249 1937</a>' % wa(), fondo="seda-oscura", nota=NOTA_WA_EN),
        lang="en", alterna="por-que-noon.html", foto="foto-consulta", og_tipo="website",
        esquema=[{"@context": "https://schema.org", "@type": "AboutPage", "url": DOMINIO + "/why-noon-clinic", "inLanguage": "en-US",
                  "about": {"@id": DOMINIO + "/#clinica"}, "mainEntity": {"@id": DOMINIO + "/#clinica"}}],
@@ -940,6 +974,8 @@ pagina("valoracion.html", "Agenda tu valoración", "Todo empieza con tu valoraci
 # ================================================================ PÁGINAS VIEJAS → redirección a las nuevas
 for viejo, nuevo in [("cirugias", "cirugia-plastica"), ("todo-incluido", "cirugia-plastica"), ("mastopexia-con-implantes", "mastopexia"),
                      ("mastopexia-sin-implantes", "mastopexia"), ("lipo", "liposuccion"), ("nosotros", "especialistas"), ("la-clinica", "#clinica")]:
+    if viejo in CX_N or viejo in TR_N:
+        continue  # ya es una ficha real (fichas nuevas del 20-oct): no se redirige
     with open(os.path.join(AQUI, viejo + ".html"), "w", encoding="utf-8") as fh:
         fh.write('<!doctype html><html lang="es"><head><meta charset="utf-8"><title>noon Clinic</title><link rel="canonical" href="/%s"><meta http-equiv="refresh" content="0; url=/%s"><meta name="robots" content="noindex"></head><body><a href="/%s">Continuar</a></body></html>' % (nuevo, nuevo, nuevo))
 

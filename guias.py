@@ -221,7 +221,8 @@ def generar(b):
         if local(g):
             cuerpo += b.cierre()  # quien vive en Colombia: el mismo cierre de la web (valoración presencial en Medellín)
         else:
-            cuerpo += b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(msj), t["boton"]), fondo="seda-oscura")
+            cuerpo += b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(msj), t["boton"]), fondo="seda-oscura",
+                               nota=b.NOTA_WA_EN if g["lang"] == "en" else b.NOTA_WA)
 
         url = b.DOMINIO + "/" + g["slug"]
         blog_url = b.DOMINIO + "/" + BLOG[g["lang"]]["archivo"][:-5]
@@ -290,7 +291,7 @@ def hubs(b, guias):
                   + ('<section class="sec sin-borde" id="cities"><div class="sec-in"><header class="sec-cab"><p class="ceja rev">%s</p><h2 class="rev">%s</h2></header>%s</div></section>' % (h["c_ceja"], h["c_tit"], b.tarjetas(tiles)) if tiles else "")
                   + b.seccion(h["ceja"], h["pasos_tit"], '<ol class="tiempo num">%s</ol>' % "".join('<li class="rev"><b>%s</b><span>%s</span></li>' % x for x in h["pasos"]), "marfil")
                   + b.seccion(h["g_ceja"], h["g_tit"], lista, sid="guides")
-                  + b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(t["wa_gen"]), t["boton"]), fondo="seda-oscura"))
+                  + b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(t["wa_gen"]), t["boton"]), fondo="seda-oscura", nota=b.NOTA_WA_EN if lang == "en" else b.NOTA_WA))
         esquema = [{"@context": "https://schema.org", "@type": "CollectionPage", "name": h["titulo"], "description": h["desc"], "inLanguage": "es-CO" if lang == "es" else "en-US",
                     "hasPart": [{"@type": "WebPage", "name": g["title"], "url": b.DOMINIO + "/" + g["slug"]} for g in mias]}]
         b.pagina(t["hub"], h["titulo"], h["desc"], cuerpo, lang=lang, alterna=h["otro"][0], esquema=esquema, foto="seda-horizonte",
@@ -331,7 +332,7 @@ def blog(b, guias):
                   + '<section class="sec marfil bl-pag"><div class="bl-in"><div class="bl-filtros rev" role="group" aria-label="%s">%s</div><div class="bl-grid bl-lista">%s</div></div></section>' % (h["filtrar"], filtros, tarjetas)
                   + ('<section class="sec bl-fila"><div class="bl-in"><header class="bl-cab"><div><p class="ceja rev">%s</p><h2 class="rev">%s</h2></div><a class="enlace rev" href="%s">%s</a></header><ul class="bl-ciudades">%s</ul></div></section>' % (
                       h["c_ceja"], h["c_tit"], h["hub"][0], h["hub"][1], lista_c) if lista_c else "")
-                  + (b.cierre() if lang == "es" else b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(t["wa_gen"]), t["boton"]), fondo="seda-oscura")))
+                  + (b.cierre() if lang == "es" else b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(t["wa_gen"]), t["boton"]), fondo="seda-oscura", nota=b.NOTA_WA_EN)))
         esquema = [{"@context": "https://schema.org", "@type": "Blog", "name": h["titulo"], "description": h["desc"], "url": b.DOMINIO + "/" + h["archivo"][:-5],
                     "inLanguage": "es-CO" if lang == "es" else "en-US", "publisher": {"@id": b.DOMINIO + "/#clinica"},
                     "blogPost": [{"@type": "BlogPosting", "headline": g["title"], "url": b.DOMINIO + "/" + g["slug"], "datePublished": g["publicado"],

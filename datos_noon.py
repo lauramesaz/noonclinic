@@ -894,6 +894,21 @@ TRATAMIENTOS = [
 ]
 
 # ---------------------------------------------------------------- PREGUNTAS GENERALES (sin precios)
+# ---------------------------------------------------------------- fichas nuevas (datos_noon_nuevas.py): cada una va justo después de su madre
+try:
+    from datos_noon_nuevas import NUEVAS, VER_TAMBIEN_MADRES
+except ImportError:
+    NUEVAS, VER_TAMBIEN_MADRES = [], {}
+for _n in NUEVAS:
+    _lista = CIRUGIAS_NOON if _n["tipo"] == "cx" else TRATAMIENTOS
+    _i = next(i for i, x in enumerate(_lista) if x["slug"] == _n["despues_de"])
+    while _i + 1 < len(_lista) and _lista[_i + 1].get("despues_de") == _n["despues_de"]:
+        _i += 1  # varias nuevas de la misma madre quedan en el orden en que se escribieron
+    _lista.insert(_i + 1, _n)
+for _m, _vs in VER_TAMBIEN_MADRES.items():
+    _x = next(x for x in CIRUGIAS_NOON + TRATAMIENTOS if x["slug"] == _m)
+    _x["ver_tambien"] = list(_x.get("ver_tambien", [])) + [tuple(v) for v in _vs]
+
 TODAS_CX = [c["slug"] for c in CIRUGIAS_NOON]
 FAQ_NOON = [
     ("Valoración", "¿Por qué empezar con una valoración?", "Porque cada cuerpo y cada rostro son distintos. En la valoración el especialista te examina, escucha lo que quieres lograr y te dice qué tiene sentido para ti, qué no, y por qué."),
