@@ -178,6 +178,32 @@ confirmado por cobertura de AP, CBS News y NBC de la misma semana; 10-oct-2026.)
   -citando a la Alcaldía de Medellín-, cobertura de la programación de la Feria de las Flores 2026;
   19-oct-2026.)
 
+## Día de Acción de Gracias (Thanksgiving) en EE. UU.
+- **Fecha 2026:** jueves 26 de noviembre de 2026. Es feriado federal en EE. UU. fijo en el
+  calendario (cuarto jueves de noviembre); no se mueve por caer cerca de fin de semana. (Fuentes:
+  calendario de feriados federales de la Corte de Apelaciones del Segundo Circuito de EE. UU.
+  -ww3.ca2.uscourts.gov-; fedpayscale.org, calendario de feriados federales 2026 según la OPM
+  -Oficina de Administración de Personal de EE. UU.-; 20-oct-2026.)
+- **No es feriado en Colombia:** esa semana es una semana normal en Medellín, sin cierre de
+  colegios ni fiesta familiar local (a diferencia de diciembre). No afirmar que la ciudad "se
+  llena" o cambia de ritmo por Thanksgiving.
+- **Es, históricamente, de los momentos de mayor movimiento aéreo en EE. UU.:** patrón que se
+  repite año tras año según TSA y AAA: el martes y el miércoles antes de Thanksgiving suelen ser
+  los días de mayor movimiento para viajar, y el domingo siguiente al feriado suele ser el de
+  mayor movimiento para el regreso. No citar cifras de pasajeros de un año puntual (cambian cada
+  año): decir de forma general que es una de las semanas más ocupadas para volar en EE. UU., sobre
+  todo para conexiones domésticas (p. ej. haciendo escala en Miami o Houston hacia Medellín), y que
+  conviene reservar con anticipación. (Fuente: Axios, cobertura de los pronósticos de TSA y AAA
+  para Thanksgiving, "Record-breaking Thanksgiving travel predicted by TSA, AAA"; 20-oct-2026.)
+- **Ventana real de viaje:** para quien trabaja o tiene hijos en colegio en EE. UU., Thanksgiving
+  da días libres alrededor del jueves y el viernes, más el fin de semana; salvo que se tomen días
+  adicionales de vacaciones, el viaje completo (ida, estadía y regreso) suele ser más corto que un
+  viaje de diciembre o de mitad de año. Dato general, sin cifra de días fija: depende del empleador
+  y de cuántos días de vacaciones adicionales tome cada persona.
+- **Puede alcanzar a cruzarse con el inicio de los alumbrados navideños de Medellín** (ver sección
+  "Temporada decembrina": encienden a finales de noviembre o comienzos de diciembre), si el viaje
+  se extiende unos días después del feriado. No afirmar que esto ya pasó para una fecha exacta.
+
 ## Volar después de una cirugía (fuente: ASPS)
 - ASPS sugiere esperar antes de volar 5 a 7 días tras cirugías corporales (lipo, aumento de
   senos) y 7 a 10 días tras cirugías de la cara (lifting, párpados, rinoplastia).

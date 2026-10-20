@@ -49,7 +49,7 @@ del final (mezcla Colombia, medicina estética y comparativas).
 |---|---|---|---|
 | E1 | operarme en diciembre en Colombia | plastic surgery in Colombia over the holidays | publicado 2026-10-18 |
 | E2 | cirugía plástica en vacaciones de verano en Colombia | summer plastic surgery trip to Colombia | publicado 2026-10-19 |
-| E3 | cirugía plástica en Thanksgiving en Medellín | Thanksgiving plastic surgery trip Medellin | pendiente |
+| E3 | cirugía plástica en Thanksgiving en Medellín | Thanksgiving plastic surgery trip Medellin | publicado 2026-10-20 |
 
 ## F. Pacientes en Colombia · cirugía (solo español)
 Ángulo informativo. La keyword "<procedimiento> en Medellín" es de la página del procedimiento: aquí nunca.
