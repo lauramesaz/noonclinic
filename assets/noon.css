@@ -1105,5 +1105,57 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
 .captura .hero .rev { animation: none !important; }
 @media (prefers-reduced-motion: reduce) { .js .hero .rev { animation: none; } }
 /* qué pasa cuando escribes (bajo los botones del cierre) */
-.nota-wa { margin: 22px 0 0; max-width: 520px; font-size: 13.5px; line-height: 1.6; opacity: .82; }
+.nota-wa { margin: 22px 0 0; max-width: 520px; font-size: 13.5px; line-height: 1.6; color: color-mix(in srgb, currentColor 84%, transparent); }
 .nota-wa a { color: inherit; border-bottom: 1px solid currentColor; text-decoration: none; padding-bottom: 1px; }
+
+/* ---- 21-oct · tarjeta de vidrio en la primera pantalla de las fichas (opción C, elegida por Laura): 3 datos, botón y línea de inmediatez */
+.hc { margin-top: 30px; }
+.hc-nota { margin: 14px 0 0; font-size: 13.5px; line-height: 1.5; color: rgba(242, 239, 232, .82); }
+.hc-tarjeta { width: min(420px, 100%); padding: 22px 22px 20px; border-radius: 26px; background: rgba(242, 239, 232, .08); border: 1px solid rgba(242, 239, 232, .22);
+  backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2); box-shadow: 0 24px 60px rgba(0, 0, 0, .28); }
+.hc-tarjeta dl { margin: 0 0 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.hc-tarjeta dt { font: 400 12px/1.3 var(--display); letter-spacing: .18em; text-transform: uppercase; color: rgba(242, 239, 232, .72); }
+.hc-tarjeta dd { margin: 6px 0 0; font-size: 14.5px; line-height: 1.35; color: var(--ivory); }
+.hc-tarjeta .boton { width: 100%; min-height: 52px; border-radius: 999px; }
+.hero.sobre-claro .hc-nota { color: rgba(40, 35, 31, .82); }
+.hero.sobre-claro .hc-tarjeta { background: rgba(255, 255, 255, .42); border-color: rgba(40, 35, 31, .14); }
+.hero.sobre-claro .hc-tarjeta dt { color: rgba(40, 35, 31, .72); } .hero.sobre-claro .hc-tarjeta dd { color: #28231f; }
+@media (min-width: 1000px) {
+  .hero:has(.hc) .hero-in { max-width: none; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 420px; column-gap: 64px; align-items: end; }
+  .hero:has(.hc) .hero-in > * { grid-column: 1; }
+  .hero:has(.hc) .hero-in > .hc { grid-column: 2; grid-row: 1 / span 3; margin: 0; align-self: end; }
+}
+/* en celular la portada se ajusta al contenido para que el botón quede a la vista sin bajar, y la barra de datos no se repite */
+@media (max-width: 760px) {
+  .hero.alto:has(.hc), .hero.medio:has(.hc) { min-height: 0; padding-top: 104px; padding-bottom: 40px; }
+  .hc-tarjeta { padding: 16px 16px 14px; }
+  .hc-tarjeta dl { margin-bottom: 14px; }
+  .hc-tarjeta dd { font-size: 13.5px; }
+  .hero:has(.hc) + .datos { display: none; }
+}
+/* 21-oct: en celular el botón de idioma no cabe junto al logo → se esconde en la cabecera y aparece arriba en el menú */
+.idioma-menu { display: none; }
+@media (max-width: 520px) {
+  .cab-der .idioma { display: none; }
+  .idioma-menu { display: inline-block; margin: 0 0 28px; font: 400 12px var(--display); letter-spacing: .24em; text-transform: uppercase; text-decoration: none; color: var(--ivory); border-bottom: 1px solid currentColor; padding-bottom: 4px; }
+}
+/* 21-oct · Policía de persuasión: letra mínima 12 px y toques de 44 px en la cabecera, botones y línea de tiempo (mismo diseño) */
+.menu-btn, .buscar-btn, .agendar { min-height: 44px; font-size: 12px; }
+.agendar { display: inline-flex; align-items: center; }
+.boton { font-size: 12px; min-height: 48px; }
+.lt-m { font-size: 12px; }
+.hc-tarjeta dt { font-size: 12px; }
+.ceja { font-size: 12px; }
+@media (max-width: 760px) {
+  .agendar { padding: 0 14px; font-size: 12px; letter-spacing: .16em; }
+  .menu-btn, .buscar-btn { min-width: 44px; justify-content: center; }
+  .lt-m { font-size: 12px; letter-spacing: .04em; }
+  .barra-cta .boton { min-height: 48px; padding: 0 16px; font-size: 12px; letter-spacing: .12em; }
+}
+.bl-meta, .bl-ir, .catalogo .m { font-size: 12px; }
+/* topes de gusto (gusto-laura §6): h1 institucional ≤ 86 px, h2 de cierre ≤ 86 px, letra ≥ 12 px */
+.hero h1 { font-size: clamp(42px, 5.6vw, 86px); }
+.cierre h2 { font-size: clamp(36px, 5.2vw, 86px); }
+.subnav a, .idioma { font-size: 12px; }
+@media (max-width: 760px) { .hero h1 { font-size: clamp(36px, 10.4vw, 52px); } }
+.wa-flota span { font-size: 12px; }

@@ -131,7 +131,8 @@ def generar(b):
         nav = [("que-es", "What it is"), ("para-ti", "Is it for you")] + ([("recuperacion", "Recovery")] if cx else []) + \
               ([("todo", "Before you decide")] if e.get("todo") else []) + [("viaje", "Coming from abroad"), ("especialista", "Specialist"), ("preguntas", "FAQ")]
         quien = "Dr. Fernando Ruiz, plastic surgeon" if cx else "Dr. Valeria Enciso, aesthetic physician"
-        cuerpo = (b.hero(f, ("Plastic surgery · " if cx else "Aesthetic medicine · ") + cat, e["nombre"] + " in <em>Medellín</em>", e["corto"], "alto" if cx else "medio")
+        cuerpo = (b.hero(f, ("Plastic surgery · " if cx else "Aesthetic medicine · ") + cat, e["nombre"] + " in <em>Medellín</em>", e["corto"], "alto" if cx else "medio",
+                         b.accion_hero(dict(p, datos=e["datos"]), cx, quien.split(",")[0], None, en=True))
                   + b.datos_barra(barra)
                   + subnav_en(nav)
                   + b.frase("The procedure" if cx else "The treatment", e["que_es"][0], e["que_es"][1] if len(e["que_es"]) > 1 else "", "media", sid="que-es")

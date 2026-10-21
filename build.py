@@ -213,6 +213,9 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
     tags = dict({"idioma": lang, "pagina": limpio or "inicio"}, **(etiquetas or {}))
     seo += '\n<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","%s");%s</script>' % (
         CLARITY_ID, "".join('clarity("set",%s,%s);' % (json.dumps(k), json.dumps(v)) for k, v in tags.items()))
+    if alterna:  # en celular el botón de idioma no cabe junto al logo: va dentro del menú
+        menu_html = menu_html.replace('<div class="menu-in tres">', '<div class="menu-in tres"><a class="idioma-menu" href="%s" hreflang="%s" lang="%s">%s</a>' % (
+            alterna, "es" if en else "en", "es" if en else "en", "Leer en español" if en else "Read in English"), 1)
     # La imagen de portada (la seda de arriba) es lo más grande que se ve en el celular: se pide primero y con prioridad.
     m_portada = re.search(r'<section class="hero[^>]*><div class="capa" style="background-image:url\(([^)]+)\)', cuerpo)
     precarga = ('<link rel="preload" href="%s" as="image" fetchpriority="high">\n' % m_portada.group(1)) if m_portada else ""
@@ -588,6 +591,19 @@ def datos_barra(pares):
     return '<section class="datos">%s</section>' % "".join('<div><span class="ceja">%s</span><b>%s</b></div>' % p for p in pares)
 
 
+def accion_hero(p, cx, quien, msj, en=False):
+    """Tarjeta de vidrio en la primera pantalla de la ficha: 3 datos, botón de WhatsApp y línea de inmediatez (opción C, elegida por Laura el 21-oct)."""
+    d = p["datos"]
+    boton = '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (wa(msj), "I want my consultation" if en else "Quiero mi valoración")
+    nota = '<p class="hc-nota">%s</p>' % ("We reply on WhatsApp within minutes, during business hours." if en else "Te respondemos en minutos por WhatsApp, en horario de atención.")
+    if en:
+        filas = [("Duration", d[0]), ("Time off work", d[2]), ("Consultation with", quien)] if cx else [("Sessions", d[0]), ("Downtime", d[2]), ("Consultation with", quien)]
+    else:
+        filas = [("Duración", d[0]), ("Incapacidad", d[2]), ("Te valora", quien)] if cx else [("Sesiones", d[0]), ("Recuperación", d[2]), ("Te valora", quien)]
+    tarjeta = '<div class="hc-tarjeta"><dl>%s</dl>%s%s</div>' % ("".join('<div><dt>%s</dt><dd>%s</dd></div>' % f for f in filas), boton, nota)
+    return '<div class="hc">%s</div>' % tarjeta
+
+
 def ver_tambien(p):
     """Una línea discreta que lleva a otra página relacionada (ej. la criolipólisis desde la lipo)."""
     return "".join('<p class="pista rev ver-tambien">%s <a href="%s">%s</a></p>' % (antes, href, texto) for antes, href, texto in p.get("ver_tambien", []))
@@ -672,7 +688,7 @@ for c in CIRUGIAS_NOON:
     otras = [x for x in CIRUGIAS_NOON if x["cat"] == c["cat"] and x["slug"] != c["slug"]]
     msj = "Hola, quiero agendar mi valoración para %s en noon Clinic." % c["nombre"].lower()
     pagina(c["slug"] + ".html", c["nombre"], c["corto"],
-           hero(f, "Cirugía plástica · " + cat_n, c["nombre"] + " en <em>Medellín</em>", c["corto"], "alto")
+           hero(f, "Cirugía plástica · " + cat_n, c["nombre"] + " en <em>Medellín</em>", c["corto"], "alto", accion_hero(c, True, "Dr. Fernando Ruiz", msj))
            + datos_barra([("Duración", d[0]), ("Anestesia", d[1]), ("Incapacidad aprox.", d[2]), ("Resultado final", d[3])])
            + subnav([("que-es", "Qué es"), ("para-ti", "Para ti"), ("recuperacion", "Recuperación")] + ([("todo", "Antes de decidir")] if c.get("todo") else []) + [("especialista", "Especialista"), ("preguntas", "Preguntas")])
            + frase("El procedimiento", c["que_es"][0], c["que_es"][1] if len(c["que_es"]) > 1 else "", "media", sid="que-es")
@@ -715,7 +731,7 @@ for t in TRATAMIENTOS:
     otras = [x for x in TRATAMIENTOS if x["cat"] == t["cat"] and x["slug"] != t["slug"]]
     msj = "Hola, quiero agendar una valoración para %s en noon Clinic." % t["nombre"].lower()
     pagina(t["slug"] + ".html", t["nombre"], t["corto"],
-           hero(f, "Medicina estética · " + cat_n, t["nombre"] + " en <em>Medellín</em>", t["corto"], "medio")
+           hero(f, "Medicina estética · " + cat_n, t["nombre"] + " en <em>Medellín</em>", t["corto"], "medio", accion_hero(t, False, "Dra. Valeria Enciso", msj))
            + datos_barra([("Sesiones", d[0]), ("Duración", d[1]), ("Recuperación", d[2]), ("Resultado", d[3])])
            + subnav([("que-es", "Qué es"), ("para-ti", "Indicado para"), ("especialista", "Especialista"), ("preguntas", "Preguntas")])
            + frase("El tratamiento", t["que_es"][0], t["que_es"][1] if len(t["que_es"]) > 1 else "", "media", sid="que-es")
