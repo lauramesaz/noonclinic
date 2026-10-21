@@ -84,7 +84,7 @@ comerciales como promesa; si se nombran productos, solo los que noon usa y está
 ## H. Comparativas entre dos servicios de noon (solo español; enlazan a las DOS páginas)
 | # | Procedimientos | Keyword ES | Público | Estado |
 |---|---|---|---|---|
-| H1 | criolipolisis + liposuccion | criolipólisis o liposucción: cuál te conviene | colombia | pendiente |
+| H1 | criolipolisis + liposuccion | criolipólisis o liposucción: cuál te conviene | colombia | publicado 2026-10-21 |
 | H2 | toxina-botulinica + acido-hialuronico | bótox o ácido hialurónico: diferencias | colombia | pendiente |
 | H3 | mini-abdominoplastia + abdominoplastia | mini abdominoplastia o abdominoplastia completa | colombia | pendiente |
 | H4 | hilos-tensores + lifting-facial | hilos tensores o lifting facial | colombia | pendiente |
