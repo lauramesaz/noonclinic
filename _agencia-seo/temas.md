@@ -70,7 +70,7 @@ decide el cirujano en la valoración presencial. Riesgos de combinar y de la lip
 ## G. Medicina estética (solo español; `"categoria": "estetica"`)
 | # | Tratamiento | Keyword ES | Público | Estado |
 |---|---|---|---|---|
-| G1 | toxina-botulinica | cuánto dura el bótox y cada cuánto aplicarlo | colombia | pendiente |
+| G1 | toxina-botulinica | cuánto dura el bótox y cada cuánto aplicarlo | colombia | publicado 2026-10-22 |
 | G2 | acido-hialuronico | ácido hialurónico en labios: cómo es, cuánto dura y cuidados | colombia | en pausa (cubierto por la ficha /labios-con-acido-hialuronico, 20-oct) |
 | G3 | bioestimuladores | bioestimuladores de colágeno: qué son y para quién | colombia | pendiente |
 | G4 | manchas-y-melasma | melasma: por qué aparece y cómo se trata (con el sol de Medellín) | colombia | pendiente |
