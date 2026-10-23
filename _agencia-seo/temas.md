@@ -95,7 +95,7 @@ H1: enlaza a la landing `criolipolisis.html` (no es del catálogo: va como enlac
 ## I. Costo, sin dar precios (ES + EN)
 | # | Keyword ES | Keyword EN | Público | Estado |
 |---|---|---|---|---|
-| I1 | de qué depende el precio de una cirugía plástica en Colombia | plastic surgery in Colombia cost: what the price depends on | eeuu | pendiente |
+| I1 | de qué depende el precio de una cirugía plástica en Colombia | plastic surgery in Colombia cost: what the price depends on | eeuu | publicado 2026-10-23 |
 
 I1: qué sube o baja una cotización y qué debe incluir un presupuesto honesto (`INSTRUCCIONES.md` §1). Nunca un precio de noon.
 Search Console ya muestra "colombian plastic surgery prices" y "rhinoplasty colombia cost".
