@@ -67,8 +67,9 @@ Traer pacientes a noon Clinic (Medellín) desde Google. Desde el 19-oct-2026 hay
   del procedimiento + la ciudad, sin más) son de la página del procedimiento (`mentoplastia.html`…).
   Una guía nunca lleva como `title` o `keyword` solo "<procedimiento> en Medellín": siempre suma un
   ángulo o un calificador ("…: recuperación semana a semana", "… o …", "¿cuánto dura…?", "…desde
-  EE. UU."). Antes de escribir, busca en `registro.md`, `articulos/` y `../datos_noon.py` si la
-  keyword ya tiene dueña. **En inglés** (desde el 19-oct-2026) cada procedimiento tiene su página en
+  EE. UU."). Antes de escribir, corre `python3 _agencia-seo/dueno.py "<keyword>"` (desde la raíz):
+  dice qué página es la dueña y si ya hay una guía que cubre lo mismo (entonces NO se escribe otra:
+  se mejora esa). Revisa también `registro.md` y `articulos/`. **En inglés** (desde el 19-oct-2026) cada procedimiento tiene su página en
   `../fichas_en.py` (`rhinoplasty-medellin`, `tummy-tuck-medellin`, `botox-medellin`…): esa página es
   la dueña de "<procedure> in Medellín"; las guías en inglés llevan el ángulo de viaje ("…from the
   US", "trip guide", "how long to stay") y enlazan a esa página en el texto.
@@ -135,5 +136,19 @@ seguridad (se publica, se avisa y queda en el registro).
 
 Política: **actualizar, no borrar.** Si en 3 meses una pieza no tiene impresiones en Search
 Console, se mejora (título, profundidad, enlaces) y se cambia `actualizado`.
-Los datos de Search Console están en `search-console.md` (los actualiza cada lunes una tarea en la
-Mac de Laura, porque la nube no puede abrir Search Console). Úsalos para elegir y mejorar temas.
+Los datos de Search Console están en `search-console.md` (foto de cada lunes) y se pueden pedir en
+el momento con el usuario robot: `python3 _agencia-seo/gsc.py sc-domain:noon.clinic --sin-indexacion`.
+Qué páginas ya están en Google: `indexacion.md` (lo actualiza cada mañana `indexacion.py`).
+
+## 8. Ritmo de la semana (desde el 28-oct-2026, decisión de Laura)
+
+Con una web nueva, más páginas que Google todavía no lee no ayudan: ayuda que las que ya aparecen
+suban. Por eso:
+- **Lunes, miércoles y viernes: pieza nueva** (el pipeline de siempre).
+- **Martes, jueves, sábado y domingo: MEJORA** de una guía que ya existe (ver `rutina-diaria.md`):
+  la que más impresiones tiene en posición 8 a 40 según el robot (la que más cerca está de la
+  primera página), o, si ninguna tiene datos, la guía más vieja que Google todavía no tiene según
+  `indexacion.md`. Se mejora para la búsqueda que YA le trae Google: title y entrada con esas
+  palabras, la respuesta directa arriba, 1–2 preguntas reales nuevas, enlaces internos, datos de
+  `hechos.md` al día. Pasa por el Policía (3) y el verificador (4) como una pieza nueva; se cambia
+  `actualizado` y se anota en `registro.md` con tipo `mejora`. Nunca se cambia el `slug`.

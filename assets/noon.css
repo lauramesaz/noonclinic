@@ -1159,3 +1159,11 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
 .subnav a, .idioma { font-size: 12px; }
 @media (max-width: 760px) { .hero h1 { font-size: clamp(36px, 10.4vw, 52px); } }
 .wa-flota span { font-size: 12px; }
+/* 27-oct-2026 SEO: línea que lleva de una guía a la ficha del procedimiento, y fecha de actualización de cada ficha */
+.articulo .art-duena { margin: 6px 0 34px; padding: 4px 0 4px 20px; border-left: 1px solid var(--burgundy); font-size: 15.5px; line-height: 1.7; color: var(--tenue); }
+.actualizado { margin-top: 30px; font-size: 12.5px; letter-spacing: .04em; color: var(--tenue); }
+/* 27-oct-2026 velocidad: en la portada del inicio el logo y el texto se ven desde el primer instante (suben suave en vez de
+   aparecer desde transparente), así la portada cuenta como cargada apenas se pinta. */
+@keyframes noon-sube { from { transform: translateY(14px); } to { transform: none; } }
+.js.vista-nueva .portada .rev:not(.partido) { animation-name: noon-sube; }
+@media (max-width: 760px) and (orientation: portrait) { .capa[style*="--bg-m:"] { background-image: var(--bg-m) !important; } }

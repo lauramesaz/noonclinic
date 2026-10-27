@@ -13,7 +13,7 @@ CX = {c["slug"]: c for c in CIRUGIAS}
 import hashlib
 # Versión de CSS/JS (?v=) = huella de su contenido: solo cambia cuando cambian esos archivos o el catálogo,
 # así una guía nueva no reescribe las 110 páginas ni les cambia la fecha en el sitemap.
-_HUELLA = sorted(os.path.join("assets", f) for f in os.listdir(os.path.join(AQUI, "assets")) if f.endswith((".css", ".js")) and f != "catalogo.js") + ["datos_noon.py", "datos.py"]
+_HUELLA = sorted(os.path.join("assets", f) for f in os.listdir(os.path.join(AQUI, "assets")) if f.endswith((".css", ".js")) and f != "catalogo.js") + ["datos_noon.py", "datos_noon_seo.py", "datos.py"]
 V = hashlib.md5(b"".join(open(os.path.join(AQUI, r), "rb").read() for r in _HUELLA)).hexdigest()[:10]
 
 CLARO = {"seda-clara", "seda-horizonte", "seda-champan"}  # fondos claros: texto oscuro encima
@@ -55,9 +55,32 @@ def frase(ceja, texto, sub="", clase="", sid=""):
         clase, ' id="%s"' % sid if sid else "", ceja, texto, '<p class="sub rev">%s</p>' % sub if sub else "")
 
 
+FOTO_ALT = {  # qué se ve en cada foto del brandbook (para Google Imágenes y lectores de pantalla)
+    "foto-luz": ("Luz natural en noon Clinic, Medellín", "Natural light at noon Clinic, Medellín"),
+    "foto-recepcion": ("Recepción de noon Clinic en Medellín", "Reception at noon Clinic in Medellín"),
+    "foto-espera": ("Sala de espera de noon Clinic", "Waiting area at noon Clinic"),
+    "foto-consulta": ("Consultorio de valoración en noon Clinic", "Consultation room at noon Clinic"),
+    "foto-detalle": ("Detalle de noon Clinic", "Detail at noon Clinic"),
+    "foto-pasillo": ("Pasillo de noon Clinic", "Hallway at noon Clinic"),
+    "foto-objetos": ("Objetos de cuidado en noon Clinic", "Care items at noon Clinic"),
+}
+
+
+def alt_foto(ruta, nombre=None, en=False):
+    """Descripción de una foto según su carpeta: procedimiento (capacitacion/), clínica (clinica/) o brandbook (noon/)."""
+    base = ruta.rsplit("/", 1)[-1].rsplit(".", 1)[0]
+    if "capacitacion/" in ruta:
+        p = CX_N.get(base) or TR_N.get(base)
+        n = nombre or ((FE.FICHAS_EN.get(base) or {}).get("nombre") if en else None) or (p["nombre"] if p else base.replace("-", " "))
+        return ("Foto ilustrativa: %s" if en else "Foto ilustrativa: %s en noon Clinic") % n
+    if "clinica/" in ruta:
+        return "noon Clinic, Medellín" if en else "Instalaciones de noon Clinic en Medellín"
+    return FOTO_ALT.get(base, ("noon Clinic, Medellín", "noon Clinic, Medellín"))[1 if en else 0]
+
+
 def dividir(foto, contenido, invertir=False, clase=""):
-    return '<section class="dividir%s %s"><figure class="rev"><img src="%s" alt="" loading="lazy"></figure><div class="texto rev">%s</div></section>' % (
-        " inv" if invertir else "", clase, img(foto), contenido)
+    return '<section class="dividir%s %s"><figure class="rev"><img src="%s" alt="%s" loading="lazy"></figure><div class="texto rev">%s</div></section>' % (
+        " inv" if invertir else "", clase, img(foto), escape(alt_foto(img(foto))), contenido)
 
 
 def lineas(items, numerar=False):
@@ -144,7 +167,7 @@ MENU_EN = """<div class="menu" id="menu" hidden>
   </div>
 </div>""" % {"wa": "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA),
                "hubs_en": '<a href="plastic-surgery-medellin.html">Plastic surgery</a><a href="aesthetic-medicine-medellin.html">Aesthetic medicine</a>' if FE.FICHAS_EN else ""}
-PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="por-que-noon.html">Por qué noon</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="international-patients.html" hreflang="en" lang="en">English</a><a href="blog.html">Blog</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a></div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
+PIE_ES = '<footer class="pie">\n  <div class="pie-in">\n    <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>\n    <p class="lema">Cirugía plástica y medicina estética, con criterio. Medellín, Colombia.</p>\n    <div class="pie-cols cuatro">\n      <div><p class="ceja">Cirugía plástica</p>%(menu_cx)s<a href="cirugia-plastica.html">Todas las cirugías</a></div>\n      <div><p class="ceja">Medicina estética</p>%(menu_me)s<a href="medicina-estetica.html">Todos los tratamientos</a></div>\n      <div><p class="ceja">La clínica</p><a href="index.html#clinica">Conoce la clínica</a><a href="por-que-noon.html">Por qué noon</a><a href="especialistas.html">Especialistas</a><a href="seguridad.html">Seguridad</a><a href="tu-proceso.html">Tu proceso</a><a href="formas-de-pago.html">Pagos</a><a href="otra-ciudad.html">Si vienes de lejos</a><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a><a href="international-patients.html" hreflang="en" lang="en">English</a><a href="blog.html">Blog</a><a href="preguntas-frecuentes.html">Preguntas</a></div>\n      <div><p class="ceja">Contacto</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="valoracion.html">Agendar valoración</a>%(redes)s</div>\n    </div>\n    <a class="boton champan" href="terminos-y-condiciones.html">Términos y condiciones</a>\n    <p class="legal">La información de este sitio es orientativa y no reemplaza una consulta médica. Todo procedimiento tiene riesgos y los resultados varían de una persona a otra. © noon Clinic</p>\n  </div>\n</footer>\n'
 PIE_EN = """<footer class="pie">
   <div class="pie-in">
     <a class="logo" href="index.html"><img src="assets/logo-noon-claro.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
@@ -153,7 +176,7 @@ PIE_EN = """<footer class="pie">
       <div><p class="ceja">International patients</p><a href="international-patients.html">Plan your trip</a><a href="international-patients.html#cities">By city</a><a href="guides.html">Guides</a></div>
       <div><p class="ceja">noon Clinic</p><a href="about-noon-clinic.html">About noon Clinic</a><a href="why-noon-clinic.html">Why noon</a><a href="plastic-surgery-medellin.html">Plastic surgery</a><a href="aesthetic-medicine-medellin.html">Aesthetic medicine</a><a href="is-it-safe-to-get-plastic-surgery-in-colombia.html">Safety</a></div>
       <div><p class="ceja">En español</p><a href="pacientes-internacionales.html">Pacientes en EE. UU.</a></div>
-      <div><p class="ceja">Contact</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="tel:+573022491937">Call +57 302 249 1937</a></div>
+      <div><p class="ceja">Contact</p><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a><a href="tel:+573022491937">Call +57 302 249 1937</a>%(redes)s</div>
     </div>
     <a class="boton champan" href="terminos-y-condiciones.html">Terms and conditions (Spanish)</a>
     <p class="legal">The information on this site is for guidance only and does not replace a medical consultation. Every procedure carries risks and results vary from person to person. © noon Clinic</p>
@@ -165,7 +188,13 @@ CLINICA_LD = {"@context": "https://schema.org", "@type": "MedicalClinic", "@id":
               "image": DOMINIO + "/assets/clinica/recepcion.jpg", "telephone": TELEFONO, "medicalSpecialty": "PlasticSurgery",
               "address": {"@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO"},
               "areaServed": ["Colombia", "United States"],
-              "contactPoint": {"@type": "ContactPoint", "telephone": TELEFONO, "contactType": "customer service", "availableLanguage": ["es", "en"]}}
+              "contactPoint": {"@type": "ContactPoint", "telephone": TELEFONO, "contactType": "customer service", "availableLanguage": ["es", "en"]},
+              # 27-oct-2026: datos de marca completos (Google confundía "noon clinic" con otras clínicas del mismo nombre en otros países)
+              "description": "Clínica de cirugía plástica y medicina estética en Medellín, Colombia, con valoración presencial con el especialista.",
+              "slogan": "Cirugía plástica y medicina estética, con criterio.", "knowsLanguage": ["es", "en"], "isAcceptingNewPatients": True,
+              "employee": [{"@id": DOMINIO + "/especialistas#" + e["slug"]} for e in ESPECIALISTAS]}
+if REDES:  # perfiles oficiales de noon (datos.py): le dicen a Google que la web y esas cuentas son la misma marca
+    CLINICA_LD["sameAs"] = [u for n, u in REDES]
 
 # Títulos y descripciones para Google (seo_titulos.py): si una página está ahí, manda sobre el título/descripción del código.
 try:
@@ -219,6 +248,12 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
     # La imagen de portada (la seda de arriba) es lo más grande que se ve en el celular: se pide primero y con prioridad.
     m_portada = re.search(r'<section class="hero[^>]*><div class="capa" style="background-image:url\(([^)]+)\)', cuerpo)
     precarga = ('<link rel="preload" href="%s" as="image" fetchpriority="high">\n' % m_portada.group(1)) if m_portada else ""
+    if m_portada and m_portada.group(1).startswith("assets/noon/seda-") and os.path.exists(os.path.join(AQUI, m_portada.group(1)[:-5] + "-m.webp")):
+        precarga = ('<link rel="preload" href="%s" as="image" fetchpriority="high" media="(max-width: 760px) and (orientation: portrait)">\n'
+                    '<link rel="preload" href="%s" as="image" fetchpriority="high" media="(min-width: 761px), (orientation: landscape)">\n') % (
+                        m_portada.group(1)[:-5] + "-m.webp", m_portada.group(1))
+    if 'class="logo-hero' in cuerpo:  # inicio: lo primero grande que se ve es el logo; la seda va detrás sin pelearle la red
+        precarga = '<link rel="preload" href="assets/logo-noon-claro.webp" as="image" fetchpriority="high">\n' + precarga.replace(' fetchpriority="high"', "")
     idioma = ('<a class="idioma" href="%s" hreflang="%s" lang="%s" aria-label="%s"><span class="largo">%s</span><span class="corto">%s</span></a>' % (
         alterna, "es" if en else "en", "es" if en else "en", "Español" if en else "English", "Español" if en else "English", "ES" if en else "EN")) if alterna else ""
     html = """<!doctype html>
@@ -232,7 +267,7 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
 %(seo)s
 <meta name="theme-color" content="#120d0a">
 <link rel="icon" href="assets/favicon.png">
-<script>document.documentElement.className="js"</script>
+<script>document.documentElement.className="js%(vista)s"</script>
 %(precarga)s%(fuentes)s
 <link rel="stylesheet" href="assets/noon.css?v=%(v)s">
 </head>
@@ -266,9 +301,10 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
 </body>
 </html>
 """ % {"titulo": escape(titulo + (" · noon Clinic" if archivo != "index.html" else "")), "desc": escape(descripcion), "cuerpo": cuerpo,
-       "fuentes": FUENTES, "precarga": precarga,
+       "fuentes": FUENTES, "precarga": precarga, "vista": " vista-nueva" if VISTA else "",
        "menu_cx": menu_cx, "menu_me": menu_me, "menu": menu, "v": V, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO,
-       "medicion": HEAD_MEDICION, "lang": lang, "seo": seo, "idioma": idioma, "menu_html": menu_html, "pie_html": pie_html % {"menu_cx": menu_cx, "menu_me": menu_me, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO},
+       "medicion": HEAD_MEDICION, "lang": lang, "seo": seo, "idioma": idioma, "menu_html": menu_html, "pie_html": pie_html % {"menu_cx": menu_cx, "menu_me": menu_me, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO,
+                                                            "redes": "".join('<a href="%s" target="_blank" rel="noopener me">%s</a>' % (u, n) for n, u in REDES)},
        "buscar": "" if en else boton_buscar, "t_menu": "Menu" if en else "Menú", "t_agendar": "Book" if en else "Agendar",
        "h_agendar": wa(WA_EN) if en else "valoracion.html", "t_blank": ' target="_blank" rel="noopener"' if en else ""}
     # Todo remite a WhatsApp (decisión de Laura, 2-oct-2026): los botones que iban al formulario de valoración
@@ -279,6 +315,17 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
     html = re.sub(r'href="valoracion\.html[^"]*"(?: target="_blank" rel="noopener")?', enlace_wa, html)
     html = re.sub(r'href="index\.html([?#][^"]*)?"', lambda m: 'href="./%s"' % (m.group(1) or ""), html)
     html = re.sub(r'href="([a-z0-9-]+)\.html([?#][^"]*)?"', lambda m: 'href="%s%s"' % (m.group(1), m.group(2) or ""), html)
+    # Imágenes livianas (27-oct-2026): las tarjetas usan la seda de 1200 px (-t.webp, mismo grano a ese tamaño) y las fotos
+    # (clínica, brandbook, procedimientos, equipo) van en WebP. Las portadas (.capa) siguen con la seda grande.
+    html = re.sub(r'(class="(?!capa")[^"]*" style="background-image:url\(assets/noon/seda-[a-z]+)\.webp\)', r'\1-t.webp)', html)
+    html = re.sub(r'(data-img="assets/noon/seda-[a-z]+)\.webp"', r'\1-t.webp"', html)
+    html = html.replace('src="assets/logo-noon-claro.png"', 'src="assets/logo-noon-claro.webp"')  # mismo logo, sin pérdida, 40 % menos peso
+    # Celular en vertical: la portada solo muestra el centro de la seda, así que se manda ese recorte (mismos píxeles y grano).
+    # Ruta desde la raíz (/assets/…): una url() dentro de una variable CSS se resuelve desde noon.css, no desde la página.
+    html = re.sub(r'(<section class="hero[^"]*"><div class="capa" style="background-image:url\((assets/noon/seda-[a-z]+)\.webp\))"',
+                  lambda m: m.group(1) + (';--bg-m:url(/%s-m.webp)"' % m.group(2) if os.path.exists(os.path.join(AQUI, m.group(2) + "-m.webp")) else '"'), html)
+    html = re.sub(r'((?:src|data-img)="|url\()(assets/(?:clinica|noon|capacitacion|equipo)/[a-z0-9-]+)\.jpg',
+                  lambda m: m.group(1) + m.group(2) + (".webp" if os.path.exists(os.path.join(AQUI, m.group(2) + ".webp")) else ".jpg"), html)
     if en:  # en inglés nada salta al español: cabecera, buscador y botón flotante
         for a, b in EN_TEXTOS:
             html = html.replace(a, b)
@@ -398,6 +445,7 @@ def datos_js():
 
 datos_js()
 import guias as G
+G.alt_foto = alt_foto
 GUIAS = G.leer()  # artículos de la agencia: tarjetas del blog en el inicio y "lecturas relacionadas" en cada cirugía
 MENU = [
     ("especialistas.html", "Especialistas"),
@@ -617,11 +665,22 @@ def todo_sobre(p):
     return seccion("Antes de decidir", p["todo_titulo"], '<div class="preguntas">%s</div>' % items, sid="todo")
 
 
+# Marcas que guias.sitemap() reemplaza por la fecha real del último cambio de la página (la de _lastmod.json): así la fecha
+# visible, la del JSON-LD y la del sitemap son la misma, y la marca no cuenta como "cambio" al calcular la huella.
+# Cambios que SE VEN (27-oct-2026), esperando el visto bueno de Laura: portada del inicio sin fundido, "Actualizado el…" en
+# las fichas, la línea que lleva de cada guía a su ficha y la página nueva para quien viene de otra ciudad de Colombia.
+# Para verlos en local: NOON_VISTA=1 python3 build.py. Cuando Laura apruebe: VISTO_BUENO = True y "estado": "publicado".
+VISTO_BUENO = False
+VISTA = VISTO_BUENO or os.environ.get("NOON_VISTA") == "1"
+ACTUALIZADO = '<p class="actualizado rev"><!--FECHA--></p>' if VISTA else ""
+ACTUALIZADO_EN = '<p class="actualizado rev"><!--FECHA-EN--></p>' if VISTA else ""
+
+
 def esquema_ficha(p, cat_n, hub, hub_n, tipo):
     url = DOMINIO + "/" + p["slug"]
     out = [{"@context": "https://schema.org", "@type": "MedicalWebPage", "url": url, "name": p["nombre"], "inLanguage": "es-CO",
             "about": {"@type": tipo, "name": p["nombre"], "description": " ".join(p["que_es"])},
-            "publisher": {"@id": DOMINIO + "/#clinica"}},
+            "publisher": {"@id": DOMINIO + "/#clinica"}, "dateModified": "__FECHA__"},
            {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
                {"@type": "ListItem", "position": 1, "name": "noon Clinic", "item": DOMINIO + "/"},
                {"@type": "ListItem", "position": 2, "name": hub_n, "item": DOMINIO + "/" + hub},
@@ -663,8 +722,10 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
                ("III", "Procedimiento y seguimiento", "Con acompañamiento cercano hasta el alta.")]))
        + G.bloque_lecturas(G.ultimas(GUIAS), "Blog", "Para leer <em>antes de decidir</em>.", sid="blog")
        + cierre(),
-       esquema=[{"@context": "https://schema.org", "@type": "WebSite", "@id": DOMINIO + "/#web", "name": "noon Clinic", "url": DOMINIO + "/",
-                 "inLanguage": "es-CO", "publisher": {"@id": DOMINIO + "/#clinica"}}], og_tipo="website")
+       esquema=[{"@context": "https://schema.org", "@type": "WebSite", "@id": DOMINIO + "/#web", "name": "noon Clinic", "alternateName": ["noon", "noon Clinic Medellín"],
+                 "url": DOMINIO + "/", "inLanguage": "es-CO", "publisher": {"@id": DOMINIO + "/#clinica"}},
+                {"@context": "https://schema.org", "@type": "MedicalClinic", "@id": DOMINIO + "/#clinica", "availableService": [
+                    {"@type": "MedicalProcedure", "name": x["nombre"], "url": DOMINIO + "/" + x["slug"]} for x in CIRUGIAS_NOON + TRATAMIENTOS]}], og_tipo="website")
 
 
 # ================================================================ CIRUGÍA PLÁSTICA (hub)
@@ -696,7 +757,7 @@ for c in CIRUGIAS_NOON:
            + seccion("Recuperación", "Paso a paso", linea_tiempo(c["recuperacion"]) + '<p class="pista rev">Tiempos de guía. Tu cirujano te da los exactos.</p>', sid="recuperacion")
            + todo_sobre(c)
            + bloque_especialista("cirugia", "Tu valoración de %s es con el especialista que te opera." % c["nombre"].lower())
-           + seccion("Preguntas", "Sobre " + c["nombre"].lower(), faq([("", q, r, []) for q, r in list(c["faq"]) + list(c.get("faq_nuevas", []))]) + '<a class="enlace rev" href="preguntas-frecuentes.html">Todas las preguntas</a>', "marfil", sid="preguntas")
+           + seccion("Preguntas", "Sobre " + c["nombre"].lower(), faq([("", q, r, []) for q, r in list(c["faq"]) + list(c.get("faq_nuevas", []))]) + '<a class="enlace rev" href="preguntas-frecuentes.html">Todas las preguntas</a>' + ACTUALIZADO, "marfil", sid="preguntas")
            + G.bloque_lecturas(G.de_procedimiento(GUIAS, c["slug"]), "Blog", "Lecturas <em>relacionadas</em>.", sid="lecturas")
            + (seccion("También en " + cat_n.lower(), "Otras cirugías", catalogo(otras, "cx")) if otras else "")
            + cierre(c["nombre"], c.get("cierre_txt", "Todo empieza con tu valoración presencial en Medellín: te decimos si es para ti y recibes tu plan por escrito."),
@@ -738,7 +799,7 @@ for t in TRATAMIENTOS:
            + seccion("Indicado para", "Lo que buscas", lineas([(x,) for x in t["ideal"]]) + '<p class="pista rev">La indicación final la da tu médica en la valoración.</p>' + ver_tambien(t), sid="para-ti")
            + bloque_especialista("estetica", "Tu valoración y tu tratamiento de %s los realiza la médica estética de noon." % t["nombre"].lower())
            + todo_sobre(t)
-           + seccion("Preguntas", "Sobre " + t["nombre"].lower(), faq([("", q, r, []) for q, r in list(t["faq"]) + list(t.get("faq_nuevas", []))]), "marfil", sid="preguntas")
+           + seccion("Preguntas", "Sobre " + t["nombre"].lower(), faq([("", q, r, []) for q, r in list(t["faq"]) + list(t.get("faq_nuevas", []))]) + ACTUALIZADO, "marfil", sid="preguntas")
            + G.bloque_lecturas(G.de_procedimiento(GUIAS, t["slug"], relleno=False), "Blog", "Lecturas <em>relacionadas</em>.", sid="lecturas")
            + (seccion("También en " + cat_n.lower(), "Otros tratamientos", catalogo(otras, "me")) if otras else "")
            + cierre(t["nombre"], t.get("cierre_txt", "Agenda tu valoración en Medellín y armamos contigo el plan que tu piel necesita."),

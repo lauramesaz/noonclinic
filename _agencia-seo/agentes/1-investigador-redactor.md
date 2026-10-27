@@ -3,9 +3,11 @@
 Lee antes: `../INSTRUCCIONES.md`, `../estrategia.md`, `../hechos.md`, `../temas.md`, `../registro.md` y `../notas-humanizador.md` (multas del Policía: no repitas esos vicios).
 
 1. Toma el siguiente tema `pendiente` de `temas.md` (E3 y después la "lista de turnos") y márcalo
-   `en curso`. Revisa `registro.md`, `articulos/` y `../datos_noon.py` para no repetir keyword ni
-   chocar con una pieza existente ni con la página del procedimiento (`INSTRUCCIONES.md` §3: cada
-   búsqueda tiene una página dueña).
+   `en curso`. Corre `python3 _agencia-seo/dueno.py "<keyword>"` (desde la raíz) y revisa
+   `registro.md` y `articulos/` para no repetir keyword ni chocar con una pieza existente ni con la
+   página del procedimiento (`INSTRUCCIONES.md` §3: cada búsqueda tiene una página dueña). Si dice
+   que una guía ya cubre lo mismo, no escribas otra: marca el tema `en pausa (ya cubierto por <slug>)`
+   y toma el siguiente.
 2. Investiga con WebSearch: qué preguntas hace la gente (People Also Ask, foros), qué responden
    las 5 primeras páginas, y qué falta. Cualquier dato nuevo (vuelo, norma, cifra) que quieras usar
    va primero a `hechos.md` con fuente y fecha; si no lo puedes confirmar, no lo uses.

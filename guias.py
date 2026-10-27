@@ -10,6 +10,20 @@ from datetime import date
 AQUI = os.path.dirname(os.path.abspath(__file__))
 FUENTES = os.path.join(AQUI, "_agencia-seo", "articulos")
 
+# Qué páginas ya están en Google (lo escribe cada mañana _agencia-seo/indexacion.py con el usuario robot). Entre lecturas
+# igual de relacionadas, se enlaza primero la que Google todavía no tiene: así las páginas que Google ya conoce le abren camino.
+try:
+    _INDEX = json.load(open(os.path.join(AQUI, "_agencia-seo", "indexacion.json"), encoding="utf-8")).get("urls", {})
+except (OSError, ValueError):
+    _INDEX = {}
+
+
+def en_google(slug):
+    """True si Google ya tiene la página (o si no hay dato: entonces no cambia el orden)."""
+    return _INDEX.get("https://noon.clinic/" + slug, {}).get("en_google", True)
+
+alt_foto = None  # build.py pone aquí su alt_foto() (descripción de cada foto para Google Imágenes)
+
 # Ciudades objetivo (orden = prioridad). nombre_es, nombre_en, fondo
 CIUDADES = {
     "miami": ("Miami y el sur de Florida", "Miami & South Florida", "seda-horizonte"),
@@ -57,8 +71,8 @@ def leer():
             raise SystemExit("Guía sin cabecera JSON: " + nombre)
         g = json.loads(m.group(1))
         g["cuerpo"] = m.group(2).strip()
-        if g.get("estado", "publicado") != "publicado":
-            continue
+        if g.get("estado", "publicado") != "publicado" and not (g.get("estado") == "borrador" and os.environ.get("NOON_VISTA") == "1"):
+            continue  # NOON_VISTA=1 muestra también los borradores, solo para revisarlos en local
         if g["slug"] + ".html" != nombre:
             raise SystemExit("El archivo %s debe llamarse %s.html" % (nombre, g["slug"]))
         out.append(g)
@@ -132,9 +146,10 @@ def tarjeta(g, destacada=False, d=0, media=False):
     nombres = dict(CATS[g["lang"]])
     nombres["ciudad"] = "Por ciudad" if g["lang"] == "es" else "By city"
     meta = ("Lo más reciente · " if g["lang"] == "es" else "Latest · ") if destacada else ""
-    return '''<a class="bl-card rev%s%s" href="%s.html" data-t="%s"%s><span class="bl-foto"><img src="assets/%s.jpg" alt="" loading="lazy"></span>
+    return '''<a class="bl-card rev%s%s" href="%s.html" data-t="%s"%s><span class="bl-foto"><img src="assets/%s.jpg" alt="%s" loading="lazy"></span>
   <span class="bl-txt"><span class="bl-meta">%s%s · %s</span><span class="bl-tit">%s</span><span class="bl-desc">%s</span><span class="bl-ir">%s</span></span></a>''' % (
         " bl-dest" if destacada else "", " bl-media" if media else "", g["slug"], g["_cat"], ' style="--d:%dms"' % d if d else "", g["_foto"],
+        escape(alt_foto("assets/%s.jpg" % g["_foto"], en=g["lang"] == "en") if alt_foto else ""),
         meta, nombres.get(g["_cat"], ""), fecha_corta(g), g["h1"].replace("<br>", " "), g.get("intro") or g["descripcion"],
         "Leer" if g["lang"] == "es" else "Read")
 
@@ -163,11 +178,11 @@ def de_procedimiento(guias, slug, n=3, relleno=True):
     mias = [g for g in guias if g["lang"] == "es" and g.get("tipo") != "ciudad"]
     sobre = [g for g in mias if slug in g.get("procedimientos", [])]
     raices = [p[:4] for p in slug.split("-") if len(p) > 3]  # "lipo", "aume"…: la guía la nombra en su dirección
-    sobre.sort(key=lambda g: (not any(r in g["slug"] for r in raices), g.get("procedimientos", [None])[0] != slug, g["_cat"] != "procedimientos"))
+    sobre.sort(key=lambda g: (not any(r in g["slug"] for r in raices), g.get("procedimientos", [None])[0] != slug, g["_cat"] != "procedimientos", en_google(g["slug"])))
     if not relleno:
         return sobre[:n]
     resto = [g for g in mias if g not in sobre]
-    resto.sort(key=lambda g: (not local(g), {"seguridad": 0, "viaje": 1}.get(g["_cat"], 2)))
+    resto.sort(key=lambda g: (not local(g), {"seguridad": 0, "viaje": 1}.get(g["_cat"], 2), en_google(g["slug"])))
     return (sobre + resto)[:n]
 
 
@@ -188,8 +203,28 @@ def generar(b):
     def relacionadas(g):
         mismas = [x for x in guias if x["lang"] == g["lang"] and x["slug"] != g["slug"] and x.get("tipo") != "ciudad"]
         mismas.sort(key=lambda x: (local(x) != local(g), x.get("ciudad") != g.get("ciudad") or not g.get("ciudad"),
-                                   not set(x.get("procedimientos", [])) & set(g.get("procedimientos", []))))
+                                   not set(x.get("procedimientos", [])) & set(g.get("procedimientos", [])), en_google(x["slug"])))
         return mismas[:3]
+
+    def con_duena(g):
+        """Tras el primer párrafo, una línea que manda a la ficha del procedimiento principal (la página dueña de
+        "<procedimiento> en Medellín"), salvo que el texto ya la enlace en su primer tercio."""
+        principal = next((s for s in g.get("procedimientos", []) if enlace_proc(s, g["lang"])), None)
+        if not b.VISTA or not principal or g.get("tipo") == "ciudad" or g.get("sin_duena"):
+            return g["cuerpo"]
+        nombre, href = enlace_proc(principal, g["lang"])
+        cuerpo = g["cuerpo"]
+        ya = re.search(r'href="(?:https://noon\.clinic/)?%s(?:\.html)?"' % re.escape(href[:-5]), cuerpo)
+        if ya and ya.start() < len(cuerpo) / 3:
+            return cuerpo
+        if g["lang"] == "en":
+            linea = '<p class="art-duena">Everything about the %s itself (what it is, who it is for, recovery and risks) is on our <a href="%s">%s in Medellín</a> page.</p>' % (
+                "procedure" if principal in b.CX_N else "treatment", href, nombre)
+        else:
+            linea = '<p class="art-duena">Todo sobre %s en sí (qué es, para quién es, recuperación y riesgos) está en <a href="%s">%s en Medellín</a>.</p>' % (
+                "la cirugía" if principal in b.CX_N else "el tratamiento", href, nombre)
+        fin = cuerpo.find("</p>")
+        return cuerpo[:fin + 4] + linea + cuerpo[fin + 4:] if fin >= 0 else linea + cuerpo
 
     for g in guias:
         t = T[g["lang"]]
@@ -204,7 +239,7 @@ def generar(b):
   %s
   %s
   <p class="art-aviso">%s</p>
-</div></section>''' % (BLOG[g["lang"]]["archivo"], BLOG[g["lang"]]["nombre"], t["por"], t["act"], fecha_txt(g.get("actualizado") or g["publicado"], g["lang"]), g["cuerpo"],
+</div></section>''' % (BLOG[g["lang"]]["archivo"], BLOG[g["lang"]]["nombre"], t["por"], t["act"], fecha_txt(g.get("actualizado") or g["publicado"], g["lang"]), con_duena(g),
                         ('<div class="art-procs"><p class="ceja">%s</p><div>%s</div></div>' % (t["proc"], "".join('<a href="%s">%s</a>' % (h, n) for n, h in procs))) if procs else "",
                         t["aviso"])
         if g.get("faq"):
@@ -251,7 +286,7 @@ def generar(b):
 
 
 HUB = {
-    "es": {"titulo": "Pacientes en Estados Unidos: cirugía plástica en Medellín", "desc": "Vives en Miami, Nueva York, Orlando, Houston, Atlanta o Boston y quieres operarte en Medellín. Cómo organizar tu viaje a noon Clinic, paso a paso.",
+    "es": {"titulo": "Cirugía plástica en Medellín viviendo en EE. UU.", "desc": "Vives en Miami, Nueva York, Orlando, Houston, Atlanta o Boston y quieres operarte en Medellín. Cómo organizar tu viaje a noon Clinic, paso a paso.",
            "ceja": "Pacientes en EE. UU.", "h1": "Vives allá.<br>Te tratas <em>aquí</em>.", "sub": "Guías para organizar tu procedimiento en Medellín desde Estados Unidos: fechas, estadía, controles y regreso.",
            "frase": "Muchos de nuestros pacientes viven fuera de Colombia. El reto no es la cirugía: es <em>organizar bien el viaje</em>.",
            "c_ceja": "Desde tu ciudad", "c_tit": "Guías por ciudad", "pasos_tit": "Cómo se organiza tu viaje",
@@ -262,7 +297,7 @@ HUB = {
                      ("Regreso y seguimiento", "Vuelas cuando tu especialista lo autorice. Ya en casa, seguimos contigo por WhatsApp o videollamada.")],
            "g_ceja": "Guías", "g_tit": "Para leer antes de viajar", "sin_guias": "Muy pronto, nuevas guías para pacientes que viajan desde Estados Unidos.",
            "otro": ("international-patients.html", "Read in English")},
-    "en": {"titulo": "International patients: plastic surgery in Medellín from the US", "desc": "Living in Miami, New York, Orlando, Houston, Atlanta or Boston and considering surgery in Medellín, Colombia? How to plan your trip to noon Clinic, step by step.",
+    "en": {"titulo": "Plastic surgery in Medellín from the US", "desc": "Living in Miami, New York, Orlando, Houston, Atlanta or Boston and considering surgery in Medellín, Colombia? How to plan your trip to noon Clinic, step by step.",
            "ceja": "International patients", "h1": "You live there.<br>You heal <em>here</em>.", "sub": "Guides to plan your procedure in Medellín, Colombia from the United States: dates, stay, follow-ups and flying home.",
            "frase": "Many of our patients live outside Colombia. Surgery isn't the hard part: <em>planning the trip well</em> is.",
            "c_ceja": "From your city", "c_tit": "City guides", "pasos_tit": "How your trip works",
@@ -300,13 +335,13 @@ def hubs(b, guias):
 
 BLOG = {
     "es": {"archivo": "blog.html", "nombre": "Blog", "ver_todo": "Ver todo el blog", "rel_tit": "Sigue <em>leyendo</em>.", "todo": "Todo",
-           "titulo": "Blog: cirugía plástica y medicina estética en Medellín", "h1": "Para leer <em>con calma</em>.",
+           "titulo": "Blog de cirugía plástica y medicina estética", "h1": "Para leer <em>con calma</em>.",
            "desc": "Guías de noon Clinic sobre cada procedimiento, la recuperación, la seguridad y cómo organizar tu viaje a Medellín.",
            "sub": "Guías del equipo de noon Clinic para decidir con información: cada procedimiento, la recuperación, la seguridad y cómo organizar tu viaje.",
            "c_ceja": "Por ciudad", "c_tit": "Si vives en <em>Estados Unidos</em>.", "desde": "Desde", "hub": ("pacientes-internacionales.html", "Cómo organizar tu viaje"),
            "otro": "guides.html", "filtrar": "Filtrar por tema"},
     "en": {"archivo": "guides.html", "nombre": "Guides", "ver_todo": "See all guides", "rel_tit": "Keep <em>reading</em>.", "todo": "All",
-           "titulo": "Guides: plastic surgery in Medellín, Colombia from the US", "h1": "Before you <em>decide</em>.",
+           "titulo": "Guides: plastic surgery in Medellín", "h1": "Before you <em>decide</em>.",
            "desc": "noon Clinic guides on each procedure, recovery, safety and planning your trip to Medellín, Colombia from the United States.",
            "sub": "Guides from the noon Clinic team on each procedure, recovery, safety and planning your trip to Medellín from the United States.",
            "c_ceja": "By city", "c_tit": "Flying in from <em>your city</em>.", "desde": "From", "hub": ("international-patients.html", "Plan your trip"),
@@ -372,9 +407,28 @@ def fechas_reales(b, fechas_guias, hoy):
     return out
 
 
+def poner_fechas(b, fechas):
+    """Cambia las marcas de fecha de cada página (ver ACTUALIZADO en build.py) por la fecha real de su último cambio."""
+    for a in sorted(set(b.HECHAS)):
+        ruta = os.path.join(AQUI, a)
+        txt = open(ruta, encoding="utf-8").read()
+        if "<!--FECHA" not in txt and "__FECHA__" not in txt:
+            continue
+        f = fechas[a]
+        txt = (txt.replace("<!--FECHA-->", "Actualizado el " + fecha_txt(f, "es") + ".").replace("<!--FECHA-EN-->", "Updated " + fecha_txt(f, "en") + ".")
+               .replace("__FECHA__", f))
+        with open(ruta, "w", encoding="utf-8") as fh:
+            fh.write(txt)
+
+
+# El sitemap va en 3 partes (sitemap.xml es el índice) para ver en Search Console qué grupo entra a Google y cuál no.
+PARTES = [("sitemap-paginas.xml", "paginas"), ("sitemap-guias.xml", "guias"), ("sitemap-en.xml", "en")]
+
+
 def sitemap(b, guias):
     hoy = date.today().isoformat()
     fechas = fechas_reales(b, {g["slug"] + ".html": g.get("actualizado") or g["publicado"] for g in guias}, hoy)
+    poner_fechas(b, fechas)
     pares = {g["slug"] + ".html": g["par"] + ".html" for g in guias if g.get("par")}
     pares.update({"pacientes-internacionales.html": "international-patients.html", "international-patients.html": "pacientes-internacionales.html",
                   "blog.html": "guides.html", "guides.html": "blog.html"})
@@ -383,8 +437,11 @@ def sitemap(b, guias):
     for es, en in getattr(b, "PARES_EN", {}).items():  # fichas y hubs en inglés ↔ español
         pares[es], pares[en] = en, es
         idioma[en] = "en"
-    urls = []
+    guias_es = {g["slug"] + ".html" for g in guias if g["lang"] == "es"}
+    urls = {k: [] for _, k in PARTES}
     for a in sorted(set(b.HECHAS)):
+        en = idioma.get(a) == "en" or '<html lang="en">' in open(os.path.join(AQUI, a), encoding="utf-8").read(200)
+        parte = "en" if en else ("guias" if a in guias_es else "paginas")
         loc = b.DOMINIO + "/" + ("" if a == "index.html" else a[:-5])
         x = "  <url>\n    <loc>%s</loc>\n    <lastmod>%s</lastmod>\n" % (loc, fechas[a])
         if a in pares:
@@ -392,9 +449,14 @@ def sitemap(b, guias):
             es_a, en_a = (a, otro) if idioma.get(a, "es") == "es" else (otro, a)
             for hl, f in (("es", es_a), ("en", en_a), ("x-default", es_a)):
                 x += '    <xhtml:link rel="alternate" hreflang="%s" href="%s/%s"/>\n' % (hl, b.DOMINIO, f[:-5])
-        urls.append(x + "  </url>\n")
+        urls[parte].append((fechas[a], x + "  </url>\n"))
+    indice = ""
+    for archivo, k in PARTES:
+        with open(os.path.join(AQUI, archivo), "w", encoding="utf-8") as f:
+            f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n%s</urlset>\n' % "".join(x for _, x in urls[k]))
+        indice += "  <sitemap>\n    <loc>%s/%s</loc>\n    <lastmod>%s</lastmod>\n  </sitemap>\n" % (b.DOMINIO, archivo, max(f for f, _ in urls[k]))
     with open(os.path.join(AQUI, "sitemap.xml"), "w", encoding="utf-8") as f:
-        f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n%s</urlset>\n' % "".join(urls))
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s</sitemapindex>\n' % indice)
     reglas = "Allow: /\nDisallow: /capacitacion-comercial\nDisallow: /cotizador\nDisallow: /_agencia-seo/\n"
     ia = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "Perplexity-User", "ClaudeBot", "Claude-SearchBot", "Claude-User",
           "Google-Extended", "Applebot-Extended", "Bingbot", "meta-externalagent"]

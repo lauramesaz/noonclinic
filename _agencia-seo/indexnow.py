@@ -3,11 +3,18 @@
 # páginas nuevas o cambiadas del sitemap. Lo corre cada mañana una rutina en la nube (no necesita el computador).
 # Compara el sitemap.xml de hoy con el de hace ~26 horas (según git); si no hay historial, manda lo de los últimos 2 días.
 # Uso: python3 _agencia-seo/indexnow.py HOST LLAVE      (desde la raíz del repositorio)
-import datetime, json, re, subprocess, sys, urllib.error, urllib.request
+import datetime, json, os, re, subprocess, sys, urllib.error, urllib.request
 
 
-def leer(xml):
+def leer(xml, abrir=None):
+    """{url: lastmod}. Si el sitemap es un índice (noon desde el 27-oct-2026: 3 partes), lee cada parte con abrir(nombre)."""
     urls = {}
+    if "<sitemapindex" in xml:
+        for loc in re.findall(r"<sitemap>.*?<loc>\s*([^<]+?)\s*</loc>", xml, re.S):
+            parte = abrir(loc.rsplit("/", 1)[-1]) if abrir else None
+            if parte:
+                urls.update(leer(parte))
+        return urls
     for bloque in re.findall(r"<url>(.*?)</url>", xml, re.S):
         loc = re.search(r"<loc>\s*([^<]+?)\s*</loc>", bloque)
         mod = re.search(r"<lastmod>\s*([^<]+?)\s*</lastmod>", bloque)
@@ -20,13 +27,16 @@ def sitemap_de_ayer():
     sha = subprocess.run(["git", "rev-list", "-1", "--before=26 hours ago", "HEAD"], capture_output=True, text=True).stdout.strip()
     if not sha:
         return None
-    r = subprocess.run(["git", "show", sha + ":sitemap.xml"], capture_output=True, text=True)
-    return leer(r.stdout) if r.returncode == 0 else None
+    def git(nombre):
+        r = subprocess.run(["git", "show", sha + ":" + nombre], capture_output=True, text=True)
+        return r.stdout if r.returncode == 0 else None
+    xml = git("sitemap.xml")
+    return leer(xml, git) if xml is not None else None
 
 
 def main(host, llave):
     subprocess.run(["git", "pull", "-q", "--ff-only"], capture_output=True)
-    actual = leer(open("sitemap.xml", encoding="utf-8").read())
+    actual = leer(open("sitemap.xml", encoding="utf-8").read(), lambda n: open(n, encoding="utf-8").read() if os.path.exists(n) else None)
     previo = sitemap_de_ayer()
     if previo is None:
         desde = (datetime.date.today() - datetime.timedelta(days=2)).isoformat()

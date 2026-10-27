@@ -12,4 +12,7 @@ Puntúa cada versión y corrige lo que falte:
 - `publico` correcto; `par` correcto y simétrico si es `eeuu` (sin `par` si es `colombia`), slug
   limpio, Medellín presente · 10
 - Legibilidad (párrafos cortos, subtítulos claros) · 5
+Antes de puntuar corre `python3 _agencia-seo/dueno.py "<keyword>"`: si la keyword tiene una FICHA
+dueña y el title de la guía es casi el mismo, o si otra guía ya cubre lo mismo, la pieza no pasa
+(se corrige el ángulo).
 Anota la nota en `registro.md`.

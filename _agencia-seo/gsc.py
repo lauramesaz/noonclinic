@@ -83,6 +83,9 @@ def urls_sitemap(prop):
     base = "https://" + prop.split(":", 1)[1] + "/" if prop.startswith("sc-domain:") else prop
     try:
         xml = urllib.request.urlopen(urllib.parse.urljoin(base, "sitemap.xml"), timeout=30).read().decode("utf-8", "ignore")
+        if "<sitemapindex" in xml:  # índice de sitemaps (noon desde el 27-oct-2026): se leen sus partes
+            xml = "".join(urllib.request.urlopen(u, timeout=30).read().decode("utf-8", "ignore")
+                          for u in re.findall(r"<sitemap>.*?<loc>\s*([^<]+?)\s*</loc>", xml, re.S))
     except Exception as e:
         return [], "no se pudo leer el sitemap (%s)" % e
     return re.findall(r"<loc>\s*([^<]+?)\s*</loc>", xml), ""

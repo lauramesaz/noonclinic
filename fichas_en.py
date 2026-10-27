@@ -109,6 +109,7 @@ def generar(b):
 
     def guias_en(slug):
         g = [x for x in b.GUIAS if x["lang"] == "en" and x.get("tipo") != "ciudad" and slug in x.get("procedimientos", [])]
+        g.sort(key=lambda x: b.G.en_google(x["slug"]))  # primero las que Google todavía no tiene
         return b.G.bloque_lecturas(g, "Guides", "Before you <em>travel</em>.", lang="en", sid="lecturas") if g else ""
 
     for p, tipo in todas:
@@ -143,7 +144,7 @@ def generar(b):
                   + todo_en(e)
                   + b.seccion("Coming from abroad", "Plan your <em>trip</em>.", '<p class="sub rev">%s</p><a class="enlace rev" href="international-patients.html">How a trip to Medellín for surgery works</a>' % viaje, "marfil", sid="viaje")
                   + especialista_en("cirugia" if cx else "estetica", "Your consultation is in person in Medellín, with %s." % quien)
-                  + b.seccion("FAQ", "Common <em>questions</em>", faq_en(list(e["faq"]) + list(e.get("faq_nuevas", []))), "marfil", sid="preguntas")
+                  + b.seccion("FAQ", "Common <em>questions</em>", faq_en(list(e["faq"]) + list(e.get("faq_nuevas", []))) + b.ACTUALIZADO_EN, "marfil", sid="preguntas")
                   + guias_en(p["slug"])
                   + (b.seccion("Also in " + cat.lower(), "Other procedures" if cx else "Other treatments", catalogo_en(otras)) if otras else "")
                   + b.cierre(e["nombre"], e["cierre_txt"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">Message us on WhatsApp</a>' % wa_en, fondo=f, nota=b.NOTA_WA_EN)
@@ -153,7 +154,8 @@ def generar(b):
         hub, hub_n = (HUB_CX, "Plastic surgery") if cx else (HUB_ME, "Aesthetic medicine")
         preguntas = list(e["faq"]) + list(e.get("faq_nuevas", []))
         esquema = [{"@context": "https://schema.org", "@type": "MedicalWebPage", "url": url, "name": e["nombre"], "inLanguage": "en-US",
-                    "about": {"@type": "MedicalProcedure", "name": e["nombre"], "description": " ".join(e["que_es"])}, "publisher": {"@id": b.DOMINIO + "/#clinica"}},
+                    "about": {"@type": "MedicalProcedure", "name": e["nombre"], "description": " ".join(e["que_es"])}, "publisher": {"@id": b.DOMINIO + "/#clinica"},
+                    "dateModified": "__FECHA__"},
                    {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
                        {"@type": "ListItem", "position": 1, "name": "noon Clinic", "item": b.DOMINIO + "/about-noon-clinic"},
                        {"@type": "ListItem", "position": 2, "name": hub_n, "item": b.DOMINIO + "/" + hub[:-5]},

@@ -46,7 +46,7 @@ SEO = {
                           'Retira parte de las bolsas de Bichat para afinar las mejillas, por dentro de la boca y sin cicatriz visible. No es para todos: se valora en Medellín.'),
     # mentoplastia en Medellín
     'mentoplastia.html': ('Mentoplastia en Medellín: cirugía de mentón',
-                           'Cirugía del mentón para proyectarlo o reducirlo, con implante o remodelando el hueso. Suele combinarse con rinoplastia. Valoración presencial en Medellín.'),
+                           'Cirugía del mentón para proyectarlo o reducirlo, con implante o remodelando el hueso, para equilibrar el perfil. Te valora el cirujano en persona en Medellín.'),
     # otoplastia en Medellín
     'otoplastia.html': ('Otoplastia en Medellín: cirugía de orejas',
                          'Acerca las orejas a la cabeza o corrige su forma, con la cicatriz detrás de la oreja. Para adultos y niños desde unos 6 años. Primero, valoración en Medellín.'),
@@ -147,8 +147,8 @@ SEO = {
     'manejo-medico-del-peso.html': ('Programa médico para bajar de peso en Medellín',
                                      'Programa para bajar de peso con valoración médica, exámenes, plan nutricional y medicamentos solo si el médico los indica. Seguimiento cercano en Medellín.'),
     # nutrición en Medellín
-    'nutricion.html': ('Nutrición en Medellín: plan de alimentación',
-                        'Plan de alimentación personalizado para cuidar tu salud, prepararte para una cirugía o mantener tus resultados. Acompañamiento nutricional en Medellín.'),
+    'nutricion.html': ('Nutrición personalizada en Medellín',
+                        'Nutrición personalizada en Medellín: un plan de alimentación hecho para ti, para cuidar tu salud, prepararte para una cirugía o mantener tus resultados.'),
     # Lipo 360
     'lipo-360.html': ('Lipo 360 en Medellín: abdomen, cintura, espalda',
                        'Lipo 360 en Medellín: liposucción de abdomen, cintura y espalda en una misma cirugía. No es para bajar de peso ni tensa la piel. Valoración presencial.'),

@@ -34,6 +34,19 @@ Vuelos y aerolíneas cambian: revisar esta tabla cada 3 meses (próxima: enero 2
 
 ## Medellín
 - Aeropuerto internacional: José María Córdova (MDE), queda en **Rionegro**, fuera de Medellín.
+- **Vuelos nacionales a Medellín** (verificado 27-oct-2026, horarios publicados por aerolíneas y buscadores; son
+  aproximados y cambian según el vuelo): Bogotá → Medellín directo ≈ 55 min a 1 h 10 (LATAM: unos 55 minutos,
+  https://www.latamairlines.com/co/es/destinos/vuelos-desde-medellin-a-bogota); Cali → Medellín directo ≈ 1 hora
+  (Trip.com: unos 57 minutos, https://es.trip.com/flights/airport-clo-mde/); Barranquilla → Medellín directo
+  ≈ 1 h 15 (LATAM, https://www.latamairlines.com/co/es/destinos/vuelos-desde-barranquilla-a-medellin).
+  Úsalo como "alrededor de una hora", nunca como cifra exacta.
+- **Del aeropuerto de Rionegro a Medellín:** unos 35 km; por el Túnel de Oriente, unos 45 a 60 minutos sin trancón,
+  más en hora pico o si hay cierres del túnel (verificado 27-oct-2026: Gobernación de Antioquia, "El Túnel de Oriente
+  un proyecto hecho realidad", https://www.antioquia.gov.co/secretaria-infraestructura-oculto/el-túnel-de-oriente-un-proyecto-hecho-realidad,
+  y guías de viaje). Dilo como aproximado.
+- **Aeropuerto Olaya Herrera (EOH):** está dentro de Medellín y recibe algunas rutas nacionales y regionales (por
+  ejemplo desde Cali o Barranquilla, según la aerolínea; https://www.flightconnections.com/flights-from-eoh-to-clo).
+  La mayoría de vuelos desde Bogotá, Cali y Barranquilla llegan a Rionegro: que la persona revise con su aerolínea.
 - Clima templado casi constante todo el año ("ciudad de la eterna primavera"), por la altura y la
   cercanía al ecuador: temperatura promedio alrededor de 22–23 °C (unos 72 °F), con un rango diario
   aproximado de 17 a 28 °C. No hace el frío de un invierno de EE. UU. ni el calor húmedo de Miami.
