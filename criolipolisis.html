@@ -248,6 +248,30 @@ document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&
   <p class="cl-in cl-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Los resultados varían de una persona a otra. Las fotos de las sesiones son ilustrativas. © noon Clinic</p>
 </footer>
 <div class="cl-barra cl-vidrio" aria-hidden="true"><a class="cl-btn" href="https://wa.me/573022491937?text=Hola%2C%20quiero%20una%20cita%20de%20criolip%C3%B3lisis" target="_blank" rel="noopener">Quiero mi valoración <svg class="ico-f" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+<script>(function () {
+  var M = {"": "Hola, vengo de Google (criolipólisis) y quiero una cita"};
+  var g = /[?&](gclid|gbraid|wbraid|gad_source)=/.test(location.search);
+  try { if (g) sessionStorage.setItem("noon_google", "1"); else g = sessionStorage.getItem("noon_google") === "1"; } catch (_) {}
+  if (!g) return;
+  function poner(a) {
+    var h = a.getAttribute("href") || "";
+    if (!/^https:\/\/wa\.me\/\d/.test(h)) return;
+    var fila = a.closest(".pr-cx[data-slug]");
+    var cx = fila ? fila.getAttribute("data-slug") : document.body.getAttribute("data-cx") || "";
+    var t = "text=" + encodeURIComponent(M[cx] || M[""]);
+    var nuevo = /[?&]text=/.test(h) ? h.replace(/([?&])text=[^&]*/, "$1" + t) : h + (h.indexOf("?") > -1 ? "&" : "?") + t;
+    if (nuevo !== h) a.setAttribute("href", nuevo);
+  }
+  function alClic(e) { var a = e.target && e.target.closest ? e.target.closest("a[href]") : null; if (a) poner(a); }
+  document.addEventListener("click", alClic, true);
+  document.addEventListener("auxclick", alClic, true);
+  // si la página cambia un enlace después (promos.js al elegir otra cirugía, el resultado del test), se corrige al instante
+  if (window.MutationObserver) new MutationObserver(function (ms) {
+    ms.forEach(function (m) { if (m.target.tagName === "A") poner(m.target); });
+  }).observe(document.documentElement, {subtree: true, attributes: true, attributeFilter: ["href"]});
+  function todos() { Array.prototype.forEach.call(document.querySelectorAll('a[href^="https://wa.me/"]'), poner); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", todos); else todos();
+})();</script>
 <script src="assets/medicion-ads.js?v=a4b9b1edf6" defer></script>
 <script src="assets/criolipolisis.js?v=a4b9b1edf6" defer></script>
 </body>

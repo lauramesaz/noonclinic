@@ -19,6 +19,11 @@ VIGENCIA = "15 de enero de 2027"   # = FECHA_LIMITE de datos.py (términos): la 
 VALORACION = "$200.000"
 RETHUS = "https://web.sispro.gov.co/THS/Cliente/ConsultasPublicas/ConsultaPublicaDeTHxIdentificacion.aspx"
 from datos import MENSAJE_WA as MSJ  # el mismo mensaje de toda la web, en todas las cirugías (decisión de Laura, 19-oct-2026)
+# EXCEPCIÓN (Laura, 27-oct-2026): quien llega del anuncio de Google escribe "vengo de Google (<cirugía abierta>)" para que el
+# equipo cuente los chats de la pauta. La cirugía = su "h1" (lipo, aumento de senos…); sin cirugía elegida = TEMA_GENERAL.
+import wa_google
+MSJ_GOOGLE = "Hola, vengo de Google (%s) y quiero información de la promo"
+TEMA_GENERAL = "cirugía plástica"
 
 ZONAS = [("senos", "Senos"), ("cuerpo", "Cuerpo"), ("rostro", "Rostro"), ("combinadas", "Combinadas e íntima")]
 
@@ -376,6 +381,7 @@ def _pagina(b, items, actual):
   <a class="pr-btn" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración</a>
 </div>
 <script type="application/json" id="pr-datos">%(datos)s</script>
+%(google)s
 <script src="/assets/medicion-ads.js?v=%(v)s" defer></script>
 <script src="/assets/promos.js?v=%(v)s" defer></script>
 </body>
@@ -386,7 +392,8 @@ def _pagina(b, items, actual):
        "h1": _titulo(it), "precio": _precio(it), "incluye": _incluye(it, True), "atajos": atajos, "total": len(items),
        "tabs": tabs, "zona": zona, "filas": filas, "mision": mision, "revisa": revisa, "pasos": pasos, "preguntas": preguntas,
        "rethus": RETHUS, "doc": doc["nombre"], "doc_foto": doc_foto, "vigencia": VIGENCIA, "valoracion": VALORACION,
-       "tel": b.TELEFONO, "barra_n": barra_n, "barra_p": barra_p, "datos": datos}
+       "tel": b.TELEFONO, "barra_n": barra_n, "barra_p": barra_p, "datos": datos,
+       "google": wa_google.script({"": MSJ_GOOGLE % TEMA_GENERAL, **{x["slug"]: MSJ_GOOGLE % x["h1"] for x in items}})}
 
 
 def generar(b):

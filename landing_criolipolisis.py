@@ -22,6 +22,9 @@ INMEDIATO = "Te respondemos en minutos por WhatsApp, en horario de atención."
 # EXCEPCIÓN al mensaje único de la web (datos.MENSAJE_WA): para la pauta de criolipólisis Laura pidió el 19-oct que dijera
 # exactamente "hola quiero una cita de criolipólisis". Sin variaciones por zona ni por test.
 MSJ = "Hola, quiero una cita de criolipólisis"
+# Quien llega del anuncio de Google (gclid…) escribe este otro, para que el equipo cuente los chats de la pauta (Laura, 27-oct-2026).
+import wa_google
+MSJ_GOOGLE = "Hola, vengo de Google (criolipólisis) y quiero una cita"
 
 # Precio confirmado por Laura el 19-oct: $800.000 por sesión, por zona. La valoración médica se paga aparte.
 PRECIO = "$800.000"
@@ -424,6 +427,7 @@ def generar(b):
   <p class="cl-in cl-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Los resultados varían de una persona a otra. Las fotos de las sesiones son ilustrativas. © noon Clinic</p>
 </footer>
 <div class="cl-barra cl-vidrio" aria-hidden="true">%(btn_barra)s</div>
+%(google)s
 <script src="assets/medicion-ads.js?v=%(v)s" defer></script>
 <script src="assets/criolipolisis.js?v=%(v)s" defer></script>
 </body>
@@ -438,7 +442,8 @@ def generar(b):
        "dolores": dolores, "cifras": cifras, "atajo": atajo, "pestanas": pestanas, "paneles": paneles,
        "botones_e": botones_e, "textos_e": textos_e, "pasos": pasos,
        "camino": camino, "preguntas": preguntas, "test": test.replace("</", "<\\/"),
-       "med_foto": med["foto"], "med_nombre": med["nombre"], "med_rol": med["rol"].lower(), "med_rol_m": med["rol"]}
+       "med_foto": med["foto"], "med_nombre": med["nombre"], "med_rol": med["rol"].lower(), "med_rol_m": med["rol"],
+       "google": wa_google.script({"": MSJ_GOOGLE})}
 
     with open(os.path.join(b.AQUI, ARCHIVO), "w", encoding="utf-8") as f:
         f.write(html)
