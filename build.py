@@ -260,7 +260,7 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
 <html lang="%(lang)s">
 <head>
 <meta charset="utf-8">
-%(medicion)s
+%(precarga)s%(medicion)s
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%(titulo)s</title>
 <meta name="description" content="%(desc)s">
@@ -268,7 +268,7 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
 <meta name="theme-color" content="#120d0a">
 <link rel="icon" href="assets/favicon.png">
 <script>document.documentElement.className="js%(vista)s"</script>
-%(precarga)s%(fuentes)s
+%(fuentes)s
 <link rel="stylesheet" href="assets/noon.css?v=%(v)s">
 </head>
 <body>
