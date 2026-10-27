@@ -12,6 +12,8 @@ INSTRUMENTADOR_HORA = 200000
 HOSPITALIZACION_NOCHE = 1380000  # habitación individual, tarifa Q2 2026
 VIGENCIA_MESES = 3
 POLIZA = 600000  # va siempre, en todas las cotizaciones
+GANANCIA_SUGERIDA = 0.30  # sobre TODOS los costos (con honorarios del doctor); editable en la página
+COMISION = 0.06  # del comercial, sobre el TOTAL que paga la paciente; en el PDF va dentro del quirófano
 RAPIDOS = [  # botones de "Otros elementos" en todas las sedes
     ["Bomba del dolor (3 días)", 550000],
 ]
@@ -82,7 +84,7 @@ def generar():
     }
     config = {
         "codigo": CODIGO, "correo": CORREO, "envio": ENVIO, "instrumentador": INSTRUMENTADOR_HORA,
-        "vigencia": VIGENCIA_MESES, "poliza": POLIZA, "rapidos": RAPIDOS,
+        "vigencia": VIGENCIA_MESES, "poliza": POLIZA, "ganancia": GANANCIA_SUGERIDA, "comision": COMISION, "rapidos": RAPIDOS,
         "fajas": [[n, int(round(v * (1 + FAJAS_RECARGO), -3))] for n, v, _ in FAJAS], "doctores": DOCTORES, "sedes": sedes,
         "mamarios": IMPLANTES_MAMARIOS, "pagos": PAGOS, "terminos": TERMINOS,
     }

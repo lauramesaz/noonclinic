@@ -59,6 +59,8 @@ input:disabled,select:disabled{background:var(--suave);color:var(--tenue)}
 .auto{display:flex;justify-content:space-between;align-items:center;background:var(--suave);border-radius:var(--radio);padding:12px 14px;margin-top:14px;font-size:14px}
 .auto b{font-variant-numeric:tabular-nums;font-weight:700}
 .auto.vacio{color:var(--tenue)}
+.pista{font-size:12.5px;color:var(--tenue);margin-top:7px;line-height:1.45}
+.pista button{border:0;background:none;padding:0;color:var(--acento);font-weight:700;cursor:pointer;text-decoration:underline;font-size:12.5px}
 
 .extras .extra{display:grid;grid-template-columns:minmax(0,1fr) 170px 40px;gap:10px;margin-bottom:10px}
 .quitar{border:1px solid var(--linea);background:#fff;border-radius:var(--radio);cursor:pointer;color:var(--tenue);font-size:18px}
@@ -182,6 +184,7 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
         <div class="campo"><label for="cedula">Cédula o documento</label><input id="cedula" type="text" autocomplete="off"></div>
         <div class="campo"><label for="doctor">Cirujano que opera</label><select id="doctor"></select></div>
         <div class="campo oculto" id="c-doctor-otro"><label for="doctor-otro">Nombre del cirujano</label><input id="doctor-otro" type="text"></div>
+        <div class="campo"><label for="comercial">Comercial que vende <small>(opcional)</small></label><input id="comercial" type="text" autocomplete="off" placeholder="Nombre del comercial"></div>
       </div>
     </section>
 
@@ -211,11 +214,12 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
     </section>
 
     <section class="paso">
-      <h2><span>04</span>Honorarios</h2>
+      <h2><span>04</span>Honorarios y ganancia</h2>
       <p class="ayuda">En el PDF del paciente los dos van sumados como “Honorarios del cirujano”. En tu correo llegan separados.</p>
       <div class="fila">
         <div class="campo"><label for="hon-doc">Honorarios del doctor</label><div class="dinero"><input id="hon-doc" type="text" inputmode="numeric" data-dinero></div></div>
-        <div class="campo"><label for="hon-cli">Ganancia de la clínica</label><div class="dinero"><input id="hon-cli" type="text" inputmode="numeric" data-dinero></div></div>
+        <div class="campo"><label for="hon-cli">Ganancia de la clínica <small>(sugerida)</small></label><div class="dinero"><input id="hon-cli" type="text" inputmode="numeric" data-dinero></div>
+          <p class="pista" id="gan-pista"></p></div>
       </div>
     </section>
 
@@ -357,6 +361,9 @@ $("#add-faja").innerHTML += C.fajas.map(([n, v], i) => `<option value="${i}">${e
 $("#add-faja").addEventListener("change", e => { const f = C.fajas[e.target.value]; e.target.value = ""; if (f) agregarExtra(f[0], f[1]); });
 
 /* ---- cálculo ---- */
+let GAN_MANUAL = false;  // la ganancia sale sola (sugerida) hasta que alguien la escribe a mano
+$("#hon-cli").addEventListener("input", () => { GAN_MANUAL = true; });
+document.addEventListener("click", e => { if (e.target.id === "gan-sug"){ GAN_MANUAL = false; calcular(); } });
 function leer(){
   const procs = [...document.querySelectorAll("#procs .proc-b")].map(b => {
     const nombre = b.querySelector(".proc").value, p = S().tarifas[nombre], ti = b.querySelector(".tiempo").value;
@@ -373,18 +380,36 @@ function leer(){
     imp = { nombre: nombres[tipo], detalle: $("#imp-desc").value.trim(), v: num($("#imp-valor").value) };
   }
   const extras = [...document.querySelectorAll(".extra")].map(x => ({ d: x.querySelector(".ex-desc").value.trim(), v: num(x.querySelector(".ex-valor").value) })).filter(x => x.d || x.v);
-  const doc = num($("#hon-doc").value), cli = num($("#hon-cli").value);
+  const doc = num($("#hon-doc").value);
   const quir = listos.reduce((a, x) => a + x.q.v, 0), instr = listos.reduce((a, x) => a + x.instr, 0);
-  const total = quir + instr + (imp ? imp.v : 0) + doc + cli + C.poliza + extras.reduce((s, x) => s + x.v, 0);
+  // costos = todo lo que cuesta la cirugía, honorarios del doctor incluidos
+  const costos = quir + instr + (imp ? imp.v : 0) + doc + C.poliza + extras.reduce((s, x) => s + x.v, 0);
+  const sugerida = listos.length ? Math.round(costos * C.ganancia) : 0;
+  const cli = GAN_MANUAL ? num($("#hon-cli").value) : sugerida;
+  // comisión del comercial = 6 % del total que paga la paciente (total ÷ 0,94, no + 6 %: así queda cubierta exacta)
+  const base = costos + cli, total = listos.length ? Math.round(base / (1 - C.comision)) : base, comision = total - base;
+  // en el PDF la comisión va dentro del quirófano; con varios procedimientos se reparte según el valor de cada uno
+  let resto = comision;
+  listos.forEach((x, i) => {
+    const parte = i === listos.length - 1 ? resto : Math.round(quir ? comision * x.q.v / quir : comision / listos.length);
+    x.qPdf = x.q.v + parte; resto -= parte;
+  });
   return {
     nombre: $("#nombre").value.trim(), cedula: $("#cedula").value.trim(),
     doctor: $("#doctor").value === "otro" ? $("#doctor-otro").value.trim() : $("#doctor").value,
-    procs, listos, proc: listos.map(x => x.nombre).join(" + "), quir, sede: S().nombre, quirofanoNombre: S().quirofano, instr, imp, doc, cli, extras, total,
+    comercial: $("#comercial").value.trim(),
+    procs, listos, proc: listos.map(x => x.nombre).join(" + "), quir, sede: S().nombre, quirofanoNombre: S().quirofano, instr, imp, doc, cli, extras,
+    costos, sugerida, comision, total,
   };
 }
 
 function calcular(){
   const s = leer();
+  if (!GAN_MANUAL) $("#hon-cli").value = s.sugerida ? s.sugerida.toLocaleString("es-CO") : "";
+  const pct = Math.round(C.ganancia * 100) + " %", dif = s.cli - s.sugerida;
+  $("#gan-pista").innerHTML = !s.listos.length ? `Sale sola al elegir la cirugía: el ${pct} de todos los costos, con los honorarios del doctor.`
+    : !GAN_MANUAL ? `Es el ${pct} de todos los costos (${fmt(s.costos)}). La puedes cambiar.`
+    : `Sugerida ${fmt(s.sugerida)} · ${dif === 0 ? "igual a la sugerida" : (dif > 0 ? "le subiste " : "le bajaste ") + fmt(Math.abs(dif))} · <button type="button" id="gan-sug">Usar la sugerida</button>`;
   s.procs.forEach(x => {
     const aq = x.b.querySelector(".a-q"), ai = x.b.querySelector(".a-i");
     aq.classList.toggle("vacio", !x.q); ai.classList.toggle("vacio", !x.q);
@@ -401,10 +426,11 @@ function calcular(){
   if (s.imp) r += linea(s.imp.nombre, s.imp.v);
   if (s.doc || s.cli){
     r += linea("Honorarios del cirujano", s.doc + s.cli);
-    r += `<div class="linea-r sub"><span>Doctor</span><span>${fmt(s.doc)}</span></div><div class="linea-r sub"><span>Clínica</span><span>${fmt(s.cli)}</span></div>`;
+    r += `<div class="linea-r sub"><span>Doctor</span><span>${fmt(s.doc)}</span></div><div class="linea-r sub"><span>Clínica (ganancia)</span><span>${fmt(s.cli)}</span></div>`;
   }
   if (r) r += linea("Póliza", C.poliza);
   s.extras.forEach(x => r += linea(x.d || "Elemento", x.v));
+  if (s.comision) r += linea("Comisión del comercial", s.comision) + `<div class="linea-r sub"><span>En el PDF va dentro del quirófano</span><span></span></div>`;
   $("#resumen").innerHTML = r || `<p class="vacio-r">Elige el procedimiento para empezar.</p>`;
   $("#total").textContent = fmt(s.total);
   return s;
@@ -445,7 +471,7 @@ function armarPDF(s, numero, hoy, vence){
   const filas = [];
   const varios = s.listos.length > 1;
   s.listos.forEach(x => {
-    filas.push([`Quirófano · ${s.quirofanoNombre}`, [varios ? x.nombre : "", horasDe(x.q.h), x.q.a ? "anestesia " + x.q.a : ""].filter(Boolean).join(" · "), x.q.v]);
+    filas.push([`Quirófano · ${s.quirofanoNombre}`, [varios ? x.nombre : "", horasDe(x.q.h), x.q.a ? "anestesia " + x.q.a : ""].filter(Boolean).join(" · "), x.qPdf]);
     filas.push([`Instrumentador quirúrgico`, [varios ? x.nombre : "", horas(x.hi)].filter(Boolean).join(" · "), x.instr]);
   });
   if (s.imp) filas.push([s.imp.nombre, s.imp.detalle, s.imp.v]);
@@ -487,9 +513,11 @@ async function enviarCorreo(s, numero, hoy, vence, pdf, archivo){
     horas: s.listos.map(x => horasDe(x.q.h)).filter(Boolean).join(" + "), horasInstr: horas(s.listos.reduce((a, x) => a + x.hi, 0)),
     sede: s.sede, quirofanoNombre: s.quirofanoNombre,
     quirofano: s.quir, instrumentador: s.instr, instrumentadorHora: C.instrumentador,
-    procedimientos: s.listos.map(x => ({ nombre: x.nombre, horas: horasDe(x.q.h), anestesia: x.q.a, quirofano: x.q.v, horasInstr: horas(x.hi), instrumentador: x.instr })),
+    procedimientos: s.listos.map(x => ({ nombre: x.nombre, horas: horasDe(x.q.h), anestesia: x.q.a, quirofano: x.q.v, quirofanoPdf: x.qPdf, horasInstr: horas(x.hi), instrumentador: x.instr })),
     implante: s.imp ? { nombre: s.imp.nombre, detalle: s.imp.detalle, valor: s.imp.v } : null,
-    honorariosDoctor: s.doc, gananciaClinica: s.cli, extras: [{ d: "Póliza", v: C.poliza }].concat(s.extras), total: s.total,
+    honorariosDoctor: s.doc, gananciaClinica: s.cli, gananciaSugerida: s.sugerida, costos: s.costos,
+    comercial: s.comercial, comision: s.comision, comisionPct: C.comision, quirofanoPdf: s.listos.reduce((a, x) => a + x.qPdf, 0),
+    extras: [{ d: "Póliza", v: C.poliza }].concat(s.extras), total: s.total,
   };
   const firma = JSON.stringify(Object.assign({}, datos, { numero: "" }));
   if (firma === ultimoEnvio) return "repetida";
@@ -542,6 +570,7 @@ $("#nueva").onclick = () => {
   if (!confirm("¿Borrar todo y empezar una cotización nueva?")) return;
   document.querySelectorAll("main input").forEach(i => i.value = "");
   document.querySelectorAll("main select").forEach(s => s.selectedIndex = 0);
+  GAN_MANUAL = false;
   $("#extras").innerHTML = ""; $("#imp-tipo").dispatchEvent(new Event("change")); $("#procs").innerHTML = ""; agregarProc(); calcular();
   $("#doctor").dispatchEvent(new Event("change"));
   document.querySelectorAll(".campo.error").forEach(c => c.classList.remove("error"));
