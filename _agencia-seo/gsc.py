@@ -70,7 +70,9 @@ def analitica(tok, prop, inicio, fin, dims, filas=25):
     cuerpo = {"startDate": inicio, "endDate": fin, "rowLimit": filas, "dataState": "all"}
     if dims:
         cuerpo["dimensions"] = dims
-    return pedir(tok, ruta, cuerpo).get("rows", [])
+    filas_api = pedir(tok, ruta, cuerpo).get("rows", [])
+    # Google ordena solo por clics; con pocos clics el top queda alfabético. Mejor: clics y luego impresiones.
+    return sorted(filas_api, key=lambda r: (-r["clicks"], -r["impressions"]))
 
 
 def fila(r):
@@ -105,16 +107,16 @@ def main():
 
     if "--paises" in a:
         print("## Países (top 10)\npaís | clics | impresiones | CTR | posición\n---|---|---|---|---")
-        for r in analitica(tok, prop, i, f, ["country"], 10):
+        for r in analitica(tok, prop, i, f, ["country"], 250)[:10]:
             print(r["keys"][0].upper() + " | " + fila(r))
         print()
 
     print("## Búsquedas (top 15)\nbúsqueda | clics | impresiones | CTR | posición\n---|---|---|---|---")
-    for r in analitica(tok, prop, i, f, ["query"], 15):
+    for r in analitica(tok, prop, i, f, ["query"], 500)[:15]:
         print(r["keys"][0] + " | " + fila(r))
     print()
 
-    paginas = analitica(tok, prop, i, f, ["page"], 250)
+    paginas = analitica(tok, prop, i, f, ["page"], 500)
     print("## Páginas (top 15)\npágina | clics | impresiones | CTR | posición\n---|---|---|---|---")
     for r in paginas[:15]:
         print(r["keys"][0] + " | " + fila(r))
