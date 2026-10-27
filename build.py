@@ -670,7 +670,7 @@ def todo_sobre(p):
 # Cambios que SE VEN (27-oct-2026), esperando el visto bueno de Laura: portada del inicio sin fundido, "Actualizado el…" en
 # las fichas, la línea que lleva de cada guía a su ficha y la página nueva para quien viene de otra ciudad de Colombia.
 # Para verlos en local: NOON_VISTA=1 python3 build.py. Cuando Laura apruebe: VISTO_BUENO = True y "estado": "publicado".
-VISTO_BUENO = False
+VISTO_BUENO = True  # Laura aprobó los cambios visibles del 27-oct-2026
 VISTA = VISTO_BUENO or os.environ.get("NOON_VISTA") == "1"
 ACTUALIZADO = '<p class="actualizado rev"><!--FECHA--></p>' if VISTA else ""
 ACTUALIZADO_EN = '<p class="actualizado rev"><!--FECHA-EN--></p>' if VISTA else ""
@@ -1007,8 +1007,9 @@ pagina("otra-ciudad.html", "Si vienes de lejos", "Cómo tratarte en noon Clinic 
            ("Procedimiento", "Cirugía en %s o tratamiento en la clínica." % SEDE_QX),
            ("Recuperación y controles", "Te quedas en la ciudad los días que tu especialista indique."),
            ("Regreso a casa", "Viajas cuando tu especialista lo autorice.")]))
-       + dividir("foto-espera", '<p class="ceja">Guía de estadía</p><h2>¿Cuántos días me quedo?</h2>%s<p class="pista">Tiempos de referencia. El regreso lo autoriza tu especialista.</p>' % lineas([
-           ("Cirugía de rostro", "Entre 1 y 2 semanas."), ("Cirugía de senos", "Entre 1 y 2 semanas."), ("Contorno corporal y combinadas", "Entre 2 y 3 semanas."), ("Medicina estética", "Por lo general, el mismo día o pocos días.")]))
+       + dividir("foto-espera", '<p class="ceja">Guía de estadía</p><h2>¿Cuántos días me quedo?</h2>%s<p class="pista">Tiempos de referencia. El regreso lo autoriza tu especialista.</p>%s' % (lineas([
+           ("Cirugía de rostro", "Entre 1 y 2 semanas."), ("Cirugía de senos", "Entre 1 y 2 semanas."), ("Contorno corporal y combinadas", "Entre 2 y 3 semanas."), ("Medicina estética", "Por lo general, el mismo día o pocos días.")]),
+           '<p class="pista ver-tambien">¿Vives en Bogotá, Cali o la Costa? <a href="operarte-en-medellin-desde-bogota-cali-o-barranquilla.html">Así se organiza tu viaje a Medellín</a></p>' if VISTA else ""))
        + seccion("Recomendaciones", "Para tu viaje", lineas([("Viaja acompañada", "Si es cirugía, necesitas un adulto contigo los primeros días."),
                                                                ("Hospédate cerca", "Entre más cerca de la clínica y de tus controles, más cómoda tu recuperación."),
                                                                ("Tiquetes flexibles", "La fecha de regreso depende de tu evolución, no del calendario."),
