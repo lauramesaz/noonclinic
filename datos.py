@@ -8,7 +8,7 @@ TELEFONO = "+57 302 2491937"
 MENSAJE_WA = "Hola, vengo de la web y estoy interesado en una cita"  # TODOS los botones de WhatsApp de la web y de TODAS las landings llevan este mensaje, sin variaciones (decisión de Laura, 19-oct-2026)
 # Perfiles oficiales de noon en redes (nombre, enlace). Salen en el pie de página y en los datos de marca para Google (sameAs).
 # Solo cuentas confirmadas por Laura: en Instagram existen otras "noon clinic" (Corea, etc.) que NO son nuestras.
-REDES = []
+REDES = [("Instagram", "https://www.instagram.com/noonclinic_/")]  # confirmada por Laura el 27-oct-2026
 MARCA = "noon Clinic"  # nombre provisional del sitio (sin marca). Cámbialo aquí.
 SEDE_QX = "Q2"
 VALORACION = "$200.000"
