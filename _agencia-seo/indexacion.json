@@ -1,5 +1,5 @@
 {
- "fecha": "2026-10-27",
+ "fecha": "2026-10-28",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
@@ -197,7 +197,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-09-28"
+   "rastreo": "2026-10-28"
   },
   "https://noon.clinic/cirugia-plastica-en-colombia-desde-boston": {
    "en_google": true,
@@ -219,7 +219,7 @@
   },
   "https://noon.clinic/cirugia-plastica-en-medellin-desde-atlanta": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "guias",
    "rastreo": ""
   },
@@ -371,7 +371,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-09-25"
+   "rastreo": "2026-10-28"
   },
   "https://noon.clinic/ginecomastia": {
    "en_google": true,
@@ -423,7 +423,7 @@
   },
   "https://noon.clinic/international-patients": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -449,7 +449,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-09-28"
+   "rastreo": "2026-10-28"
   },
   "https://noon.clinic/labios-con-acido-hialuronico": {
    "en_google": false,
@@ -587,7 +587,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-10-27"
+   "rastreo": "2026-10-28"
   },
   "https://noon.clinic/mastopexia": {
    "en_google": true,
@@ -683,7 +683,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-10-03"
+   "rastreo": "2026-10-28"
   },
   "https://noon.clinic/mommy-makeover-en-colombia": {
    "en_google": false,
@@ -739,17 +739,23 @@
    "grupo": "guias",
    "rastreo": ""
   },
+  "https://noon.clinic/operarte-en-medellin-desde-bogota-cali-o-barranquilla": {
+   "en_google": false,
+   "estado": "Google no reconoce esta URL",
+   "grupo": "guias",
+   "rastreo": ""
+  },
   "https://noon.clinic/otoplastia": {
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-09-25"
+   "rastreo": "2026-10-28"
   },
   "https://noon.clinic/otra-ciudad": {
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-09-28"
+   "rastreo": "2026-10-28"
   },
   "https://noon.clinic/pacientes-internacionales": {
    "en_google": true,
@@ -1053,13 +1059,13 @@
   },
   "https://noon.clinic/what-to-pack-for-plastic-surgery-in-colombia": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/when-can-i-fly-after-liposuction": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },

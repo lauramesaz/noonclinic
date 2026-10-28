@@ -58,7 +58,7 @@ del final (mezcla Colombia, medicina estética y comparativas).
 | F1 | rinoplastia + mentoplastia | rinoplastia y mentoplastia en la misma cirugía | colombia | en pausa (cubierto por la ficha /rinoplastia-y-mentoplastia, 20-oct) |
 | F2 | abdominoplastia + lipotransferencia-glutea | lipoabdominoplastia con transferencia glútea: qué es y cómo es la recuperación | colombia | en pausa (cubierto por la ficha /lipoabdominoplastia-con-transferencia-glutea, 20-oct) |
 | F3 | lipotransferencia-glutea | recuperación de la lipotransferencia glútea semana a semana (cuándo sentarse) | colombia | publicado 2026-10-25 |
-| F4 | general | cómo prepararse para una cirugía plástica: exámenes, medicamentos y casa lista | colombia | pendiente |
+| F4 | general | cómo prepararse para una cirugía plástica: exámenes, medicamentos y casa lista | colombia | publicado 2026-10-28 |
 | F5 | mamoplastia-de-aumento | recuperación del aumento de senos: qué esperar las primeras semanas | colombia | pendiente |
 | F6 | liposuccion | cuándo se ve el resultado final de una liposucción | colombia | pendiente |
 
