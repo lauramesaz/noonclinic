@@ -72,7 +72,7 @@ decide el cirujano en la valoración presencial. Riesgos de combinar y de la lip
 |---|---|---|---|---|
 | G1 | toxina-botulinica | cuánto dura el bótox y cada cuánto aplicarlo | colombia | publicado 2026-10-22 |
 | G2 | acido-hialuronico | ácido hialurónico en labios: cómo es, cuánto dura y cuidados | colombia | en pausa (cubierto por la ficha /labios-con-acido-hialuronico, 20-oct) |
-| G3 | bioestimuladores | bioestimuladores de colágeno: qué son y para quién | colombia | pendiente |
+| G3 | bioestimuladores | bioestimuladores de colágeno: qué son y para quién | colombia | publicado 2026-10-30 |
 | G4 | manchas-y-melasma | melasma: por qué aparece y cómo se trata (con el sol de Medellín) | colombia | publicado 2026-10-27 |
 | G5 | hilos-tensores | hilos tensores: qué esperar y cuánto dura el efecto | colombia | pendiente |
 | G6 | lipopapada | papada: opciones con y sin cirugía | colombia | en pausa (cubierto por la ficha /papada-sin-cirugia, 20-oct) |
