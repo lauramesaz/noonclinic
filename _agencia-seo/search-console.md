@@ -3,6 +3,56 @@
 La nube no puede abrir Search Console. Esta foto la actualiza cada lunes una tarea en la Mac de
 Laura (solo lectura). Lo más nuevo arriba. Úsala para elegir temas y mejorar piezas flojas.
 
+## Foto del 2-nov-2026 (últimos 28 días: 4-oct al 31-oct)
+
+**Total:** 6 clics · 315 impresiones · CTR 1,9 % · posición media 63,3.
+
+**Países (clics / impresiones):** Colombia 5/148 · España 1/70 · Estados Unidos 0/64 · Brasil 0/10 · México 0/3 ·
+Argentina 0/2 · Hungría 0/2 · Pakistán 0/2 · Puerto Rico 0/2 · Venezuela 0/2.
+
+**Consultas principales (clics / impresiones):**
+| Consulta | Clics | Impr. |
+|---|---|---|
+| noon clinic | 4 | 11 |
+| mentoplastia y rinoplastia | 0 | 51 |
+| lipotransferencia medellín | 0 | 10 |
+| lipoabdominoplastia con transferencia glutea | 0 | 8 |
+| transferencia de grasa a gluteos | 0 | 8 |
+| lipotransferencia glutea | 0 | 7 |
+| redondo beach nonsurgical rhinoplasty | 0 | 7 |
+| brachioplasty nora | 0 | 6 |
+| hilos tensores barranquilla | 0 | 6 |
+| braquioplastia en medellin | 0 | 4 |
+
+**Páginas principales (clics / impresiones):**
+| Página | Clics | Impr. |
+|---|---|---|
+| / | 3 | 28 |
+| /especialistas | 3 | 26 |
+| /valoracion | 1 | 3 |
+| /mentoplastia | 0 | 53 |
+| /lipotransferencia-glutea | 0 | 40 |
+| /plastic-surgery-medellin | 0 | 19 |
+| /ear-surgery-medellin | 0 | 11 |
+| /ginecomastia | 0 | 11 |
+| /nutricion | 0 | 11 |
+| /medicina-estetica | 0 | 9 |
+
+**Indexación (inspección página por página del sitemap):** 183 páginas, **151 en Google**, 32 todavía no
+(17 "Google no reconoce esta URL", 15 "Descubierta: actualmente sin indexar"). Casi todas las que faltan son
+las fichas nuevas en inglés para EE. UU. (rhinoplasty-medellin, facelift-medellin, hifu-medellin,
+lipo-360-medellin, thigh-lift-medellin, guides, international-patients, why-noon-clinic…) y 3 en español
+(/rinomodelacion, /es-seguro-operarse-en-colombia, /operarme-en-diciembre-en-colombia).
+(Nota: esta cifra viene de otro método que la foto anterior, que usaba el informe de páginas; no son comparables.)
+
+**Lectura:** subida: de 4 a 6 clics y de 186 a 315 impresiones. Colombia sube de 86 a 148 impresiones y
+EE. UU. salta de 16 a 64 (posición ~73): ya empieza a verse el contenido en inglés, aunque aún sin clics.
+Búsquedas nuevas de EE. UU.: "redondo beach nonsurgical rhinoplasty", "brachioplasty nora", "gynecomastia surgery
+colombia", "plastic surgery in colombia medellin", "otoplasty columbia sc" (las fichas en inglés van saliendo, lejos
+de la primera página). Nuevas de Colombia: "lipotransferencia medellín" (10, pasó a ser la 3.ª), "mentoplastia en medellín",
+"hilos tensores barranquilla" (6, sube). Sin páginas en posición ≤20 con muchas impresiones y pocos clics, salvo
+/medicina-estetica (posición 9,6, 9 impr.). Las fichas de cirugía siguen en posiciones 60–90.
+
 ## Foto del 26-oct-2026 (datos del 30-sep al 24-oct)
 
 **Total:** 4 clics · 186 impresiones · CTR 2,2 % · posición media 59,2.
