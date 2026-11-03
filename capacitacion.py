@@ -198,6 +198,14 @@ SEGUIMIENTO = [  # (cuándo, para qué, mensaje)
     ("Día 30", "Reactivar sin presión.",
      "Hola, {nombre}. Solo quería saber cómo vas con tu decisión. Si no es el momento, está bien; cuando quieras retomarlo, aquí estamos 🤍"),
 ]
+SEGUIMIENTO_SIN_CITA = [  # (cuándo, para qué, mensaje) · escribió por WhatsApp, preguntó y no pagó la cita de valoración
+    ("Al día siguiente", "Retomar la conversación donde quedó.",
+     "¡Hola, {nombre}! Ayer hablamos de tu {procedimiento}. ¿Te quedó alguna duda que te pueda resolver? 🤍"),
+    ("Día 3", "Pasar de la información a la cita.",
+     "Te escribo para ayudarte a dar el primer paso: en tu valoración el especialista te examina y sales con tu plan y tu valor exacto. ¿Te queda mejor esta semana o la próxima?"),
+    ("Día 7", "Último intento, sin presión.",
+     "Hola, {nombre}. No quiero llenarte de mensajes 🤍 Si más adelante quieres retomar lo de tu {procedimiento}, aquí estamos. ¿Te escribo en unas semanas?"),
+]
 SEGUIMIENTO_ESTETICA = [  # (cuándo, mensaje) · pacientes de estética que ya vinieron: volver por su retoque o su siguiente sesión
     ("Bótox · desde 4 meses después de la aplicación",
      "Hola, {nombre} 🤍 Te escribimos de noon Clinic. Ya van unos meses desde tu bótox con la Dra. Valeria y por esta época es cuando suele tocar el retoque. ¿Quieres que te revisemos un espacio en su agenda?"),
@@ -448,7 +456,7 @@ def generar():
              "otros_precios": OTROS_PRECIOS, "video": VIDEO,
              "inter_reglas": INTERNACIONAL_REGLAS, "inter": INTERNACIONAL,
              "camino": CAMINO, "sim": SIMULADOR, "wa": CHAT_WA, "conf_ej": CONF_EJEMPLO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES,
-             "seg_reglas": SEGUIMIENTO_REGLAS, "seg": SEGUIMIENTO, "seg_obj": SEGUIMIENTO_OBJ, "seg_me": SEGUIMIENTO_ESTETICA}
+             "seg_reglas": SEGUIMIENTO_REGLAS, "seg": SEGUIMIENTO, "seg_obj": SEGUIMIENTO_OBJ, "seg_me": SEGUIMIENTO_ESTETICA, "seg_sin": SEGUIMIENTO_SIN_CITA}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:
