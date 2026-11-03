@@ -31,7 +31,7 @@ ZONAS = [("senos", "Senos"), ("cuerpo", "Cuerpo"), ("rostro", "Rostro"), ("combi
 INC = {
     "cirujano": "Honorarios del cirujano",
     "instrumentador": "Instrumentador",
-    "quirofano": "Quirófano",
+    "quirofano": "Quirófano con anestesia",  # Q2 Sur incluye la consulta preanestésica y los honorarios de anestesia (cotizador.py)
     "implantes": "Implantes",
     "brasier": "Brasier posquirúrgico",
     "faja": "Faja posquirúrgica",
@@ -42,7 +42,7 @@ INC = {
 }
 
 # versión corta para la línea "Todo incluido: …" (se escanea, no se lee). En la portada se omite el instrumentador.
-INC_CORTO = {"cirujano": "cirujano", "instrumentador": "instrumentador", "quirofano": "quirófano", "implantes": "implantes",
+INC_CORTO = {"cirujano": "cirujano", "instrumentador": "instrumentador", "quirofano": "quirófano con anestesia", "implantes": "implantes",
              "brasier": "brasier", "faja": "faja", "poliza": "póliza", "bomba": "bomba de dolor", "masajes": "masajes",
              "preconsulta": "preconsulta"}
 
