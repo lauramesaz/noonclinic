@@ -11,6 +11,7 @@
 # Fuera del sitemap y con noindex: es la página de la pauta (la web pública sigue sin precios).
 # build.py llama a generar() al final.
 import json, os
+AQUI = os.path.dirname(os.path.abspath(__file__))
 from html import escape
 from urllib.parse import quote
 
@@ -222,6 +223,7 @@ def _pagina(b, items, actual):
     zona = it["zona"] if it else "senos"
     doc = [e for e in b.ESPECIALISTAS if e["area"] == "cirugia"][0]
     doc_foto = "/assets/equipo/" + doc["foto"]
+    doc_web = doc_foto.rsplit(".", 1)[0] + ".webp" if os.path.exists(os.path.join(AQUI, doc_foto.lstrip("/").rsplit(".", 1)[0] + ".webp")) else doc_foto  # liviana; la jpg queda para compartir
 
     if it:
         titulo = "%s en Medellín · Promo de fin de año" % it["nombre"]
@@ -297,7 +299,7 @@ def _pagina(b, items, actual):
     </div>
     <figure class="pr-arco">
       <img data-h="foto" src="%(foto)s" alt="" width="1200" height="900" fetchpriority="high">
-      <div class="pr-doc"><img src="%(doc_foto)s" alt="" width="1120" height="1400"><div>%(doc)s<span>Cirujano plástico reconstructivo · ReTHUS</span></div></div>
+      <div class="pr-doc"><img src="%(doc_web)s" alt="" width="1120" height="1400"><div>%(doc)s<span>Cirujano plástico reconstructivo · ReTHUS</span></div></div>
     </figure>
   </div>
   <div class="pr-atajos">
@@ -332,7 +334,7 @@ def _pagina(b, items, actual):
 <!-- 4 · EL CIRUJANO -->
 <section class="pr-sec" id="cirujano">
   <div class="pr-panel pr-gris pr-medico">
-    <figure class="pr-arco pr-arco-doc pr-rev"><img src="%(doc_foto)s" alt="%(doc)s, cirujano plástico de noon Clinic" width="1120" height="1400" loading="lazy"></figure>
+    <figure class="pr-arco pr-arco-doc pr-rev"><img src="%(doc_web)s" alt="%(doc)s, cirujano plástico de noon Clinic" width="1120" height="1400" loading="lazy"></figure>
     <div class="pr-rev">
       <p class="pr-ceja"><i></i>Quién te opera</p>
       <h2>%(doc)s,<br><span>cirujano plástico reconstructivo.</span></h2>
@@ -391,7 +393,7 @@ def _pagina(b, items, actual):
        "ico_lupa": ico("lupa"), "ico_medico": ico("medico"), "ico_cruz": ico("cruz"), "ico_reloj": ico("reloj"),
        "h1": _titulo(it), "precio": _precio(it), "incluye": _incluye(it, True), "atajos": atajos, "total": len(items),
        "tabs": tabs, "zona": zona, "filas": filas, "mision": mision, "revisa": revisa, "pasos": pasos, "preguntas": preguntas,
-       "rethus": RETHUS, "doc": doc["nombre"], "doc_foto": doc_foto, "vigencia": VIGENCIA, "valoracion": VALORACION,
+       "rethus": RETHUS, "doc": doc["nombre"], "doc_foto": doc_foto, "doc_web": doc_web, "vigencia": VIGENCIA, "valoracion": VALORACION,
        "tel": b.TELEFONO, "barra_n": barra_n, "barra_p": barra_p, "datos": datos,
        "google": wa_google.script({"": MSJ_GOOGLE % TEMA_GENERAL, **{x["slug"]: MSJ_GOOGLE % x["h1"] for x in items}})}
 
