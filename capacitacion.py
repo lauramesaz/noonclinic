@@ -445,6 +445,37 @@ def _cirugias():
     return out
 
 
+# ---------------------------------------------------------------- SI COMPARAN PRECIOS (investigación 3-nov-2026, ~/Documents/noon ventas/precios-competencia-nov-2026.md)
+# Precios PUBLICADOS en internet 2025-2026 (orientativos, casi todos "desde"). Son para la asesora: nunca nombrar otras clínicas.
+COMPARAR = [  # (cirugía, precio noon, lo típico publicado, cómo estamos, frase para la paciente)
+    ("Aumento de senos", "$10.900.000", "14 a 17 millones", "Por debajo: de lo más bajo con todo incluido",
+     "¡Qué bueno que compares! Pide que te pongan por escrito si ese precio ya trae los implantes, la póliza de complicaciones, la bomba de dolor y el brasier. Aquí los $10.900.000 ya traen todo eso."),
+    ("Mastopexia con implantes", "Desde $17.900.000", "19 a 22 millones", "Por debajo de lo típico",
+     "Revisa si ese precio incluye los implantes; muchas veces la mastopexia se cotiza sin ellos y se suman aparte. Aquí, desde $17.900.000, ya van los implantes, la póliza y la bomba de dolor."),
+    ("Mastopexia sin implantes", "Desde $15.900.000", "12 a 16 millones", "En el medio, tirando a arriba",
+     "Es normal ver precios más bajos; la pregunta es qué traen. El nuestro ya trae cirujano plástico, instrumentador, quirófano, póliza de complicaciones y bomba de dolor. Compáralos con todo sumado y por escrito."),
+    ("Lipo y lipotransferencia", "Desde $18.900.000", "18 a 25 millones", "En el medio, tirando a abajo",
+     "Fíjate si te cotizaron solo la lipo o también la lipotransferencia, y si trae faja y masajes: en muchos lugares los masajes de la recuperación se pagan aparte. Aquí van la faja, los masajes, la póliza y la bomba de dolor."),
+    ("Abdominoplastia", "Se cotiza", "13,5 a 16 millones", "Depende de cada cotización · el dato es de la abdominoplastia sola",
+     "Tu cotización es por escrito, en quirófano y con póliza de complicaciones. Así puedes comparar punto por punto: pregunta en el otro lugar si su precio trae quirófano con anestesia, póliza, bomba de dolor y faja."),
+    ("Rinoplastia", "Se cotiza", "11 a 14 millones", "Depende de cada cotización",
+     "Te la cotizamos por escrito en tu valoración, en quirófano y con póliza de complicaciones. Así puedes comparar punto por punto."),
+]
+TRAMPAS = [
+    ("“Desde” = el caso más sencillo", "Casi ningún precio publicado es cerrado: sube en la valoración."),
+    ("Implantes por fuera", "En mastopexia muchas veces no van incluidos. Solo los implantes valen de 3,5 a 5,5 millones."),
+    ("Póliza por fuera", "Algunos lo dicen claro (“no incluye póliza”) y la mayoría ni la menciona."),
+    ("Faja, brasier y masajes por fuera", "Los masajes de la recuperación pueden sumar de 0,8 a 2,3 millones más."),
+    ("“Solo honorarios”", "Muchos precios son solo del cirujano, sin quirófano ni anestesia."),
+    ("Precio de la consulta", "Los “desde $140.000” que salen en internet son la consulta, no la cirugía."),
+]
+NO_PROMETER = [  # solo lo que va escrito en la cotización está incluido
+    ("Exámenes antes de la cirugía", "Solo van si aparecen escritos en la cotización."),
+    ("Medicamentos para la casa", "Solo van si aparecen escritos en la cotización (el quirófano trae los básicos del procedimiento)."),
+    ("Cualquier cosa que no esté escrita", "Si no está en la cotización, no lo prometas: pregunta primero."),
+]
+
+
 def generar():
     procs = ([_proc(c, "cx", {k: n for k, n, d, f in CATEGORIAS_CX}) for c in _cirugias()]
              + [_proc(t, "me", {k: n for k, n, d, f in CATEGORIAS_ME}) for t in TRATAMIENTOS if not t.get("nueva")])
@@ -456,7 +487,8 @@ def generar():
              "otros_precios": OTROS_PRECIOS, "video": VIDEO,
              "inter_reglas": INTERNACIONAL_REGLAS, "inter": INTERNACIONAL,
              "camino": CAMINO, "sim": SIMULADOR, "wa": CHAT_WA, "conf_ej": CONF_EJEMPLO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES,
-             "seg_reglas": SEGUIMIENTO_REGLAS, "seg": SEGUIMIENTO, "seg_obj": SEGUIMIENTO_OBJ, "seg_me": SEGUIMIENTO_ESTETICA, "seg_sin": SEGUIMIENTO_SIN_CITA}
+             "seg_reglas": SEGUIMIENTO_REGLAS, "seg": SEGUIMIENTO, "seg_obj": SEGUIMIENTO_OBJ, "seg_me": SEGUIMIENTO_ESTETICA, "seg_sin": SEGUIMIENTO_SIN_CITA,
+             "comparar": COMPARAR, "trampas": TRAMPAS, "no_prometer": NO_PROMETER}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:

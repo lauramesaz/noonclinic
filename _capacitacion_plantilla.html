@@ -201,6 +201,24 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 .destacados .seccion-cab h2 { color:var(--acento); }
 .destacados .seccion-cab p { margin:4px 0 0; color:var(--tenue); font-size:15px; }
 .tarjeta { position:relative; }
+/* ---------- si comparan precios (3-nov-2026) ---------- */
+.comp-lista { border:1px solid var(--linea); border-radius:var(--r); overflow:hidden; }
+.comp + .comp { border-top:1px solid var(--linea); }
+.comp summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:1fr 160px 180px; gap:14px; padding:15px 20px; align-items:center; }
+.comp summary::-webkit-details-marker { display:none; }
+.comp[open] { background:var(--panel); }
+.comp-cx small, .comp-num small { display:block; color:var(--tenue); font-size:13px; }
+.comp-num { text-align:right; }
+.comp-num b { font:500 17px var(--display); color:var(--acento); white-space:nowrap; }
+.comp-num b.tenue { color:var(--txt); }
+.comp .resp { padding:0 20px 18px; }
+.regla.ojo-np { background:var(--acento-suave); }
+.regla.ojo-np b { color:var(--acento); }
+@media (max-width:720px) {
+  .comp summary { grid-template-columns:1fr 1fr; }
+  .comp-cx { grid-column:1 / -1; }
+  .comp-num { text-align:left; }
+}
 .tabla-precios { border:1px solid var(--linea); border-radius:var(--r); overflow:hidden; }
 .tabla-precios a, .tabla-precios div { display:grid; grid-template-columns:1fr auto; gap:14px; padding:15px 20px; align-items:center; }
 .tabla-precios > * + * { border-top:1px solid var(--linea); }
@@ -745,7 +763,7 @@ function menu() {
     <div class="sub"><a href="#${id}" data-r="${id}">Ver todos</a>${cats.map(c => `<a href="#${id}/${encodeURIComponent(c)}" data-r="${id}/${encodeURIComponent(c)}">${esc(c)}</a>`).join("")}</div></details>`;
   $("#nav").innerHTML = `<a href="#inicio" data-r="inicio">${ico("casa")}Inicio</a><a href="#camino" data-r="camino">${ico("flecha")}El camino del paciente</a>
     <p class="titulo-nav">Procedimientos</p>${grupo("cirugia", "Cirugía plástica", "bisturi", D.cats_cx)}${grupo("estetica", "Medicina estética", "gota", D.cats_me)}
-    <p class="titulo-nav">Ventas</p><a href="#precios" data-r="precios">${ico("lista")}Lista de precios</a><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#seguimiento" data-r="seguimiento">${ico("check")}Seguimiento</a><a href="#exterior" data-r="exterior">${ico("chat")}Pacientes del exterior</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
+    <p class="titulo-nav">Ventas</p><a href="#precios" data-r="precios">${ico("lista")}Lista de precios</a><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#seguimiento" data-r="seguimiento">${ico("check")}Seguimiento</a><a href="#comparar" data-r="comparar">${ico("precio")}Si comparan precios</a><a href="#exterior" data-r="exterior">${ico("chat")}Pacientes del exterior</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
 }
 
 /* ---------- copiar ---------- */
@@ -836,7 +854,18 @@ function seguimiento() {
   <section class="seccion"><div class="seccion-cab"><h2>Si escribió y no agendó la valoración</h2></div><p class="nota" style="margin:-6px 0 14px">Cambia <b>{procedimiento}</b> por lo que preguntó. Si no contesta estos tres, pausa dos meses.</p><div class="faq">${D.seg_sin.map(([c, p, m]) => `<details><summary>${esc(c)}</summary><div class="resp"><p><b>Para qué:</b> ${esc(p)}</p><p>${esc(m)}</p>${copiar(m)}</div></details>`).join("")}</div></section>
   <section class="seccion"><div class="seccion-cab"><h2>Después de la valoración: qué escribir y cuándo</h2></div><div class="faq">${D.seg.map(([c, p, m], i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(c)}</summary><div class="resp"><p><b>Para qué:</b> ${esc(p)}</p><p>${esc(m)}</p>${copiar(m)}</div></details>`).join("")}</div></section>
   <section class="seccion"><div class="seccion-cab"><h2>Si te responde con una duda</h2></div><div class="faq">${D.seg_obj.map(([q, r]) => `<details><summary>${esc(q)}</summary><div class="resp"><p>${esc(r)}</p>${copiar(r)}</div></details>`).join("")}</div></section>
+  <p class="nota">¿Te dice que en otro lado es más barato? Mira <a href="#comparar">Si comparan precios</a>: cuánto cobra el mercado y qué responder por cirugía.</p>
   <section class="seccion"><div class="seccion-cab"><h2>Medicina estética: el retoque</h2></div><p class="nota" style="margin:-6px 0 14px">Para pacientes que ya vinieron. Antes de escribir, confirma en Saneo qué se hizo y cuándo.</p><div class="faq">${D.seg_me.map(([c, m]) => `<details><summary>${esc(c)}</summary><div class="resp"><p>${esc(m)}</p>${copiar(m)}</div></details>`).join("")}</div></section>`;
+}
+
+function comparar() {
+  return `<nav class="migas"><a href="#inicio">Inicio</a>›<span>Si comparan precios</span></nav>
+  <div class="cabeza"><h1>Si comparan precios</h1><p>Lo que se publica en internet en Medellín (2025–2026) frente a noon. Es para ti: <b>nunca nombres a otras clínicas</b>. Lo que sí: enséñale a la paciente a comparar con todo sumado y por escrito.</p></div>
+  <section class="seccion" style="margin-top:26px"><div class="comp-lista">${D.comparar.map(([cx, noon, merc, como, frase]) => `<details class="comp"><summary><span class="comp-cx"><b>${esc(cx)}</b><small>${esc(como)}</small></span><span class="comp-num"><small>noon</small><b>${esc(noon)}</b></span><span class="comp-num"><small>Lo típico afuera</small><b class="tenue">${esc(merc)}</b></span></summary>
+      <div class="resp"><p>${esc(frase)}</p>${copiar(frase)}</div></details>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><div><h2>Por qué afuera <em>parece</em> más barato</h2><p>Lo que muchos precios “desde” dejan por fuera.</p></div></div><div class="reglas">${D.trampas.map(([t, x]) => `<div class="regla"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>No lo prometas</h2></div><div class="reglas">${D.no_prometer.map(([t, x]) => `<div class="regla ojo-np"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
+  <p class="nota">Son precios publicados y orientativos (casi todos dicen “desde”). Los revisamos cada pocos meses.</p>`;
 }
 
 function exterior() {
@@ -1209,7 +1238,7 @@ document.addEventListener("click", e => {
 function ruta() {
   if ($("#app").hidden) return;
   const h = decodeURIComponent(location.hash.slice(1) || "inicio"), [a, b] = h.split("/");
-  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "seguimiento" ? seguimiento() : a === "camino" || a === "simulador" ? camino() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
+  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "seguimiento" ? seguimiento() : a === "comparar" ? comparar() : a === "camino" || a === "simulador" ? camino() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
   $("#vista").innerHTML = html;
   if (a === "camino" || a === "simulador") { irA(0, true); pintaQuiz(); montaVideo(); }
   if (a === "simulador") setTimeout(() => $("#simulador-sec")?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
