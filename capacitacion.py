@@ -198,6 +198,16 @@ SEGUIMIENTO = [  # (cuándo, para qué, mensaje)
     ("Día 30", "Reactivar sin presión.",
      "Hola, {nombre}. Solo quería saber cómo vas con tu decisión. Si no es el momento, está bien; cuando quieras retomarlo, aquí estamos 🤍"),
 ]
+SEGUIMIENTO_ESTETICA = [  # (cuándo, mensaje) · pacientes de estética que ya vinieron: volver por su retoque o su siguiente sesión
+    ("Bótox · desde 4 meses después de la aplicación",
+     "Hola, {nombre} 🤍 Te escribimos de noon Clinic. Ya van unos meses desde tu bótox con la Dra. Valeria y por esta época es cuando suele tocar el retoque. ¿Quieres que te revisemos un espacio en su agenda?"),
+    ("Terapia capilar · va por sesiones",
+     "Hola, {nombre} 🤍 Te escribimos de noon Clinic. ¿Cómo vas con tu terapia capilar? Cuéntanos en qué sesión vas y te ayudamos a agendar la siguiente con la Dra. Valeria. ¿Te parece?"),
+    ("Bioestimuladores · si su plan tiene más sesiones",
+     "Hola, {nombre} 🤍 Te escribimos de noon Clinic. ¿Cómo te has sentido después de tu sesión? Si tu plan con la Dra. Valeria tiene más sesiones, te ayudamos a agendar la siguiente. ¿Te revisamos un espacio?"),
+    ("No sabes qué se hizo · primero revisa en Saneo",
+     "Hola, {nombre} 🤍 Te escribimos de noon Clinic para saber cómo te fue con tu tratamiento con la Dra. Valeria. ¿Te gustaría que te ayudemos a agendar tu próxima cita?"),
+]
 SEGUIMIENTO_OBJ = [  # objeciones que aparecen DESPUÉS de la cotización
     ("“Lo voy a pensar”", "¡Claro que sí! Es una decisión importante. ¿Qué es lo que más te hace dudar: el valor, la recuperación o las fechas? Así te ayudo con eso puntual."),
     ("“Está muy caro”", "Te entiendo. Cuando compares, revisa si la otra cotización incluye quirófano, instrumentador, póliza y bomba de dolor, y si el cirujano es plástico con registro en ReTHUS. ¿Quieres que revisemos la tuya punto por punto?"),
@@ -438,7 +448,7 @@ def generar():
              "otros_precios": OTROS_PRECIOS, "video": VIDEO,
              "inter_reglas": INTERNACIONAL_REGLAS, "inter": INTERNACIONAL,
              "camino": CAMINO, "sim": SIMULADOR, "wa": CHAT_WA, "conf_ej": CONF_EJEMPLO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES,
-             "seg_reglas": SEGUIMIENTO_REGLAS, "seg": SEGUIMIENTO, "seg_obj": SEGUIMIENTO_OBJ}
+             "seg_reglas": SEGUIMIENTO_REGLAS, "seg": SEGUIMIENTO, "seg_obj": SEGUIMIENTO_OBJ, "seg_me": SEGUIMIENTO_ESTETICA}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:

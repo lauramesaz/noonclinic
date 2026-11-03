@@ -834,7 +834,8 @@ function seguimiento() {
   <div class="cabeza"><h1>Seguimiento después de la valoración</h1><p>De la cita al abono: aquí se gana la mayoría de las cirugías. Cambia <b>{nombre}</b> por el nombre de la paciente antes de enviar.</p></div>
   <section class="seccion" style="margin-top:26px"><div class="seccion-cab"><h2>Reglas del seguimiento</h2></div><div class="reglas">${D.seg_reglas.map(([t, x]) => `<div class="regla"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
   <section class="seccion"><div class="seccion-cab"><h2>Qué escribir y cuándo</h2></div><div class="faq">${D.seg.map(([c, p, m], i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(c)}</summary><div class="resp"><p><b>Para qué:</b> ${esc(p)}</p><p>${esc(m)}</p>${copiar(m)}</div></details>`).join("")}</div></section>
-  <section class="seccion"><div class="seccion-cab"><h2>Si te responde con una duda</h2></div><div class="faq">${D.seg_obj.map(([q, r]) => `<details><summary>${esc(q)}</summary><div class="resp"><p>${esc(r)}</p>${copiar(r)}</div></details>`).join("")}</div></section>`;
+  <section class="seccion"><div class="seccion-cab"><h2>Si te responde con una duda</h2></div><div class="faq">${D.seg_obj.map(([q, r]) => `<details><summary>${esc(q)}</summary><div class="resp"><p>${esc(r)}</p>${copiar(r)}</div></details>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Medicina estética: el retoque</h2></div><p class="nota" style="margin:-6px 0 14px">Para pacientes que ya vinieron. Antes de escribir, confirma en Saneo qué se hizo y cuándo.</p><div class="faq">${D.seg_me.map(([c, m]) => `<details><summary>${esc(c)}</summary><div class="resp"><p>${esc(m)}</p>${copiar(m)}</div></details>`).join("")}</div></section>`;
 }
 
 function exterior() {
