@@ -745,7 +745,7 @@ function menu() {
     <div class="sub"><a href="#${id}" data-r="${id}">Ver todos</a>${cats.map(c => `<a href="#${id}/${encodeURIComponent(c)}" data-r="${id}/${encodeURIComponent(c)}">${esc(c)}</a>`).join("")}</div></details>`;
   $("#nav").innerHTML = `<a href="#inicio" data-r="inicio">${ico("casa")}Inicio</a><a href="#camino" data-r="camino">${ico("flecha")}El camino del paciente</a>
     <p class="titulo-nav">Procedimientos</p>${grupo("cirugia", "Cirugía plástica", "bisturi", D.cats_cx)}${grupo("estetica", "Medicina estética", "gota", D.cats_me)}
-    <p class="titulo-nav">Ventas</p><a href="#precios" data-r="precios">${ico("lista")}Lista de precios</a><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#exterior" data-r="exterior">${ico("chat")}Pacientes del exterior</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
+    <p class="titulo-nav">Ventas</p><a href="#precios" data-r="precios">${ico("lista")}Lista de precios</a><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#seguimiento" data-r="seguimiento">${ico("check")}Seguimiento</a><a href="#exterior" data-r="exterior">${ico("chat")}Pacientes del exterior</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
 }
 
 /* ---------- copiar ---------- */
@@ -827,6 +827,14 @@ function responder() {
   <section class="seccion"><div class="seccion-cab"><h2>Dudas y objeciones frecuentes</h2></div><div class="faq">${D.objeciones.map(([q, r]) => `<details><summary>${esc(q)}</summary><div class="resp"><p>${esc(r)}</p>${copiar(r)}</div></details>`).join("")}</div></section>
   <section class="seccion"><div class="seccion-cab"><h2>Reglas del equipo</h2></div><div class="reglas">${D.reglas.map(([t, x]) => `<div class="regla"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
   <section class="seccion"><div class="seccion-cab"><h2>Una conversación en 4 pasos</h2></div><div class="tiempo">${D.pasos.map(([t, x]) => `<div class="paso"><i></i><div><b>${esc(t)}</b><span>${esc(x)}</span></div></div>`).join("")}</div></section>`;
+}
+
+function seguimiento() {
+  return `<nav class="migas"><a href="#inicio">Inicio</a>›<span>Seguimiento</span></nav>
+  <div class="cabeza"><h1>Seguimiento después de la valoración</h1><p>De la cita al abono: aquí se gana la mayoría de las cirugías. Cambia <b>{nombre}</b> por el nombre de la paciente antes de enviar.</p></div>
+  <section class="seccion" style="margin-top:26px"><div class="seccion-cab"><h2>Reglas del seguimiento</h2></div><div class="reglas">${D.seg_reglas.map(([t, x]) => `<div class="regla"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Qué escribir y cuándo</h2></div><div class="faq">${D.seg.map(([c, p, m], i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(c)}</summary><div class="resp"><p><b>Para qué:</b> ${esc(p)}</p><p>${esc(m)}</p>${copiar(m)}</div></details>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Si te responde con una duda</h2></div><div class="faq">${D.seg_obj.map(([q, r]) => `<details><summary>${esc(q)}</summary><div class="resp"><p>${esc(r)}</p>${copiar(r)}</div></details>`).join("")}</div></section>`;
 }
 
 function exterior() {
@@ -1199,7 +1207,7 @@ document.addEventListener("click", e => {
 function ruta() {
   if ($("#app").hidden) return;
   const h = decodeURIComponent(location.hash.slice(1) || "inicio"), [a, b] = h.split("/");
-  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "camino" || a === "simulador" ? camino() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
+  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "seguimiento" ? seguimiento() : a === "camino" || a === "simulador" ? camino() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
   $("#vista").innerHTML = html;
   if (a === "camino" || a === "simulador") { irA(0, true); pintaQuiz(); montaVideo(); }
   if (a === "simulador") setTimeout(() => $("#simulador-sec")?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);

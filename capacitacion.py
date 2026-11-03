@@ -171,6 +171,43 @@ PASOS = [
 ]
 
 
+# ---------------------------------------------------------------- SEGUIMIENTO DESPUÉS DE LA VALORACIÓN (de la cita al abono)
+# 3-nov-2026: en octubre hubo 54 citas de cirugía pagadas y 6 abonos → el seguimiento es donde más ventas se ganan.
+# Solo reglas que ya existen: abono $1.000.000 → empieza el montaje; la cita de $200.000 no se abona; las promos con precio
+# exigen operarse antes de FECHA_LIMITE; lo adicional se paga aparte. Nada de cupos, descuentos ni plazos inventados.
+from datos import FECHA_LIMITE
+SEGUIMIENTO_REGLAS = [
+    ("Cada paciente tiene dueña", "Quien la atendió le hace el seguimiento hasta que abone o diga que no."),
+    ("Anota cada mensaje", "Fecha, qué le escribiste y qué respondió. Así nadie le escribe dos veces lo mismo."),
+    ("Busca la duda real", "Casi siempre es una de cuatro: el valor, el miedo, la pareja o las fechas. Pregunta cuál es."),
+    ("Nada de presión falsa", "No inventes cupos, descuentos ni fechas que no existen. La confianza vende más."),
+    ("Tres sin respuesta, pausa", "Si no contesta tres mensajes seguidos, deja de escribir y vuelve a intentarlo en dos meses."),
+    ("Termina en pregunta", "Igual que en el primer chat: un mensaje corto y una pregunta al final."),
+]
+SEGUIMIENTO = [  # (cuándo, para qué, mensaje)
+    ("El mismo día de la consulta", "Que se sienta acompañada.",
+     "¡Hola, {nombre}! ¿Cómo te sentiste en tu valoración? Si te quedó alguna duda, aquí estoy para ayudarte 🤍"),
+    ("Día 1 · Cuando le llega la cotización", "Confirmar que la recibió y la entiende.",
+     "¿Te llegó bien tu cotización? Si quieres, te explico qué incluye punto por punto. ¿Tienes alguna pregunta?"),
+    ("Día 3", "Encontrar la duda real.",
+     "¿Ya pudiste revisar tu cotización con calma? Cuéntame qué es lo que más te hace dudar y lo resolvemos juntas."),
+    ("Día 7", "Pasar de la duda a las fechas.",
+     "Te escribo porque las fechas de cirugía se organizan desde el abono. ¿Quieres que miremos qué fechas te quedarían bien?"),
+    ("Día 15 · Solo si su cotización es de promo", "Recordar la vigencia real de la promo.",
+     "Te recuerdo que el valor de tu cotización es de la promo de fin de año: la cirugía debe hacerse antes del " + FECHA_LIMITE + ". ¿Te ayudo a mirar fechas?"),
+    ("Día 30", "Reactivar sin presión.",
+     "Hola, {nombre}. Solo quería saber cómo vas con tu decisión. Si no es el momento, está bien; cuando quieras retomarlo, aquí estamos 🤍"),
+]
+SEGUIMIENTO_OBJ = [  # objeciones que aparecen DESPUÉS de la cotización
+    ("“Lo voy a pensar”", "¡Claro que sí! Es una decisión importante. ¿Qué es lo que más te hace dudar: el valor, la recuperación o las fechas? Así te ayudo con eso puntual."),
+    ("“Está muy caro”", "Te entiendo. Cuando compares, revisa si la otra cotización incluye quirófano, instrumentador, póliza y bomba de dolor, y si el cirujano es plástico con registro en ReTHUS. ¿Quieres que revisemos la tuya punto por punto?"),
+    ("“Lo tengo que hablar con mi pareja”", "Me parece muy bien. Si quieres, te mando un resumen corto de tu plan para que se lo muestres. ¿Te sirve?"),
+    ("“No tengo todo el dinero ahora”", "Te entiendo. Con el abono de $1.000.000 empezamos a organizar tu cirugía. ¿Quieres que te expliquemos cómo funcionan los pagos?"),
+    ("“Me da miedo”", "Es normal sentirlo. Te puedo contar cómo es la recuperación día a día y qué cuidados tenemos, y la Dra. Valeria te resuelve las dudas médicas. ¿Te gustaría?"),
+    ("“Quiero comparar con otros lugares”", "¡Hazlo! Compara con información completa: que el cirujano sea plástico con registro en ReTHUS, qué incluye el valor y dónde se opera. ¿Te paso el enlace para verificar a tu cirujano en el ReTHUS?"),
+]
+
+
 # ---------------------------------------------------------------- EL CAMINO DEL PACIENTE (proceso comercial, de que escribe a que abona)
 # Cada paso: quién, qué, cómo, alerta (opcional), chat de ejemplo [(lado, quien, texto)] lado = "pac" | "noon" | "int" (interno)
 TERMINOS_URL = "https://noon.clinic/terminos-y-condiciones#t2"
@@ -216,7 +253,7 @@ CAMINO = [
      "chat": [("noon", "Dra. Valeria", "Te comparto tu cotización 📄 Cualquier duda me cuentas.")]},
     {"ico": "chat", "corto": "Seguimiento", "quien": "Equipo comercial", "foto": "",
      "que": "Le haces seguimiento hasta que decida.",
-     "como": "Lo acompañas, resuelves dudas y le ayudas a organizar su cirugía.",
+     "como": "Lo acompañas con el plan de mensajes de la sección Seguimiento (día 0, 1, 3, 7, 15 y 30) hasta que decida.",
      "ojo": "",
      "chat": [("noon", "Comercial", "¿Cómo te fue con la cotización? ¿Te ayudo a escoger la fecha de tu cirugía?")]},
     {"ico": "check", "corto": "¡Abona!", "quien": "Paciente → Equipo de cirugía", "foto": "",
@@ -400,7 +437,8 @@ def generar():
              "precio": PRECIO, "lista_precios": [(p["nombre"], it, v, p["slug"], p["tipo"]) for p in procs for it, v in p["precios"]],
              "otros_precios": OTROS_PRECIOS, "video": VIDEO,
              "inter_reglas": INTERNACIONAL_REGLAS, "inter": INTERNACIONAL,
-             "camino": CAMINO, "sim": SIMULADOR, "wa": CHAT_WA, "conf_ej": CONF_EJEMPLO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES}
+             "camino": CAMINO, "sim": SIMULADOR, "wa": CHAT_WA, "conf_ej": CONF_EJEMPLO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES,
+             "seg_reglas": SEGUIMIENTO_REGLAS, "seg": SEGUIMIENTO, "seg_obj": SEGUIMIENTO_OBJ}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:
