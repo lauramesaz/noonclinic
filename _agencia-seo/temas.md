@@ -76,6 +76,7 @@ decide el cirujano en la valoración presencial. Riesgos de combinar y de la lip
 | G4 | manchas-y-melasma | melasma: por qué aparece y cómo se trata (con el sol de Medellín) | colombia | publicado 2026-10-27 |
 | G5 | hilos-tensores | hilos tensores: qué esperar y cuánto dura el efecto | colombia | pendiente |
 | G6 | lipopapada | papada: opciones con y sin cirugía | colombia | en pausa (cubierto por la ficha /papada-sin-cirugia, 20-oct) |
+| G7 | criolipolisis | criolipólisis: por zona o por copa, qué preguntar antes de pagar | colombia | pendiente |
 
 Medicina estética: datos de duración, sesiones y cuidados SOLO de las fichas publicadas (`../datos_noon.py`,
 `criolipolisis.html`) o de fuentes oficiales agregadas a `hechos.md` (FDA, INVIMA, sociedades). Nada de marcas
@@ -89,6 +90,7 @@ comerciales como promesa; si se nombran productos, solo los que noon usa y está
 | H3 | mini-abdominoplastia + abdominoplastia | mini abdominoplastia o abdominoplastia completa | colombia | publicado 2026-10-26 |
 | H4 | hilos-tensores + lifting-facial | hilos tensores o lifting facial | colombia | publicado 2026-11-02 |
 | H5 | acido-hialuronico + rinoplastia | rinomodelación con ácido hialurónico o rinoplastia | colombia | pendiente |
+| H6 | skinboosters + bioestimuladores | skinboosters o bioestimuladores: cuál necesita tu piel | colombia | pendiente |
 
 H1: enlaza a la landing `criolipolisis.html` (no es del catálogo: va como enlace en el texto, no en `procedimientos`).
 
@@ -96,7 +98,10 @@ H1: enlaza a la landing `criolipolisis.html` (no es del catálogo: va como enlac
 | # | Keyword ES | Keyword EN | Público | Estado |
 |---|---|---|---|---|
 | I1 | de qué depende el precio de una cirugía plástica en Colombia | plastic surgery in Colombia cost: what the price depends on | eeuu | publicado 2026-10-23 |
+| I2 | abdominoplastia en Medellín: qué debe incluir el precio (quirófano, anestesia, póliza) | — (solo español) | colombia | pendiente |
+| I3 | aumento de senos: qué incluye el precio y qué preguntar antes de decidir | — (solo español) | colombia | pendiente |
 
+G7, I2, I3 (3-nov, por la pauta: son las búsquedas de "precio" que más traen WhatsApp): explicar cómo se cobra y qué preguntar —por zona o por copa, quirófano con anestesia, póliza, implantes, prenda— sin dar NUNCA un precio de noon; G7 enlaza a `criolipolisis.html`, I2 a la ficha de abdominoplastia, I3 a la de mamoplastia de aumento.
 I1: qué sube o baja una cotización y qué debe incluir un presupuesto honesto (`INSTRUCCIONES.md` §1). Nunca un precio de noon.
 Search Console ya muestra "colombian plastic surgery prices" y "rhinoplasty colombia cost".
 
@@ -105,7 +110,7 @@ rinoplastia y mentoplastia, mastopexia con y sin implantes, labios, ojeras, rino
 cirugía. Ninguna guía nueva compite con ellas: si un tema las toca, toma otro ángulo y enlaza a la ficha.
 
 ## Lista de turnos (después de E3, en este orden)
-F1 · H1 · G1 · F2 · I1 · H2 · G2 · F3 · H3 · G4 · F4 · G3 · H4 · F5 · G5 · H5 · F6 · G6
+F1 · H1 · G1 · F2 · I1 · H2 · G2 · F3 · H3 · G4 · F4 · G3 · H4 · G7 · I2 · F5 · I3 · H6 · G5 · H5 · F6 · G6
 
 Cuando queden menos de 5 `pendiente`, el Redactor propone 10 nuevos y los añade al final, mezclando
 los dos públicos (mitad Colombia, incluida medicina estética; mitad EE. UU.). Primero lee
