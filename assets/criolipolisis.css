@@ -72,7 +72,7 @@ h3 { letter-spacing: -.02em; }
 .cl-mas-btn { margin-top: clamp(30px, 4vw, 44px); }
 .js .cl-rev { opacity: 0; transform: translateY(22px); transition: opacity .9s var(--suave), transform .9s var(--suave); }
 .js .cl-rev.on { opacity: 1; transform: none; }
-@keyframes cl-sube { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes cl-sube { from { opacity: .01; transform: translateY(18px); } to { opacity: 1; transform: none; } }  /* .01 y no 0: se ve igual, pero el celular cuenta la portada desde el primer momento (velocidad) */
 @keyframes cl-entra { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
 /* ---------- 1 · portada ---------- */
