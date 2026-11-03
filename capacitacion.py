@@ -458,6 +458,8 @@ COMPARAR = [  # (cirugía, precio noon, lo típico publicado, cómo estamos, fra
      "Fíjate si te cotizaron solo la lipo o también la lipotransferencia, y si trae faja y masajes: en muchos lugares los masajes de la recuperación se pagan aparte. Aquí van la faja, los masajes, la póliza y la bomba de dolor."),
     ("Abdominoplastia", "Se cotiza", "13,5 a 16 millones", "Depende de cada cotización · el dato es de la abdominoplastia sola",
      "Tu cotización es por escrito, en quirófano y con póliza de complicaciones. Así puedes comparar punto por punto: pregunta en el otro lugar si su precio trae quirófano con anestesia, póliza, bomba de dolor y faja."),
+    ("Criolipólisis", "$800.000 por zona", "699.000 a 912.500 por zona o copa", "En el medio (por debajo si el abdomen completo cuenta como una zona)",
+     "¡Es normal comparar! Pregunta si ese precio es por zona o por copa: a veces una zona necesita 2 copas o más. En noon el precio es por sesión por zona, y siempre empieza con una valoración médica para saber si es para ti."),
     ("Rinoplastia", "Se cotiza", "11 a 14 millones", "Depende de cada cotización",
      "Te la cotizamos por escrito en tu valoración, en quirófano y con póliza de complicaciones. Así puedes comparar punto por punto."),
 ]
