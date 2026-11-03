@@ -1033,7 +1033,9 @@ pagina("preguntas-frecuentes.html", "Preguntas frecuentes", "Respuestas sobre va
 opciones = ('<optgroup label="Cirugía plástica">%s</optgroup>' % "".join('<option data-slug="%s">%s</option>' % (c["slug"], c["nombre"]) for c in CIRUGIAS_NOON)
             + '<optgroup label="Medicina estética">%s</optgroup>' % "".join('<option data-slug="%s">%s</option>' % (t["slug"], t["nombre"]) for t in TRATAMIENTOS))
 pagina("valoracion.html", "Agenda tu valoración", "Todo empieza con tu valoración con nuestros especialistas. Agéndala por WhatsApp.",
-       hero("seda-oscura", "Primer paso", "Tu <em>valoración</em>.", "Una conversación clínica empieza por entender qué quieres preservar.")
+       hero("seda-oscura", "Primer paso", "Tu <em>valoración</em>.", "Una conversación clínica empieza por entender qué quieres preservar.",
+            alto="completo", extra='<div class="hero-acciones rev"><a class="boton lleno" href="%s" target="_blank" rel="noopener">Quiero agendar por WhatsApp</a></div>'
+                  '<p class="nota-hero rev">Te respondemos en minutos por WhatsApp, en horario de atención.</p>' % wa())
        + '''<section class="valoracion">
   <div class="texto rev"><p class="ceja">Qué pasa en tu valoración</p><h2 class="h-val">Una conversación, no una venta.</h2>%(lista)s%(tc)s</div>
   <form class="form rev" id="form-valoracion" data-wa="%(wa)s">
@@ -1042,7 +1044,8 @@ pagina("valoracion.html", "Agenda tu valoración", "Todo empieza con tu valoraci
     <label>Tu nombre<input id="nombre" name="nombre" required autocomplete="given-name"></label>
     <label>¿Qué te interesa?<select id="cirugia" name="cirugia">%(op)s<option>Aún no estoy segura</option></select></label>
     <label>Ciudad donde vives<input id="ciudad" name="ciudad" required autocomplete="address-level2"></label>
-    <button class="boton lleno" type="submit">Continuar en WhatsApp</button>
+    <button class="boton lleno" type="submit">Quiero agendar por WhatsApp</button>
+    <p class="nota-form">Te respondemos en minutos por WhatsApp, en horario de atención.</p>
     <p class="legal">Al escribirnos aceptas nuestros <a href="terminos-y-condiciones.html">términos y condiciones</a>. Este formulario no guarda tus datos.</p>
   </form>
 </section>''' % {"wa": WHATSAPP, "op": opciones,
