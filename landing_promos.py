@@ -152,7 +152,8 @@ def _items(b):
                 "incluye": [INC[k] for k in p.get("incluye", [])],
                 "inc": p.get("incluye", []),
                 "h1": p.get("h1") or H1.get(s) or c.get("nombre", "").lower(),
-                "foto": "/assets/capacitacion/%s.jpg" % (p.get("foto") or FOTO.get(s, s)),
+                "foto": "/assets/capacitacion/%s-900.webp" % (p.get("foto") or FOTO.get(s, s)),  # liviana para el celular
+                "og": "/assets/capacitacion/%s.jpg" % (p.get("foto") or FOTO.get(s, s)),  # la jpg, para la vista al compartir
             }
             out.append(it)
     return out
@@ -243,13 +244,14 @@ def _pagina(b, items, actual):
                         "wa": b.WHATSAPP, "msj": MSJ}, ensure_ascii=False).replace("</", "<\\/")
 
     foto = it["foto"] if it else doc_foto
+    og = it["og"] if it else doc_foto
     wa_actual = _wa(b, it["nombre"]) if it else _wa(b)
     barra_n = escape(it["nombre"]) if it else "Promos de fin de año"
     barra_p = (("Desde " if it["desde"] else "") + it["precio"] if it["precio"] else "Precio en tu valoración") if it else "Desde $10.900.000"
 
-    clarity = ('<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;'
+    clarity = ('<script>addEventListener("load",function(){setTimeout(function(){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;'
                't.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","%s");'
-               'clarity("set","idioma","es");clarity("set","pagina","promos");clarity("set","tipo","landing");clarity("set","cx",%s);</script>') % (
+               'clarity("set","idioma","es");clarity("set","pagina","promos");clarity("set","tipo","landing");clarity("set","cx",%s);},1200)});</script>') % (
         b.CLARITY_ID, json.dumps(actual or "general"))
 
     return """<!doctype html>
@@ -265,21 +267,19 @@ def _pagina(b, items, actual):
 <meta property="og:site_name" content="noon Clinic">
 <meta property="og:title" content="%(titulo)s">
 <meta property="og:description" content="%(desc)s">
-<meta property="og:image" content="%(dominio)s%(foto)s">
+<meta property="og:image" content="%(dominio)s%(og)s">
 <meta property="og:locale" content="es_CO">
 %(clarity)s
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="/assets/favicon.png">
 <script>document.documentElement.className="js"</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="%(foto)s">
+%(fuentes)s
+<link rel="preload" as="image" href="%(foto)s" fetchpriority="high">
 <link rel="stylesheet" href="/assets/promos.css?v=%(v)s">
 </head>
 <body class="pr%(general)s" data-cx="%(actual)s">
 <header class="pr-cab">
-  <a class="pr-logo" href="/" aria-label="noon Clinic, inicio"><img src="/assets/logo-noon.png" alt="noon Clinic" width="900" height="295"></a>
+  <a class="pr-logo" href="/" aria-label="noon Clinic, inicio"><img src="/assets/logo-noon-s.webp" alt="noon Clinic" width="360" height="118"></a>
   <a class="pr-btn-borde" href="%(wa)s" target="_blank" rel="noopener" data-wa>Agendar</a>
 </header>
 <main>
@@ -296,7 +296,7 @@ def _pagina(b, items, actual):
       <p class="pr-ya"><i></i>Te respondemos en minutos por WhatsApp</p>
     </div>
     <figure class="pr-arco">
-      <img data-h="foto" src="%(foto)s" alt="" width="1200" height="900">
+      <img data-h="foto" src="%(foto)s" alt="" width="1200" height="900" fetchpriority="high">
       <div class="pr-doc"><img src="%(doc_foto)s" alt="" width="1120" height="1400"><div>%(doc)s<span>Cirujano plástico reconstructivo · ReTHUS</span></div></div>
     </figure>
   </div>
@@ -372,7 +372,7 @@ def _pagina(b, items, actual):
 
 </main>
 <footer class="pr-pie">
-  <a class="pr-logo" href="/"><img src="/assets/logo-noon.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
+  <a class="pr-logo" href="/"><img src="/assets/logo-noon-s.webp" alt="noon Clinic" width="360" height="118" loading="lazy"></a>
   <nav><a href="/">Conoce noon</a><a href="/especialistas">Especialistas</a><a href="/terminos-y-condiciones">Términos</a><a href="%(wa)s" target="_blank" rel="noopener" data-wa>WhatsApp %(tel)s</a></nav>
   <p class="pr-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Toda cirugía tiene riesgos y los resultados varían de una persona a otra. Fotos ilustrativas: Unsplash. © noon Clinic</p>
 </footer>
@@ -386,7 +386,7 @@ def _pagina(b, items, actual):
 <script src="/assets/promos.js?v=%(v)s" defer></script>
 </body>
 </html>
-""" % {"medicion": b.HEAD_MEDICION, "titulo": escape(titulo), "desc": escape(desc), "dominio": b.DOMINIO, "foto": foto, "clarity": clarity, "v": b.V,
+""" % {"medicion": b.HEAD_MEDICION, "titulo": escape(titulo), "desc": escape(desc), "dominio": b.DOMINIO, "fuentes": b.FUENTES.replace("assets/fuentes/", "/assets/fuentes/"), "foto": foto, "og": og, "clarity": clarity, "v": b.V,
        "general": "" if it else " pr-general", "actual": actual or "", "wa": wa_actual, "flecha": ico("flecha", "ico-f"),
        "ico_lupa": ico("lupa"), "ico_medico": ico("medico"), "ico_cruz": ico("cruz"), "ico_reloj": ico("reloj"),
        "h1": _titulo(it), "precio": _precio(it), "incluye": _incluye(it, True), "atajos": atajos, "total": len(items),

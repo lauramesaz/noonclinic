@@ -222,9 +222,9 @@ def generar(b):
             '\n<meta property="og:locale" content="es_CO">') % (escape(TITULO), escape(DESCRIPCION), url, b.DOMINIO)
     for bloque in [b.CLINICA_LD] + esquema:
         seo += '\n<script type="application/ld+json">%s</script>' % json.dumps(bloque, ensure_ascii=False)
-    seo += ('\n<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;'
+    seo += ('\n<script>addEventListener("load",function(){setTimeout(function(){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;'
             't.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","%s");'
-            'clarity("set","idioma","es");clarity("set","pagina","criolipolisis");clarity("set","tipo","landing");</script>') % b.CLARITY_ID
+            'clarity("set","idioma","es");clarity("set","pagina","criolipolisis");clarity("set","tipo","landing");},1200)});</script>') % b.CLARITY_ID
 
     html = """<!doctype html>
 <html lang="es">
@@ -246,7 +246,7 @@ def generar(b):
 <div class="cl-aura" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="cl-grano" aria-hidden="true"></div>
 <header class="cl-cab">
-  <a class="cl-logo" href="./" aria-label="noon Clinic, inicio"><img src="assets/logo-noon.png" alt="noon Clinic" width="900" height="295"></a>
+  <a class="cl-logo" href="./" aria-label="noon Clinic, inicio"><img src="assets/logo-noon-s.webp" alt="noon Clinic" width="360" height="118"></a>
   <a class="cl-btn2 cl-vidrio" href="%(wa)s" target="_blank" rel="noopener">Agendar</a>
 </header>
 <main>
@@ -421,7 +421,7 @@ def generar(b):
 </main>
 <footer class="cl-pie">
   <div class="cl-in cl-pie-in">
-    <a class="cl-logo" href="./"><img src="assets/logo-noon.png" alt="noon Clinic" width="900" height="295" loading="lazy"></a>
+    <a class="cl-logo" href="./"><img src="assets/logo-noon-s.webp" alt="noon Clinic" width="360" height="118" loading="lazy"></a>
     <nav><a href="./">Conoce noon</a><a href="medicina-estetica">Medicina estética</a><a href="especialistas">Especialistas</a><a href="terminos-y-condiciones">Términos</a><a href="%(wa)s" target="_blank" rel="noopener">WhatsApp %(tel)s</a></nav>
   </div>
   <p class="cl-in cl-legal">La información de esta página es orientativa y no reemplaza una consulta médica. Los resultados varían de una persona a otra. Las fotos de las sesiones son ilustrativas. © noon Clinic</p>
