@@ -2,8 +2,12 @@
 # noon Clinic · LANDING DE PROMOS DE FIN DE AÑO · cirugía plástica (noon.clinic/promos/)
 # Una sola landing para TODAS las cirugías: cada pauta cae "pre abierta" en su cirugía (noon.clinic/promos/lipo,
 # /promos/mamoplastia-de-aumento, …) y desde ahí la paciente puede mirar las demás sin salir de la página.
-# Pedido de Laura (19-oct-2026): promos de fin de año, cirujano plástico reconstructivo con ReTHUS, los mejores
-# quirófanos de la ciudad, la misión (precios bajos para combatir la ilegalidad) y los precios de promo.
+# Pedido de Laura (19-oct-2026): promos de fin de año, cirujano plástico reconstructivo con ReTHUS, el quirófano,
+# la misión (precios bajos para combatir la ilegalidad) y los precios de promo.
+# 4-nov-2026 (plan comercial, "arreglos de confianza"): fuera el superlativo del quirófano (la ética médica, Ley 23 de 1981,
+# pide no decir "el mejor"; el dato comprobable convence más) → "Quirófano habilitado, nunca un consultorio" y "salas de
+# cirugía habilitadas de Q2"; la devolución en pesos (1.000.000 abonado → 800.000 de vuelta, según la retención de los
+# términos); cuenta regresiva real al 15 de enero (cuenta_regresiva.py) y, en las 4 con precio, "el saldo por partes".
 # DISEÑO "A · Blanco y arco" (elegido por Laura el 19-oct entre 3 propuestas; la v1 negra/vino le pareció horrible):
 # estilo Apple (blanco, mucho aire, letra grande y apretada con la 2.ª línea en gris cálido), toques marfil, foto en ARCO,
 # un solo contraste = botón NEGRO, punto champaña como detalle de fin de año. Sin menú. Todo a WhatsApp.
@@ -20,6 +24,33 @@ VIGENCIA = "15 de enero de 2027"   # = FECHA_LIMITE de datos.py (términos): la 
 VALORACION = "$200.000"
 RETHUS = "https://web.sispro.gov.co/THS/Cliente/ConsultasPublicas/ConsultaPublicaDeTHxIdentificacion.aspx"
 from datos import MENSAJE_WA as MSJ  # el mismo mensaje de toda la web, en todas las cirugías (decisión de Laura, 19-oct-2026)
+from datos import SEDE_QX, RETENCION
+import cuenta_regresiva
+
+# Abono para separar la fecha (el mismo de la capacitación: "El paciente abona su cirugía: $1.000.000") y lo que se devuelve
+# si la paciente desiste: lo abonado menos la retención de los términos (RETENCION de datos.py, hoy 20 %) → 800.000.
+# Va en pesos, no en porcentaje (plan del 4-nov-2026): se entiende a la primera.
+ABONO = 1000000
+DEVUELVE = ABONO * (100 - int(RETENCION.rstrip("% "))) // 100
+
+
+def pesos(n, signo="$"):
+    """1000000 → '$1.000.000' (formato colombiano)."""
+    return signo + "{:,}".format(int(n)).replace(",", ".")
+
+
+SALDO = "El saldo lo puedes pagar por partes, antes de tu cirugía."  # solo en las cirugías con precio de promo
+CUENTA_DESPUES = "Separa tu fecha con %s." % pesos(ABONO)
+# En línea (no en promos.css) para no mover la versión ?v= de toda la web. Con la cuenta, "Todo incluido" se acerca a ella.
+# Celular (para que el botón siga cabiendo a 375×650, como se dejó el 3-nov): el título baja de 36 a 34 px en 375 (las 4 con
+# precio quedan en 2-3 líneas en vez de 3-4, sin el "año." suelto) y la línea del saldo va en la fila de la cirugía, que llega
+# abierta justo debajo; en computador va también en la portada.
+CSS_EXTRA = """<style>
+.pr-saldo{color:var(--tinta)}
+.pr-cx-inc .pr-saldo{display:block;margin-top:6px}
+.pr-inc + .pr-cuenta{margin-top:-14px}
+@media (max-width:760px){.pr-portada h1{font-size:clamp(32px,9vw,38px)}.pr-inc .pr-saldo{display:none}.pr-inc + .pr-cuenta{margin-top:-8px}}
+</style>"""
 # EXCEPCIÓN (Laura, 27-oct-2026): quien llega del anuncio de Google escribe "vengo de Google (<cirugía abierta>)" para que el
 # equipo cuente los chats de la pauta. La cirugía = su "h1" (lipo, aumento de senos…); sin cirugía elegida = TEMA_GENERAL.
 import wa_google
@@ -88,7 +119,7 @@ H1 = {"lifting-facial": "lifting facial", "recambio-de-implantes": "recambio de 
 # ---------------------------------------------------------------- misión
 MISION = [
     ("medico", "Cirujano plástico certificado", "Especialista en cirugía plástica, estética y reconstructiva, con registro en ReTHUS."),
-    ("cruz", "En quirófano, nunca en consultorio", "Te operamos en los mejores quirófanos de la ciudad."),
+    ("cruz", "Quirófano habilitado, nunca un consultorio", "Te operamos en las salas de cirugía de " + SEDE_QX + ", en Medellín."),
     ("escudo", "Póliza de complicaciones", "Si algo pasa, no lo enfrentas sola ni con tu bolsillo."),
 ]
 REVISA = [
@@ -106,12 +137,13 @@ PREGUNTAS = [
     ("¿El precio de la promo es el precio final?", "Sí. Es un paquete cerrado: incluye los honorarios del cirujano, el instrumentador, el quirófano, la póliza de complicaciones, la bomba de dolor y tu prenda posquirúrgica; además los implantes o los masajes cuando tu cirugía los lleva. Si en la valoración se define algo adicional, te lo cotizamos por escrito antes de que decidas."),
     ("¿Qué no está incluido?", "La cita de valoración (" + VALORACION + "), los exámenes prequirúrgicos, los medicamentos para tomar en casa y, si vienes de otra ciudad, tu viaje y hospedaje."),
     ("¿Por qué es más barato que en otros lugares?", "Porque es nuestra misión: que el precio no empuje a nadie a operarse con quien no es cirujano plástico o en un lugar que no es un quirófano. Es el mismo cirujano, el mismo quirófano y los mismos estándares; lo que cambia es que te damos un solo precio con todo adentro."),
-    ("¿Dónde me operan?", "En los mejores quirófanos de la ciudad, en salas de cirugía habilitadas. Nunca operamos en consultorios."),
+    ("¿Dónde me operan?", "En Medellín, en las salas de cirugía habilitadas de " + SEDE_QX + ". Nunca en un consultorio."),
     ("¿Hasta cuándo es la promo?", "Los precios de fin de año aplican para cirugías realizadas antes del " + VIGENCIA + ". Escríbenos y te confirmamos las fechas de quirófano disponibles."),
     ("¿Me va a doler?", "Vas a sentir molestia los primeros días, y para eso está la bomba de dolor: entrega analgesia de forma continua en los días más incómodos. Va incluida en las promos."),
     ("¿Y las cirugías que no muestran precio?", "Te las cotizamos en tu valoración, con todo por escrito y antes de que tomes cualquier decisión."),
     ("¿La valoración tiene costo?", "Sí, " + VALORACION + ". Es una consulta médica completa con el cirujano: te examina y te dice qué cirugía es para ti, o si no eres candidata. No se abona a la cirugía y su valor no se devuelve."),
-    ("Si abono y me arrepiento, ¿me devuelven el dinero?", "Sí, con una retención del 20% de lo abonado por gastos administrativos. El detalle está en los términos y condiciones."),
+    ("Si abono y me arrepiento, ¿me devuelven el dinero?", "Sí. Si abonas %s y luego decides no operarte, te devolvemos %s. Si abonaste más, se retienen %s de cada millón, por gastos administrativos. La valoración no se devuelve. El detalle está en los <a href=\"/terminos-y-condiciones\">términos y condiciones</a>." % (
+        pesos(ABONO), pesos(DEVUELVE), pesos(ABONO - DEVUELVE))),
 ]
 # atajos de la portada (las más buscadas); "Ver las 21" lleva a la lista completa
 ATAJOS = ["lipo", "mamoplastia-de-aumento", "mastopexia-con-implantes", "abdominoplastia", "rinoplastia"]
@@ -190,7 +222,8 @@ def _incluye(it, portada=False):
         return "Todo incluido: cirujano, quirófano, póliza y bomba de dolor."
     if it["inc"]:
         claves = [k for k in it["inc"] if not (portada and k == "instrumentador")]
-        return "Todo incluido: %s." % escape(_lista_texto([INC_CORTO[k] for k in claves]))
+        saldo = ' <span class="pr-saldo">%s</span>' % SALDO if it["precio"] else ""  # las 4 con precio de promo
+        return "Todo incluido: %s.%s" % (escape(_lista_texto([INC_CORTO[k] for k in claves])), saldo)
     return "En quirófano y con póliza de complicaciones. El valor te lo damos por escrito en tu valoración."
 
 
@@ -278,6 +311,7 @@ def _pagina(b, items, actual):
 %(fuentes)s
 <link rel="preload" as="image" href="%(foto)s" fetchpriority="high">
 <link rel="stylesheet" href="/assets/promos.css?v=%(v)s">
+%(css_cuenta)s
 </head>
 <body class="pr%(general)s" data-cx="%(actual)s">
 <header class="pr-cab">
@@ -294,6 +328,7 @@ def _pagina(b, items, actual):
       <h1 data-h="titulo">%(h1)s</h1>
       <p class="pr-precio" data-h="precio">%(precio)s</p>
       <p class="pr-inc" data-h="incluye">%(incluye)s</p>
+      %(cuenta)s
       <a class="pr-btn pr-btn-xl" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración %(flecha)s</a>
       <p class="pr-ya"><i></i>Te respondemos en minutos por WhatsApp</p>
     </div>
@@ -340,7 +375,7 @@ def _pagina(b, items, actual):
       <h2>%(doc)s,<br><span>cirujano plástico reconstructivo.</span></h2>
       <ul class="pr-razones">
         <li>%(ico_medico)s<div><b>Registro en ReTHUS</b><span>El registro oficial del Ministerio de Salud. <a href="%(rethus)s" target="_blank" rel="noopener">Verifícalo tú misma</a></span></div></li>
-        <li>%(ico_cruz)s<div><b>Los mejores quirófanos de la ciudad</b><span>Salas de cirugía habilitadas, nunca un consultorio.</span></div></li>
+        <li>%(ico_cruz)s<div><b>Quirófano habilitado, nunca un consultorio</b><span>En las salas de cirugía de %(sede)s, en Medellín.</span></div></li>
         <li>%(ico_reloj)s<div><b>Te ve antes, durante y después</b><span>Te valora, te opera y te acompaña en tus controles.</span></div></li>
       </ul>
       <a class="pr-btn" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración %(flecha)s</a>
@@ -367,6 +402,7 @@ def _pagina(b, items, actual):
   <div class="pr-panel pr-marfil pr-cierre-in pr-rev">
     <p class="pr-ceja"><i></i>Promos de fin de año</p>
     <h2>Cierra el año con la cirugía<br><span>que llevas tiempo pensando.</span></h2>
+    %(cuenta)s
     <a class="pr-btn pr-btn-xl" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración %(flecha)s</a>
     <p class="pr-nota">Precios para cirugías realizadas antes del %(vigencia)s. La valoración (%(valoracion)s) no se abona a la cirugía y su valor no se devuelve. <a href="/terminos-y-condiciones">Términos y condiciones</a></p>
   </div>
@@ -383,6 +419,7 @@ def _pagina(b, items, actual):
   <a class="pr-btn" href="%(wa)s" target="_blank" rel="noopener" data-wa>Quiero mi valoración</a>
 </div>
 <script type="application/json" id="pr-datos">%(datos)s</script>
+%(script_cuenta)s
 %(google)s
 <script src="/assets/medicion-ads.js?v=%(v)s" defer></script>
 <script src="/assets/promos.js?v=%(v)s" defer></script>
@@ -394,7 +431,8 @@ def _pagina(b, items, actual):
        "h1": _titulo(it), "precio": _precio(it), "incluye": _incluye(it, True), "atajos": atajos, "total": len(items),
        "tabs": tabs, "zona": zona, "filas": filas, "mision": mision, "revisa": revisa, "pasos": pasos, "preguntas": preguntas,
        "rethus": RETHUS, "doc": doc["nombre"], "doc_foto": doc_foto, "doc_web": doc_web, "vigencia": VIGENCIA, "valoracion": VALORACION,
-       "tel": b.TELEFONO, "barra_n": barra_n, "barra_p": barra_p, "datos": datos,
+       "tel": b.TELEFONO, "barra_n": barra_n, "barra_p": barra_p, "datos": datos, "sede": SEDE_QX,
+       "cuenta": cuenta_regresiva.bloque(CUENTA_DESPUES), "css_cuenta": cuenta_regresiva.CSS + CSS_EXTRA, "script_cuenta": cuenta_regresiva.script(),
        "google": wa_google.script({"": MSJ_GOOGLE % TEMA_GENERAL, **{x["slug"]: MSJ_GOOGLE % x["h1"] for x in items}})}
 
 
@@ -407,4 +445,7 @@ def generar(b):
     for actual in [None] + [x["slug"] for x in items]:
         with open(os.path.join(carpeta, (actual or "index") + ".html"), "w", encoding="utf-8") as f:
             f.write(_pagina(b, items, actual))
-    return len(items) + 1
+    # "¿Vienes en diciembre?" (promos/vienes-en-diciembre y promos/holidays): mismas promos, para quien vive afuera.
+    # Se arman aquí (y no en build.py) porque viven en promos/ y usan estos mismos precios.
+    import landing_afuera
+    return len(items) + 1 + landing_afuera.generar(b, carpeta)
