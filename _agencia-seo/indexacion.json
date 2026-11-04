@@ -1,5 +1,5 @@
 {
- "fecha": "2026-11-03",
+ "fecha": "2026-11-04",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
@@ -71,7 +71,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "guias",
-   "rastreo": "2026-10-31"
+   "rastreo": "2026-11-03"
   },
   "https://noon.clinic/blefaroplastia": {
    "en_google": true,
@@ -153,13 +153,13 @@
   },
   "https://noon.clinic/breast-lift-with-implants-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/breast-lift-without-implants-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -344,10 +344,10 @@
    "rastreo": "2026-10-25"
   },
   "https://noon.clinic/es-seguro-operarse-en-colombia": {
-   "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "en_google": true,
+   "estado": "Enviada e indexada",
    "grupo": "guias",
-   "rastreo": ""
+   "rastreo": "2026-11-03"
   },
   "https://noon.clinic/especialistas": {
    "en_google": true,
@@ -425,7 +425,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "guias",
-   "rastreo": "2026-11-02"
+   "rastreo": "2026-11-03"
   },
   "https://noon.clinic/how-long-to-stay-in-colombia-after-plastic-surgery": {
    "en_google": true,
@@ -435,13 +435,13 @@
   },
   "https://noon.clinic/how-to-choose-a-plastic-surgeon-in-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/international-patients": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -524,10 +524,10 @@
    "rastreo": "2026-10-25"
   },
   "https://noon.clinic/lipo-360-medellin": {
-   "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "en_google": true,
+   "estado": "Enviada e indexada",
    "grupo": "en",
-   "rastreo": ""
+   "rastreo": "2026-11-03"
   },
   "https://noon.clinic/lipo-en-medellin-para-pacientes-de-estados-unidos": {
    "en_google": true,
@@ -560,10 +560,10 @@
    "rastreo": "2026-11-02"
   },
   "https://noon.clinic/liposuction-in-medellin-colombia": {
-   "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "en_google": true,
+   "estado": "Enviada e indexada",
    "grupo": "en",
-   "rastreo": ""
+   "rastreo": "2026-11-03"
   },
   "https://noon.clinic/liposuction-medellin": {
    "en_google": true,
@@ -749,13 +749,13 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "guias",
-   "rastreo": "2026-10-03"
+   "rastreo": "2026-11-03"
   },
   "https://noon.clinic/operarme-en-diciembre-en-colombia": {
-   "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "en_google": true,
+   "estado": "Enviada e indexada",
    "grupo": "guias",
-   "rastreo": ""
+   "rastreo": "2026-11-03"
   },
   "https://noon.clinic/operarte-en-medellin-desde-bogota-cali-o-barranquilla": {
    "en_google": true,
@@ -843,7 +843,7 @@
   },
   "https://noon.clinic/plastic-surgery-in-medellin-from-miami": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -921,7 +921,7 @@
   },
   "https://noon.clinic/rhinoplasty-and-chin-surgery-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -932,16 +932,16 @@
    "rastreo": "2026-10-29"
   },
   "https://noon.clinic/rhinoplasty-medellin": {
-   "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "en_google": true,
+   "estado": "Enviada e indexada",
    "grupo": "en",
-   "rastreo": ""
+   "rastreo": "2026-11-03"
   },
   "https://noon.clinic/rinomodelacion": {
-   "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "en_google": true,
+   "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": ""
+   "rastreo": "2026-11-03"
   },
   "https://noon.clinic/rinoplastia": {
    "en_google": true,
@@ -1083,7 +1083,7 @@
   },
   "https://noon.clinic/when-can-i-fly-after-liposuction": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },

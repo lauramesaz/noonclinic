@@ -76,7 +76,7 @@ decide el cirujano en la valoración presencial. Riesgos de combinar y de la lip
 | G4 | manchas-y-melasma | melasma: por qué aparece y cómo se trata (con el sol de Medellín) | colombia | publicado 2026-10-27 |
 | G5 | hilos-tensores | hilos tensores: qué esperar y cuánto dura el efecto | colombia | pendiente |
 | G6 | lipopapada | papada: opciones con y sin cirugía | colombia | en pausa (cubierto por la ficha /papada-sin-cirugia, 20-oct) |
-| G7 | criolipolisis | criolipólisis: por zona o por copa, qué preguntar antes de pagar | colombia | pendiente |
+| G7 | criolipolisis | criolipólisis: por zona o por copa, qué preguntar antes de pagar | colombia | publicado 2026-11-04 |
 
 Medicina estética: datos de duración, sesiones y cuidados SOLO de las fichas publicadas (`../datos_noon.py`,
 `criolipolisis.html`) o de fuentes oficiales agregadas a `hechos.md` (FDA, INVIMA, sociedades). Nada de marcas
