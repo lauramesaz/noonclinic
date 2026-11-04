@@ -478,6 +478,152 @@ NO_PROMETER = [  # solo lo que va escrito en la cotización está incluido
 ]
 
 
+# ---------------------------------------------------------------- CIERRE DE FIN DE AÑO (plan del Comercializador Digital, 4-nov-2026)
+# Hasta el 15 de enero, para las pacientes que YA tienen cotización. No reemplaza Seguimiento: es su versión de cierre.
+# Cada dato sale de los términos (puntos 2 a 6), de /promos, de /formas-de-pago y del cotizador:
+#   el abono de $1.000.000 separa la fecha · el saldo se paga "según tu plan por escrito", completo antes de la cirugía (punto 3)
+#   si desiste, se retiene RETENCION de TODO lo pagado (punto 4.2): de $1.000.000 se devuelven $800.000
+#   la valoración ($200.000) no se abona ni se devuelve · la cotización vence a los VIGENCIA_MESES meses (cotizador)
+#   el 15 de enero solo se nombra en las 4 promos con precio (aumento, las dos mastopexias, lipo y lipotransferencia).
+# Welli: hoy NO está activa, así que no se ofrece; cuando se active, va siempre con su aviso legal.
+# Sin porcentajes, sin "últimos cupos" inventados, sin resultados y sin "el mejor".
+from datos import VALORACION, RETENCION
+from cotizador import VIGENCIA_MESES
+
+TU_COTIZACION = "https://noon.clinic/tu-cotizacion"
+VIENES_DICIEMBRE = "https://noon.clinic/promos/vienes-en-diciembre"
+ABONO = 1000000  # separa la fecha de la cirugía (parada "¡Abona!" del camino del paciente)
+CIERRE_FIN = "2027-01-15"  # = FECHA_LIMITE; la página calcula sola cuántas semanas faltan
+WELLI_AVISO = "Financiación con Welli. noon no presta dinero. Sujeto a estudio y aprobación de la entidad."
+
+
+def _pesos(n):
+    return "$" + format(int(round(n)), ",").replace(",", ".")
+
+
+_DEVUELVE = 1 - int(RETENCION.rstrip("%")) / 100  # lo que se devuelve de cada peso pagado si desiste (términos 4.2)
+_AB = _pesos(ABONO)
+_EJ_TOTAL = 26800000  # ejemplo de plan de pagos: la cotización del medio (plan comercial, jugada 4)
+_EJ_PARTE = (_EJ_TOTAL - ABONO) // 2
+_EJ_PAGADO = ABONO + _EJ_PARTE  # ya abonó y pagó la primera parte
+
+CIERRE = {
+    "fin": CIERRE_FIN,
+    "secuencia": [  # (cuándo · qué, qué haces)
+        ("Día 1 · Llega la cotización", "Le mandas la página de su cotización y le ofreces explicársela en 5 minutos."),
+        ("Día 3 · La duda", "Le preguntas qué la frena: el valor, la recuperación o la fecha."),
+        ("Día 7 · La plata y la llamada", "Le cuentas que el saldo se puede pagar por partes. Si no ha respondido nada, ese día la llama la Dra. Valeria."),
+        ("Día 15 · Comparar", "Le ofreces revisar la otra cotización, punto por punto."),
+        ("Última semana", "Promo: las últimas fechas antes del 15 de enero. Las demás: 7 días antes de que se venza su cotización."),
+    ],
+    "reglas": [
+        ("Fechas reales, siempre", "Las fechas de quirófano te las da la Dra. Valeria. Nunca ofrezcas una que ella no te dio."),
+        ("El 15 de enero, solo en promo", "Solo va en las 4 promos con precio: aumento de senos, las dos mastopexias y la lipo con lipotransferencia. "
+         "A las demás les dices “tu cotización vence el …” (vence a los %d meses de hecha)." % VIGENCIA_MESES),
+        ("Tres sin respuesta, espera", "Si no contestó el día 1, ni el 3, ni el 7, no le escribas más hasta el mensaje de la última semana. Y ese es el último."),
+        ("Antes de enviar, mira su cotización", "Si es de Bogotá, quita “con anestesia” (allá la consulta preanestésica va aparte). Si no trae bomba de dolor, quítala de la frase."),
+    ],
+    "mensajes": [  # (título, [(etiqueta, texto)], mensaje, ojo, enlace interno)
+        ("Día 1 · Llega la cotización",
+         [("Para qué", "Que tenga a la mano qué paga y cómo separar su fecha. Sirve también para retomar a las que ya tienen cotización.")],
+         "¡Hola, {nombre}! Te habla {asesora}, de noon Clinic 🤍 Para que lo tengas todo a la mano, te dejo en una sola página lo que ya va en tu cotización de {cirugía} y cómo separar tu fecha: " + TU_COTIZACION + "\n"
+         "Tu precio ya trae el cirujano, el quirófano con anestesia, la póliza de complicaciones y la bomba de dolor. Si quieres, te la explico en una llamada de 5 minutos. ¿Te queda mejor hoy o mañana?",
+         "Si es de Bogotá, quita “con anestesia”. Si su cotización no trae bomba de dolor, quítala de la frase.", None),
+        ("Día 3 · La duda",
+         [("Para qué", "Encontrar qué la frena.")],
+         "Hola, {nombre}, ¿cómo vas? Cuéntame qué es lo que más te hace dudar: el valor, la recuperación o la fecha. Me dices cuál y te mando justo eso. "
+         "Y si es la fecha, te consigo dos opciones de quirófano para que las mires con calma. ¿Te parece?", "", None),
+        ("Día 7 · La plata (y la llamada)",
+         [("Para qué", "Que vea que no necesita tener toda la plata hoy.")],
+         "{nombre}, te cuento cómo funciona el pago, por si te sirve: separas tu fecha con " + _AB + " y el resto lo puedes pagar por partes, con un plan por escrito. "
+         "Lo único es que tiene que quedar completo antes de tu cirugía. Y desde el día que abonas, tu precio se respeta. ¿Te armo un plan de pagos con una fecha tentativa?",
+         "Si no ha respondido nada desde el día 1, avísale hoy a la Dra. Valeria para la llamada de 5 minutos. En las promos, el precio se respeta si la cirugía es antes del 15 de enero.", None),
+        ("Día 15 · Comparar",
+         [("Para qué", "Que compare con todo sumado y por escrito.")],
+         "{nombre}, si estás comparando con otra cotización, me parece muy bien: es lo que haría yo. Mándamela (tapa tu nombre y tu cédula) y te digo punto por punto qué trae cada una: "
+         "quirófano con anestesia, póliza, bomba de dolor, prenda y si el cirujano es plástico con registro en ReTHUS. ¿Te la reviso hoy?",
+         "", ("#comparar", "Antes de responder, mira Si comparan precios")),
+        ("Última semana · Cirugías de promo",
+         [("Cuándo", "Apenas la Dra. Valeria te diga que para su cirugía ya quedan las últimas fechas antes del 15 de enero (a más tardar, la semana del 28 de diciembre).")],
+         "Hola, {nombre}. Te escribo porque el precio de fin de año es para cirugías hechas antes del 15 de enero, y para la tuya ya solo me quedan estas fechas de quirófano: "
+         "el {fecha 1} y el {fecha 2}. Con " + _AB + " separas la que prefieras. ¿Te reservo una?",
+         "Solo si de verdad son las últimas. Si no, no lo mandes.", None),
+        ("Última semana · Las demás cirugías",
+         [("Cuándo", "7 días antes de que se venza su cotización (vence a los %d meses de hecha)." % VIGENCIA_MESES)],
+         "Hola, {nombre}. Te aviso con tiempo: tu cotización vence el {fecha}. Después toca hacerla de nuevo y el valor puede cambiar. "
+         "Si separas antes con " + _AB + ", tu precio se respeta. ¿Te ayudo a separar esta semana?", "", None),
+    ],
+    "llamada": {
+        "quien": "La hace la Dra. Valeria, el día 7, a la que no ha respondido. Una llamada de la médica pesa más que otro mensaje.",
+        "pasos": [  # (lo que dice, nota para ella)
+            ("Hola, {nombre}, habla la Dra. Valeria Enciso, de noon. ¿Tienes 5 minuticos? Te llamo por tu cotización de {cirugía}.", ""),
+            ("¿Te quedó alguna duda médica de lo que te explicó el doctor en la valoración?", ""),
+            ("Y cuéntame, ¿qué es lo que más te hace dudar: el valor, la recuperación o la fecha?",
+             "Escucha. Si es la plata: el saldo por partes. Si es la recuperación: cómo son los primeros días y, si su cotización la trae, la bomba de dolor. Si es la fecha: dos fechas."),
+            ("Tengo libres el {fecha 1} y el {fecha 2}. ¿Cuál te queda mejor?", ""),
+            ("Si quieres, te aparto una por 48 horas mientras lo hablas en tu casa. ¿Te la aparto?",
+             "Apartar sin abono solo lo hace la Dra. Valeria. Si a las 48 horas no ha abonado, la fecha se libera."),
+        ],
+        "si_no": "“Tranquila, ¿te parece si te escribo en un mes?”",
+        "regla": "Nunca resultados, nunca presión.",
+    },
+    "fechas": {
+        "msj": "{nombre}, para tu {cirugía} tengo libres el {fecha 1} y el {fecha 2}. ¿Cuál te queda mejor?",
+        "nota": "Dos fechas concretas, no “¿cuándo puedes?”: así es más fácil decidir. Solo fechas reales que te dé la Dra. Valeria.",
+    },
+    "dudas": [  # (lo que dice la paciente, respuesta para copiar, [lo que tú debes saber], enlace interno)
+        ("“No tengo toda la plata”",
+         "Te entiendo, {nombre}, es mucha plata para pagarla de una. Por eso separas tu fecha con " + _AB + " y el resto lo vas pagando por partes, con un plan por escrito, "
+         "hasta completarlo antes de tu cirugía. Si cuentas con tu prima de diciembre, puede ser una de las partes. ¿Te armo el plan con tu fecha?",
+         ["Así se ve un plan: cirugía de %s el 12 de enero → %s hoy · %s el 18 de diciembre · %s el 4 de enero." % (_pesos(_EJ_TOTAL), _AB, _pesos(_EJ_PARTE), _pesos(_EJ_PARTE)),
+          "La fecha límite del saldo la indica noon al reservar. Sin el pago completo no hay cirugía.",
+          "La prima se paga a más tardar el 20 de diciembre. Este año el 20 cae domingo: muchas empresas la pagan el viernes 18.",
+          "Si se arrepiente: de %s abonado se le devuelven %s. Si ya pagó partes, la retención es sobre todo lo pagado: de %s se le devuelven %s. La valoración (%s) no se devuelve."
+          % (_AB, _pesos(ABONO * _DEVUELVE), _pesos(_EJ_PAGADO), _pesos(_EJ_PAGADO * _DEVUELVE), VALORACION),
+          "Financiación con Welli: todavía no está activa, así que no la ofrezcas. Cuando lo esté, siempre va con su aviso: “" + WELLI_AVISO + "”"],
+         None),
+        ("“Lo voy a pensar con mi pareja”",
+         "¡Claro que sí! Me parece muy bien que lo hablen juntos. Te dejo esta página para que la vean con calma: " + TU_COTIZACION + "\n"
+         "Ahí está qué trae tu precio y cómo se separa la fecha. Si les queda alguna duda, me escriben y se la resuelvo. ¿Te parece?",
+         [], None),
+        ("“En otro lado me sale más barato”",
+         "Te entiendo, y qué bueno que compares. Mándame la otra cotización (tapa tu nombre y tu cédula) y te digo punto por punto qué trae cada una, "
+         "porque muchas veces la diferencia está en lo que no sale en el precio. ¿Te la reviso?",
+         ["Nunca nombres ni critiques a otra clínica."],
+         ("#comparar", "Mira Si comparan precios: lo típico afuera, por cirugía, y qué responder")),
+        ("“Vivo afuera” o “vengo en diciembre”",
+         "¡Qué bueno que nos escribas desde allá! Puedes hacerte la valoración virtual antes de viajar y, si el cirujano te la indica, operarte cuando llegues. "
+         "Aquí te explico cómo funciona: " + VIENES_DICIEMBRE + "\n¿En qué fechas vienes a Medellín?",
+         ["Lo primero es saber en qué fechas llega: con eso se arma todo.", "Si la valoración es virtual, la Dra. Valeria le pide las fotos.",
+          "Si su cirugía es de promo, tiene que hacerse antes del 15 de enero."],
+         None),
+    ],
+    "no_decir": [  # (lo que no se dice, qué decir en cambio)
+        ("“Últimos cupos” o “quedan pocas fechas”", "Solo si la Dra. Valeria te lo confirmó. Si no, di las fechas que hay: “tengo libres el … y el …”."),
+        ("Resultados: “vas a quedar…”, “garantizado”, “sin riesgo”", "Mejor: “el doctor te explica qué se puede lograr en tu caso”. Toda cirugía tiene riesgos."),
+        ("“El mejor cirujano” o “los mejores quirófanos”", "Mejor lo que se puede comprobar: cirujano plástico con registro en ReTHUS y quirófano habilitado, nunca un consultorio."),
+        ("Descuentos que no existen", "Ni de Black Friday ni “solo por hoy”. Los precios son los de la lista, y por escrito."),
+        ("Cuotas, crédito o “ya te aprobaron”", "Lo que hay hoy es el saldo por partes, con un plan por escrito. Welli todavía no está activa."),
+    ],
+    "rapidas_nota": "Guárdalas una vez en WhatsApp Business (Herramientas para la empresa › Respuestas rápidas). En el atajo escribes la palabra, por ejemplo tucotizacion. "
+                    "Después, en cualquier chat escribes / y eliges. Antes de enviar, cambia lo que va entre llaves.",
+    "rapidas": [  # (atajo, cuándo, mensaje)
+        ("/tucotizacion", "Cuando le llega la cotización o la retomas",
+         "Te dejo en una sola página lo que ya va en tu cotización y cómo separar tu fecha: " + TU_COTIZACION + "\n¿Te la explico en una llamada de 5 minutos?"),
+        ("/fechas", "Cuando ya está mirando fechas",
+         "Para tu cirugía tengo libres el {fecha 1} y el {fecha 2}. ¿Cuál te queda mejor?"),
+        ("/partes", "Cuando dice que no le alcanza",
+         "Separas tu fecha con " + _AB + " y el resto lo vas pagando por partes, con un plan por escrito, hasta completarlo antes de tu cirugía. ¿Te armo el plan con tu fecha?"),
+        ("/comparartuya", "Cuando está comparando",
+         "Mándame la otra cotización (tapa tu nombre y tu cédula) y te digo punto por punto qué trae cada una. ¿Te la reviso?"),
+        ("/vence", "Cirugías que no son de promo, 7 días antes de que venza",
+         "Te cuento que tu cotización vence el {fecha}. Si separas antes con " + _AB + ", tu precio se respeta. ¿Te ayudo a separar esta semana?"),
+        ("/diciembre", "Vive afuera o viene en diciembre",
+         "Si vienes a Medellín en diciembre, tu valoración puede ser virtual desde allá y, si el cirujano te la indica, la cirugía cuando llegues: " + VIENES_DICIEMBRE + "\n¿En qué fechas llegas?"),
+    ],
+}
+
+
 def generar():
     procs = ([_proc(c, "cx", {k: n for k, n, d, f in CATEGORIAS_CX}) for c in _cirugias()]
              + [_proc(t, "me", {k: n for k, n, d, f in CATEGORIAS_ME}) for t in TRATAMIENTOS if not t.get("nueva")])
@@ -490,7 +636,7 @@ def generar():
              "inter_reglas": INTERNACIONAL_REGLAS, "inter": INTERNACIONAL,
              "camino": CAMINO, "sim": SIMULADOR, "wa": CHAT_WA, "conf_ej": CONF_EJEMPLO, "confirmacion": CONFIRMACION, "reglas_oro": REGLAS_ORO, "quiz": QUIZ, "ciudades": CIUDADES,
              "seg_reglas": SEGUIMIENTO_REGLAS, "seg": SEGUIMIENTO, "seg_obj": SEGUIMIENTO_OBJ, "seg_me": SEGUIMIENTO_ESTETICA, "seg_sin": SEGUIMIENTO_SIN_CITA,
-             "comparar": COMPARAR, "trampas": TRAMPAS, "no_prometer": NO_PROMETER}
+             "comparar": COMPARAR, "trampas": TRAMPAS, "no_prometer": NO_PROMETER, "cierre": CIERRE}
     js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
     html = PLANTILLA.replace("%%DATOS%%", js).replace("%%HASH%%", hashlib.sha256(CODIGO.encode()).hexdigest())
     with open(os.path.join(AQUI, "capacitacion-comercial.html"), "w", encoding="utf-8") as f:

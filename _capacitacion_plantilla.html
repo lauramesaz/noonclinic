@@ -219,6 +219,35 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
   .comp-cx { grid-column:1 / -1; }
   .comp-num { text-align:left; }
 }
+/* ---------- cierre de fin de año (4-nov-2026) ---------- */
+.cuenta { display:inline-flex; align-items:center; gap:8px; margin:16px 0 0; padding:7px 14px; border-radius:999px; background:var(--acento-suave); color:var(--acento); font-weight:700; font-size:14px; }
+.bajada { color:var(--tenue); font-size:15px; margin:-6px 0 16px; max-width:680px; }
+.ph { color:var(--acento); font-weight:700; white-space:nowrap; }
+.msj { overflow-wrap:anywhere; }
+.msj a { color:var(--acento); text-decoration:underline; text-underline-offset:2px; }
+.resp .ojo-c { background:#fff; border:1px solid var(--linea); border-radius:12px; padding:10px 14px; font-size:15px; color:var(--tenue); }
+.resp .ojo-c b { color:var(--acento); }
+.resp .ir-a { margin:14px 0 0; font-size:15px; font-weight:600; }
+.resp .ir-a a { color:var(--acento); }
+.apuntes-eti { font:500 11px var(--display); letter-spacing:.14em; text-transform:uppercase; color:var(--tenue); margin:20px 0 8px; }
+.apuntes { list-style:none; padding:0; margin:0; display:grid; gap:8px; }
+.apuntes li { position:relative; padding-left:18px; font-size:15.5px; line-height:1.55; }
+.apuntes li::before { content:""; position:absolute; left:2px; top:.65em; width:6px; height:6px; border-radius:50%; background:var(--champagne); }
+.llamada { max-width:760px; }
+.llamada ol { list-style:none; counter-reset:paso; margin:6px 0 18px; padding:0; display:grid; gap:14px; }
+.llamada li { counter-increment:paso; display:grid; grid-template-columns:28px minmax(0,1fr); gap:12px; align-items:start; }
+.llamada li::before { content:counter(paso); width:28px; height:28px; border-radius:50%; background:#fff; color:var(--acento); font:700 13px/28px var(--texto); text-align:center; }
+.llamada li b { display:block; font-weight:600; font-size:17px; line-height:1.5; color:#2f2023; }
+.llamada li small { display:block; margin-top:4px; color:#6b5a5d; font-size:14.5px; line-height:1.5; }
+.llamada .si-no { font-weight:400; font-size:16px; margin:0 0 6px; }
+.llamada .si-no.tenue { color:#6b5a5d; margin-bottom:14px; }
+.rapidas { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.rapida { background:var(--panel); border-radius:var(--r); padding:18px; display:flex; flex-direction:column; gap:8px; min-width:0; }
+.rapida code { align-self:flex-start; font:700 14px ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--acento); background:#fff; border:1px solid var(--linea); border-radius:8px; padding:3px 9px; }
+.rapida small { color:var(--tenue); font-size:13.5px; line-height:1.4; }
+.rapida p { margin:0 0 4px; font-size:16px; }
+.rapida .copiar { align-self:flex-start; margin-top:auto; }
+@media (max-width:900px) { .rapidas { grid-template-columns:1fr; } }
 .tabla-precios { border:1px solid var(--linea); border-radius:var(--r); overflow:hidden; }
 .tabla-precios a, .tabla-precios div { display:grid; grid-template-columns:1fr auto; gap:14px; padding:15px 20px; align-items:center; }
 .tabla-precios > * + * { border-top:1px solid var(--linea); }
@@ -700,6 +729,7 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
   <symbol id="i-lista" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></symbol>
   <symbol id="i-precio" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
+  <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
 </svg>
 
 <section class="acceso" id="acceso">
@@ -763,11 +793,13 @@ function menu() {
     <div class="sub"><a href="#${id}" data-r="${id}">Ver todos</a>${cats.map(c => `<a href="#${id}/${encodeURIComponent(c)}" data-r="${id}/${encodeURIComponent(c)}">${esc(c)}</a>`).join("")}</div></details>`;
   $("#nav").innerHTML = `<a href="#inicio" data-r="inicio">${ico("casa")}Inicio</a><a href="#camino" data-r="camino">${ico("flecha")}El camino del paciente</a>
     <p class="titulo-nav">Procedimientos</p>${grupo("cirugia", "Cirugía plástica", "bisturi", D.cats_cx)}${grupo("estetica", "Medicina estética", "gota", D.cats_me)}
-    <p class="titulo-nav">Ventas</p><a href="#precios" data-r="precios">${ico("lista")}Lista de precios</a><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#seguimiento" data-r="seguimiento">${ico("check")}Seguimiento</a><a href="#comparar" data-r="comparar">${ico("precio")}Si comparan precios</a><a href="#exterior" data-r="exterior">${ico("chat")}Pacientes del exterior</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
+    <p class="titulo-nav">Ventas</p><a href="#precios" data-r="precios">${ico("lista")}Lista de precios</a><a href="#responder" data-r="responder">${ico("chat")}Cómo responder</a><a href="#seguimiento" data-r="seguimiento">${ico("check")}Seguimiento</a><a href="#cierre" data-r="cierre">${ico("reloj")}Cierre de fin de año</a><a href="#comparar" data-r="comparar">${ico("precio")}Si comparan precios</a><a href="#exterior" data-r="exterior">${ico("chat")}Pacientes del exterior</a><a href="#disponibilidad" data-r="disponibilidad">${ico("cal")}Disponibilidad</a>`;
 }
 
 /* ---------- copiar ---------- */
-const copiar = t => `<button class="copiar" type="button" data-t="${esc(t)}">${ico("copiar")}Copiar mensaje</button>`;
+const copiar = (t, l = "Copiar mensaje") => `<button class="copiar" type="button" data-t="${esc(t)}">${ico("copiar")}${l}</button>`;
+// mensaje para mostrar: saltos de línea, enlaces y lo que va entre llaves resaltado (lo que se copia es el texto tal cual)
+const ph = s => esc(s).replace(/\n/g, "<br>").replace(/https:\/\/[^\s<]+/g, u => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`).replace(/\{[^}]+\}/g, m => `<span class="ph">${m}</span>`);
 document.addEventListener("click", e => {
   const b = e.target.closest(".copiar"); if (!b) return;
   navigator.clipboard.writeText(b.dataset.t).then(() => { const a = $("#aviso"); a.classList.add("ver"); setTimeout(() => a.classList.remove("ver"), 1400); });
@@ -852,7 +884,7 @@ function seguimiento() {
   <div class="cabeza"><h1>Seguimiento</h1><p>Para no perder pacientes: a quien escribió y no agendó, y a quien ya tuvo su valoración y no ha abonado. Cambia <b>{nombre}</b> por el nombre de la paciente antes de enviar.</p></div>
   <section class="seccion" style="margin-top:26px"><div class="seccion-cab"><h2>Reglas del seguimiento</h2></div><div class="reglas">${D.seg_reglas.map(([t, x]) => `<div class="regla"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
   <section class="seccion"><div class="seccion-cab"><h2>Si escribió y no agendó la valoración</h2></div><p class="nota" style="margin:-6px 0 14px">Cambia <b>{procedimiento}</b> por lo que preguntó. Si no contesta estos tres, pausa dos meses.</p><div class="faq">${D.seg_sin.map(([c, p, m]) => `<details><summary>${esc(c)}</summary><div class="resp"><p><b>Para qué:</b> ${esc(p)}</p><p>${esc(m)}</p>${copiar(m)}</div></details>`).join("")}</div></section>
-  <section class="seccion"><div class="seccion-cab"><h2>Después de la valoración: qué escribir y cuándo</h2></div><div class="faq">${D.seg.map(([c, p, m], i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(c)}</summary><div class="resp"><p><b>Para qué:</b> ${esc(p)}</p><p>${esc(m)}</p>${copiar(m)}</div></details>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Después de la valoración: qué escribir y cuándo</h2></div><p class="nota" style="margin:-6px 0 14px">Hasta el 15 de enero, a las que ya tienen cotización escríbeles con <a href="#cierre" style="color:var(--acento);font-weight:600">Cierre de fin de año</a>.</p><div class="faq">${D.seg.map(([c, p, m], i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(c)}</summary><div class="resp"><p><b>Para qué:</b> ${esc(p)}</p><p>${esc(m)}</p>${copiar(m)}</div></details>`).join("")}</div></section>
   <section class="seccion"><div class="seccion-cab"><h2>Si te responde con una duda</h2></div><div class="faq">${D.seg_obj.map(([q, r]) => `<details><summary>${esc(q)}</summary><div class="resp"><p>${esc(r)}</p>${copiar(r)}</div></details>`).join("")}</div></section>
   <p class="nota">¿Te dice que en otro lado es más barato? Mira <a href="#comparar">Si comparan precios</a>: cuánto cobra el mercado y qué responder por cirugía.</p>
   <section class="seccion"><div class="seccion-cab"><h2>Medicina estética: el retoque</h2></div><p class="nota" style="margin:-6px 0 14px">Para pacientes que ya vinieron. Antes de escribir, confirma en Saneo qué se hizo y cuándo.</p><div class="faq">${D.seg_me.map(([c, m]) => `<details><summary>${esc(c)}</summary><div class="resp"><p>${esc(m)}</p>${copiar(m)}</div></details>`).join("")}</div></section>`;
@@ -866,6 +898,45 @@ function comparar() {
   <section class="seccion"><div class="seccion-cab"><div><h2>Por qué afuera <em>parece</em> más barato</h2><p>Lo que muchos precios “desde” dejan por fuera.</p></div></div><div class="reglas">${D.trampas.map(([t, x]) => `<div class="regla"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
   <section class="seccion"><div class="seccion-cab"><h2>No lo prometas</h2></div><div class="reglas">${D.no_prometer.map(([t, x]) => `<div class="regla ojo-np"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
   <p class="nota">Son precios publicados y orientativos (casi todos dicen “desde”). Los revisamos cada pocos meses.</p>`;
+}
+
+/* ---------- cierre de fin de año (hasta el 15 de enero) ---------- */
+function faltan() {
+  const d = Math.ceil((new Date(D.cierre.fin + "T00:00:00") - new Date()) / 864e5);
+  if (d <= 0) return "El precio de fin de año ya terminó: era para cirugías antes del 15 de enero";
+  return d < 14 ? `Faltan ${d} ${d === 1 ? "día" : "días"} para el 15 de enero` : `Faltan ${Math.floor(d / 7)} semanas para el 15 de enero`;
+}
+function cierre() {
+  const C = D.cierre, L = C.llamada;
+  const guionLlamada = "Llamada de 5 minutos · Dra. Valeria\n" + L.pasos.map(([d, n], i) => `${i + 1}. ${d}${n ? ` (${n})` : ""}`).join("\n") + `\nSi dice que no: ${L.si_no}\n${L.regla}`;
+  return `<nav class="migas"><a href="#inicio">Inicio</a>›<span>Cierre de fin de año</span></nav>
+  <div class="cabeza"><h1>Cierre de fin de año</h1><p>Lo que usamos hasta el 15 de enero con las pacientes que ya tienen cotización. Seguimiento sigue igual para lo demás. Antes de enviar, cambia lo que va entre llaves, como <span class="ph">{nombre}</span> o <span class="ph">{fecha 1}</span>.</p>
+    <p class="cuenta">${ico("reloj")}${faltan()}</p></div>
+  <section class="seccion" style="margin-top:30px"><div class="seccion-cab"><h2>Cómo cerramos, paso a paso</h2></div>
+    <p class="bajada">Cinco mensajes y una llamada. Cada uno está abajo, listo para copiar.</p>
+    <div class="tiempo">${C.secuencia.map(([t, x]) => `<div class="paso"><i></i><div><b>${esc(t)}</b><span>${esc(x)}</span></div></div>`).join("")}</div>
+    <div class="reglas" style="margin-top:14px">${C.reglas.map(([t, x]) => `<div class="regla"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Los mensajes, día por día</h2></div>
+    <div class="faq">${C.mensajes.map(([t, info, m, ojo, ir], i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(t)}</summary><div class="resp">
+      ${info.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join("")}<p class="msj">${ph(m)}</p>${ojo ? `<p class="ojo-c"><b>Ojo:</b> ${esc(ojo)}</p>` : ""}${copiar(m)}
+      ${ir ? `<p class="ir-a"><a href="${ir[0]}">${esc(ir[1])} →</a></p>` : ""}</div></details>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>La llamada de 5 minutos</h2></div>
+    <p class="bajada">${esc(L.quien)}</p>
+    <div class="guion llamada"><span class="eti">${ico("chat")}Guion de la Dra. Valeria</span>
+      <ol>${L.pasos.map(([d, n]) => `<li><div><b>“${ph(d)}”</b>${n ? `<small>${esc(n)}</small>` : ""}</div></li>`).join("")}</ol>
+      <p class="si-no"><b>Si dice que no:</b> ${ph(L.si_no)}</p><p class="si-no tenue">${esc(L.regla)}</p>${copiar(guionLlamada, "Copiar guion")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Cierre con dos fechas</h2></div>
+    <div class="guion"><span class="eti">${ico("cal")}Cuando ya está mirando fechas</span><p class="msj">${ph(C.fechas.msj)}</p>${copiar(C.fechas.msj)}</div>
+    <p class="nota" style="margin-top:12px">${esc(C.fechas.nota)}</p></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Si te responde con una duda</h2></div>
+    <div class="faq">${C.dudas.map(([q, r, ap, ir]) => `<details><summary>${esc(q)}</summary><div class="resp"><p class="msj">${ph(r)}</p>${copiar(r)}
+      ${ap.length ? `<p class="apuntes-eti">Para ti (no va en el mensaje)</p><ul class="apuntes">${ap.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+      ${ir ? `<p class="ir-a"><a href="${ir[0]}">${esc(ir[1])} →</a></p>` : ""}</div></details>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Lo que no se dice</h2></div>
+    <div class="reglas">${C.no_decir.map(([t, x]) => `<div class="regla ojo-np"><b>${esc(t)}</b><span>${esc(x)}</span></div>`).join("")}</div></section>
+  <section class="seccion"><div class="seccion-cab"><h2>Respuestas rápidas</h2></div>
+    <p class="bajada">${esc(C.rapidas_nota)}</p>
+    <div class="rapidas">${C.rapidas.map(([a, c, m]) => `<div class="rapida"><code>${esc(a)}</code><small>${esc(c)}</small><p class="msj">${ph(m)}</p>${copiar(m)}</div>`).join("")}</div></section>`;
 }
 
 function exterior() {
@@ -1238,7 +1309,7 @@ document.addEventListener("click", e => {
 function ruta() {
   if ($("#app").hidden) return;
   const h = decodeURIComponent(location.hash.slice(1) || "inicio"), [a, b] = h.split("/");
-  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "seguimiento" ? seguimiento() : a === "comparar" ? comparar() : a === "camino" || a === "simulador" ? camino() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
+  const html = a === "p" ? ficha(b) : a === "cirugia" ? listado("cx", b) : a === "estetica" ? listado("me", b) : a === "responder" ? responder() : a === "seguimiento" ? seguimiento() : a === "cierre" ? cierre() : a === "comparar" ? comparar() : a === "camino" || a === "simulador" ? camino() : a === "exterior" ? exterior() : a === "precios" ? precios() : a === "disponibilidad" ? disponibilidad() : inicio();
   $("#vista").innerHTML = html;
   if (a === "camino" || a === "simulador") { irA(0, true); pintaQuiz(); montaVideo(); }
   if (a === "simulador") setTimeout(() => $("#simulador-sec")?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
