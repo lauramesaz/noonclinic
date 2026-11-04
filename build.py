@@ -1089,6 +1089,11 @@ print("Landing: %s." % _crio(sys.modules[__name__]))
 from landing_promos import generar as _promos
 print("Landing promos: %d páginas en promos/." % _promos(sys.modules[__name__]))
 
+# ================================================================ PÁGINAS DE ENLACE DIRECTO (sin menú, noindex, fuera del sitemap; plan del 4-nov-2026)
+# /tu-cotizacion: la comercial la manda junto con cada cotización y en el primer mensaje de seguimiento.
+from landing_tu_cotizacion import generar as _tu_cotizacion
+print("Página de cierre: %s." % _tu_cotizacion(sys.modules[__name__]))
+
 # ================================================================ AGENCIA SEO INTERNACIONAL (guías ES/EN + hubs + sitemap + robots)
 from guias import generar as _guias
 print("Guías internacionales: %d." % _guias(sys.modules[__name__]))
