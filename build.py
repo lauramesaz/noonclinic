@@ -1093,6 +1093,9 @@ print("Landing promos: %d páginas en promos/." % _promos(sys.modules[__name__])
 # /tu-cotizacion: la comercial la manda junto con cada cotización y en el primer mensaje de seguimiento.
 from landing_tu_cotizacion import generar as _tu_cotizacion
 print("Página de cierre: %s." % _tu_cotizacion(sys.modules[__name__]))
+# /ig: enlace de la bio de Instagram, con WhatsApp "vengo de Instagram" para contar los chats que trae.
+from landing_ig import generar as _ig
+print("Página de la bio de Instagram: %s." % _ig(sys.modules[__name__]))
 
 # ================================================================ AGENCIA SEO INTERNACIONAL (guías ES/EN + hubs + sitemap + robots)
 from guias import generar as _guias
