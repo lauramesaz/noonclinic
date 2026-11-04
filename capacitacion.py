@@ -61,7 +61,7 @@ CIERRES = ["¿Te agendo tu valoración?", "¿Te queda mejor esta semana o la pr�
 # Solo datos verificados (_agencia-seo/hechos.md). Precios siempre en pesos colombianos (COP), nunca convertidos a dólares.
 INTERNACIONAL_REGLAS = [
     ("Pregunta ciudad y fechas", "Desde qué ciudad escribe y cuándo podría viajar. Con eso se arma todo."),
-    ("Valoración presencial", "Se hace en persona al llegar a Medellín. Por WhatsApp solo se adelanta información y se agenda."),
+    ("Valoración presencial", "Se hace en persona al llegar a Medellín. Antes de viajar se adelanta una preconsulta por video con sus fotos para darle un valor estimado por escrito; el especialista lo confirma en la valoración presencial."),
     ("Nunca des fecha para volar", "El regreso lo autoriza el especialista en el control. Recomienda tiquete flexible."),
     ("Acompañante", "Si es cirugía, debe venir con un adulto que la acompañe los primeros días."),
     ("Precios en pesos", "Se dan en pesos colombianos (COP). No los conviertas a dólares."),
@@ -70,12 +70,12 @@ INTERNACIONAL_REGLAS = [
 INTERNACIONAL = [  # (tema, mensaje en español, mensaje en inglés)
     ("Saludo", "¡Hola! Gracias por escribir a noon Clinic en Medellín. ¿Desde qué ciudad nos escribes y para cuándo piensas viajar?",
      "Hi! Thank you for reaching out to noon Clinic in Medellín. Which city are you writing from, and when are you thinking of traveling?"),
-    ("¿Cuánto cuesta?", "El valor se define en tu valoración presencial con el especialista, porque cada plan es personal. ¿Te la agendo para el día que llegues?",
-     "The cost is defined at your in-person consultation with our specialist, because every plan is personal. Would you like us to book it for the day you arrive?"),
+    ("¿Cuánto cuesta?", "Con una preconsulta por video y tus fotos te damos un valor estimado por escrito antes de viajar. El valor final lo confirma el especialista en tu valoración presencial, porque cada plan es personal. ¿Adelantamos tu preconsulta?",
+     "With a video pre-consultation and your photos, we send you an estimated price in writing before you travel. The specialist confirms the final price at your in-person consultation, because every plan is personal. Shall we start your pre-consultation?"),
     ("¿Cuántos días me quedo?", "Como guía: rostro y senos entre 1 y 2 semanas; contorno corporal y combinadas entre 2 y 3 semanas. El regreso lo autoriza tu especialista. ¿Qué fechas tienes en mente?",
      "As a guide: face and breast procedures 1 to 2 weeks; body contouring and combined procedures 2 to 3 weeks. Your specialist confirms when you can fly home. What dates do you have in mind?"),
-    ("¿Hacen valoración virtual?", "La valoración es presencial en Medellín, para que el especialista te examine. Antes de viajar adelantamos tu información por aquí. ¿Qué día llegas?",
-     "Your consultation is in person in Medellín, so the specialist can examine you. Before you travel, we can get your details ready here on WhatsApp. What day do you arrive?"),
+    ("¿Hacen valoración virtual?", "La valoración es presencial en Medellín, para que el especialista te examine. Antes de viajar sí hacemos una preconsulta por video con tus fotos y te damos un valor estimado por escrito. ¿Qué día llegas?",
+     "Your consultation is in person in Medellín, so the specialist can examine you. Before you travel, we do a video pre-consultation with your photos and send you an estimated price in writing. What day do you arrive?"),
     ("¿Es seguro?", "Las cirugías se hacen en salas de cirugía habilitadas en Q2, nunca en un consultorio, y con exámenes previos obligatorios. ¿Te agendo tu valoración?",
      "Surgeries are performed in licensed operating rooms at Q2, never in a doctor's office, and pre-op tests are required. Would you like to book your consultation?"),
     ("¿Y cuando vuelva a casa?", "Seguimos contigo por WhatsApp o videollamada. No reemplaza tus controles en Medellín antes de volar, y ante una urgencia vas a urgencias donde estés. ¿Miramos fechas?",
