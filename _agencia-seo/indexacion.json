@@ -1,5 +1,5 @@
 {
- "fecha": "2026-11-05",
+ "fecha": "2026-11-06",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
@@ -77,7 +77,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-09-28"
+   "rastreo": "2026-11-06"
   },
   "https://noon.clinic/blefaroplastia-en-colombia-en-un-viaje-corto": {
    "en_google": true,
@@ -153,7 +153,7 @@
   },
   "https://noon.clinic/breast-lift-with-implants-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -177,7 +177,7 @@
   },
   "https://noon.clinic/chemical-peel-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -375,7 +375,7 @@
   },
   "https://noon.clinic/facelift-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -447,7 +447,7 @@
   },
   "https://noon.clinic/international-patients": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -677,11 +677,11 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-09-29"
+   "rastreo": "2026-11-06"
   },
   "https://noon.clinic/microneedling-medellin": {
-   "en_google": true,
-   "estado": "Enviada e indexada",
+   "en_google": false,
+   "estado": "Rastreada: actualmente sin indexar",
    "grupo": "en",
    "rastreo": "2026-10-29"
   },
@@ -819,7 +819,7 @@
   },
   "https://noon.clinic/plastic-surgery-in-colombia-from-boston": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -897,7 +897,7 @@
   },
   "https://noon.clinic/radiofrequency-skin-tightening-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1017,7 +1017,7 @@
   },
   "https://noon.clinic/thigh-lift-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1101,7 +1101,7 @@
   },
   "https://noon.clinic/why-noon-clinic": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   }

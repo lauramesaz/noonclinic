@@ -98,7 +98,7 @@ H1: enlaza a la landing `criolipolisis.html` (no es del catálogo: va como enlac
 | # | Keyword ES | Keyword EN | Público | Estado |
 |---|---|---|---|---|
 | I1 | de qué depende el precio de una cirugía plástica en Colombia | plastic surgery in Colombia cost: what the price depends on | eeuu | publicado 2026-10-23 |
-| I2 | abdominoplastia en Medellín: qué debe incluir el precio (quirófano, anestesia, póliza) | — (solo español) | colombia | pendiente |
+| I2 | abdominoplastia en Medellín: qué debe incluir el precio (quirófano, anestesia, póliza) | — (solo español) | colombia | publicado 2026-11-06 |
 | I3 | aumento de senos: qué incluye el precio y qué preguntar antes de decidir | — (solo español) | colombia | pendiente |
 
 G7, I2, I3 (3-nov, por la pauta: son las búsquedas de "precio" que más traen WhatsApp): explicar cómo se cobra y qué preguntar —por zona o por copa, quirófano con anestesia, póliza, implantes, prenda— sin dar NUNCA un precio de noon; G7 enlaza a `criolipolisis.html`, I2 a la ficha de abdominoplastia, I3 a la de mamoplastia de aumento.
