@@ -1,5 +1,5 @@
 {
- "fecha": "2026-11-06",
+ "fecha": "2026-11-07",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
@@ -18,6 +18,12 @@
    "estado": "Enviada e indexada",
    "grupo": "guias",
    "rastreo": "2026-10-29"
+  },
+  "https://noon.clinic/abdominoplastia-en-medellin-que-debe-incluir-el-precio": {
+   "en_google": false,
+   "estado": "Google no reconoce esta URL",
+   "grupo": "guias",
+   "rastreo": ""
   },
   "https://noon.clinic/about-noon-clinic": {
    "en_google": true,
@@ -399,7 +405,7 @@
   },
   "https://noon.clinic/guides": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -680,8 +686,8 @@
    "rastreo": "2026-11-06"
   },
   "https://noon.clinic/microneedling-medellin": {
-   "en_google": false,
-   "estado": "Rastreada: actualmente sin indexar",
+   "en_google": true,
+   "estado": "Enviada e indexada",
    "grupo": "en",
    "rastreo": "2026-10-29"
   },
@@ -813,7 +819,7 @@
   },
   "https://noon.clinic/plastic-surgery-in-colombia-cost-what-the-price-depends-on": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -897,7 +903,7 @@
   },
   "https://noon.clinic/radiofrequency-skin-tightening-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1017,7 +1023,7 @@
   },
   "https://noon.clinic/thigh-lift-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
