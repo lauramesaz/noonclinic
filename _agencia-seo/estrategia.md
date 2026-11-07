@@ -45,7 +45,9 @@ Fuera de EE. UU., más adelante: Puerto Rico y España (Madrid).
 
 ## Lo que la web NO hace (y la agencia respeta)
 
-- No muestra precios. No promete resultados. No hace valoraciones a distancia.
+- No muestra precios de noon, con una sola excepción desde el 7-nov-2026: criolipólisis a $800.000
+  por zona, por sesión, con la valoración médica aparte (`INSTRUCCIONES.md` §1). No promete
+  resultados. No hace valoraciones a distancia.
 
 ## Otras palancas (no son SEO; quedan anotadas para después)
 

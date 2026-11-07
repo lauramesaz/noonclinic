@@ -6,7 +6,9 @@
    existan, que la pieza aparece en el hub correcto y en `sitemap.xml`.
 3. Mientras la fase sea manual: muestra la vista previa local a Laura y espera su visto bueno.
    En fase automática: publica directo.
-4. `git add -A && git commit -m "guía: <título>" && git pull --rebase && git push`.
+4. `git add -A && git commit -m "guía: <título>" && git pull --rebase origin main && git push origin HEAD:main`.
+   Después `git fetch origin` y compara `git rev-parse HEAD` con `git rev-parse origin/main`: deben ser
+   iguales (a veces el push dice "Everything up-to-date" sin subir nada; si no son iguales, repite el push).
 5. A los 1–3 min verifica que `https://noon.clinic/<slug-es>` (y `/<slug-en>` si hay) dan 200.
 6. Marca el tema `publicado` en `temas.md` y agrega la línea en `registro.md`.
 7. Aviso a Laura: título ES, enlace(s), keyword, público, 1 línea de resumen.
