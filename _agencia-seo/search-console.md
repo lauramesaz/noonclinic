@@ -1,7 +1,59 @@
 # Search Console de noon.clinic (foto para la agencia)
 
-La nube no puede abrir Search Console. Esta foto la actualiza cada lunes una tarea en la Mac de
-Laura (solo lectura). Lo más nuevo arriba. Úsala para elegir temas y mejorar piezas flojas.
+Esta foto la saca cada lunes a las 9:30 a. m. la rutina de la nube "revisión SEO de los lunes"
+(`trig_01FQqiZS6GTMc8C7tMK83kNj`) con el usuario robot de Search Console (solo lectura), corriendo
+`python3 _agencia-seo/gsc.py sc-domain:noon.clinic --paises --marca --cruce --seguimiento`. Ya no
+depende del Mac. Lo más nuevo arriba. Úsala para elegir temas (la cola de `temas.md` sale de aquí),
+para la mejora de los miércoles y para no escribir sobre búsquedas que ya tienen página dueña.
+El seguimiento semanal de las 10 fichas va aparte, en `seguimiento-fichas.md`.
+
+## Línea base del plan de 90 días (leída el 7-nov-2026 con el robot; datos del 9-oct al 5-nov)
+
+**Total:** 7 clics · 363 impresiones · CTR 1,9 % · posición media 64,5.
+De los 7 clics, 4 son de la búsqueda "noon clinic" y 3 llegan sin búsqueda visible (Google no muestra
+la consulta).
+
+**Sin la marca (búsquedas que no dicen "noon"):** 0 clics · 231 impresiones en 92 búsquedas distintas ·
+posición media 76,7. Por país: Colombia 0/106 · Estados Unidos 0/61 · España 0/51.
+**Búsquedas sin la marca en primera página** (posición media 10 o mejor, 3 o más impresiones): **0**.
+
+**Países (clics / impresiones, todo):** Colombia 6/178 · Estados Unidos 0/73 · España 1/66 · Brasil 0/12 ·
+Venezuela 0/4 · Argentina 0/3 · Rusia 0/3 · Canadá 0/2 · Hungría 0/2 · México 0/2.
+
+**Búsquedas sin la marca (top 10, impresiones · posición):** mentoplastia y rinoplastia 46 · 74 ·
+lipotransferencia medellín 9 · 80 · otoplasty columbia sc 9 · 75 · redondo beach nonsurgical rhinoplasty
+7 · 75 · brachioplasty nora 6 · 54 · hilos tensores barranquilla 6 · 70 · gynecomastia surgery colombia
+5 · 79 · braquioplastia en medellin 4 · 74 · liposucción medellín 4 · 83 · melasma 4 · 52.
+
+**Búsquedas que compiten** (2 o más páginas de noon para la misma búsqueda, 3 o más impresiones): **10**.
+- "mentoplastia y rinoplastia" (48): /mentoplastia 39 · /rinoplastia-y-mentoplastia 9.
+- "liposucción medellín" (8) y "liposuccion en medellin" (7): reparten entre la guía para EE. UU.
+  /lipo-en-medellin-para-pacientes-de-estados-unidos, /liposuccion, /lipotransferencia-glutea-en-medellin
+  y /liposuction-medellin.
+- "mentoplastia en medellín" (6): /rinoplastia-y-mentoplastia 4 · /cirugia-plastica 2.
+- "gynecomastia surgery colombia" (5): /gynecomastia-surgery-medellin 3 · /ginecomastia 2.
+- "mastopexia bogota" (4): /mastopexia 2 · /mastopexia-con-implantes 2.
+- "lipotransferencia precio colombia medellín" (3): /lipotransferencia-glutea 2 · la guía para EE. UU. 1.
+- "mastopexia precio colombia" (3): /mastopexia-con-implantes 2 · /mastopexia-sin-implantes 1.
+- "mastopexia sin implantes precio colombia" (3): /mastopexia-sin-implantes 2 · /mastopexia 1.
+- "rhinoplasty medellin" (3): /rhinoplasty-medellin 2 · /plastic-surgery-medellin 1.
+- (La marca "noon clinic" sale en 6 páginas: es normal y no cuenta.)
+
+**Cambió de página entre quincenas** (9 al 22-oct → 23-oct al 5-nov): "mentoplastia y rinoplastia" pasó
+de /mentoplastia (33) a /rinoplastia-y-mentoplastia (9 de 15): el arreglo de títulos del 27-oct está
+funcionando, no hay que tocarlo. "gynecomastia surgery colombia" pasó de /ginecomastia a la ficha en inglés.
+
+**Cerca de la primera página:** ninguna por búsquedas que no sean la marca. /especialistas (9,8),
+/medicina-estetica (11) y /tu-proceso (11,5) solo salen por "noon clinic": no cuentan como avance.
+
+**Seguimiento de las 10 fichas** (posición · impresiones): mentoplastia 76 · 43 · lipotransferencia-glutea
+82 · 24 · rinoplastia-y-mentoplastia 84 · 15 · mastopexia-sin-implantes 86 · 17 · braquioplastia 76 · 8 ·
+nutricion 62 · 14 · otoplastia 70 · 8 · liposuccion 84 · 4 · abdominoplastia 82 · 1 ·
+mamoplastia-de-aumento 83 · 2. En el puesto 40 o mejor: 0 de 10 (meta al 7-feb-2027: 4).
+
+**Lectura:** lo que trae Google es de Colombia y casi todo pregunta por una cirugía concreta o por su
+precio, lejos de la primera página (puestos 60 a 98). Por eso la cola nueva de `temas.md` (sección J) sale
+de estas búsquedas, y la agencia deja de reescribir guías con 4 a 9 impresiones.
 
 ## Foto del 2-nov-2026 (últimos 28 días: 4-oct al 31-oct)
 
