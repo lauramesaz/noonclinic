@@ -1,7 +1,8 @@
 # Agente 5 · Juez SEO (≥ 85/100 en cada idioma)
 
 Puntúa cada versión y corrige lo que falte:
-- Keyword en title (≤ 60 car.), h1, entrada, un h2, descripción (140–160 car.) · 25
+- Keyword en title (≤ 46 car., la web le suma " · noon Clinic"; nunca empieza por "<procedimiento> en
+  Medellín"), h1, entrada, un h2, descripción (140–160 car.) · 25
 - Intención de búsqueda cubierta mejor que las 5 primeras de Google · 20
 - Página de ciudad: ≥ 4 elementos propios de la ciudad (no "doorway") · 15 (en guías: profundidad
   y que NO compita con la página del procedimiento: el title nunca es solo "<procedimiento> en

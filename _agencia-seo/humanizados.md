@@ -1,8 +1,57 @@
-# Guías por humanizar (1 par ES+EN por día, la más vieja primero)
+# Guías por humanizar (1 por día, con su par EN si lo tiene)
 
 Estado: [pendiente] → [humanizado AAAA-MM-DD · nota antes→después ES / EN]
-Las guías nuevas ya pasan por el Policía completo; esta lista es la primera tanda (2-oct-2026),
-que salió con el humanizador anterior (más liviano).
+La limpieza la hace el Policía (agente 3) todos los días, como subagente, y el Verificador (agente 4)
+confirma que el fondo quedó idéntico. Solo cambia `actualizado`. Una guía con `actualizado` de hace
+menos de 21 días se salta (se toma la siguiente y se vuelve a ella después).
+
+## Segunda tanda (7-nov-2026): muletillas, moldes y frases copiadas
+
+Salió del plan SEO de 90 días (tarea N01). Entran las guías que tienen al menos una de estas cosas:
+- **"de verdad"**: queda máximo 1 en toda la guía y ninguno en title, h1, intro, entrada ni subtítulos.
+- **Molde "No es X. Es Y"** (o "This isn't X. It's Y") en la entrada, el intro o los subtítulos: se
+  reescribe diciendo directamente lo que sí es.
+- **Frase copiada** de otra guía (8 o más palabras seguidas, según `python3 _agencia-seo/repetidas.py`):
+  se reescribe hasta que `repetidas.py <slug>` salga limpio.
+
+Orden: de la más vista a la menos vista (impresiones de la guía + su par en los 28 días del 9-oct al
+5-nov-2026, robot de Search Console). Con el mismo número, primero la que tiene más problemas.
+No se cambian datos, keyword, enlaces, `slug`, `par` ni `publicado`.
+
+- [humanizado 2026-11-07 · se hizo a mano al armar esta lista: entrada nueva (repetía 9 palabras de la guía de criolipólisis por zona o por copa y el arranque de I1 "dos números que no se parecen entre sí"); "de verdad" 3 → 0 (intro, h2 y cierre); intro nuevo sin el molde de la de criolipólisis; mismos datos, keyword, enlaces y FAQ; repetidas.py limpio] articulos/abdominoplastia-en-medellin-que-debe-incluir-el-precio.html
+- [pendiente] articulos/lipo-en-medellin-para-pacientes-de-estados-unidos.html + articulos/liposuction-in-medellin-colombia.html · 9 impr. en 28 días · "de verdad" ×1 · EN: "isn't X. It's Y" en entrada
+- [pendiente] articulos/lipotransferencia-glutea-en-medellin.html + articulos/bbl-in-medellin-colombia.html · 8 impr. en 28 días · "de verdad" ×2 · EN: "isn't X. It's Y" en entrada, intro · EN copia (descripcion: 8 pal. iguales a liposuction-in-medellin-colombia)
+- [pendiente] articulos/melasma-por-que-aparece-y-como-se-trata.html · 6 impr. en 28 días · "de verdad" ×1 · "No es X. Es Y" en entrada
+- [pendiente] articulos/de-que-depende-el-precio-de-una-cirugia-plastica-en-colombia.html + articulos/plastic-surgery-in-colombia-cost-what-the-price-depends-on.html · 5 impr. en 28 días · "de verdad" ×1 · copia (entrada: 8 pal. iguales a como-prepararse-para-una-cirugia-plastica)
+- [pendiente] articulos/operarme-en-colombia-viviendo-en-estados-unidos.html + articulos/plastic-surgery-in-colombia-as-a-us-resident.html · 4 impr. en 28 días · "de verdad" ×1
+- [pendiente] articulos/recuperacion-de-la-lipotransferencia-glutea-semana-a-semana.html · 3 impr. en 28 días · "de verdad" ×2 · "No es X. Es Y" en entrada
+- [pendiente] articulos/bioestimuladores-de-colageno-que-son-y-para-quien.html · 3 impr. en 28 días · "de verdad" ×2 · "No es X. Es Y" en intro
+- [pendiente] articulos/mini-abdominoplastia-o-abdominoplastia-completa.html · 3 impr. en 28 días · "de verdad" ×1 · "No es X. Es Y" en intro
+- [pendiente] articulos/viajar-acompanada-a-una-cirugia-en-colombia.html + articulos/traveling-with-a-companion-for-surgery-abroad.html · 2 impr. en 28 días · "de verdad" ×3 · "No es X. Es Y" en intro · EN: "isn't X. It's Y" en intro
+- [pendiente] articulos/abdominoplastia-en-colombia-viniendo-de-estados-unidos.html + articulos/tummy-tuck-in-colombia.html · 2 impr. en 28 días · "de verdad" ×1 · "No es X. Es Y" en entrada, intro · EN: "isn't X. It's Y" en entrada, intro
+- [pendiente] articulos/cuantos-dias-quedarse-en-colombia-despues-de-una-cirugia-plastica.html + articulos/how-long-to-stay-in-colombia-after-plastic-surgery.html · 2 impr. en 28 días · "de verdad" ×1 · EN copia (descripcion: 8 pal. iguales a where-to-stay-in-medellin-to-recover-after-surgery; entrada: 8 pal. iguales a when-can-i-fly-after-liposuction)
+- [pendiente] articulos/como-elegir-cirujano-plastico-en-medellin.html + articulos/how-to-choose-a-plastic-surgeon-in-medellin.html · 1 impr. en 28 días · "de verdad" ×3
+- [pendiente] articulos/recuperacion-de-cirugia-plastica-en-medellin-donde-quedarse.html + articulos/where-to-stay-in-medellin-to-recover-after-surgery.html · 0 impr. en 28 días · "de verdad" ×3 · "No es X. Es Y" en entrada, intro · EN: "isn't X. It's Y" en entrada, intro · EN copia (descripcion: 8 pal. iguales a how-long-to-stay-in-colombia-after-plastic-surgery)
+- [pendiente] articulos/mommy-makeover-en-colombia.html + articulos/mommy-makeover-in-colombia.html · 0 impr. en 28 días · "de verdad" ×3 · "No es X. Es Y" en intro · EN: "isn't X. It's Y" en intro
+- [pendiente] articulos/cirugia-plastica-en-vacaciones-de-verano-en-colombia.html + articulos/summer-plastic-surgery-trip-to-colombia.html · 0 impr. en 28 días · "de verdad" ×2 · "No es X. Es Y" en subtítulo · copia (entrada: 8 pal. iguales a operarme-en-diciembre-en-colombia) · EN: "isn't X. It's Y" en subtítulo
+- [pendiente] articulos/que-llevar-para-operarme-en-medellin.html + articulos/what-to-pack-for-plastic-surgery-in-colombia.html · 0 impr. en 28 días · "de verdad" ×3 · "No es X. Es Y" en entrada
+- [pendiente] articulos/es-seguro-operarse-en-colombia.html + articulos/is-it-safe-to-get-plastic-surgery-in-colombia.html · 0 impr. en 28 días · "de verdad" ×1 · "No es X. Es Y" en entrada · EN: "isn't X. It's Y" en entrada · EN copia (entrada: 10 pal. iguales a how-to-choose-a-plastic-surgeon-in-medellin)
+- [pendiente] articulos/criolipolisis-por-zona-o-por-copa-que-preguntar-antes-de-pagar.html · 0 impr. en 28 días · "de verdad" ×3 · "No es X. Es Y" en entrada
+- [pendiente] articulos/cirugia-plastica-en-colombia-desde-nueva-york.html + articulos/plastic-surgery-in-colombia-from-new-york.html · 0 impr. en 28 días · "de verdad" ×2 · copia (entrada: 8 pal. iguales a cirugia-plastica-en-medellin-desde-atlanta)
+- [pendiente] articulos/senales-de-alerta-al-operarse-en-el-exterior.html + articulos/red-flags-medical-tourism-plastic-surgery.html · 0 impr. en 28 días · "de verdad" ×2 · EN: "isn't X. It's Y" en intro
+- [pendiente] articulos/rinoplastia-en-medellin-para-quien-vive-afuera.html + articulos/rhinoplasty-in-medellin-colombia.html · 0 impr. en 28 días · "de verdad" ×2 · EN copia (entrada: 10 pal. iguales a eyelid-surgery-in-colombia)
+- [pendiente] articulos/como-prepararse-para-una-cirugia-plastica.html · 0 impr. en 28 días · "de verdad" ×2 · "No es X. Es Y" en intro
+- [pendiente] articulos/hilos-tensores-o-lifting-facial.html · 0 impr. en 28 días · "de verdad" ×2 · "No es X. Es Y" en entrada
+- [pendiente] articulos/cuando-puedo-volar-despues-de-una-lipo.html + articulos/when-can-i-fly-after-liposuction.html · 0 impr. en 28 días · "de verdad" ×1 · EN copia (descripcion: 10 pal. iguales a how-long-to-stay-in-colombia-after-plastic-surgery; entrada: 8 pal. iguales a how-long-to-stay-in-colombia-after-plastic-surgery)
+- [pendiente] articulos/controles-despues-de-operarme-en-colombia-al-volver-a-estados-unidos.html + articulos/follow-up-care-at-home-after-surgery-in-colombia.html · 0 impr. en 28 días · "de verdad" ×2
+- [pendiente] articulos/aumento-de-senos-en-medellin-desde-estados-unidos.html + articulos/breast-augmentation-in-medellin.html · 0 impr. en 28 días · "de verdad" ×1
+- [pendiente] articulos/cirugia-plastica-en-thanksgiving-en-medellin.html + articulos/thanksgiving-plastic-surgery-trip-medellin.html · 0 impr. en 28 días · "de verdad" ×1
+- [pendiente] articulos/cirugia-plastica-en-medellin-desde-atlanta.html + articulos/plastic-surgery-in-medellin-from-atlanta.html · 0 impr. en 28 días · copia (entrada: 8 pal. iguales a cirugia-plastica-en-colombia-desde-nueva-york; entrada: 9 pal. iguales a cirugia-plastica-en-medellin-desde-orlando)
+- [pendiente] articulos/cirugia-plastica-en-medellin-desde-orlando.html + articulos/plastic-surgery-in-medellin-from-orlando.html · 0 impr. en 28 días · copia (entrada: 9 pal. iguales a cirugia-plastica-en-medellin-desde-atlanta)
+- [pendiente] articulos/blefaroplastia-en-colombia-en-un-viaje-corto.html + articulos/eyelid-surgery-in-colombia.html · 0 impr. en 28 días · EN copia (entrada: 10 pal. iguales a rhinoplasty-in-medellin-colombia)
+- [pendiente] articulos/operarme-en-diciembre-en-colombia.html + articulos/plastic-surgery-in-colombia-over-the-holidays.html · 0 impr. en 28 días · copia (entrada: 8 pal. iguales a cirugia-plastica-en-vacaciones-de-verano-en-colombia)
+
+## Primera tanda (2-oct-2026): guías que salieron con el humanizador liviano
 
 - [humanizado 2026-10-03 · ya estaba en buen nivel (voz propia, dato real, límite honesto); se ajustó el cierre de la sección "Volver al frío" en los dos idiomas para que no sonara a lista de consejos de folleto. Prueba 9/10 ES y 9/10 EN, sin cambios de dato] articulos/cirugia-plastica-en-colombia-desde-boston.html + articulos/plastic-surgery-in-colombia-from-boston.html
 - [humanizado 2026-10-05 · ya estaba en buen nivel (voz propia, dato real, ritmo variado, límite honesto); se suavizó el cierre final en los dos idiomas ("etapa de comparar y hacerte preguntas generales" → "decidiendo y tienes más preguntas que respuestas"; "For the bigger picture" → "If you're still weighing the decision") para que no sonara a cierre de embudo. Prueba 9/10 ES y 9/10 EN, sin cambios de dato ni de keyword] articulos/cirugia-plastica-en-medellin-desde-atlanta.html + articulos/plastic-surgery-in-medellin-from-atlanta.html

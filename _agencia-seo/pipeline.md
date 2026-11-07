@@ -12,7 +12,10 @@ Conocimiento compartido: `INSTRUCCIONES.md`, `estrategia.md`, `hechos.md`, `tema
 | 5 | Juez SEO | `agentes/5-juez-seo.md` | Puntúa el SEO (≥ 85/100) y corrige |
 | 6 | Publicador-Auditor | `agentes/6-publicador.md` | build, revisa la página generada, publica, verifica en vivo y registra |
 
-Semanal (no diario): `agentes/7-analista.md` lee `search-console.md` y mejora la pieza más floja.
+Semanal (no diario): la revisión de los lunes (`agentes/7-analista.md`) deja la foto de Search
+Console y el seguimiento de las 10 fichas. Ritmo de la semana: `INSTRUCCIONES.md` §8.
+En la rutina de la nube, el Policía (3) y el Verificador (4) corren como **subagentes** separados
+(herramienta Agent) y su nota queda en `registro.md`; sin esa evidencia, la pieza queda en `borrador`.
 
 ```
 1 Redactor (ES) → 2 Adaptador (EN) → 3 Policía → 4 Verificador ──(bloquea)──┐
@@ -23,8 +26,11 @@ Semanal (no diario): `agentes/7-analista.md` lee `search-console.md` y mejora la
 
 Reglas de la cadena:
 - Los agentes 1 y 2 leen `notas-humanizador.md` (libreta de multas del Policía) antes de escribir.
-- Cada día, además de la pieza nueva, el Policía humaniza 1 guía vieja (par ES+EN) de
-  `humanizados.md`; pasa por el Verificador y solo cambia `actualizado`.
+- Cada día, además de lo que toque, el Policía humaniza 1 guía vieja (con su par EN si lo tiene) de
+  `humanizados.md` (la primera `[pendiente]` con `actualizado` de hace 21 días o más); pasa por el
+  Verificador y solo cambia `actualizado`.
+- El Policía corre `python3 _agencia-seo/repetidas.py <slug>` antes de aprobar: la entrada, el intro y
+  la descripción no pueden copiar 8 o más palabras seguidas de otra guía.
 - El Verificador manda sobre el Juez SEO: un dato dudoso se quita aunque baje la nota SEO.
 - Si el Verificador bloquea dos veces el mismo tema, se marca `en pausa` en `temas.md` con el
   motivo y se toma el siguiente.

@@ -2,14 +2,14 @@
 
 Lee antes: `../INSTRUCCIONES.md`, `../estrategia.md`, `../hechos.md`, `../temas.md`, `../registro.md` y `../notas-humanizador.md` (multas del Policía: no repitas esos vicios).
 
-1. Toma el siguiente tema `pendiente` de `temas.md` (E3 y después la "lista de turnos") y márcalo
-   `en curso`. Corre `python3 _agencia-seo/dueno.py "<keyword>"` (desde la raíz) y revisa
+1. Toma el siguiente tema `pendiente` de `temas.md` ("lista de turnos" y después "lista de turnos 2";
+   desde el 7-nov-2026 solo público `colombia`) y márcalo `en curso`. Corre `python3 _agencia-seo/dueno.py "<keyword>"` (desde la raíz) y revisa
    `registro.md` y `articulos/` para no repetir keyword ni chocar con una pieza existente ni con la
    página del procedimiento (`INSTRUCCIONES.md` §3: cada búsqueda tiene una página dueña). Si dice
    que una guía ya cubre lo mismo, no escribas otra: marca el tema `en pausa (ya cubierto por <slug>)`
    y toma el siguiente.
-2. Investiga con WebSearch: qué preguntas hace la gente (People Also Ask, foros), qué responden
-   las 5 primeras páginas, y qué falta. Cualquier dato nuevo (vuelo, norma, cifra) que quieras usar
+2. Investiga con WebSearch, **mínimo 3 búsquedas distintas** (anótalas para `registro.md`): qué
+   preguntas hace la gente (People Also Ask, foros), qué responden las 5 primeras páginas, y qué falta. Cualquier dato nuevo (vuelo, norma, cifra) que quieras usar
    va primero a `hechos.md` con fuente y fecha; si no lo puedes confirmar, no lo uses.
 3. Lee las páginas de la web que vas a enlazar (`otra-ciudad.html`, el procedimiento) para no
    contradecirlas.
@@ -19,6 +19,11 @@ Lee antes: `../INSTRUCCIONES.md`, `../estrategia.md`, `../hechos.md`, `../temas.
    medicina estética con `"categoria": "estetica"`.
    En el primer tercio, un enlace dentro del texto a la página del procedimiento principal, y al
    menos 1 enlace a una fuente oficial de `hechos.md`.
+   **`title` de máximo 46 caracteres** (la web le suma " · noon Clinic") que nunca empieza por
+   "<procedimiento> en Medellín". Sin "de verdad" en title, h1, intro, entrada ni subtítulos (máximo 1
+   en todo el texto) y sin el molde "No es X. Es Y" en la entrada, el intro ni los subtítulos.
+   Antes de entregar corre `python3 _agencia-seo/repetidas.py <slug>`: tu entrada no puede copiar 8 o
+   más palabras seguidas de otra guía.
 5. Ángulo propio obligatorio: algo que el lector de esa ciudad o situación reconozca como suyo
    (si vive en Colombia: la incapacidad, quién lo cuida en casa, el sol de Medellín, la cita entre semana).
 

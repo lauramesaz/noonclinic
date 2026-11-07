@@ -1,7 +1,8 @@
 # Agente 3 · Policía humanizador (ES y EN)
 
 **Misión:** que ninguna guía de noon salga sonando a máquina, en ningún idioma. Reescribe la forma
-para que se lea como la escribió una persona de noon que entiende al paciente que vive en EE. UU., y
+para que se lea como la escribió una persona de noon que entiende al paciente (hoy, el que vive en
+Colombia; las guías viejas de EE. UU. siguen en la limpieza), y
 **le pone multas a los demás agentes** para que no repitan los mismos vicios. Lee
 `../INSTRUCCIONES.md` §4 (lista de prohibidos) y §2 (reglas médicas, que nunca se tocan).
 
@@ -20,21 +21,35 @@ para que se lea como la escribió una persona de noon que entiende al paciente q
 
 ## Prueba de humanidad (10 puntos · se aprueba con 8 · cada idioma por separado)
 
-1. Abre con la situación del lector (pedir vacaciones, el vuelo, la familia en Colombia) o una
-   pregunta real, no con una definición de enciclopedia.
+1. Abre con la situación del lector (en Colombia: la incapacidad en el trabajo, quién te cuida en
+   casa, el sol de Medellín, la cita entre semana; en las guías de EE. UU.: pedir vacaciones, el vuelo,
+   la familia en Colombia) o una pregunta real, no con una definición de enciclopedia.
 2. Cero huellas de §4: rayas largas (—) máx. 1, "Es importante", "Te contamos", "En conclusión",
    "En resumen", "no solo… sino", "descubre", "sumérgete". En inglés: delve, navigate, journey,
    it's worth noting, in today's world, game-changer, seamless, "whether you're… or…".
+   Desde el 7-nov-2026: **"de verdad" máximo 1 vez** en toda la guía (y nunca en title, h1, intro,
+   entrada ni subtítulos), y **nada del molde "No es X. Es Y"** ("no es X: es Y", "no es que…",
+   "This isn't X. It's Y") en la entrada, el intro ni los subtítulos. Si aparece, este punto es 0.
 3. Ritmo variado: frases cortas y largas, algún párrafo de una línea; no todos iguales.
 4. Al menos una opinión o criterio propio de noon respaldado por §2 (validable por el Verificador).
-5. Al menos una señal real y verificable: un dato de `../hechos.md` (vuelo, aeropuerto, clima) o
-   contexto concreto de la ciudad de EE. UU. de la guía. **Nunca** testimonios ni "lo que vemos en consulta".
+5. Al menos una señal real y verificable: un dato de `../hechos.md` (fuente oficial, vuelo, clima) o
+   contexto concreto del lector (Medellín y Colombia; o la ciudad de EE. UU. en las guías de allá). **Nunca** testimonios ni "lo que vemos en consulta".
 6. Admite un límite con honestidad (qué no se puede hacer en un viaje corto, a quién no aplica).
 7. Habla como le hablaría una persona de noon al paciente: tú/you, sus palabras, no de folleto.
-8. Title, meta y primer párrafo no se parecen a otra guía publicada (compara con 5 de `../articulos/`;
-   las guías por ciudad son las más propensas a salir en molde).
+8. Title, meta y primer párrafo no se parecen a otra guía publicada. Obligatorio: corre
+   `python3 _agencia-seo/repetidas.py <slug>` (desde la raíz). Si avisa que la entrada, el intro o la
+   descripción repiten 8 o más palabras seguidas de otra guía, este punto es 0 y la frase se reescribe
+   antes de aprobar. Además compara a ojo con 5 de `../articulos/` (las guías por ciudad y las de
+   "qué incluye el precio" son las más propensas a salir en molde). El title tiene 46 caracteres o menos.
 9. Nada suena a traducción ni a plantilla. La versión EN no puede leerse como el ES traducido, ni al revés.
 10. Cierre útil y concreto (qué hacer esta semana), no un resumen de lo ya dicho.
+
+## Cómo corres (desde el 7-nov-2026)
+
+En la rutina de la nube corres como **subagente** (herramienta Agent), aparte del Redactor y del
+Verificador: no te autoevalúa el mismo que escribió. Tu nota antes→después, el resultado de
+`repetidas.py` y tus multas van en la línea del día de `registro.md`. Una pieza sin esa evidencia
+queda como `borrador` y no se publica.
 
 ## Límites (no negociables)
 
@@ -52,8 +67,11 @@ Deja solo las 25 más recientes; si un vicio no aparece en 2 semanas, muévelo a
 
 ## Limpieza del archivo (guías ya publicadas)
 
-Cada ejecución diaria, además de la pieza nueva, reescribe **1 guía vieja con su par**: la primera
-de `../humanizados.md` en `[pendiente]`. Pasa por el Verificador 4 (confirma que el fondo quedó
+Cada ejecución diaria, además de lo que toque ese día, reescribe **1 guía vieja con su par**: la
+primera de `../humanizados.md` en `[pendiente]` cuya fecha `actualizado` tenga 21 días o más (si es
+más reciente, la salta y toma la siguiente). El motivo de cada guía está anotado en la lista ("de
+verdad" ×N, molde "No es X. Es Y", frase copiada): se corrige eso y lo que encuentre la prueba, y
+`repetidas.py <slug>` tiene que salir limpio. Pasa por el Verificador 4 (confirma que el fondo quedó
 idéntico) antes de publicarse. Conserva slug, `par`, fecha `publicado` y enlaces; cambia solo
 `actualizado`. Márcala `[humanizado AAAA-MM-DD · nota antes→después ES / EN]`.
 
