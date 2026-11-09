@@ -61,7 +61,7 @@ ya están publicadas y se quedan como están.
 | F2 | abdominoplastia + lipotransferencia-glutea | lipoabdominoplastia con transferencia glútea: qué es y cómo es la recuperación | colombia | en pausa (cubierto por la ficha /lipoabdominoplastia-con-transferencia-glutea, 20-oct) |
 | F3 | lipotransferencia-glutea | recuperación de la lipotransferencia glútea semana a semana (cuándo sentarse) | colombia | publicado 2026-10-25 |
 | F4 | general | cómo prepararse para una cirugía plástica: exámenes, medicamentos y casa lista | colombia | publicado 2026-10-28 |
-| F5 | mamoplastia-de-aumento | recuperación del aumento de senos: qué esperar las primeras semanas | colombia | pendiente |
+| F5 | mamoplastia-de-aumento | recuperación del aumento de senos: qué esperar las primeras semanas | colombia | publicado 2026-11-09 |
 | F6 | liposuccion | cuándo se ve el resultado final de una liposucción | colombia | pendiente |
 
 F1 y F2: no afirmar que a toda paciente se le hacen juntas. Si se combinan o no, y en cuántos tiempos, lo

@@ -1,5 +1,5 @@
 {
- "fecha": "2026-11-08",
+ "fecha": "2026-11-09",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
@@ -20,10 +20,10 @@
    "rastreo": "2026-10-29"
   },
   "https://noon.clinic/abdominoplastia-en-medellin-que-debe-incluir-el-precio": {
-   "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "en_google": true,
+   "estado": "Enviada e indexada",
    "grupo": "guias",
-   "rastreo": ""
+   "rastreo": "2026-11-08"
   },
   "https://noon.clinic/about-noon-clinic": {
    "en_google": true,
@@ -381,7 +381,7 @@
   },
   "https://noon.clinic/facelift-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -405,7 +405,7 @@
   },
   "https://noon.clinic/guides": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -423,7 +423,7 @@
   },
   "https://noon.clinic/hifu-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -447,7 +447,7 @@
   },
   "https://noon.clinic/how-to-choose-a-plastic-surgeon-in-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -611,7 +611,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-10-22"
+   "rastreo": "2026-11-08"
   },
   "https://noon.clinic/manejo-medico-del-peso": {
    "en_google": true,
@@ -825,7 +825,7 @@
   },
   "https://noon.clinic/plastic-surgery-in-colombia-from-boston": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -903,7 +903,7 @@
   },
   "https://noon.clinic/radiofrequency-skin-tightening-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -927,13 +927,13 @@
   },
   "https://noon.clinic/red-flags-medical-tourism-plastic-surgery": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/rhinoplasty-and-chin-surgery-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1095,7 +1095,7 @@
   },
   "https://noon.clinic/when-can-i-fly-after-liposuction": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
