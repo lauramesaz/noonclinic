@@ -15,3 +15,4 @@ No editar a mano la tabla: la línea de abajo dice qué páginas sigue el script
 | Período (28 días) | mentoplastia | lipotransferencia-glutea | rinoplastia-y-mentoplastia | mastopexia-sin-implantes | braquioplastia | nutricion | otoplastia | liposuccion | abdominoplastia | mamoplastia-de-aumento |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 2026-10-09 a 2026-11-05 | 76 · 43 | 82 · 24 | 84 · 15 | 86 · 17 | 76 · 8 | 62 · 14 | 70 · 8 | 84 · 4 | 82 · 1 | 83 · 2 |
+| 2026-10-11 a 2026-11-07 | 77 · 41 | 81 · 20 | 83 · 17 | 86 · 17 | 76 · 8 | 62 · 14 | 70 · 8 | 84 · 4 | 82 · 1 | 83 · 2 |

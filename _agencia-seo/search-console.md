@@ -7,6 +7,61 @@ depende del Mac. Lo más nuevo arriba. Úsala para elegir temas (la cola de `tem
 para la mejora de los miércoles y para no escribir sobre búsquedas que ya tienen página dueña.
 El seguimiento semanal de las 10 fichas va aparte, en `seguimiento-fichas.md`.
 
+## Foto del 9-nov-2026 (últimos 28 días: 11-oct al 7-nov)
+
+**Total:** 8 clics · 377 impresiones · CTR 2,1 % · posición media 64,9.
+De los 8 clics, 4 son de la búsqueda "noon clinic" y 4 llegan sin búsqueda visible (Google no muestra la consulta).
+
+**Sin la marca (búsquedas que no dicen "noon"):** 0 clics · 241 impresiones en 99 búsquedas distintas ·
+posición media 76,5. Por país: Colombia 0/107 · Estados Unidos 0/68 · España 0/52 · Hungría 0/2 · Puerto Rico 0/2.
+**Búsquedas sin la marca en primera página** (posición media 10 o mejor, 3 o más impresiones): **0**.
+
+**Países (clics / impresiones, todo):** Colombia 7/180 · España 1/67 · Estados Unidos 0/80 · Brasil 0/12 ·
+Pakistán 0/4 · Venezuela 0/4 · Argentina 0/3 · Rusia 0/3 · Bangladés 0/2 · Canadá 0/2.
+
+**Búsquedas sin la marca (top 10, impresiones · posición):** mentoplastia y rinoplastia 46 · 75 ·
+lipotransferencia medellín 9 · 80 · otoplasty columbia sc 9 · 75 · melasma 7 · 53 · redondo beach nonsurgical
+rhinoplasty 7 · 75 · brachioplasty nora 6 · 54 · hilos tensores barranquilla 6 · 70 · gynecomastia surgery
+colombia 5 · 79 · bioestimulador 4 · 67 · braquioplastia en medellin 4 · 74.
+
+**Páginas (top 10, clics / impresiones):** / 5/31 · /especialistas 4/22 · /mentoplastia 0/41 ·
+/lipotransferencia-glutea 0/20 · /plastic-surgery-medellin 0/19 · /ear-surgery-medellin 0/18 ·
+/mastopexia-sin-implantes 0/17 · /rinoplastia-y-mentoplastia 0/17 · /nutricion 0/14 · /ginecomastia 0/10.
+
+**Búsquedas que compiten** (2 o más páginas de noon, 3 o más impresiones): **10** (igual que el 7-nov).
+- "mentoplastia y rinoplastia" (48): /mentoplastia 37 · /rinoplastia-y-mentoplastia 11 (la principal).
+- "liposucción medellín" (8) y "liposuccion en medellin" (7): guía para EE. UU. · /liposuccion · /lipotransferencia-glutea-en-medellin · /liposuction-medellin.
+- "mentoplastia en medellín" (6): /rinoplastia-y-mentoplastia 4 · /cirugia-plastica 2.
+- "gynecomastia surgery colombia" (5): /gynecomastia-surgery-medellin 3 · /ginecomastia 2.
+- "mastopexia bogota" (4): /mastopexia 2 · /mastopexia-con-implantes 2.
+- "lipotransferencia precio colombia medellín" (3): /lipotransferencia-glutea 2 · /lipotransferencia-glutea-en-medellin 1.
+- "mastopexia precio colombia" (3): /mastopexia-con-implantes 2 · /mastopexia-sin-implantes 1.
+- "mastopexia sin implantes precio colombia" (3): /mastopexia-sin-implantes 2 · /mastopexia 1.
+- "rhinoplasty medellin" (3): /rhinoplasty-medellin 2 · /plastic-surgery-medellin 1.
+
+**Cambió de página entre quincenas** (11 al 24-oct → 25-oct al 7-nov): "mentoplastia y rinoplastia" sigue
+pasando de /mentoplastia a /rinoplastia-y-mentoplastia (11 de 17); "gynecomastia surgery colombia" pasó a la ficha
+en inglés; "mastopexia sin implantes precio colombia" pasó a /mastopexia (1 de 2).
+
+**Cerca de la primera página:** ninguna por búsquedas que no sean la marca. /especialistas (9,4),
+/medicina-estetica (11) y /tu-proceso (11,5) solo salen por "noon clinic": no cuentan.
+/plastic-surgery-in-colombia-as-a-us-resident (5,7) con 3 impr. por búsquedas que Google no muestra.
+
+**Seguimiento de las 10 fichas** (posición · impresiones): mentoplastia 77 · 41 · lipotransferencia-glutea
+81 · 20 · rinoplastia-y-mentoplastia 83 · 17 · mastopexia-sin-implantes 86 · 17 · braquioplastia 76 · 8 ·
+nutricion 62 · 14 · otoplastia 70 · 8 · liposuccion 84 · 4 · abdominoplastia 82 · 1 ·
+mamoplastia-de-aumento 83 · 2. La que más subió: rinoplastia-y-mentoplastia (84 → 83).
+En el puesto 40 o mejor: 0 de 10 (meta al 7-feb-2027: 4).
+
+**Indexación:** 186 páginas en el sitemap, **160 en Google**, 26 todavía no (15 "Google no reconoce esta URL",
+11 "Descubierta: actualmente sin indexar"). Faltan sobre todo fichas en inglés para EE. UU. (breast-lift, facelift,
+hifu, prp, thigh-lift, guides, international-patients, why-noon-clinic…) y 2 en español
+(/cirugia-plastica-en-medellin-desde-atlanta, /recuperacion-del-aumento-de-senos-que-esperar-las-primeras-semanas).
+
+**Lectura:** casi igual a la línea base: 8 clics (antes 7), 377 impresiones (antes 363), y siguen sin llegar clics por
+búsquedas sin la marca. Colombia 180 impresiones y EE. UU. 80 (sube de 73): el grueso viene de Colombia, con EE. UU.
+creciendo despacio. Indexadas 160 (antes 151, método comparable con el 2-nov).
+
 ## Línea base del plan de 90 días (leída el 7-nov-2026 con el robot; datos del 9-oct al 5-nov)
 
 **Total:** 7 clics · 363 impresiones · CTR 1,9 % · posición media 64,5.
