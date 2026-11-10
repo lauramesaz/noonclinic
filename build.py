@@ -7,6 +7,7 @@ from urllib.parse import quote
 from datos import *
 from datos_noon import *
 import fichas_en as FE  # versión en inglés de las fichas (datos_noon_en.py)
+from tests_candidata import TESTS as TESTS_CANDIDATA  # test "¿Soy candidata?" de algunas fichas de medicina estética
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 CX = {c["slug"]: c for c in CIRUGIAS}
@@ -688,6 +689,31 @@ def accion_hero(p, cx, quien, msj, en=False):
     return '<div class="hc">%s</div>' % tarjeta
 
 
+def test_candidata(slug, tema):
+    """Sección con el test "¿Soy candidata?" de 1 minuto (tests_candidata.py). Vacía si la ficha no tiene test.
+    Misma mecánica y medición del test de /criolipolisis; la pinta assets/noon.js. Sin precio; el resultado orienta, no diagnostica."""
+    t = TESTS_CANDIDATA.get(slug)
+    if not t:
+        return ""
+    datos = json.dumps({"preguntas": t["preguntas"], "prioridad": t["prioridad"], "resultados": t["resultados"],
+                        "wa": WHATSAPP, "msj": msj_wa(de=tema)}, ensure_ascii=False).replace("</", "<\\/")
+    caja = '''<div class="test rev" data-test aria-live="polite">
+  <div class="test-barra" aria-hidden="true"></div>
+  <p class="test-paso"></p>
+  <h3 class="test-p"></h3>
+  <div class="test-o"></div>
+  <div class="test-r" hidden>
+    <h3 class="test-r-t"></h3>
+    <p class="test-r-d"></p>
+    <div class="botones izq"><a class="boton lleno test-wa" href="#" target="_blank" rel="noopener">Quiero mi valoración</a><a class="boton test-link" href="#" hidden></a></div>
+    <p class="test-nota">%s</p>
+    <button type="button" class="test-otra">Hacer el test otra vez</button>
+  </div>
+</div>
+<script type="application/json" id="test-datos">%s</script>''' % (t["nota"], datos)
+    return seccion("Test de 1 minuto", t["titulo"], caja, intro=t["intro"], sid="test")
+
+
 def ver_tambien(p):
     """Una línea discreta que lleva a otra página relacionada (ej. la criolipólisis desde la lipo)."""
     return "".join('<p class="pista rev ver-tambien">%s <a href="%s">%s</a></p>' % (antes, href, texto) for antes, href, texto in p.get("ver_tambien", []))
@@ -830,9 +856,10 @@ for t in TRATAMIENTOS:
     pagina(t["slug"] + ".html", t["nombre"], t["corto"],
            hero(f, "Medicina estética · " + cat_n, t["nombre"] + " en <em>Medellín</em>", t["corto"], "medio", accion_hero(t, False, "Dra. Valeria Enciso", msj))
            + datos_barra([("Sesiones", d[0]), ("Duración", d[1]), ("Recuperación", d[2]), ("Resultado", d[3])])
-           + subnav([("que-es", "Qué es"), ("para-ti", "Indicado para"), ("especialista", "Especialista"), ("preguntas", "Preguntas")])
+           + subnav([("que-es", "Qué es"), ("para-ti", "Indicado para")] + ([("test", "¿Soy candidata?")] if t["slug"] in TESTS_CANDIDATA else []) + [("especialista", "Especialista"), ("preguntas", "Preguntas")])
            + frase("El tratamiento", t["que_es"][0], t["que_es"][1] if len(t["que_es"]) > 1 else "", "media", sid="que-es")
            + seccion("Indicado para", "Lo que buscas", lineas([(x,) for x in t["ideal"]]) + '<p class="pista rev">La indicación final la da tu médica en la valoración.</p>' + ver_tambien(t), sid="para-ti")
+           + test_candidata(t["slug"], G.minus(t["nombre"]))
            + bloque_especialista("estetica", "Tu valoración y tu tratamiento de %s los realiza la médica estética de noon." % t["nombre"].lower())
            + todo_sobre(t)
            + seccion("Preguntas", "Sobre " + t["nombre"].lower(), faq([("", q, r, []) for q, r in list(t["faq"]) + list(t.get("faq_nuevas", []))]) + ACTUALIZADO, "marfil", sid="preguntas")

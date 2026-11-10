@@ -601,6 +601,62 @@ function msjWA() { return document.body.getAttribute("data-wa") || "Hola, vengo 
 })();
 
 
+// ---------- Test "¿Soy candidata?" de las fichas (toxina botulínica, ácido hialurónico, manchas y melasma).
+// Misma mecánica y misma medición del test de /criolipolisis (assets/criolipolisis.js): una pregunta a la vez, cada opción
+// suma una "bandera" y la de mayor prioridad decide el resultado. En Clarity: evento test_inicio, etiqueta test = resultado
+// y evento test_resultado_<clave>. El resultado orienta, no diagnostica. Los datos salen de tests_candidata.py.
+// El botón abre WhatsApp con la frase de la página y las respuestas detrás (un enlace de verdad: lo cuentan clic_whatsapp y Ads).
+(function () {
+  var caja = document.querySelector("[data-test]"), fuente = document.getElementById("test-datos");
+  if (!caja || !fuente) return;
+  var D;
+  try { D = JSON.parse(fuente.textContent); } catch (_) { return; }
+  function marcar(nombre, valor) { if (!window.clarity) return; if (valor === undefined) window.clarity("event", nombre); else window.clarity("set", nombre, valor); }
+  var barraT = caja.querySelector(".test-barra"), pasoT = caja.querySelector(".test-paso"), preg = caja.querySelector(".test-p"),
+      opc = caja.querySelector(".test-o"), res = caja.querySelector(".test-r");
+  var n = D.preguntas.length, paso = 0, resp = {}, empezado = false;
+  barraT.innerHTML = new Array(n + 1).join("<i></i>");
+  function pintar() {
+    var q = D.preguntas[paso];
+    barraT.querySelectorAll("i").forEach(function (b, i) { b.classList.toggle("on", i <= paso); });
+    pasoT.textContent = "Pregunta " + (paso + 1) + " de " + n;
+    preg.textContent = q.p;
+    opc.innerHTML = "";
+    q.o.forEach(function (o) {
+      var bt = document.createElement("button");
+      bt.type = "button"; bt.textContent = o[0];
+      bt.addEventListener("click", function () { elegir(q.id, o); });
+      opc.appendChild(bt);
+    });
+  }
+  function elegir(id, o) {
+    if (!empezado) { empezado = true; marcar("test_inicio"); }
+    resp[id] = o;
+    if (paso < n - 1) { paso++; pintar(); } else { resultado(); }
+  }
+  function resultado() {
+    var banderas = D.preguntas.map(function (q) { return resp[q.id] ? resp[q.id][1] : "ok"; });
+    var clave = "ok";
+    for (var i = 0; i < D.prioridad.length; i++) if (banderas.indexOf(D.prioridad[i]) > -1) { clave = D.prioridad[i]; break; }
+    var r = D.resultados[clave];
+    barraT.querySelectorAll("i").forEach(function (b) { b.classList.add("on"); });
+    pasoT.hidden = preg.hidden = opc.hidden = true;
+    res.hidden = false;
+    res.querySelector(".test-r-t").textContent = r.t;
+    res.querySelector(".test-r-d").textContent = r.d;
+    var respuestas = D.preguntas.map(function (q) { return q.c + ": " + resp[q.id][0].toLowerCase(); }).join(" · ");
+    res.querySelector(".test-wa").href = "https://wa.me/" + D.wa + "?text=" + encodeURIComponent(D.msj + ". Hice el test de la web. " + respuestas + ".");
+    var enl = res.querySelector(".test-link");
+    if (r.link) { enl.hidden = false; enl.href = r.link[0]; enl.textContent = r.link[1]; } else { enl.hidden = true; }
+    marcar("test", clave); marcar("test_resultado_" + clave);
+  }
+  res.querySelector(".test-otra").addEventListener("click", function () {
+    paso = 0; resp = {}; res.hidden = true; pasoT.hidden = preg.hidden = opc.hidden = false; pintar();
+  });
+  pintar();
+})();
+
+
 // Medición: cada clic a WhatsApp se cuenta en Clarity (evento "clic_whatsapp"), con el idioma y la ciudad de la página.
 document.addEventListener("click", function (e) {
   var a = e.target.closest && e.target.closest('a[href*="wa.me/"]');
