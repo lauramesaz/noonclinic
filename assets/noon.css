@@ -1172,3 +1172,7 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
 /* 3-nov: inmediatez junto a los botones de la valoración */
 .nota-hero { margin-top: 14px; font-size: 14px; color: rgba(242, 239, 232, .82); text-align: center; }
 .nota-form { margin-top: -12px; font-size: 14px; color: var(--tenue); }
+
+/* 9-nov-2026: dirección y horario en el pie */
+.pie-cols a.pie-dir { line-height: 1.5; padding-top: 10px; }
+.pie-hora { color: var(--tenue); font-size: 14px; margin: 4px 0 0; line-height: 1.5; }
