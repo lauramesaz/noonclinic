@@ -2,22 +2,22 @@
 
 Lo actualiza cada mañana la agencia con el usuario robot de Search Console (solo lectura). build.py usa indexacion.json para darles más enlaces internos a las que Google todavía no tiene.
 
-## Revisión del 2026-11-09
+## Revisión del 2026-11-10
 
-**Total:** 160 de 185 páginas en Google.
+**Total:** 160 de 186 páginas en Google.
 
 - Cirugías, tratamientos y páginas de la clínica: **64 de 64** en Google.
-- Guías del blog (español): **38 de 39** en Google.
+- Guías del blog (español): **38 de 40** en Google.
 - Páginas en inglés: **58 de 82** en Google.
 
 ## Por qué no están las demás
 
-- Descubierta: actualmente sin indexar: 15
-- Google no reconoce esta URL: 10
+- Google no reconoce esta URL: 15
+- Descubierta: actualmente sin indexar: 11
 
-### Faltan · Guías del blog (español) (1)
+### Faltan · Guías del blog (español) (2)
 
-/cirugia-plastica-en-medellin-desde-atlanta
+/cirugia-plastica-en-medellin-desde-atlanta, /recuperacion-del-aumento-de-senos-que-esperar-las-primeras-semanas
 
 ### Faltan · Páginas en inglés (24)
 
