@@ -181,7 +181,14 @@ function msjWA() { return document.body.getAttribute("data-wa") || "Hola, vengo 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var msg = "Hola, vengo de la web y estoy interesado en una cita. Soy " + form.nombre.value.trim() + ". Me interesa: " + sel.value + ". Vivo en " + form.ciudad.value.trim() + ".";
-      window.open("https://wa.me/" + form.dataset.wa + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+      // Se abre con un enlace de verdad (no con window.open) para que este contacto se mida igual que cualquier otro botón
+      // de WhatsApp: el clic llega a los mismos contadores (clic_whatsapp en Analytics y Clarity, y la conversión de Google Ads).
+      var enlace = document.createElement("a");
+      enlace.href = "https://wa.me/" + form.dataset.wa + "?text=" + encodeURIComponent(msg);
+      enlace.target = "_blank"; enlace.rel = "noopener"; enlace.hidden = true;
+      form.appendChild(enlace);
+      enlace.click();
+      form.removeChild(enlace);
     });
   }
 

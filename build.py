@@ -154,6 +154,14 @@ document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','""" + GTM_ID + """');</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18513507492"></script>
 <script>gtag("js",new Date());gtag("config","AW-18513507492");</script>"""
+# 9-nov-2026 (tanda de ventas 1): cada clic a WhatsApp mandaba la conversión de Google Ads DOS veces: una desde esta cabecera
+# (el gtag("event","conversion") del listener de arriba) y otra desde assets/noon.js (primer bloque). En las páginas de la web
+# (las que arma pagina()) se quita la de la cabecera y queda SOLO la de noon.js, que es la que respeta "Desactivar" y cuenta un
+# contacto por visita a la página. El evento clic_whatsapp (Analytics, por Tag Manager) y Clarity no cambian.
+# Las landings de pauta (promos, criolipólisis, ig, tu-cotizacion) siguen usando HEAD_MEDICION tal cual.
+_CONVERSION_CABECERA = 'gtag("event","conversion",{send_to:"AW-18513507492/9R4bCKTkjZ0dEKTp9vtE"});'
+assert _CONVERSION_CABECERA in HEAD_MEDICION
+HEAD_MEDICION_WEB = HEAD_MEDICION.replace(_CONVERSION_CABECERA, "")
 WA_EN = "Hi! I live in the US and I'd like information about a consultation at noon Clinic in Medellín."
 BOTON_BUSCAR = '<button class="buscar-btn" type="button" aria-label="Buscar procedimiento"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="txt">Buscar</span></button>'
 MENU_ES = """<div class="menu" id="menu" hidden>
@@ -316,7 +324,7 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
 """ % {"titulo": escape(titulo + (" · noon Clinic" if archivo != "index.html" else "")), "desc": escape(descripcion), "cuerpo": cuerpo,
        "fuentes": FUENTES, "precarga": precarga, "vista": " vista-nueva" if VISTA else "",
        "menu_cx": menu_cx, "menu_me": menu_me, "menu": menu, "v": V, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO,
-       "medicion": HEAD_MEDICION, "lang": lang, "seo": seo, "idioma": idioma, "menu_html": menu_html, "pie_html": pie_html % {"menu_cx": menu_cx, "menu_me": menu_me, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO,
+       "medicion": HEAD_MEDICION_WEB, "lang": lang, "seo": seo, "idioma": idioma, "menu_html": menu_html, "pie_html": pie_html % {"menu_cx": menu_cx, "menu_me": menu_me, "wa": wa(WA_EN if en else "Hola, quiero agendar mi cita de valoración en noon Clinic."), "tel": TELEFONO,
                                                             "redes": "".join('<a href="%s" target="_blank" rel="noopener me">%s</a>' % (u, n) for n, u in REDES)},
        "buscar": "" if en else boton_buscar, "t_menu": "Menu" if en else "Menú", "t_agendar": "Book" if en else "Agendar",
        "h_agendar": wa(WA_EN) if en else "valoracion.html", "t_blank": ' target="_blank" rel="noopener"' if en else ""}
