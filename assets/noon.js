@@ -34,6 +34,9 @@
     window.gtag('config', TAG, {allow_ad_personalization_signals: false,
       allow_google_signals: false, page_location: safeURL.href,
       page_title: 'Noon Clinic', page_referrer: ''});
+    // Ronda 3 (9-nov-2026): la cabecera (build.py) ya trae esta misma librería; pedirla otra vez la bajaba y ejecutaba dos veces.
+    // Solo se pide aquí si la página no la trae. (assets/medicion-ads.js, de las landings, no se tocó en esta ronda.)
+    if (document.querySelector('script[src*="googletagmanager.com/gtag/js?id=' + TAG + '"]')) return;
     var script = document.createElement('script');
     script.async = true;
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + TAG;
@@ -97,6 +100,27 @@ function msjWA() { return document.body.getAttribute("data-wa") || "Hola, vengo 
   if (/[?&]captura/.test(location.search)) document.documentElement.classList.add("captura");
   // direcciones limpias si entran por un link viejo con .html
   if (/\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/index\.html$|\.html$/, "") + location.search + location.hash);
+
+  // Ronda 3 (9-nov-2026): los fondos de seda que quedan lejos de la primera pantalla (tarjetas de "Explora", asistente, cierre)
+  // llegan en data-estilo y se ponen cuando la persona se acerca. Antes se bajaban todos al abrir (≈700 KB en el inicio).
+  var fondos = [].slice.call(document.querySelectorAll("[data-estilo]"));
+  var ponerFondo = function (el) { el.style.cssText = el.getAttribute("data-estilo") + ";" + el.style.cssText; el.removeAttribute("data-estilo"); };
+  if (fondos.length) {
+    if (!("IntersectionObserver" in window) || /[?&]captura/.test(location.search)) fondos.forEach(ponerFondo);
+    else {
+      var ojo = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          ojo.unobserve(en.target);
+          // una tarjeta de "Explora" trae consigo a todas las demás (se cambian con las pestañas y el carrusel)
+          (en.target.classList.contains("explora") ? [].slice.call(en.target.querySelectorAll("[data-estilo]")) : [en.target]).forEach(ponerFondo);
+        });
+      }, { rootMargin: "1200px 0px" });
+      var explora = document.querySelector(".explora");
+      if (explora && explora.querySelector("[data-estilo]")) ojo.observe(explora);
+      fondos.forEach(function (el) { if (!el.closest(".explora")) ojo.observe(el); });
+    }
+  }
 
   var cab = document.querySelector(".cab");
   var alScroll = function () { cab.classList.toggle("solida", window.scrollY > 40); };

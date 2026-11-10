@@ -276,6 +276,8 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
         menu_html = menu_html.replace('<div class="menu-in tres">', '<div class="menu-in tres"><a class="idioma-menu" href="%s" hreflang="%s" lang="%s">%s</a>' % (
             alterna, "es" if en else "en", "es" if en else "en", "Leer en español" if en else "Read in English"), 1)
     # La imagen de portada (la seda de arriba) es lo más grande que se ve en el celular: se pide primero y con prioridad.
+    # Ronda 3 (9-nov-2026): el <meta viewport> va ANTES de estas precargas. Estaba después y el celular, que todavía no sabía su
+    # ancho (asume 980 px), cumplía "min-width: 761px" y bajaba TAMBIÉN la seda grande de computador (≈210 KB) con prioridad alta.
     m_portada = re.search(r'<section class="hero[^>]*><div class="capa" style="background-image:url\(([^)]+)\)', cuerpo)
     precarga = ('<link rel="preload" href="%s" as="image" fetchpriority="high">\n' % m_portada.group(1)) if m_portada else ""
     if m_portada and m_portada.group(1).startswith("assets/noon/seda-") and os.path.exists(os.path.join(AQUI, m_portada.group(1)[:-5] + "-m.webp")):
@@ -290,8 +292,8 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
 <html lang="%(lang)s">
 <head>
 <meta charset="utf-8">
-%(precarga)s%(medicion)s
 <meta name="viewport" content="width=device-width, initial-scale=1">
+%(precarga)s%(medicion)s
 <title>%(titulo)s</title>
 <meta name="description" content="%(desc)s">
 %(seo)s
@@ -357,10 +359,22 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
     html = html.replace('src="assets/logo-noon-claro.png"', 'src="assets/logo-noon-claro.webp"')  # mismo logo, sin pérdida, 40 % menos peso
     # Celular en vertical: la portada solo muestra el centro de la seda, así que se manda ese recorte (mismos píxeles y grano).
     # Ruta desde la raíz (/assets/…): una url() dentro de una variable CSS se resuelve desde noon.css, no desde la página.
-    html = re.sub(r'(<section class="hero[^"]*"><div class="capa" style="background-image:url\((assets/noon/seda-[a-z]+)\.webp\))"',
+    # Ronda 3 (9-nov-2026): el cierre del final (90 % del alto de la pantalla) hace lo mismo. Antes cada ficha bajaba en el celular
+    # la seda grande (≈210 KB) solo para el cierre, al tiempo que la portada.
+    html = re.sub(r'(<section class="(?:hero|cierre)[^"]*"><div class="capa" style="background-image:url\((assets/noon/seda-[a-z]+)\.webp\))"',
                   lambda m: m.group(1) + (';--bg-m:url(/%s-m.webp)"' % m.group(2) if os.path.exists(os.path.join(AQUI, m.group(2) + "-m.webp")) else '"'), html)
     html = re.sub(r'((?:src|data-img)="|url\()(assets/(?:clinica|noon|capacitacion|equipo)/[a-z0-9-]+)\.jpg',
                   lambda m: m.group(1) + m.group(2) + (".webp" if os.path.exists(os.path.join(AQUI, m.group(2) + ".webp")) else ".jpg"), html)
+    # Ronda 3 (9-nov-2026) · velocidad en celular, sin cambiar lo que se ve:
+    # 1) El logo de la cabecera mide 22–30 px de alto: basta el de 360 px (11 KB en vez de 36). El inicio conserva el grande,
+    #    que es el mismo archivo del logo de la portada. El del pie no cambia.
+    if 'class="logo-hero' not in cuerpo:
+        html = html.replace('aria-label="noon Clinic, inicio"><img src="assets/logo-noon-claro.webp" alt="noon Clinic" width="900" height="295">',
+                            'aria-label="noon Clinic, inicio"><img src="assets/logo-noon-claro-s.webp" alt="noon Clinic" width="360" height="118">', 1)
+    # 2) Fondos lejos de la primera pantalla (tarjetas de "Explora", asistente, foto-frase y cierre): el estilo viaja en
+    #    data-estilo y noon.js lo pone cuando la persona se acerca (ver "fondos" en noon.js).
+    html = re.sub(r'(<span class="ex-img") style="(background-image:url\([^)"]+\))"', r'\1 data-estilo="\2"', html)
+    html = re.sub(r'(<section class="(?:asistente|foto-frase|cierre)[^"]*"[^>]*><div class="capa") style="([^"]+)"', r'\1 data-estilo="\2"', html)
     if en:  # en inglés nada salta al español: cabecera, buscador y botón flotante
         for a, b in EN_TEXTOS:
             html = html.replace(a, b)
@@ -636,6 +650,17 @@ ESPACIOS = [  # (foto, nombre, texto)
 
 def bloque_clinica():
     """Mosaico discreto: 5 cuadros; cada uno alterna entre 2 fotos a su propio ritmo."""
+    # Ronda 3 (9-nov-2026): los cuadros son pequeños (en celular, de 100 a 390 px de ancho) y cada foto pesaba hasta 200 KB a
+    # 900 px. Se ofrecen también las de 480 y 720 px (assets/clinica/<foto>-480.webp, -720.webp) y el navegador escoge según el tamaño real del
+    # cuadro y la pantalla; donde hace falta la grande, sigue bajando la grande. sizes = ancho que necesita cada cuadro.
+    ANCHOS = ["(max-width: 800px) 50vw, 290px", "(max-width: 800px) 34vw, 230px", "(max-width: 800px) 34vw, 230px",
+              "(max-width: 800px) 65vw, 460px", "(max-width: 800px) 100vw, 720px"]
+
+    def chica(f, i):
+        if not all(os.path.exists(os.path.join(AQUI, "assets", "clinica", f + x + ".webp")) for x in ("-480", "-720", "")):
+            return ""
+        return ' srcset="assets/clinica/%s-480.webp 480w, assets/clinica/%s-720.webp 720w, assets/clinica/%s.webp 900w" sizes="%s"' % (f, f, f, ANCHOS[i])
+
     extra = [("recepcion-sala", "Recepción y sala"), ("pasillo", "Circulación"), ("vista-2", "La vista")]
     base = [(f, n) for f, n, t in ESPACIOS]
     pares = [  # (foto principal, foto que se alterna)
@@ -647,7 +672,7 @@ def bloque_clinica():
     ]
     cuadros = ""
     for i, (p1, p2) in enumerate(pares):
-        figs = "".join('<figure class="%s"><img src="%s" alt="%s de noon Clinic" loading="lazy"></figure>' % ("on" if k == 0 else "", img("c:" + f), n) for k, (f, n) in enumerate((p1, p2)))
+        figs = "".join('<figure class="%s"><img src="%s"%s alt="%s de noon Clinic" loading="lazy"></figure>' % ("on" if k == 0 else "", img("c:" + f), chica(f, i), n) for k, (f, n) in enumerate((p1, p2)))
         cuadros += '<div class="mz mz%d rev" data-mosaico>%s</div>' % (i, figs)
     return '''<section class="bloque-clinica" id="clinica"><div class="bcl-in">
   <div class="bcl-txt"><p class="ceja rev">La clínica</p><h2 class="rev">Un espacio pensado<br>para la <em>calma</em>.</h2>

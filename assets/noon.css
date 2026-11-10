@@ -1219,3 +1219,4 @@ html:not(.js) #test { display: none; }
 @media (max-width: 760px) {
   .boton { line-height: 1.35; text-align: center; }  /* "Pedir el valor por WhatsApp" parte en dos renglones: centrados y con aire */
 }
+html:not(.js) .cierre.sobre-claro { background-color: #EAE3D6; }  /* sin JavaScript el fondo de seda no llega: el texto oscuro sigue leyéndose */
