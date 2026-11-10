@@ -133,6 +133,14 @@ function msjWA() { return document.body.getAttribute("data-wa") || "Hola, vengo 
         } else if (n.nodeType === 1 && n.tagName !== "BR") partir(n);
       });
     })(el);
+    // el signo que cierra el título (". ? ,") justo después de una palabra en cursiva viaja pegado a ella: sin esto se quedaba solo abajo
+    [].slice.call(el.querySelectorAll("em + .w")).forEach(function (w) {
+      var em = w.previousSibling;
+      if (!em || em.tagName !== "EM" || !/^[.,;:!?…»)]+$/.test(w.textContent) || !em.lastElementChild) return;
+      if (em.children.length > 1) { var em2 = em.cloneNode(false); em2.appendChild(em.lastElementChild); em.parentNode.insertBefore(em2, w); em = em2; }
+      var nb = document.createElement("span"); nb.className = "nb";
+      em.parentNode.insertBefore(nb, em); nb.appendChild(em); nb.appendChild(w);
+    });
     el.classList.add("partido");
     if (!el.classList.contains("rev")) el.classList.add("rev");
   });
@@ -442,7 +450,7 @@ function msjWA() { return document.body.getAttribute("data-wa") || "Hola, vengo 
   if (sn || barra) {
     var enlaces = sn ? [].slice.call(sn.querySelectorAll("a")) : [];
     var secciones = enlaces.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
-    var heroF = document.querySelector(".hero"), cierreF = document.querySelector(".cierre");
+    var heroF = document.querySelector(".hero"), cierreF = document.querySelector(".cierre"), cajaTest = document.querySelector(".test");
     var espiar = function () {
       var y = window.innerHeight * 0.35, actual = -1;
       secciones.forEach(function (s, i) { if (s && s.getBoundingClientRect().top < y) actual = i; });
@@ -451,7 +459,9 @@ function msjWA() { return document.body.getAttribute("data-wa") || "Hola, vengo 
       if (barra) {
         var pasoHero = heroF ? heroF.getBoundingClientRect().bottom < 0 : true;
         var enCierre = cierreF ? cierreF.getBoundingClientRect().top < window.innerHeight * 0.8 : false;
-        barra.classList.toggle("ver", pasoHero && !enCierre);
+        var tr = cajaTest ? cajaTest.getBoundingClientRect() : null;  // mientras se responde el test, la barra no tapa las opciones ni compite con su botón
+        var enTest = tr ? tr.top < window.innerHeight * 0.75 && tr.bottom > window.innerHeight * 0.4 : false;
+        barra.classList.toggle("ver", pasoHero && !enCierre && !enTest);
       }
     };
     window.addEventListener("scroll", espiar, { passive: true }); espiar();
