@@ -7,6 +7,7 @@ from urllib.parse import quote
 from datos import *
 from datos_noon import *
 import fichas_en as FE  # versión en inglés de las fichas (datos_noon_en.py)
+from datos_noon_seo import _PRESUPUESTO as PRESUPUESTO_CX  # de qué depende el valor de una cirugía (sin cifras)
 from tests_candidata import TESTS as TESTS_CANDIDATA  # test "¿Soy candidata?" de algunas fichas de medicina estética
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -714,6 +715,39 @@ def test_candidata(slug, tema):
     return seccion("Test de 1 minuto", t["titulo"], caja, intro=t["intro"], sid="test")
 
 
+# ---------------------------------------------------------------- "¿Cuánto cuesta…?" en las fichas de cirugía (ronda de ventas 2, 9-nov-2026)
+# La gente busca "<cirugía> precio" y la ficha no le daba ninguna salida. Sin cifras: se explica de qué depende el valor (la misma
+# respuesta de datos_noon_seo._PRESUPUESTO, que ya usaban 5 fichas) y un botón que pide el valor por WhatsApp nombrando la cirugía.
+# Cómo se nombra cada cirugía dentro de la frase ("una rinoplastia", "un lifting…"): por defecto "una " + nombre en minúscula.
+CON_ARTICULO = {
+    "lifting-facial": "un lifting facial y de cuello", "recambio-de-implantes": "un recambio o retiro de implantes",
+    "ginecomastia": "una cirugía de ginecomastia", "liposuccion": "una liposucción", "lifting-de-muslos": "un lifting de muslos",
+    "mommy-makeover": "un mommy makeover",
+}
+MENSAJE_WA_VALOR = "Hola, vengo de la web y quiero saber el valor de %s"  # excepción a la frase única: pide el valor, no la cita
+
+
+def con_articulo(c):
+    return CON_ARTICULO.get(c["slug"]) or "una " + G.minus(c["nombre"])
+
+
+def preguntas_cx(c):
+    """Las preguntas de la ficha de una cirugía. Si ninguna responde "¿Cuánto cuesta…?", se suma al final con la respuesta de siempre."""
+    preguntas = list(c["faq"]) + list(c.get("faq_nuevas", []))
+    if not any(q.startswith("¿Cuánto cuesta") for q, r in preguntas):
+        preguntas.append(("¿Cuánto cuesta %s en Medellín?" % con_articulo(c), PRESUPUESTO_CX))
+    return preguntas
+
+
+def bloque_precio(c):
+    """Bloque breve "¿Cuánto cuesta…?": la misma respuesta de la pregunta de precio de la ficha + botón de WhatsApp. Sin cifras."""
+    respuesta = next(r for q, r in preguntas_cx(c) if q.startswith("¿Cuánto cuesta"))
+    boton = "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA_VALOR % con_articulo(c))
+    return seccion("Precio", "¿Cuánto cuesta %s?" % con_articulo(c),
+                   '<p class="sub rev">%s</p><div class="botones izq rev"><a class="boton lleno" href="%s" target="_blank" rel="noopener">Pedir el valor por WhatsApp</a>'
+                   '<a class="boton" href="formas-de-pago.html">Cómo se paga</a></div>' % (respuesta, boton), sid="precio")
+
+
 def ver_tambien(p):
     """Una línea discreta que lleva a otra página relacionada (ej. la criolipólisis desde la lipo)."""
     return "".join('<p class="pista rev ver-tambien">%s <a href="%s">%s</a></p>' % (antes, href, texto) for antes, href, texto in p.get("ver_tambien", []))
@@ -738,7 +772,7 @@ ACTUALIZADO = '<p class="actualizado rev"><!--FECHA--></p>' if VISTA else ""
 ACTUALIZADO_EN = '<p class="actualizado rev"><!--FECHA-EN--></p>' if VISTA else ""
 
 
-def esquema_ficha(p, cat_n, hub, hub_n, tipo):
+def esquema_ficha(p, cat_n, hub, hub_n, tipo, preguntas=None):
     url = DOMINIO + "/" + p["slug"]
     out = [{"@context": "https://schema.org", "@type": "MedicalWebPage", "url": url, "name": p["nombre"], "inLanguage": "es-CO",
             "about": {"@type": tipo, "name": p["nombre"], "description": " ".join(p["que_es"])},
@@ -747,7 +781,7 @@ def esquema_ficha(p, cat_n, hub, hub_n, tipo):
                {"@type": "ListItem", "position": 1, "name": "noon Clinic", "item": DOMINIO + "/"},
                {"@type": "ListItem", "position": 2, "name": hub_n, "item": DOMINIO + "/" + hub},
                {"@type": "ListItem", "position": 3, "name": p["nombre"], "item": url}]}]
-    preguntas = list(p["faq"]) + list(p.get("faq_nuevas", []))
+    preguntas = list(p["faq"]) + list(p.get("faq_nuevas", [])) if preguntas is None else preguntas
     if preguntas:
         out.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
             {"@type": "Question", "name": re.sub("<[^>]+>", "", q), "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", r)}} for q, r in preguntas]})
@@ -813,19 +847,20 @@ for c in CIRUGIAS_NOON:
     pagina(c["slug"] + ".html", c["nombre"], c["corto"],
            hero(f, "Cirugía plástica · " + cat_n, c["nombre"] + " en <em>Medellín</em>", c["corto"], "alto", accion_hero(c, True, "Dr. Fernando Ruiz", msj))
            + datos_barra([("Duración", d[0]), ("Anestesia", d[1]), ("Incapacidad aprox.", d[2]), ("Resultado final", d[3])])
-           + subnav([("que-es", "Qué es"), ("para-ti", "Para ti"), ("recuperacion", "Recuperación")] + ([("todo", "Antes de decidir")] if c.get("todo") else []) + [("especialista", "Especialista"), ("preguntas", "Preguntas")])
+           + subnav([("que-es", "Qué es"), ("para-ti", "Para ti"), ("recuperacion", "Recuperación")] + ([("todo", "Antes de decidir")] if c.get("todo") else []) + [("precio", "Precio"), ("especialista", "Especialista"), ("preguntas", "Preguntas")])
            + frase("El procedimiento", c["que_es"][0], c["que_es"][1] if len(c["que_es"]) > 1 else "", "media", sid="que-es")
            + seccion("Es para ti si", "Lo que buscas", lineas([(x,) for x in c["ideal"]]) + '<p class="pista rev">La indicación final la da tu cirujano en la valoración.</p>' + ver_tambien(c), sid="para-ti")
            + seccion("Recuperación", "Paso a paso", linea_tiempo(c["recuperacion"]) + '<p class="pista rev">Tiempos de guía. Tu cirujano te da los exactos.</p>', sid="recuperacion")
            + todo_sobre(c)
+           + bloque_precio(c)
            + bloque_especialista("cirugia", "Tu valoración de %s es con el especialista que te opera." % c["nombre"].lower())
-           + seccion("Preguntas", "Sobre " + c["nombre"].lower(), faq([("", q, r, []) for q, r in list(c["faq"]) + list(c.get("faq_nuevas", []))]) + '<a class="enlace rev" href="preguntas-frecuentes.html">Todas las preguntas</a>' + ACTUALIZADO, "marfil", sid="preguntas")
+           + seccion("Preguntas", "Sobre " + c["nombre"].lower(), faq([("", q, r, []) for q, r in preguntas_cx(c)]) + '<a class="enlace rev" href="preguntas-frecuentes.html">Todas las preguntas</a>' + ACTUALIZADO, "marfil", sid="preguntas")
            + G.bloque_lecturas(G.de_procedimiento(GUIAS, c["slug"]), "Blog", "Lecturas <em>relacionadas</em>.", sid="lecturas")
            + (seccion("También en " + cat_n.lower(), "Otras cirugías", catalogo(otras, "cx")) if otras else "")
            + cierre(c["nombre"], c.get("cierre_txt", "Todo empieza con tu valoración presencial en Medellín: te decimos si es para ti y recibes tu plan por escrito."),
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (c["slug"], wa(msj)), fondo=f)
            + barra_cta(c["nombre"], "Valoración con " + ESPECIALISTAS[0]["nombre"], c["slug"], msj),
-           esquema=esquema_ficha(c, cat_n, "cirugia-plastica", "Cirugía plástica", "MedicalProcedure"), og_tipo="website", alterna=FE.en_de(c["slug"]), tema=G.minus(c["nombre"]))
+           esquema=esquema_ficha(c, cat_n, "cirugia-plastica", "Cirugía plástica", "MedicalProcedure", preguntas_cx(c)), og_tipo="website", alterna=FE.en_de(c["slug"]), tema=G.minus(c["nombre"]))
 
 # ================================================================ MEDICINA ESTÉTICA (hub)
 FILA_CRIO = ('<li class="rev" data-q="criolipolisis criolipólisis crio frio frío congelar grasa localizada abdomen flancos papada brazos muslos sin cirugia">'
