@@ -1090,7 +1090,7 @@ pagina("tu-proceso.html", "Tu proceso", "De la valoración al resultado: así es
 pagina("formas-de-pago.html", "Formas de pago", "Cómo se paga tu procedimiento en noon Clinic: valoración, abono para separar fecha y saldo.",
        hero("seda-cafe", "Pagos", "Cuentas claras<br>desde el primer día.")
        + seccion("Cómo se paga", "Tres momentos", '<ol class="pasos">%s</ol>' % "".join('<li class="rev"><span class="n">%s</span><b>%s</b><span>%s</span></li>' % x for x in [
-           ("I", "Valoración", "Es el primer paso. No se abona al procedimiento y su valor no se devuelve."),
+           ("I", "Valoración", "Es el primer paso: el especialista te examina y sales con tu plan y tu presupuesto por escrito. No se abona al procedimiento y su valor no se devuelve."),
            ("II", "Abono para tu fecha", "Reservas tu fecha de cirugía. Si desistes, se devuelve con una retención del %s por gastos administrativos." % RETENCION),
            ("III", "Saldo", "Se paga antes del procedimiento, según tu plan por escrito.")]) + nota_tc())
        + seccion("Preguntas", "Sobre pagos", faq([(c, p, r, []) for c, p, r in FAQ_NOON if c in ("Pagos",) or p.startswith("¿Cuánto cuesta")]), "marfil")
@@ -1132,11 +1132,11 @@ pagina("preguntas-frecuentes.html", "Preguntas frecuentes", "Respuestas sobre va
 opciones = ('<optgroup label="Cirugía plástica">%s</optgroup>' % "".join('<option data-slug="%s">%s</option>' % (c["slug"], c["nombre"]) for c in CIRUGIAS_NOON)
             + '<optgroup label="Medicina estética">%s</optgroup>' % "".join('<option data-slug="%s">%s</option>' % (t["slug"], t["nombre"]) for t in TRATAMIENTOS))
 pagina("valoracion.html", "Agenda tu valoración", "Todo empieza con tu valoración con nuestros especialistas. Agéndala por WhatsApp.",
-       hero("seda-oscura", "Primer paso", "Tu <em>valoración</em>.", "Una conversación clínica empieza por entender qué quieres preservar.",
+       hero("seda-oscura", "Primer paso", "Tu <em>valoración</em>.", "El especialista te escucha, te examina y sales con tu plan por escrito.",
             alto="completo", extra='<div class="hero-acciones rev"><a class="boton lleno" href="%s" target="_blank" rel="noopener">Quiero agendar por WhatsApp</a></div>'
                   '<p class="nota-hero rev">Te respondemos en minutos por WhatsApp, en horario de atención.</p>' % wa())
        + '''<section class="valoracion">
-  <div class="texto rev"><p class="ceja">Qué pasa en tu valoración</p><h2 class="h-val">Una conversación, no una venta.</h2>%(lista)s%(tc)s</div>
+  <div class="texto rev"><p class="ceja">Qué recibes en tu valoración</p><h2 class="h-val">Una conversación, no una venta.</h2>%(lista)s%(tc)s</div>
   <form class="form rev" id="form-valoracion" data-wa="%(wa)s">
     <p class="ceja">Agenda por WhatsApp</p><h2>Empieza aquí</h2>
     <p class="sub">Tres datos y se abre WhatsApp con tu mensaje listo.</p>
@@ -1148,8 +1148,14 @@ pagina("valoracion.html", "Agenda tu valoración", "Todo empieza con tu valoraci
     <p class="legal">Al escribirnos aceptas nuestros <a href="terminos-y-condiciones.html">términos y condiciones</a>. Este formulario no guarda tus datos.</p>
   </form>
 </section>''' % {"wa": WHATSAPP, "op": opciones,
-                 "tc": nota_tc("La valoración no se abona al procedimiento y su valor no se devuelve."),
-                 "lista": lineas([("Te escuchamos", "Qué quieres lograr y qué quieres preservar."), ("Te examinamos", "Con el especialista del área."), ("Respuestas honestas", "Qué se puede lograr, qué no, y si eres candidata."), ("Tu plan por escrito", "Procedimiento, tiempos, cuidados y presupuesto.")])})
+                 # Ronda de ventas 2 (9-nov-2026): primero lo que la paciente recibe (con quién y qué sale de ahí); las condiciones,
+                 # las mismas de siempre, van al final con su etiqueta "Condiciones" y el enlace a los términos.
+                 "tc": nota_tc("<b>Condiciones.</b> La valoración no se abona al procedimiento y su valor no se devuelve."),
+                 "lista": lineas([("Te escuchamos", "Qué quieres lograr y qué quieres preservar."),
+                                  ("Te examina el especialista", "%s, %s, si es una cirugía. %s, %s, si es un tratamiento." % (
+                                      "El " + ESPECIALISTAS[0]["nombre"], ESPECIALISTAS[0]["rol"].lower(), "La " + ESPECIALISTAS[1]["nombre"], ESPECIALISTAS[1]["rol"].lower())),
+                                  ("Respuestas honestas", "Qué se puede lograr, qué no, y si eres candidata."),
+                                  ("Sales con tu plan por escrito", "Procedimiento, tiempos, cuidados y presupuesto.")])})
 
 # ================================================================ PÁGINAS VIEJAS → redirección a las nuevas
 for viejo, nuevo in [("cirugias", "cirugia-plastica"), ("todo-incluido", "cirugia-plastica"), ("mastopexia-con-implantes", "mastopexia"),
