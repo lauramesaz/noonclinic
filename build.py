@@ -162,7 +162,9 @@ document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&
 # (el gtag("event","conversion") del listener de arriba) y otra desde assets/noon.js (primer bloque). En las páginas de la web
 # (las que arma pagina()) se quita la de la cabecera y queda SOLO la de noon.js, que es la que respeta "Desactivar" y cuenta un
 # contacto por visita a la página. El evento clic_whatsapp (Analytics, por Tag Manager) y Clarity no cambian.
-# Las landings de pauta (promos, criolipólisis, ig, tu-cotizacion) siguen usando HEAD_MEDICION tal cual.
+# Ronda 2 (9-nov-2026): las landings de pauta (criolipólisis, promos/*, promos de "vienes en diciembre" e ig) también usan
+# HEAD_MEDICION_WEB: su conversión la manda SOLO assets/medicion-ads.js (copia del bloque de noon.js). Antes iba doble.
+# /tu-cotizacion sigue con HEAD_MEDICION tal cual (no se tocó en esta ronda): ahí todavía va doble.
 _CONVERSION_CABECERA = 'gtag("event","conversion",{send_to:"AW-18513507492/9R4bCKTkjZ0dEKTp9vtE"});'
 assert _CONVERSION_CABECERA in HEAD_MEDICION
 HEAD_MEDICION_WEB = HEAD_MEDICION.replace(_CONVERSION_CABECERA, "")

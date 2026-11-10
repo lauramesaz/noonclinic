@@ -290,8 +290,9 @@ CSS = """<style>
 def _medicion(b, origen):
     """El encabezado de medición de toda la web, con el origen dentro del MISMO evento clic_whatsapp (sin duplicarlo)."""
     clave = 'event:"clic_whatsapp",'
-    assert clave in b.HEAD_MEDICION, "Cambió HEAD_MEDICION en build.py: revisa cómo se agrega el origen aquí"
-    return b.HEAD_MEDICION.replace(clave, clave + 'origen:"%s",' % origen, 1)
+    # HEAD_MEDICION_WEB = la cabecera sin la conversión de Ads: esa la manda solo assets/medicion-ads.js (una por clic, no dos).
+    assert clave in b.HEAD_MEDICION_WEB, "Cambió HEAD_MEDICION en build.py: revisa cómo se agrega el origen aquí"
+    return b.HEAD_MEDICION_WEB.replace(clave, clave + 'origen:"%s",' % origen, 1)
 
 
 def _script(origen):

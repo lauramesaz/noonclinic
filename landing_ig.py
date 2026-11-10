@@ -7,8 +7,8 @@
 # Por qué: del 6-oct al 2-nov las visitas desde Instagram escribieron por WhatsApp mucho más que las de Google pagado
 # (9 WhatsApp de 60 visitas frente a 37 de 594). Esta página lleva directo a lo que más se vende, en un toque.
 # Los WhatsApp dicen "vengo de Instagram" (excepción al MENSAJE_WA único, decidida en el plan) para contar los chats de Instagram.
-# Medición como el resto de la web: cabecera HEAD_MEDICION (Tag Manager → clic_whatsapp en GA4 + conversión de Ads),
-# assets/medicion-ads.js y Clarity; además el dataLayer lleva origen "instagram-bio" y el botón tocado.
+# Medición como el resto de la web: cabecera HEAD_MEDICION_WEB (Tag Manager → clic_whatsapp en GA4), la conversión de Ads
+# la manda SOLO assets/medicion-ads.js (una por clic; antes iba doble) y Clarity; además el dataLayer lleva origen "instagram-bio" y el botón tocado.
 # Sin menú, noindex y fuera del sitemap (no usa pagina()). CSS y JS en línea: no mueve la versión ?v= de la web.
 import os
 from html import escape
@@ -74,7 +74,7 @@ h1 span{display:block;color:var(--calido)}
 """
 
 JS = r"""<script>(function () {
-  // medición: el clic a WhatsApp ya lo cuenta la cabecera (clic_whatsapp en GA4 + conversión de Ads) y medicion-ads.js.
+  // medición: el clic a WhatsApp ya lo cuenta la cabecera (clic_whatsapp en GA4) y medicion-ads.js (conversión de Ads, una sola).
   // Antes de ese aviso se deja en el dataLayer el origen y el botón; los botones que van a otra página de noon, como clic_bio.
   addEventListener("click", function (e) {
     var a = e.target && e.target.closest ? e.target.closest(".op") : null;
@@ -116,7 +116,7 @@ def _pagina(b):
 <head>
 <meta charset="utf-8">
 <script>window.dataLayer=window.dataLayer||[];dataLayer.push({{origen:"{ORIGEN}"}});</script>
-{b.HEAD_MEDICION}
+{b.HEAD_MEDICION_WEB}
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>noon Clinic · Medellín</title>
 <meta name="description" content="{desc}">

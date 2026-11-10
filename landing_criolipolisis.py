@@ -432,7 +432,7 @@ def generar(b):
 <script src="assets/criolipolisis.js?v=%(v)s" defer></script>
 </body>
 </html>
-""" % {"medicion": b.HEAD_MEDICION, "titulo": escape(TITULO), "desc": escape(DESCRIPCION), "seo": seo, "v": v, "fuentes": b.FUENTES, "wa": _wa(b), "tel": b.TELEFONO,
+""" % {"medicion": b.HEAD_MEDICION_WEB, "titulo": escape(TITULO), "desc": escape(DESCRIPCION), "seo": seo, "v": v, "fuentes": b.FUENTES, "wa": _wa(b), "tel": b.TELEFONO,
        "btn_portada": cta("Quiero mi valoración", "cl-btn cl-btn-xl"), "btn_dolores": cta("Quiero mi valoración", "cl-btn"),
        "btn_cifras": cta("Agendar mi valoración", "cl-btn cl-btn-xl"),
        "btn_camino": cta("Agendar mi valoración", "cl-btn"), "btn_medico": cta("Quiero mi valoración", "cl-btn"),
