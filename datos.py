@@ -6,6 +6,8 @@
 WHATSAPP = "573022491937"
 TELEFONO = "+57 302 2491937"
 MENSAJE_WA = "Hola, vengo de la web y estoy interesado en una cita"  # TODOS los botones de WhatsApp de la web y de TODAS las landings llevan este mensaje, sin variaciones (decisión de Laura, 19-oct-2026)
+# El mismo mensaje para las páginas en inglés de la web (tanda de ventas 1, nov-2026). Las landings de pauta no lo usan.
+MENSAJE_WA_EN = "Hi, I'm coming from the website and I'm interested in an appointment"
 # Perfiles oficiales de noon en redes (nombre, enlace). Salen en el pie de página y en los datos de marca para Google (sameAs).
 # Solo cuentas confirmadas por Laura: en Instagram existen otras "noon clinic" (Corea, etc.) que NO son nuestras.
 REDES = [("Instagram", "https://www.instagram.com/noonclinic_/")]  # confirmada por Laura el 27-oct-2026

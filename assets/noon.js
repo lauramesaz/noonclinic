@@ -91,6 +91,8 @@
 })();
 
 // noon Clinic · interacciones mínimas
+// Mensaje de WhatsApp de la página: el de siempre, salvo que la página traiga el suyo en <body data-wa> (lo pone build.py).
+function msjWA() { return document.body.getAttribute("data-wa") || "Hola, vengo de la web y estoy interesado en una cita"; }
 (function () {
   if (/[?&]captura/.test(location.search)) document.documentElement.classList.add("captura");
   // direcciones limpias si entran por un link viejo con .html
@@ -330,7 +332,7 @@
       }).join("");
       act = -1;
       vac.hidden = !(q && !out.length);
-      vac.querySelector("a").href = "https://wa.me/" + datos().wa + "?text=" + encodeURIComponent("Hola, vengo de la web y estoy interesado en una cita");
+      vac.querySelector("a").href = "https://wa.me/" + datos().wa + "?text=" + encodeURIComponent(msjWA());
     };
     inp.addEventListener("input", pintar);
     inp.addEventListener("keydown", function (e) {
@@ -400,7 +402,7 @@
       as.querySelector(".as-res").innerHTML = its.map(function (it, i) {
         return '<a href="' + it.s + '" style="background-image:url(' + fondo(it.f) + ');animation-delay:' + (i * 90) + 'ms"><em>' + it.t + "</em><b>" + it.n + "</b><small>" + it.c + "</small></a>";
       }).join("");
-      as.querySelector(".as-wa").href = "https://wa.me/" + datos().wa + "?text=" + encodeURIComponent("Hola, vengo de la web y estoy interesado en una cita");
+      as.querySelector(".as-wa").href = "https://wa.me/" + datos().wa + "?text=" + encodeURIComponent(msjWA());
       ir(3);
     };
     as.querySelector(".as-atras").addEventListener("click", function () { ir(1); });

@@ -23,9 +23,15 @@ CAT_CX = {k: (n, d, f) for k, n, d, f in CATEGORIAS_CX}
 CAT_ME = {k: (n, d, f) for k, n, d, f in CATEGORIAS_ME}
 
 
-def wa(mensaje=None):
-    # Todos los botones llevan el mismo mensaje (MENSAJE_WA en datos.py) para saber que la persona viene de la web.
-    return "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA)
+def msj_wa(en=False):
+    """El texto con el que se abre WhatsApp desde la web. `mensaje` (lo que pasan los botones viejos) no se usa:
+    todos llevan la misma frase (MENSAJE_WA en datos.py) para saber que la persona viene de la web.
+    en=True: la misma frase en inglés (MENSAJE_WA_EN), para las páginas en inglés."""
+    return MENSAJE_WA_EN if en else MENSAJE_WA
+
+
+def wa(mensaje=None, en=False):
+    return "https://wa.me/" + WHATSAPP + "?text=" + quote(msj_wa(en))
 
 
 def img(nombre, jpg=False):
@@ -336,6 +342,12 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
     if en:  # en inglés nada salta al español: cabecera, buscador y botón flotante
         for a, b in EN_TEXTOS:
             html = html.replace(a, b)
+    # Mensaje de WhatsApp de ESTA página: aquí, en un solo sitio, se cambia en todos sus enlaces (cabecera, cuerpo, pie y
+    # botón flotante). En inglés va la frase en inglés. noon.js lee data-wa para los enlaces que arma él (buscador, asistente).
+    propio = msj_wa(en)
+    if propio != MENSAJE_WA:
+        html = html.replace(wa(), "https://wa.me/" + WHATSAPP + "?text=" + quote(propio))
+        html = html.replace("<body>", '<body data-wa="%s">' % escape(propio), 1)
     with open(os.path.join(AQUI, archivo), "w", encoding="utf-8") as f:
         f.write(html)
     HECHAS.append(archivo)
