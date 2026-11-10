@@ -340,6 +340,11 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
     # Todo remite a WhatsApp (decisión de Laura, 2-oct-2026): los botones que iban al formulario de valoración
     # abren WhatsApp directo; si había un botón "Escribir por WhatsApp" al lado, se une en uno solo.
     enlace_wa = 'href="%s" target="_blank" rel="noopener"' % wa()
+    # Excepción (ronda de ventas 2, 9-nov-2026): un enlace DENTRO de un texto ("…empieza con una valoración presencial…") promete
+    # contar cómo es la valoración, no abrir WhatsApp en otra pestaña: esos van a la página /valoracion. Los botones y los
+    # "Agendar valoración" del menú y del pie siguen abriendo WhatsApp. Solo en español (/valoracion no existe en inglés).
+    if not en:
+        html = re.sub(r'<a href="valoracion\.html">(?!Agendar)', '<a href="/valoracion">', html)
     html = re.sub(r'<a class="boton lleno" href="valoracion\.html[^"]*">[^<]*</a><a class="boton" href="https://wa\.me/[^"]*" target="_blank" rel="noopener">[^<]*</a>',
                   '<a class="boton lleno" %s>Agendar por WhatsApp</a>' % enlace_wa, html)
     html = re.sub(r'href="valoracion\.html[^"]*"(?: target="_blank" rel="noopener")?', enlace_wa, html)
