@@ -1176,3 +1176,15 @@ h1 em, h2 em, .grande em { font-family: var(--serif-it); font-style: italic; fon
 /* 9-nov-2026: dirección y horario en el pie */
 .pie-cols a.pie-dir { line-height: 1.5; padding-top: 10px; }
 .pie-hora { color: var(--tenue); font-size: 14px; margin: 4px 0 0; line-height: 1.5; }
+
+/* nov-2026 ventas (tanda 1): caja a mitad de cada guía que lleva a la ficha del procedimiento y a WhatsApp */
+.articulo .art-caja { margin: 56px 0; padding: 32px 34px; background: #EAE3D6; }
+.articulo .art-caja .ceja { margin-bottom: 14px; }
+.articulo .art-caja .art-caja-t { font: 300 clamp(24px, 2.4vw, 32px)/1.2 var(--display); letter-spacing: -.01em; margin: 0 0 10px; }
+.articulo .art-caja .art-caja-d { font-size: 16.5px; line-height: 1.65; color: var(--tenue); margin: 0; }
+.articulo .art-caja .botones { justify-content: flex-start; margin-top: 24px; }
+.articulo .art-caja .boton { color: var(--espresso); text-decoration: none; }
+.articulo .art-caja .boton:hover { background: var(--espresso); color: var(--ivory); border-color: var(--espresso); }
+.articulo .art-caja .boton.lleno { background: var(--espresso); border-color: var(--espresso); color: var(--ivory); }
+.articulo .art-caja .boton.lleno:hover { background: transparent; color: var(--espresso); }
+@media (max-width: 700px) { .articulo .art-caja { padding: 26px 22px; } .articulo .art-caja .boton { width: 100%; } }

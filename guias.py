@@ -146,6 +146,12 @@ def tarjeta(g, destacada=False, d=0, media=False):
     nombres = dict(CATS[g["lang"]])
     nombres["ciudad"] = "Por ciudad" if g["lang"] == "es" else "By city"
     meta = ("Lo más reciente · " if g["lang"] == "es" else "Latest · ") if destacada else ""
+    if g.get("_ficha"):  # la ficha de un procedimiento, con la misma forma de tarjeta (sin fecha): ver relacionadas()
+        return '''<a class="bl-card rev" href="%s" data-t="ficha"%s><span class="bl-foto"><img src="assets/%s.jpg" alt="%s" loading="lazy"></span>
+  <span class="bl-txt"><span class="bl-meta">%s</span><span class="bl-tit">%s</span><span class="bl-desc">%s</span><span class="bl-ir">%s</span></span></a>''' % (
+            g["_href"], ' style="--d:%dms"' % d if d else "", g["_foto"],
+            escape(alt_foto("assets/%s.jpg" % g["_foto"], en=g["lang"] == "en") if alt_foto else ""), g["_meta"], g["h1"], g["descripcion"],
+            "Ver" if g["lang"] == "es" else "See")
     return '''<a class="bl-card rev%s%s" href="%s.html" data-t="%s"%s><span class="bl-foto"><img src="assets/%s.jpg" alt="%s" loading="lazy"></span>
   <span class="bl-txt"><span class="bl-meta">%s%s · %s</span><span class="bl-tit">%s</span><span class="bl-desc">%s</span><span class="bl-ir">%s</span></span></a>''' % (
         " bl-dest" if destacada else "", " bl-media" if media else "", g["slug"], g["_cat"], ' style="--d:%dms"' % d if d else "", g["_foto"],
@@ -162,6 +168,24 @@ def bloque_lecturas(lista, ceja, titulo, lang="es", sid=""):
     return '''<section class="sec bl-fila"%s><div class="bl-in"><header class="bl-cab"><div><p class="ceja rev">%s</p><h2 class="rev">%s</h2></div><a class="enlace rev" href="%s">%s</a></header>
 <div class="bl-grid tres">%s</div></div></section>''' % (' id="%s"' % sid if sid else "", ceja, titulo, blog["archivo"], blog["ver_todo"],
                                                          "".join(tarjeta(g, d=i * 120) for i, g in enumerate(lista[:3])))
+
+
+# ---------------------------------------------------------------- TEMA de cada guía (tanda de ventas 1, nov-2026)
+# El "tema" es el procedimiento del que trata la guía: con él se nombra el cierre ("Tu valoración de…"), se arma la caja
+# a mitad del artículo que lleva a su ficha y se eligen las lecturas del final. Sale solo: guías de las categorías
+# "procedimientos" y "estetica" → su primer procedimiento. Las generales (viaje, seguridad, ciudades) no tienen tema.
+# Aquí solo van las excepciones: None = sin tema; (nombre, archivo, descripción corta) = un tema que no está en el catálogo.
+TEMA_PROPIO = {
+    "de-que-depende-el-precio-de-una-cirugia-plastica-en-colombia": None,  # habla de todas las cirugías
+    "plastic-surgery-in-colombia-cost-what-the-price-depends-on": None,
+    "criolipolisis-por-zona-o-por-copa-que-preguntar-antes-de-pagar": ("Criolipólisis", "criolipolisis.html", "Grasa localizada que se elimina con frío, sin cirugía."),
+}
+SIGLAS = {"HIFU", "BBL", "PRP", "IV", "Botox", "Brazilian"}
+
+
+def minus(nombre):
+    """El nombre de un procedimiento para ir dentro de una frase: en minúscula, sin tocar siglas ni marcas."""
+    return " ".join(p if p.strip("()") in SIGLAS else p.lower() for p in nombre.split())
 
 
 def ultimas(guias, lang="es", n=3):
@@ -200,11 +224,76 @@ def generar(b):
             return (b.FE.FICHAS_EN[slug]["nombre"], b.FE.en_de(slug))
         return (p["nombre"], slug + ".html") if p else None
 
+    def tema(g):
+        """El procedimiento del que trata la guía: {"nombre", "href", "corto", "slug", "cat", "p"} o None si es general."""
+        if "_tema" in g:
+            return g["_tema"]
+        t = None
+        if g["slug"] in TEMA_PROPIO:
+            if TEMA_PROPIO[g["slug"]]:
+                n, h, c = TEMA_PROPIO[g["slug"]]
+                t = {"nombre": n, "href": h, "corto": c, "slug": h[:-5], "cat": "tecnologias", "p": None}
+        elif g.get("tipo") != "ciudad" and g["_cat"] in ("procedimientos", "estetica"):
+            slug = next((x for x in g.get("procedimientos", []) if enlace_proc(x, g["lang"])), None)
+            if slug:
+                p = b.CX_N.get(slug) or b.TR_N.get(slug)
+                n, h = enlace_proc(slug, g["lang"])
+                en = b.FE.FICHAS_EN.get(slug) if g["lang"] == "en" and b.FE.en_de(slug) else None
+                t = {"nombre": n, "href": h, "corto": (en or p)["corto"], "slug": slug, "cat": p["cat"], "p": p}
+        g["_tema"] = t
+        return t
+
+    def tarjeta_ficha(g, t):
+        foto = "capacitacion/" + t["slug"]
+        return {"_ficha": True, "lang": g["lang"], "slug": t["slug"], "_href": t["href"], "h1": t["nombre"], "descripcion": t["corto"],
+                "_foto": foto if _existe(foto) else g["_foto"],
+                "_meta": ("Procedimiento" if t["slug"] in b.CX_N else "Tratamiento") if g["lang"] == "es" else ("Procedure" if t["slug"] in b.CX_N else "Treatment")}
+
     def relacionadas(g):
+        """Las 3 lecturas del final. Una guía con tema recomienda guías del mismo procedimiento, luego las que lo
+        comparten y las de su misma familia (rostro, senos, cuerpo, piel…); si no alcanzan, va la ficha del procedimiento
+        y, para completar la fila, guías de su misma categoría del blog. Las generales (viaje, seguridad) recomiendan
+        primero las de su misma categoría. A quien vive en Colombia no se le recomiendan guías de viaje desde EE. UU."""
         mismas = [x for x in guias if x["lang"] == g["lang"] and x["slug"] != g["slug"] and x.get("tipo") != "ciudad"]
-        mismas.sort(key=lambda x: (local(x) != local(g), x.get("ciudad") != g.get("ciudad") or not g.get("ciudad"),
-                                   not set(x.get("procedimientos", [])) & set(g.get("procedimientos", [])), en_google(x["slug"])))
-        return mismas[:3]
+        t = tema(g)
+        if not t:
+            mismas.sort(key=lambda x: (local(x) != local(g), x.get("ciudad") != g.get("ciudad") or not g.get("ciudad"), x["_cat"] != g["_cat"],
+                                       not set(x.get("procedimientos", [])) & set(g.get("procedimientos", [])), en_google(x["slug"])))
+            return mismas[:3]
+        if local(g):
+            mismas = [x for x in mismas if local(x)]
+        mios = set(g.get("procedimientos", []))
+
+        def nivel(x):
+            tx = tema(x)
+            if not tx:
+                return 9
+            if tx["slug"] == t["slug"]:
+                return 0
+            if t["slug"] in x.get("procedimientos", []) or tx["slug"] in mios:
+                return 1
+            if tx["cat"] == t["cat"]:
+                return 2
+            return 3 if x["_cat"] == g["_cat"] else 9
+        orden = sorted(mismas, key=lambda x: (nivel(x), local(x) != local(g), en_google(x["slug"])))
+        cerca = [x for x in orden if nivel(x) <= 2][:3]
+        if len(cerca) < 3:
+            cerca.append(tarjeta_ficha(g, t))
+        return (cerca + [x for x in orden if nivel(x) == 3])[:3]
+
+    def con_caja(g, cuerpo):
+        """Caja a mitad del artículo (justo antes del tercer subtítulo, es decir, al terminar el segundo): lleva a la ficha
+        del procedimiento y a WhatsApp. Sin precios. Solo en las guías que tienen tema."""
+        t = tema(g)
+        cortes = [m.start() for m in re.finditer(r"<h2[ >]", cuerpo)]
+        if not t or len(cortes) < 3:
+            return cuerpo
+        en = g["lang"] == "en"
+        caja = ('<aside class="art-caja"><p class="ceja">%s</p><p class="art-caja-t">%s</p><p class="art-caja-d">%s</p>'
+                '<div class="botones"><a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a><a class="boton" href="%s">%s</a></div></aside>') % (
+            "At noon Clinic" if en else "En noon Clinic", t["nombre"], t["corto"], b.wa(en=en), "Message us on WhatsApp" if en else "Escribir por WhatsApp",
+            t["href"], ("See %s" if en else "Ver %s") % minus(t["nombre"]))
+        return cuerpo[:cortes[2]] + caja + cuerpo[cortes[2]:]
 
     def con_duena(g):
         """Tras el primer párrafo, una línea que manda a la ficha del procedimiento principal (la página dueña de
@@ -239,7 +328,7 @@ def generar(b):
   %s
   %s
   <p class="art-aviso">%s</p>
-</div></section>''' % (BLOG[g["lang"]]["archivo"], BLOG[g["lang"]]["nombre"], t["por"], t["act"], fecha_txt(g.get("actualizado") or g["publicado"], g["lang"]), con_duena(g),
+</div></section>''' % (BLOG[g["lang"]]["archivo"], BLOG[g["lang"]]["nombre"], t["por"], t["act"], fecha_txt(g.get("actualizado") or g["publicado"], g["lang"]), con_caja(g, con_duena(g)),
                         ('<div class="art-procs"><p class="ceja">%s</p><div>%s</div></div>' % (t["proc"], "".join('<a href="%s">%s</a>' % (h, n) for n, h in procs))) if procs else "",
                         t["aviso"])
         if g.get("faq"):
@@ -253,8 +342,9 @@ def generar(b):
             if lista_c:
                 cuerpo += '<section class="sec bl-fila"><div class="bl-in"><header class="bl-cab"><div><p class="ceja rev">%s</p><h2 class="rev">%s</h2></div><a class="enlace rev" href="%s">%s</a></header><ul class="bl-ciudades">%s</ul></div></section>' % (
                     h["c_ceja"], h["c_tit"], h["hub"][0], h["hub"][1], lista_c)
-        if local(g):
-            cuerpo += b.cierre()  # quien vive en Colombia: el mismo cierre de la web (valoración presencial en Medellín)
+        if local(g):  # quien vive en Colombia: el mismo cierre de la web (valoración presencial en Medellín), con el nombre del tema
+            tg = tema(g)
+            cuerpo += b.cierre("Tu valoración de <em>%s</em>" % minus(tg["nombre"]), cx=tg["p"] or {"slug": tg["slug"], "nombre": tg["nombre"]}) if tg else b.cierre()
         else:
             cuerpo += b.cierre(t["cierre"], t["cierre_t"], '<a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a>' % (b.wa(msj), t["boton"]), fondo="seda-oscura",
                                nota=b.NOTA_WA_EN if g["lang"] == "en" else b.NOTA_WA)
