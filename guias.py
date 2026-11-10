@@ -372,7 +372,8 @@ def generar(b):
                 {"@type": "Question", "name": re.sub("<[^>]+>", "", p), "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", r)}} for p, r in g["faq"]]})
         b.pagina(g["slug"] + ".html", g["title"], g["descripcion"], cuerpo, lang=g["lang"],
                  alterna=(g["par"] + ".html") if g.get("par") else None, esquema=esquema, foto=g.get("fondo"),
-                 etiquetas={"seccion": "blog" if local(g) else "internacional", "tipo": g.get("tipo", "guia"), "ciudad": g.get("ciudad") or ("colombia" if local(g) else "general")})
+                 etiquetas={"seccion": "blog" if local(g) else "internacional", "tipo": g.get("tipo", "guia"), "ciudad": g.get("ciudad") or ("colombia" if local(g) else "general")},
+                 tema=minus(tema(g)["nombre"]) if tema(g) else None)
 
     hubs(b, guias)
     blog(b, guias)

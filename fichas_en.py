@@ -164,7 +164,7 @@ def generar(b):
                        {"@type": "Question", "name": _sin_tags(q["q"]), "acceptedAnswer": {"@type": "Answer", "text": _sin_tags(q["a"])}} for q in preguntas]}]
         b.SEO_TITULOS[archivo] = (e["seo_title"], e["seo_desc"])
         b.pagina(archivo, e["seo_title"], e["seo_desc"], cuerpo, lang="en", alterna=p["slug"] + ".html", esquema=esquema, foto=f, og_tipo="website",
-                 etiquetas={"seccion": "procedimiento-en", "tipo": tipo})
+                 etiquetas={"seccion": "procedimiento-en", "tipo": tipo}, tema=b.G.minus(e["nombre"]))
         pares[p["slug"] + ".html"] = archivo
 
     # hubs en inglés

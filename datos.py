@@ -5,7 +5,13 @@
 
 WHATSAPP = "573022491937"
 TELEFONO = "+57 302 2491937"
-MENSAJE_WA = "Hola, vengo de la web y estoy interesado en una cita"  # TODOS los botones de WhatsApp de la web y de TODAS las landings llevan este mensaje, sin variaciones (decisión de Laura, 19-oct-2026)
+MENSAJE_WA = "Hola, vengo de la web y estoy interesado en una cita"  # la frase única de TODOS los botones de WhatsApp de la web y de TODAS las landings (decisión de Laura, 19-oct-2026)
+# PENDIENTE DEL SÍ DE LAURA (tanda de ventas 1, nov-2026): la frase se conserva tal cual y, SOLO en la página de un procedimiento o en
+# una guía que trata de uno, se le añade al final el procedimiento: "… estoy interesado en una cita de mentoplastia".
+# En el inicio y en las páginas generales queda idéntica. Para apagarlo: MENSAJE_WA_CON_PROCEDIMIENTO = False y python3 build.py.
+MENSAJE_WA_CON_PROCEDIMIENTO = True
+MENSAJE_WA_DE = " de %s"       # español: "… una cita de mentoplastia"
+MENSAJE_WA_DE_EN = " for %s"   # inglés: "… an appointment for chin surgery"
 # El mismo mensaje para las páginas en inglés de la web (tanda de ventas 1, nov-2026). Las landings de pauta no lo usan.
 MENSAJE_WA_EN = "Hi, I'm coming from the website and I'm interested in an appointment"
 # Perfiles oficiales de noon en redes (nombre, enlace). Salen en el pie de página y en los datos de marca para Google (sameAs).

@@ -23,15 +23,19 @@ CAT_CX = {k: (n, d, f) for k, n, d, f in CATEGORIAS_CX}
 CAT_ME = {k: (n, d, f) for k, n, d, f in CATEGORIAS_ME}
 
 
-def msj_wa(en=False):
+def msj_wa(en=False, de=None):
     """El texto con el que se abre WhatsApp desde la web. `mensaje` (lo que pasan los botones viejos) no se usa:
     todos llevan la misma frase (MENSAJE_WA en datos.py) para saber que la persona viene de la web.
-    en=True: la misma frase en inglés (MENSAJE_WA_EN), para las páginas en inglés."""
-    return MENSAJE_WA_EN if en else MENSAJE_WA
+    en=True: la misma frase en inglés (MENSAJE_WA_EN), para las páginas en inglés.
+    de="mentoplastia": el procedimiento de la página, que se añade al final de la frase (ver MENSAJE_WA_CON_PROCEDIMIENTO)."""
+    base = MENSAJE_WA_EN if en else MENSAJE_WA
+    if de and MENSAJE_WA_CON_PROCEDIMIENTO:
+        base += (MENSAJE_WA_DE_EN if en else MENSAJE_WA_DE) % de
+    return base
 
 
-def wa(mensaje=None, en=False):
-    return "https://wa.me/" + WHATSAPP + "?text=" + quote(msj_wa(en))
+def wa(mensaje=None, en=False, de=None):
+    return "https://wa.me/" + WHATSAPP + "?text=" + quote(msj_wa(en, de))
 
 
 def img(nombre, jpg=False):
@@ -233,8 +237,9 @@ FUENTES = """<link rel="preload" href="assets/fuentes/nunito-sans.woff2" as="fon
 </style>"""
 
 
-def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquema=None, foto=None, etiquetas=None, og_tipo=None):
-    """lang: "es" o "en" · alterna: archivo de la misma página en el otro idioma · esquema: lista de JSON-LD extra."""
+def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquema=None, foto=None, etiquetas=None, og_tipo=None, tema=None):
+    """lang: "es" o "en" · alterna: archivo de la misma página en el otro idioma · esquema: lista de JSON-LD extra.
+    tema: el procedimiento del que trata la página ("mentoplastia"), para el mensaje de WhatsApp de todos sus botones."""
     en = lang == "en"
     if archivo in SEO_TITULOS:
         titulo, descripcion = SEO_TITULOS[archivo]
@@ -352,10 +357,12 @@ def pagina(archivo, titulo, descripcion, cuerpo, lang="es", alterna=None, esquem
             html = html.replace(a, b)
     # Mensaje de WhatsApp de ESTA página: aquí, en un solo sitio, se cambia en todos sus enlaces (cabecera, cuerpo, pie y
     # botón flotante). En inglés va la frase en inglés. noon.js lee data-wa para los enlaces que arma él (buscador, asistente).
-    propio = msj_wa(en)
-    if propio != MENSAJE_WA:
-        html = html.replace(wa(), "https://wa.me/" + WHATSAPP + "?text=" + quote(propio))
-        html = html.replace("<body>", '<body data-wa="%s">' % escape(propio), 1)
+    # Si la página es de un procedimiento (tema), sus botones lo nombran al final de la frase. Los enlaces que arma noon.js
+    # (buscador y asistente, que sirven para cualquier procedimiento) siguen con la frase sola.
+    if wa(en=en, de=tema) != wa():
+        html = html.replace(wa(), wa(en=en, de=tema))
+    if en:
+        html = html.replace("<body>", '<body data-wa="%s">' % escape(msj_wa(en)), 1)
     with open(os.path.join(AQUI, archivo), "w", encoding="utf-8") as f:
         f.write(html)
     HECHAS.append(archivo)
@@ -790,7 +797,7 @@ for c in CIRUGIAS_NOON:
            + cierre(c["nombre"], c.get("cierre_txt", "Todo empieza con tu valoración presencial en Medellín: te decimos si es para ti y recibes tu plan por escrito."),
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (c["slug"], wa(msj)), fondo=f)
            + barra_cta(c["nombre"], "Valoración con " + ESPECIALISTAS[0]["nombre"], c["slug"], msj),
-           esquema=esquema_ficha(c, cat_n, "cirugia-plastica", "Cirugía plástica", "MedicalProcedure"), og_tipo="website", alterna=FE.en_de(c["slug"]))
+           esquema=esquema_ficha(c, cat_n, "cirugia-plastica", "Cirugía plástica", "MedicalProcedure"), og_tipo="website", alterna=FE.en_de(c["slug"]), tema=G.minus(c["nombre"]))
 
 # ================================================================ MEDICINA ESTÉTICA (hub)
 FILA_CRIO = ('<li class="rev" data-q="criolipolisis criolipólisis crio frio frío congelar grasa localizada abdomen flancos papada brazos muslos sin cirugia">'
@@ -832,7 +839,7 @@ for t in TRATAMIENTOS:
            + cierre(t["nombre"], t.get("cierre_txt", "Agenda tu valoración en Medellín y armamos contigo el plan que tu piel necesita."),
                     '<a class="boton lleno" href="valoracion.html?cx=%s">Agendar mi valoración</a><a class="boton" href="%s" target="_blank" rel="noopener">Escribir por WhatsApp</a>' % (t["slug"], wa(msj)), fondo=f)
            + barra_cta(t["nombre"], "Valoración con " + ESPECIALISTAS[1]["nombre"], t["slug"], msj),
-           esquema=esquema_ficha(t, cat_n, "medicina-estetica", "Medicina estética", "MedicalProcedure"), og_tipo="website", alterna=FE.en_de(t["slug"]))
+           esquema=esquema_ficha(t, cat_n, "medicina-estetica", "Medicina estética", "MedicalProcedure"), og_tipo="website", alterna=FE.en_de(t["slug"]), tema=G.minus(t["nombre"]))
 
 # ================================================================ ABOUT (inglés): ficha de datos de noon para pacientes extranjeros y buscadores con IA
 NOMBRE_EN = {
