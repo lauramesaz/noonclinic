@@ -744,8 +744,15 @@ def preguntas_cx(c):
     return preguntas
 
 
-def bloque_precio(c):
-    """Bloque breve "¿Cuánto cuesta…?": la misma respuesta de la pregunta de precio de la ficha + botón de WhatsApp. Sin cifras."""
+def bloque_precio(c, en=None):
+    """Bloque breve "¿Cuánto cuesta…?": la misma respuesta de la pregunta de precio de la ficha + botón de WhatsApp. Sin cifras.
+    en = textos de la ficha en inglés (fichas_en.py): el mismo bloque, "How much does … cost in Medellín?" (ronda 3, 9-nov-2026)."""
+    if en:
+        verbo, nombre = FE.CON_ARTICULO_EN[c["slug"]]
+        respuesta = next((q["a"] for q in list(en["faq"]) + list(en.get("faq_nuevas", [])) if q["q"].startswith("How much") and " cost" in q["q"]), FE.PRESUPUESTO_EN)
+        boton = "https://wa.me/" + WHATSAPP + "?text=" + quote(FE.MENSAJE_WA_VALOR_EN % nombre)
+        return seccion("Cost", "How much %s %s cost in Medellín?" % (verbo, nombre),
+                       '<p class="sub rev">%s</p><div class="botones izq rev"><a class="boton lleno" href="%s" target="_blank" rel="noopener">Ask for a quote on WhatsApp</a></div>' % (respuesta, boton), sid="precio")
     respuesta = next(r for q, r in preguntas_cx(c) if q.startswith("¿Cuánto cuesta"))
     boton = "https://wa.me/" + WHATSAPP + "?text=" + quote(MENSAJE_WA_VALOR % con_articulo(c))
     return seccion("Precio", "¿Cuánto cuesta %s?" % con_articulo(c),

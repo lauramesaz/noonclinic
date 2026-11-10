@@ -52,6 +52,30 @@ EXTRA_EN = {"tu-proceso.html": "international-patients.html", "seguridad.html": 
             "especialistas.html": "about-noon-clinic.html", "preguntas-frecuentes.html": "international-patients.html"}
 
 
+# "How much does … cost in Medellín?" en las fichas de cirugía en inglés (ronda 3, 9-nov-2026): el mismo bloque de las fichas en
+# español (build.bloque_precio), sin cifras. (verbo, cómo se nombra la cirugía dentro de la frase).
+CON_ARTICULO_EN = {
+    "blefaroplastia": ("does", "eyelid surgery"), "rinoplastia": ("does", "a rhinoplasty"), "lifting-facial": ("does", "a facelift and neck lift"),
+    "bichectomia": ("does", "buccal fat removal"), "mentoplastia": ("does", "chin surgery"),
+    "rinoplastia-y-mentoplastia": ("do", "rhinoplasty and chin surgery"), "otoplastia": ("does", "ear surgery"),
+    "lipopapada": ("does", "chin liposuction"), "mamoplastia-de-aumento": ("does", "a breast augmentation"), "mastopexia": ("does", "a breast lift"),
+    "mastopexia-con-implantes": ("does", "a breast lift with implants"), "mastopexia-sin-implantes": ("does", "a breast lift without implants"),
+    "mamoplastia-de-reduccion": ("does", "a breast reduction"), "recambio-de-implantes": ("does", "a breast implant exchange or removal"),
+    "ginecomastia": ("does", "gynecomastia surgery"), "liposuccion": ("does", "liposuction"), "lipo-360": ("does", "lipo 360"),
+    "lipotransferencia-glutea": ("does", "a Brazilian butt lift (BBL)"), "abdominoplastia": ("does", "a tummy tuck"),
+    "lipoabdominoplastia-con-transferencia-glutea": ("does", "a tummy tuck with BBL"), "mini-abdominoplastia": ("does", "a mini tummy tuck"),
+    "braquioplastia": ("does", "an arm lift"), "lifting-de-muslos": ("does", "a thigh lift"),
+    "cirugia-post-bariatrica": ("does", "body contouring after weight loss"), "mommy-makeover": ("does", "a mommy makeover"),
+    "labioplastia": ("does", "labiaplasty"),
+}
+# La misma explicación de datos_noon_seo._PRESUPUESTO, en inglés y sin cifras.
+PRESUPUESTO_EN = ("It depends on your case: how much needs to be treated, whether it is combined with another surgery, the anesthesia and the operating room time. "
+                  "That is why we don't publish a fixed price: after your in-person consultation in Medellín you receive a written quote "
+                  "with everything it includes. We explain what it depends on in "
+                  '<a href="plastic-surgery-in-colombia-cost-what-the-price-depends-on.html">what the price of plastic surgery in Colombia depends on</a>.')
+MENSAJE_WA_VALOR_EN = "Hi, I'm coming from the website and I'd like to know the cost of %s"
+
+
 def en_de(slug):
     """Archivo de la ficha en inglés (o None si aún no existe su texto)."""
     return EN_SLUG[slug] + ".html" if slug in FICHAS_EN and slug in EN_SLUG else None
@@ -130,7 +154,7 @@ def generar(b):
             barra = [("Sessions", d[0]), ("Session length", d[1]), ("Downtime", d[2]), ("Result", d[3])]
             viaje = "Aesthetic treatments usually take the same day or a few days, so they fit into a short trip. Your doctor confirms your plan at the consultation."
         nav = [("que-es", "What it is"), ("para-ti", "Is it for you")] + ([("recuperacion", "Recovery")] if cx else []) + \
-              ([("todo", "Before you decide")] if e.get("todo") else []) + [("viaje", "Coming from abroad"), ("especialista", "Specialist"), ("preguntas", "FAQ")]
+              ([("todo", "Before you decide")] if e.get("todo") else []) + ([("precio", "Cost")] if cx else []) + [("viaje", "Coming from abroad"), ("especialista", "Specialist"), ("preguntas", "FAQ")]
         quien = "Dr. Fernando Ruiz, plastic surgeon" if cx else "Dr. Valeria Enciso, aesthetic physician"
         cuerpo = (b.hero(f, ("Plastic surgery · " if cx else "Aesthetic medicine · ") + cat, e["nombre"] + " in <em>Medellín</em>", e["corto"], "alto" if cx else "medio",
                          b.accion_hero(dict(p, datos=e["datos"]), cx, quien.split(",")[0], None, en=True))
@@ -142,6 +166,7 @@ def generar(b):
                   + (b.seccion("Recovery", "Step by step", linea_tiempo_en([(r["t"], r["d"]) for r in e["recuperacion"]])
                                + '<p class="pista rev">These are guideline times. Your surgeon gives you the exact ones.</p>', sid="recuperacion") if cx and e.get("recuperacion") else "")
                   + todo_en(e)
+                  + (b.bloque_precio(p, en=e) if cx else "")
                   + b.seccion("Coming from abroad", "Plan your <em>trip</em>.", '<p class="sub rev">%s</p><a class="enlace rev" href="international-patients.html">How a trip to Medellín for surgery works</a>' % viaje, "marfil", sid="viaje")
                   + especialista_en("cirugia" if cx else "estetica", "Your consultation is in person in Medellín, with %s." % quien)
                   + b.seccion("FAQ", "Common <em>questions</em>", faq_en(list(e["faq"]) + list(e.get("faq_nuevas", []))) + b.ACTUALIZADO_EN, "marfil", sid="preguntas")
