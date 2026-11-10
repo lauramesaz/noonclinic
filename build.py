@@ -184,7 +184,7 @@ PIE_EN = """<footer class="pie">
 </footer>
 """
 CLINICA_LD = {"@context": "https://schema.org", "@type": "MedicalClinic", "@id": DOMINIO + "/#clinica", "name": "noon Clinic",
-              "alternateName": "noon Clinic Medellín", "url": DOMINIO + "/", "logo": DOMINIO + "/assets/logo-noon.png",
+              "alternateName": "noon Clinic Medellín", "url": DOMINIO + "/", "logo": DOMINIO + "/assets/logo-noon-cuadrado.png",
               "image": DOMINIO + "/assets/clinica/recepcion.jpg", "telephone": TELEFONO, "medicalSpecialty": "PlasticSurgery",
               "address": {"@type": "PostalAddress", "streetAddress": "Cra. 25A #1A Sur-45, Torre Médica El Tesoro 2, consultorio 1860",
                           "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO"},
