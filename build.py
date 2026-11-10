@@ -841,7 +841,8 @@ NOMBRE_EN['menton-y-mandibula-con-acido-hialuronico'] = 'Chin and jawline filler
 NOMBRE_EN['papada-sin-cirugia'] = 'Nonsurgical double chin treatment'
 TEL_VISIBLE = "+57 302 249 1937"
 DATOS_EN = [
-    ("Where", "Medellín, Antioquia, Colombia."),
+    ("Where", "Torre Médica El Tesoro 2, office 1860, Cra. 25A #1A Sur-45, El Poblado, Medellín, Antioquia, Colombia."),
+    ("Hours", "Monday to Saturday, 8 a.m. to 5 p.m. (Colombia time)."),
     ("Specialists", "Dr. Fernando Ruiz, plastic surgeon, and Dra. Valeria Enciso, aesthetic physician."),
     ("Where surgery happens", "In licensed operating rooms (Q2), never in a doctor's office. Pre-op tests are mandatory."),
     ("First step", "An in-person consultation in Medellín with the specialist who would treat you. WhatsApp is for questions and booking, not for diagnosis."),

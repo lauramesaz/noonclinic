@@ -29,6 +29,16 @@ EXTRA = {
     "ginecomastia": {
         "faq": [("¿Cuánto cuesta la cirugía de ginecomastia en Medellín?", _PRESUPUESTO)],
     },
+    # 9-nov-2026: "mastopexia precio colombia" y "mastopexia bogota" se repartían entre con/sin implantes; la dueña es la general
+    "mastopexia": {
+        "faq": [("¿Cuánto cuesta una mastopexia en Colombia?", _PRESUPUESTO),
+                ("¿Puedo operarme la mastopexia en Medellín si vivo en Bogotá?",
+                 "Sí. La valoración es presencial en Medellín y, si la cirugía tiene sentido para ti, organizamos las fechas para que "
+                 "valoración, cirugía y controles te queden en un solo viaje. Para una mastopexia calcula quedarte de 1 a 2 semanas; tu "
+                 'cirujano te confirma el tiempo. Lo explicamos en <a href="operarte-en-medellin-desde-bogota-cali-o-barranquilla.html">'
+                 "operarte en Medellín desde Bogotá, Cali o Barranquilla</a>.")],
+        "todo": [_en_medellin("mastopexia")],
+    },
     "mastopexia-sin-implantes": {
         "faq": [("¿Cuánto cuesta la mastopexia sin implantes en Medellín?", _PRESUPUESTO)],
     },

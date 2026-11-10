@@ -243,7 +243,8 @@ NUEVAS = [{'slug': 'lipo-360',
             'href="lipopapada.html">lipopapada</a>.</li></ul>')],
   'cierre_txt': 'Todo empieza con tu valoración presencial en Medellín: miramos tu perfil completo y cómo respiras, te decimos si conviene operar nariz y '
                 'mentón juntos o solo uno, y recibes tu plan por escrito.',
-  'ver_tambien': [('¿Solo quieres cambiar la nariz?', 'rinoplastia.html', 'Conoce la rinoplastia')],
+  'ver_tambien': [('¿Solo quieres cambiar la nariz?', 'rinoplastia.html', 'Conoce la rinoplastia'),
+                  ('¿Solo te molesta el mentón?', 'mentoplastia.html', 'Mentoplastia en Medellín')],
   'palabras': 'rinomentoplastia perfiloplastia rinoplastia mentoplastia nariz menton barbilla perfil rino mento genioplastia al mismo tiempo juntas misma '
               'cirugia',
   'nueva': True,
