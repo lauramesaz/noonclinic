@@ -188,12 +188,17 @@ def minus(nombre):
     return " ".join(p if p.strip("()") in SIGLAS else p.lower() for p in nombre.split())
 
 
-def ultimas(guias, lang="es", n=3):
-    return [g for g in guias if g["lang"] == lang and g.get("tipo") != "ciudad"][:n]
-
-
 def local(g):
     return g.get("publico") == "colombia"
+
+
+def ultimas(guias, lang="es", n=3, colombia_primero=False):
+    """Las guías más nuevas. colombia_primero (tarjetas del inicio): primero las escritas para quien vive en Colombia
+    (las más nuevas de ellas) y solo si no alcanzan, las de "si vives en Estados Unidos"."""
+    mias = [g for g in guias if g["lang"] == lang and g.get("tipo") != "ciudad"]
+    if colombia_primero:
+        mias.sort(key=lambda g: not local(g))  # orden estable: dentro de cada grupo siguen de la más nueva a la más vieja
+    return mias[:n]
 
 
 def de_procedimiento(guias, slug, n=3, relleno=True):

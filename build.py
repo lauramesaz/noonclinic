@@ -739,7 +739,7 @@ pagina("index.html", "noon Clinic · Cirugía plástica y medicina estética",
                ("I", "Valoración", "Te escuchamos, te examinamos y te decimos qué tiene sentido para ti."),
                ("II", "Tu plan por escrito", "Procedimiento, tiempos, cuidados y presupuesto, claros desde el principio."),
                ("III", "Procedimiento y seguimiento", "Con acompañamiento cercano hasta el alta.")]))
-       + G.bloque_lecturas(G.ultimas(GUIAS), "Blog", "Para leer <em>antes de decidir</em>.", sid="blog")
+       + G.bloque_lecturas(G.ultimas(GUIAS, colombia_primero=True), "Blog", "Para leer <em>antes de decidir</em>.", sid="blog")
        + cierre(),
        esquema=[{"@context": "https://schema.org", "@type": "WebSite", "@id": DOMINIO + "/#web", "name": "noon Clinic", "alternateName": ["noon", "noon Clinic Medellín"],
                  "url": DOMINIO + "/", "inLanguage": "es-CO", "publisher": {"@id": DOMINIO + "/#clinica"}},
