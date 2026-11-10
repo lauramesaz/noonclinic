@@ -288,12 +288,28 @@ def generar(b):
 
     def con_caja(g, cuerpo):
         """Caja a mitad del artículo (justo antes del tercer subtítulo, es decir, al terminar el segundo): lleva a la ficha
-        del procedimiento y a WhatsApp. Sin precios. Solo en las guías que tienen tema."""
+        del procedimiento y a WhatsApp. Sin precios. Las guías generales (viaje, seguridad, ciudades), que no tienen tema,
+        llevan una caja genérica hacia la valoración y la lista de cirugías (ronda de ventas 2, 9-nov-2026)."""
         t = tema(g)
         cortes = [m.start() for m in re.finditer(r"<h2[ >]", cuerpo)]
-        if not t or len(cortes) < 3:
+        if len(cortes) < 3:
             return cuerpo
         en = g["lang"] == "en"
+        if not t:
+            # El enlace a /valoracion va con dirección desde la raíz a propósito: pagina() convierte en WhatsApp todo
+            # href="valoracion.html" y aquí se quiere que la persona pueda leer cómo es la valoración.
+            if en:
+                ceja, tit, desc, ver, href = ("At noon Clinic", "Your consultation comes first",
+                                              "Your specialist examines you in person in Medellín, tells you whether surgery makes sense for you, and you leave with a written plan.",
+                                              "See procedures", b.FE.HUB_CX if b.FE.FICHAS_EN else "about-noon-clinic.html")
+            else:
+                ceja, tit, desc, ver, href = ("En noon Clinic", "Tu valoración, el primer paso",
+                                              'El especialista te examina en persona en Medellín, te dice si la cirugía tiene sentido para ti y sales con tu plan por escrito. '
+                                              '<a href="/valoracion">Así es tu valoración</a>.', "Ver cirugías", "cirugia-plastica.html")
+            caja = ('<aside class="art-caja"><p class="ceja">%s</p><p class="art-caja-t">%s</p><p class="art-caja-d">%s</p>'
+                    '<div class="botones"><a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a><a class="boton" href="%s">%s</a></div></aside>') % (
+                ceja, tit, desc, b.wa(en=en), "Message us on WhatsApp" if en else "Escribir por WhatsApp", href, ver)
+            return cuerpo[:cortes[2]] + caja + cuerpo[cortes[2]:]
         caja = ('<aside class="art-caja"><p class="ceja">%s</p><p class="art-caja-t">%s</p><p class="art-caja-d">%s</p>'
                 '<div class="botones"><a class="boton lleno" href="%s" target="_blank" rel="noopener">%s</a><a class="boton" href="%s">%s</a></div></aside>') % (
             "At noon Clinic" if en else "En noon Clinic", t["nombre"], t["corto"], b.wa(en=en), "Message us on WhatsApp" if en else "Escribir por WhatsApp",
