@@ -7,6 +7,93 @@ depende del Mac. Lo más nuevo arriba. Úsala para elegir temas (la cola de `tem
 para la mejora de los miércoles y para no escribir sobre búsquedas que ya tienen página dueña.
 El seguimiento semanal de las 10 fichas va aparte, en `seguimiento-fichas.md`.
 
+## Plan orgánico 13-nov-2026 (hecho a mano en la sesión con Laura)
+
+**NO TOCAR ANTES DEL 4-DIC-2026** los títulos, los h1 (título grande), las preguntas ni los enlaces de esta sección. Google
+necesita unas 3 semanas para volver a leer y mover las páginas; si se cambian antes, no se sabe qué funcionó. La revisión
+de los lunes solo mira (foto y seguimiento); el lunes 7-dic se compara con la foto del 9-nov.
+
+**Diagnóstico:** muchas páginas y ninguna gana (0 búsquedas sin la marca en primera página). Menos volumen, más fuerza:
+una dueña por búsqueda, las 10 fichas en seguimiento reforzadas y freno a las páginas nuevas parecidas (`temas.md`).
+
+### Dueña de cada búsqueda (las 10 que competían en la foto del 9-nov)
+
+| Búsqueda | Dueña | Qué se hizo para que las otras no le compitan |
+|---|---|---|
+| mentoplastia y rinoplastia | /rinoplastia-y-mentoplastia | Pregunta nueva con la búsqueda exacta; /mentoplastia y /especialistas la enlazan con el texto "Mentoplastia y rinoplastia en la misma cirugía". El título de Google no se tocó (el del 27-oct está funcionando). |
+| mentoplastia en medellín | /mentoplastia | El h1 de /rinoplastia-y-mentoplastia ya no dice "…mentoplastia en Medellín" (ahora "…juntas en Medellín"); /especialistas enlaza "Mentoplastia en Medellín". |
+| liposucción medellín · liposuccion en medellin | /liposuccion | Título y h1 con "Liposucción en Medellín"; la guía para EE. UU., /lipo-360 y /especialistas la enlazan con ese texto; la ficha en inglés ya no dice "Lipo 360" en el título; la guía /lipotransferencia-glutea-en-medellin se fusionó (abajo). |
+| lipotransferencia precio colombia medellín | /lipotransferencia-glutea | La guía que le competía se fusionó en la ficha y redirige a ella. |
+| mastopexia precio colombia · mastopexia bogota | /mastopexia | Las fichas con y sin implantes enlazan a /mastopexia con "Mastopexia en Medellín: precio y viaje". |
+| mastopexia sin implantes precio colombia | /mastopexia-sin-implantes | Sin cambio de título; pregunta nueva de incapacidad y bloque "en Medellín, paso a paso". |
+| gynecomastia surgery colombia | /gynecomastia-surgery-medellin (inglés) | Par español/inglés revisado: hreflang correcto en los dos sentidos. Sin cambios. |
+| rhinoplasty medellin | /rhinoplasty-medellin (inglés) | La otra página es el índice de cirugías en inglés (normal). hreflang correcto. Sin cambios. |
+
+Revisión técnica del mismo día: los 186 pares y páginas del sitemap tienen canónica propia, ninguna tiene noindex, todos
+los hreflang son recíprocos y ninguna página queda a más de 2 clics del inicio (las 10 fichas en seguimiento, a 1 clic).
+
+### Títulos y h1 cambiados (antes → después)
+
+| Página | Qué | Antes | Después |
+|---|---|---|---|
+| /liposuccion | título de Google | Lipo en Medellín: liposucción y lipoescultura | Liposucción en Medellín: lipo y lipoescultura |
+| /liposuccion | h1 | Liposucción y lipoescultura en Medellín | Liposucción en Medellín |
+| /liposuction-medellin | título de Google (inglés) | Liposuction and Lipo 360 in Medellín, Colombia | Liposuction in Medellín, Colombia |
+| /rinoplastia-y-mentoplastia | h1 | Rinoplastia y mentoplastia en Medellín | Rinoplastia y mentoplastia juntas en Medellín |
+| /nutricion | h1 | Nutrición en Medellín | Nutrición personalizada en Medellín |
+
+Títulos de Google cambiados: 2 (tope del plan: 10). Los demás se dejaron como estaban a propósito.
+
+### Fusión y redirección
+
+- `/lipotransferencia-glutea-en-medellin` (guía en español para quien viaja de EE. UU.) → **redirige a
+  `/lipotransferencia-glutea`** y salió del sitemap. Tres de sus cinco apartados repetían la ficha y su dirección era la
+  búsqueda de la ficha. Lo que la ficha no tenía pasó a sus preguntas (poca grasa para transferir, duración y anestesia,
+  venir de otra ciudad o de otro país). Su versión en inglés `/bbl-in-medellin-colombia` sigue publicada, ya sin par.
+  El archivo queda en `articulos/` con `"estado": "fusionado"` (no se publica).
+
+### Refuerzo de las 10 fichas en seguimiento (solo con datos ya publicados o de `hechos.md`; sin precios)
+
+Lo que tienen los que salen arriba en Google y a noon le faltaba: preguntas de duración y anestesia, cicatriz, incapacidad
+y precio, y un bloque de "cómo es en Medellín" con el nombre del cirujano y la sede.
+
+| Ficha | Preguntas nuevas | Otros |
+|---|---|---|
+| /mentoplastia | duración y anestesia · cicatriz (ASPS) · cuándo se ve el resultado | bloque "Tu mentoplastia en Medellín, paso a paso" |
+| /lipotransferencia-glutea | poca grasa para transferir · duración y anestesia · si vives en otra ciudad o país | recibe la guía fusionada |
+| /rinoplastia-y-mentoplastia | "¿La mentoplastia y la rinoplastia se pueden hacer al mismo tiempo?" · recuperación | bloque paso a paso · h1 |
+| /mastopexia-sin-implantes | días de incapacidad | bloque paso a paso · enlace a /mastopexia |
+| /braquioplastia | días de incapacidad · duración y anestesia | — |
+| /nutricion | cómo es un plan de alimentación personalizado | h1 |
+| /otoplastia | duración y anestesia · cuánto tiempo la banda | bloque paso a paso |
+| /liposuccion | qué zonas · duración y anestesia | bloque paso a paso · título y h1 |
+| /abdominoplastia | cicatriz · días de incapacidad · abdominoplastia o lipoabdominoplastia · precio (enlaza la guía de precio) | bloque paso a paso |
+| /mamoplastia-de-aumento | duración y anestesia · primeras semanas (enlaza la guía) · precio (enlaza la guía de precio) | bloque paso a paso |
+
+El bloque "en Medellín, paso a paso" ahora nombra la sede (Torre Médica El Tesoro 2, El Poblado) en todas las fichas que lo tienen.
+
+### Enlaces internos
+
+- `/especialistas` (de las pocas páginas en primera página, por la marca) no enlazaba ninguna ficha: ahora tiene la lista
+  "Lo que más nos consultan" con las 10 fichas en seguimiento y el texto de cada búsqueda.
+- Las guías enlazan a /liposuccion con el texto "Liposucción en Medellín" (campo `ancla` de la ficha).
+- `/about-noon-clinic` (ya en Google) enlaza 5 guías en inglés que Google todavía no tiene.
+- Las fichas de abdominoplastia y aumento de senos enlazan sus guías de precio y de recuperación (dos de ellas sin indexar).
+
+### Páginas sin indexar (25 en la revisión del 13-nov)
+
+Ninguna tiene noindex ni canónica equivocada; todas están en el sitemap, a 2 clics o menos del inicio y con 8 o más enlaces
+internos. 23 son páginas en inglés: Google las conoce y todavía no las lee, que es lo normal en un dominio nuevo sin enlaces
+desde otras webs. No se arregla con más páginas: se arregla con enlaces de afuera (ficha de Google, directorios médicos,
+prensa) y con que las fichas en español empiecen a traer visitas.
+
+### Qué mirar el lunes 7-dic-2026
+
+1. "Búsquedas que compiten": de 10 deberían bajar (meta: 5 o menos).
+2. "liposucción medellín": que la página que salga sea /liposuccion.
+3. "mentoplastia y rinoplastia": que siga pasando a /rinoplastia-y-mentoplastia, y "mentoplastia en medellín" a /mentoplastia.
+4. Seguimiento de las 10 fichas: posición frente a la fila del 11-oct a 7-nov.
+
 ## Foto del 9-nov-2026 (últimos 28 días: 11-oct al 7-nov)
 
 **Total:** 8 clics · 377 impresiones · CTR 2,1 % · posición media 64,9.

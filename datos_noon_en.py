@@ -1783,7 +1783,7 @@ FICHAS_EN = {
                 }
         ],
         "cierre_txt": "Everything starts with an in-person consultation in Medellín: we look at where the fat is and the condition of your skin, tell you whether lipo is right for you or another option fits better, and you get your plan in writing.",
-        "seo_title": "Liposuction and Lipo 360 in Medellín, Colombia",
+        "seo_title": "Liposuction in Medellín, Colombia",  # 13-nov-2026: sin "Lipo 360" (esa búsqueda es de lipo-360-medellin)
         "seo_desc": "Liposuction in Medellín, Colombia, to remove localized fat and shape your contour. It's not a weight-loss method. Start with an in-person consultation."
 },
     'lipotransferencia-glutea': {

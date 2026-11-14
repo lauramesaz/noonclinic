@@ -7,6 +7,28 @@ la **lista de turnos 2** (sección J).
 **Desde el 7-nov-2026 solo se escriben temas `colombia`** (`INSTRUCCIONES.md` §0). Las secciones A–E
 ya están publicadas y se quedan como están.
 
+## ORDEN DEL 13-NOV-2026 (Laura): FRENAR páginas nuevas parecidas a las que ya existen
+
+Search Console (11-oct a 7-nov): 186 páginas, 8 clics, ninguna búsqueda sin la marca en primera página y 10 búsquedas
+donde dos o más páginas de noon pelean entre sí. Hay muchas páginas y ninguna gana. Desde hoy:
+
+1. **Una pieza nueva solo se escribe si su búsqueda NO tiene dueña.** Antes de escribir: `python3 _agencia-seo/dueno.py
+   "<keyword>"` y la tabla "Dueña de cada búsqueda" de `search-console.md` (sección "Plan orgánico 13-nov-2026"). Si una
+   ficha o una guía ya responde esa búsqueda (aunque sea en una pregunta), el tema pasa a `en pausa (ya tiene dueña: <slug>)`
+   y NO se escribe.
+2. **Nada de "<procedimiento>: qué incluye el precio" por cada cirugía.** Ya hay tres (general, abdominoplastia y aumento de
+   senos) y cada ficha responde "¿Cuánto cuesta…?". Una más por procedimiento repite la pelea que se acaba de arreglar.
+3. **Si ese día ningún tema pasa la prueba, no se escribe pieza nueva:** solo indexación y limpieza. No se inventa un tema
+   para cumplir el ritmo.
+4. **La prioridad es reforzar las 10 fichas en seguimiento** (`seguimiento-fichas.md`). Los refuerzos de fichas siguen la
+   regla de `INSTRUCCIONES.md` §8 (la agencia diaria no toca fichas antes del 7-dic-2026). El refuerzo del 13-nov lo hizo la
+   sesión con Laura: **no tocar títulos, h1 ni preguntas de esas fichas antes del 4-dic-2026.**
+5. **Guía fusionada:** `/lipotransferencia-glutea-en-medellin` (D6, español) se fusionó en la ficha `/lipotransferencia-glutea`
+   y redirige a ella. No volver a publicarla ni escribir otra guía con el nombre de un procedimiento + "en Medellín".
+
+Por esta orden quedan `en pausa` J1, J2, J6, J7 y J9 (abajo). Siguen `pendiente` los que tienen ángulo propio y búsqueda sin
+dueña: F6, G5, H5, H6, J3, J4, J5, J8 y J10.
+
 ## A. Páginas de ciudad (tipo "ciudad")
 | # | Ciudad | Keyword ES | Keyword EN | Estado |
 |---|---|---|---|---|
@@ -43,7 +65,7 @@ ya están publicadas y se quedan como están.
 | D3 | mamoplastia-de-aumento | aumento de senos en Medellín desde Estados Unidos | breast augmentation in Medellin | publicado 2026-10-13 |
 | D4 | mommy-makeover | mommy makeover en Colombia | mommy makeover in Colombia | publicado 2026-10-14 |
 | D5 | rinoplastia | rinoplastia en Medellín para quien vive afuera | rhinoplasty in Medellin Colombia | publicado 2026-10-15 |
-| D6 | lipotransferencia-glutea | lipotransferencia glútea en Medellín | BBL in Medellin Colombia | publicado 2026-10-16 |
+| D6 | lipotransferencia-glutea | lipotransferencia glútea en Medellín | BBL in Medellin Colombia | ES fusionada en la ficha /lipotransferencia-glutea el 2026-11-13 (redirige); EN publicado 2026-10-16 |
 | D7 | blefaroplastia | blefaroplastia en Colombia en un viaje corto | eyelid surgery in Colombia | publicado 2026-10-17 |
 
 ## E. Temporadas
@@ -122,15 +144,15 @@ y qué preguntar. El title sugerido ya tiene 46 caracteres o menos.
 
 | # | Keyword ES | Title sugerido | Ficha dueña (enlazar) | Ángulo que la ficha no cubre | Búsqueda real de donde sale | Público | Estado |
 |---|---|---|---|---|---|---|---|
-| J1 | mastopexia sin implantes: qué incluye el precio y qué preguntar | Mastopexia sin implantes: qué cubre el precio | mastopexia-sin-implantes | Qué trae una cotización (cirujano, anestesia, quirófano, prenda, controles) y qué preguntar antes de comparar; por qué el valor sale de la valoración | La ficha recibe 13 búsquedas distintas, 8 de precio: "mastopexia sin implantes precio colombia", "cuanto cuesta una mastopexia sin implantes en colombia", "levantamiento de senos sin implantes precio", "precio de levantamiento de senos sin implantes"… (posición 79–98) | colombia | pendiente |
-| J2 | lipotransferencia: qué incluye el valor y qué preguntar | Lipotransferencia: qué incluye el valor | lipotransferencia-glutea | Qué suma la cuenta (lipo de las zonas donantes, transferencia, quirófano, anestesia, prenda, controles) y qué preguntar; enlazar también a la guía de recuperación (F3) | "cuanto cuesta una lipotransferencia en medellin" (2), "lipotransferencia precio colombia medellín" (3), repartidas entre la ficha y la guía para EE. UU. | colombia | pendiente |
+| J1 | mastopexia sin implantes: qué incluye el precio y qué preguntar | Mastopexia sin implantes: qué cubre el precio | mastopexia-sin-implantes | Qué trae una cotización (cirujano, anestesia, quirófano, prenda, controles) y qué preguntar antes de comparar; por qué el valor sale de la valoración | La ficha recibe 13 búsquedas distintas, 8 de precio: "mastopexia sin implantes precio colombia", "cuanto cuesta una mastopexia sin implantes en colombia", "levantamiento de senos sin implantes precio", "precio de levantamiento de senos sin implantes"… (posición 79–98) | colombia | en pausa (ya tiene dueña: la ficha mastopexia-sin-implantes responde el precio; orden del 13-nov) |
+| J2 | lipotransferencia: qué incluye el valor y qué preguntar | Lipotransferencia: qué incluye el valor | lipotransferencia-glutea | Qué suma la cuenta (lipo de las zonas donantes, transferencia, quirófano, anestesia, prenda, controles) y qué preguntar; enlazar también a la guía de recuperación (F3) | "cuanto cuesta una lipotransferencia en medellin" (2), "lipotransferencia precio colombia medellín" (3), repartidas entre la ficha y la guía para EE. UU. | colombia | en pausa (ya tiene dueña: la ficha lipotransferencia-glutea responde el precio; orden del 13-nov) |
 | J3 | recuperación de la braquioplastia y la cicatriz | Braquioplastia: recuperación y cicatriz | braquioplastia | Semana a semana: brazos en alto o no, prenda, cuándo volver al trabajo, cómo evoluciona la cicatriz (solo con datos de la ficha y de `hechos.md`) | "braquioplastia en medellin" (4) y "braquioplastia medellin" (2), posición ~73, hoy en la ficha | colombia | pendiente |
 | J4 | recuperación de la mentoplastia semana a semana | Mentoplastia: recuperación semana a semana | mentoplastia (y rinoplastia-y-mentoplastia si se hacen juntas) | Hinchazón, comer, dormir, volver a trabajar; qué cambia si va junto con rinoplastia. No repetir la ficha combinada ni poner "rinoplastia" en title, h1 o subtítulos: "mentoplastia y rinoplastia" ya es de rinoplastia-y-mentoplastia y está pasando a esa ficha (`search-console.md`) | "mentoplastia y rinoplastia" (46), "mentoplastia en medellín" (4); es la búsqueda con más impresiones sin la marca | colombia | pendiente |
 | J5 | recuperación de la otoplastia: cuándo volver a trabajar o a estudiar | Otoplastia: cuándo volver al trabajo o a clase | otoplastia | Incapacidad, la banda, dormir, deporte, volver a clase o al trabajo, sin días exactos como regla (solo con datos de la ficha y de `hechos.md`) | "otoplastia en medellin" (3) y "otoplastia en medellín" (3), posición 59–70: la ficha de cirugía mejor ubicada después de nutrición | colombia | pendiente |
-| J6 | lifting facial: qué incluye el precio y qué preguntar | Lifting facial: qué incluye el precio | lifting-facial (y la guía hilos-tensores-o-lifting-facial) | Qué trae la cotización (técnica según la flacidez, anestesia, quirófano, noches, controles) y qué preguntar; sin comparar con hilos (ya lo hace H4) | Pauta: "lifting facial precio en medellín" (8 visitas en octubre, expediente del Comercializador); Search Console: "lifting facial precio colombia" (1) en la ficha | colombia | pendiente |
-| J7 | ginecomastia: qué incluye el precio | Ginecomastia: qué incluye el precio | ginecomastia | Qué cambia la cuenta (glándula, grasa, piel), qué preguntar y qué no incluye; hablarle al hombre que busca discreción | "ginecomastia precio" (2) en la ficha, y "gynecomastia surgery colombia" (5) que hoy se reparte entre la ficha en español y la de inglés | colombia | pendiente |
+| J6 | lifting facial: qué incluye el precio y qué preguntar | Lifting facial: qué incluye el precio | lifting-facial (y la guía hilos-tensores-o-lifting-facial) | Qué trae la cotización (técnica según la flacidez, anestesia, quirófano, noches, controles) y qué preguntar; sin comparar con hilos (ya lo hace H4) | Pauta: "lifting facial precio en medellín" (8 visitas en octubre, expediente del Comercializador); Search Console: "lifting facial precio colombia" (1) en la ficha | colombia | en pausa (ya tiene dueña: la ficha lifting-facial responde el precio; orden del 13-nov) |
+| J7 | ginecomastia: qué incluye el precio | Ginecomastia: qué incluye el precio | ginecomastia | Qué cambia la cuenta (glándula, grasa, piel), qué preguntar y qué no incluye; hablarle al hombre que busca discreción | "ginecomastia precio" (2) en la ficha, y "gynecomastia surgery colombia" (5) que hoy se reparte entre la ficha en español y la de inglés | colombia | en pausa (ya tiene dueña: la ficha ginecomastia responde el precio; orden del 13-nov) |
 | J8 | qué comer antes y después de una cirugía plástica | Qué comer antes y después de operarte | nutricion | La alimentación alrededor de la cirugía (antes, primeros días, semanas siguientes), enlazando a la consulta de nutrición; no tratar "nutrición personalizada" en sí (eso es de la ficha) | "nutrición personalizada medellín" (4 + 3) y "plan de alimentación personalizado medellín" (3) llegan a la ficha de nutrición, la mejor ubicada (61,5) | colombia | pendiente |
-| J9 | mastopexia con implantes o sin implantes: cómo se decide | Mastopexia con o sin implantes: cómo se decide | mastopexia-con-implantes y mastopexia-sin-implantes (y mastopexia) | De qué depende la decisión (volumen que se quiere, piel, lo que se ve en la valoración); enlaza a las dos fichas y deja la decisión al cirujano | "mastopexia precio colombia" sale a la vez en las dos fichas y "mastopexia bogota" en /mastopexia y /mastopexia-con-implantes: Google todavía no sabe cuál mostrar | colombia | pendiente |
+| J9 | mastopexia con implantes o sin implantes: cómo se decide | Mastopexia con o sin implantes: cómo se decide | mastopexia-con-implantes y mastopexia-sin-implantes (y mastopexia) | De qué depende la decisión (volumen que se quiere, piel, lo que se ve en la valoración); enlaza a las dos fichas y deja la decisión al cirujano | "mastopexia precio colombia" sale a la vez en las dos fichas y "mastopexia bogota" en /mastopexia y /mastopexia-con-implantes: Google todavía no sabe cuál mostrar | colombia | en pausa (ya tiene dueña: /mastopexia responde "¿con o sin implantes?" y enlaza a las dos fichas; orden del 13-nov) |
 | J10 | mamoplastia de reducción o mastopexia: cuál es la diferencia | Reducción de senos o mastopexia: diferencias | mamoplastia-de-reduccion y mastopexia | Comparativa entre dos servicios de noon: reducir volumen o subir y dar forma, quién es candidata a cada una; enlaza a las dos fichas | "mamoplastia de reduccion sin implantes" cae en la ficha de mastopexia sin implantes (confusión real entre las dos), más "mamoplastia de reducción en medellín" (2) y "mamoplastia de reduccion medellin" (1) | colombia | pendiente |
 
 Descartados el 7-nov (no entran, para no repetir la idea):
@@ -147,6 +169,7 @@ F1 · H1 · G1 · F2 · I1 · H2 · G2 · F3 · H3 · G4 · F4 · G3 · H4 · G7
 
 ## Lista de turnos 2 (desde el 7-nov-2026, después de la anterior)
 J1 · J4 · J2 · J7 · J5 · J3 · J10 · J8 · J6 · J9
+(13-nov-2026: J1, J2, J6, J7 y J9 en pausa por la orden de arriba; el turno real es J4 · J5 · J3 · J10 · J8.)
 
 Cuando queden menos de 5 `pendiente`, el Redactor agrega **10 temas de Colombia** (nada de EE. UU.)
 sacados de búsquedas reales: `search-console.md` y `python3 _agencia-seo/gsc.py sc-domain:noon.clinic

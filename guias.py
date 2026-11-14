@@ -331,8 +331,9 @@ def generar(b):
             linea = '<p class="art-duena">Everything about the %s itself (what it is, who it is for, recovery and risks) is on our <a href="%s">%s in Medellín</a> page.</p>' % (
                 "procedure" if principal in b.CX_N else "treatment", href, nombre)
         else:
-            linea = '<p class="art-duena">Todo sobre %s en sí (qué es, para quién es, recuperación y riesgos) está en <a href="%s">%s en Medellín</a>.</p>' % (
-                "la cirugía" if principal in b.CX_N else "el tratamiento", href, nombre)
+            ficha = b.CX_N.get(principal) or b.TR_N.get(principal)  # "ancla": el texto exacto de la búsqueda de la que la ficha es dueña
+            linea = '<p class="art-duena">Todo sobre %s en sí (qué es, para quién es, recuperación y riesgos) está en <a href="%s">%s</a>.</p>' % (
+                "la cirugía" if principal in b.CX_N else "el tratamiento", href, ficha.get("ancla") or nombre + " en Medellín")
         fin = cuerpo.find("</p>")
         return cuerpo[:fin + 4] + linea + cuerpo[fin + 4:] if fin >= 0 else linea + cuerpo
 

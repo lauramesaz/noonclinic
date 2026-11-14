@@ -882,7 +882,7 @@ for c in CIRUGIAS_NOON:
     otras = [x for x in CIRUGIAS_NOON if x["cat"] == c["cat"] and x["slug"] != c["slug"]]
     msj = "Hola, quiero agendar mi valoración para %s en noon Clinic." % c["nombre"].lower()
     pagina(c["slug"] + ".html", c["nombre"], c["corto"],
-           hero(f, "Cirugía plástica · " + cat_n, c["nombre"] + " en <em>Medellín</em>", c["corto"], "alto", accion_hero(c, True, "Dr. Fernando Ruiz", msj))
+           hero(f, "Cirugía plástica · " + cat_n, c.get("h1") or c["nombre"] + " en <em>Medellín</em>", c["corto"], "alto", accion_hero(c, True, "Dr. Fernando Ruiz", msj))
            + datos_barra([("Duración", d[0]), ("Anestesia", d[1]), ("Incapacidad aprox.", d[2]), ("Resultado final", d[3])])
            + subnav([("que-es", "Qué es"), ("para-ti", "Para ti"), ("recuperacion", "Recuperación")] + ([("todo", "Antes de decidir")] if c.get("todo") else []) + [("precio", "Precio"), ("especialista", "Especialista"), ("preguntas", "Preguntas")])
            + frase("El procedimiento", c["que_es"][0], c["que_es"][1] if len(c["que_es"]) > 1 else "", "media", sid="que-es")
@@ -926,7 +926,7 @@ for t in TRATAMIENTOS:
     otras = [x for x in TRATAMIENTOS if x["cat"] == t["cat"] and x["slug"] != t["slug"]]
     msj = "Hola, quiero agendar una valoración para %s en noon Clinic." % t["nombre"].lower()
     pagina(t["slug"] + ".html", t["nombre"], t["corto"],
-           hero(f, "Medicina estética · " + cat_n, t["nombre"] + " en <em>Medellín</em>", t["corto"], "medio", accion_hero(t, False, "Dra. Valeria Enciso", msj))
+           hero(f, "Medicina estética · " + cat_n, t.get("h1") or t["nombre"] + " en <em>Medellín</em>", t["corto"], "medio", accion_hero(t, False, "Dra. Valeria Enciso", msj))
            + datos_barra([("Sesiones", d[0]), ("Duración", d[1]), ("Recuperación", d[2]), ("Resultado", d[3])])
            + subnav([("que-es", "Qué es"), ("para-ti", "Indicado para")] + ([("test", "¿Soy candidata?")] if t["slug"] in TESTS_CANDIDATA else []) + [("especialista", "Especialista"), ("preguntas", "Preguntas")])
            + frase("El tratamiento", t["que_es"][0], t["que_es"][1] if len(t["que_es"]) > 1 else "", "media", sid="que-es")
@@ -997,6 +997,11 @@ pagina("about-noon-clinic.html", "Plastic surgery clinic in Medellín, Colombia"
            ('<a href="is-it-safe-to-get-plastic-surgery-in-colombia.html">Is it safe to get plastic surgery in Colombia?</a>', "What to check before you choose a clinic."),
            ('<a href="how-to-choose-a-plastic-surgeon-in-medellin.html">How to choose a plastic surgeon in Medellín</a>', "Credentials, operating rooms and red flags."),
            ('<a href="how-long-to-stay-in-colombia-after-plastic-surgery.html">How long to stay after surgery</a>', "Recovery time before you fly home."),
+           ('<a href="red-flags-medical-tourism-plastic-surgery.html">Red flags in medical tourism</a>', "Warning signs before you book surgery abroad."),
+           ('<a href="plastic-surgery-in-colombia-cost-what-the-price-depends-on.html">What the price of plastic surgery in Colombia depends on</a>', "What a written quote should include."),
+           ('<a href="where-to-stay-in-medellin-to-recover-after-surgery.html">Where to stay in Medellín to recover</a>', "Choosing a place for your first days after surgery."),
+           ('<a href="what-to-pack-for-plastic-surgery-in-colombia.html">What to pack for surgery in Colombia</a>', "A short list for your trip."),
+           ('<a href="when-can-i-fly-after-liposuction.html">When can I fly after liposuction?</a>', "Your surgeon clears you to fly; here is what that depends on."),
            ('<a href="guides.html">All guides</a>', "")]), "marfil")
        + cierre("Talk to <em>us</em>", "Message us on WhatsApp at " + TEL_VISIBLE + " and we will plan your consultation, procedure and follow-up dates with you.",
                 '<a class="boton lleno" href="%s" target="_blank" rel="noopener">WhatsApp %s</a>' % (wa(), TEL_VISIBLE), fondo="seda-oscura", nota=NOTA_WA_EN),
@@ -1007,6 +1012,14 @@ pagina("about-noon-clinic.html", "Plastic surgery clinic in Medellín, Colombia"
 
 
 # ================================================================ ESPECIALISTAS
+# Plan orgánico del 13-nov-2026: /especialistas es de las pocas páginas que Google ya muestra en primera página (por la marca) y no
+# enlazaba ninguna ficha. Van las 10 en seguimiento (_agencia-seo/seguimiento-fichas.md), con el texto de la búsqueda.
+FICHAS_ESPECIALISTAS = [(x, n, "Con %s. %s" % ("el Dr. Fernando Ruiz" if x in CX_N else "la Dra. Valeria Enciso", (CX_N.get(x) or TR_N[x])["corto"])) for x, n in [
+    ("liposuccion", "Liposucción en Medellín"), ("abdominoplastia", "Abdominoplastia en Medellín"),
+    ("mamoplastia-de-aumento", "Mamoplastia de aumento en Medellín"), ("mastopexia-sin-implantes", "Mastopexia sin implantes en Medellín"),
+    ("lipotransferencia-glutea", "Lipotransferencia glútea en Medellín"), ("mentoplastia", "Mentoplastia en Medellín"),
+    ("rinoplastia-y-mentoplastia", "Mentoplastia y rinoplastia en la misma cirugía"), ("otoplastia", "Otoplastia en Medellín"),
+    ("braquioplastia", "Braquioplastia en Medellín"), ("nutricion", "Nutrición personalizada en Medellín")]]
 fichas = ""
 for i, e in enumerate(ESPECIALISTAS):
     area = ("cirugia-plastica.html", "Ver cirugías") if e["area"] == "cirugia" else ("medicina-estetica.html", "Ver tratamientos")
@@ -1018,6 +1031,8 @@ for i, e in enumerate(ESPECIALISTAS):
 pagina("especialistas.html", "Especialistas", "Conoce a los especialistas de noon Clinic: Dr. Fernando Ruiz, cirujano plástico, y Dra. Valeria Enciso, médica estética.",
        hero("seda-noche", "Especialistas", "Médicos especializados.<br>Decisiones <em>personales</em>.", "Te escuchamos antes de proponer, te explicamos sin dramatizar y decidimos contigo.")
        + fichas
+       + seccion("Lo que más nos consultan", "Cirugías y tratamientos en <em>Medellín</em>", lineas(
+           [('<a href="%s.html">%s</a>' % (x, n), d) for x, n, d in FICHAS_ESPECIALISTAS]) + '<a class="enlace rev" href="cirugia-plastica.html">Todas las cirugías</a>', "marfil", sid="procedimientos")
        + seccion("Cómo trabajamos", "Nuestros principios", lineas([("Escuchar antes de proponer",), ("Explicar sin dramatizar",), ("Decidir junto a la persona",), ("Cuidar también el seguimiento",)], numerar=True))
        + cierre(),
        # Solo lo que ya se ve en la página (nombre, rol, foto): sin registros ni formación hasta que Laura los confirme.
@@ -1196,7 +1211,10 @@ pagina("valoracion.html", "Agenda tu valoración", "Todo empieza con tu valoraci
 
 # ================================================================ PÁGINAS VIEJAS → redirección a las nuevas
 for viejo, nuevo in [("cirugias", "cirugia-plastica"), ("todo-incluido", "cirugia-plastica"), ("mastopexia-con-implantes", "mastopexia"),
-                     ("mastopexia-sin-implantes", "mastopexia"), ("lipo", "liposuccion"), ("nosotros", "especialistas"), ("la-clinica", "#clinica")]:
+                     ("mastopexia-sin-implantes", "mastopexia"), ("lipo", "liposuccion"), ("nosotros", "especialistas"), ("la-clinica", "#clinica"),
+                     # 13-nov-2026: la guía "lipotransferencia glútea viajando de EE. UU." decía lo mismo que la ficha y le competía por
+                     # "lipotransferencia medellín" y "liposucción medellín"; lo que le faltaba a la ficha pasó a sus preguntas.
+                     ("lipotransferencia-glutea-en-medellin", "lipotransferencia-glutea")]:
     if viejo in CX_N or viejo in TR_N:
         continue  # ya es una ficha real (fichas nuevas del 20-oct): no se redirige
     with open(os.path.join(AQUI, viejo + ".html"), "w", encoding="utf-8") as fh:

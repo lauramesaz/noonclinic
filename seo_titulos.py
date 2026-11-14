@@ -68,8 +68,8 @@ SEO = {
     # ginecomastia en Medellín
     'ginecomastia.html': ('Ginecomastia en Medellín: pecho masculino',
                            'Cirugía para hombres que retira el exceso de tejido mamario y grasa del pecho, con liposucción, resección de la glándula o ambas. Te valoramos en Medellín.'),
-    # lipo en Medellín
-    'liposuccion.html': ('Lipo en Medellín: liposucción y lipoescultura',
+    # liposucción en Medellín (13-nov-2026: la búsqueda real es "liposucción medellín"; antes "Lipo en Medellín: liposucción y lipoescultura")
+    'liposuccion.html': ('Liposucción en Medellín: lipo y lipoescultura',
                           'Retira la grasa localizada de abdomen, cintura, espalda, brazos o muslos para definir el contorno. Moldea; no es para bajar de peso. Valoración en Medellín.'),
     # lipotransferencia glútea en Medellín
     'lipotransferencia-glutea.html': ('Lipotransferencia glútea en Medellín (BBL)',

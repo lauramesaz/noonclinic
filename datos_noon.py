@@ -916,6 +916,9 @@ for _m, _e in _EXTRA_SEO.items():
     _x["todo"] = list(_x.get("todo", [])) + list(_e.get("todo", []))
     for _a, _b in _e.get("reemplazar", []):
         _x["todo"] = [(h, t.replace(_a, _b)) for h, t in _x["todo"]]
+    if _e.get("ver_tambien"):  # plan orgánico del 13-nov-2026: enlaces hacia la página dueña de cada búsqueda
+        _x["ver_tambien"] = list(_x.get("ver_tambien", [])) + [tuple(v) for v in _e["ver_tambien"]]
+    _x.update(_e.get("campos", {}))  # "h1" y "ancla" (ver datos_noon_seo.py)
 
 TODAS_CX = [c["slug"] for c in CIRUGIAS_NOON]
 FAQ_NOON = [
