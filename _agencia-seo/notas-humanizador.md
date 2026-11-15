@@ -13,6 +13,10 @@ Formato: fecha · agente · vicio · ejemplo corto. Máximo 25 activas.
   "no es que…", "This isn't X. It's Y"). Lo usan 18 guías en español y 10 en inglés para abrir.
   Prohibido en la entrada, el intro y los subtítulos; en el cuerpo, como mucho 1 · ej.: "No es un
   relleno. Es hacer que tu propia piel trabaje de nuevo.", "This isn't a weekend fix. It's…".
+  (15-nov: la limpieza de `recuperacion-de-la-lipotransferencia-glutea-semana-a-semana` encontró el
+  mismo molde repetido 2 veces más dentro del cuerpo, no solo al abrir: "'No sentarte' no es literal:
+  es…" y "No es solo llevarte... es...". No es solo muletilla de apertura: se usa como relleno en
+  cualquier párrafo. El Redactor debe revisar todo el cuerpo, no solo entrada/intro.)
 - 2026-11-07 · 1 Redactor (ES) · **Copiar la apertura de otra guía.** La entrada de la guía de precio de
   abdominoplastia (I2, 6-nov) repetía 9 palabras seguidas de la de criolipólisis (G7, 4-nov) y el
   arranque de I1 ("dos números que no se parecen entre sí"). Antes de entregar, `python3
