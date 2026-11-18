@@ -1,5 +1,5 @@
 {
- "fecha": "2026-11-17",
+ "fecha": "2026-11-18",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
@@ -35,7 +35,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-01"
+   "rastreo": "2026-11-18"
   },
   "https://noon.clinic/aesthetic-medicine-medellin": {
    "en_google": true,
@@ -165,7 +165,7 @@
   },
   "https://noon.clinic/breast-lift-with-implants-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -179,7 +179,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "en",
-   "rastreo": "2026-10-24"
+   "rastreo": "2026-11-17"
   },
   "https://noon.clinic/buccal-fat-removal-medellin": {
    "en_google": true,
@@ -335,7 +335,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "guias",
-   "rastreo": "2026-10-24"
+   "rastreo": "2026-11-18"
   },
   "https://noon.clinic/depilacion-laser": {
    "en_google": true,
@@ -411,7 +411,7 @@
   },
   "https://noon.clinic/guides": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -561,7 +561,7 @@
   },
   "https://noon.clinic/lipoabdominoplasty-with-bbl-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -819,7 +819,7 @@
   },
   "https://noon.clinic/plastic-surgery-in-colombia-cost-what-the-price-depends-on": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -903,7 +903,7 @@
   },
   "https://noon.clinic/radiofrequency-skin-tightening-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -993,7 +993,7 @@
   },
   "https://noon.clinic/skin-boosters-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1107,7 +1107,7 @@
   },
   "https://noon.clinic/when-can-i-fly-after-liposuction": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1119,7 +1119,7 @@
   },
   "https://noon.clinic/why-noon-clinic": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   }
