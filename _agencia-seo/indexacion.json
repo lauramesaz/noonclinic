@@ -1,5 +1,5 @@
 {
- "fecha": "2026-11-18",
+ "fecha": "2026-11-19",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
@@ -165,13 +165,13 @@
   },
   "https://noon.clinic/breast-lift-with-implants-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/breast-lift-without-implants-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -387,7 +387,7 @@
   },
   "https://noon.clinic/facelift-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -411,7 +411,7 @@
   },
   "https://noon.clinic/guides": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -429,7 +429,7 @@
   },
   "https://noon.clinic/hifu-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -561,7 +561,7 @@
   },
   "https://noon.clinic/lipoabdominoplasty-with-bbl-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -653,7 +653,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-10-27"
+   "rastreo": "2026-11-19"
   },
   "https://noon.clinic/melasma-por-que-aparece-y-como-se-trata": {
    "en_google": true,
@@ -825,7 +825,7 @@
   },
   "https://noon.clinic/plastic-surgery-in-colombia-from-boston": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1035,7 +1035,7 @@
   },
   "https://noon.clinic/thigh-lift-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1107,19 +1107,19 @@
   },
   "https://noon.clinic/when-can-i-fly-after-liposuction": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/where-to-stay-in-medellin-to-recover-after-surgery": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/why-noon-clinic": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   }
