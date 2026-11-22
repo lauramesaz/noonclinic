@@ -2,7 +2,7 @@
 
 Lo actualiza cada mañana la agencia con el usuario robot de Search Console (solo lectura). build.py usa indexacion.json para darles más enlaces internos a las que Google todavía no tiene.
 
-## Revisión del 2026-11-21
+## Revisión del 2026-11-22
 
 **Total:** 166 de 188 páginas en Google.
 
@@ -12,8 +12,8 @@ Lo actualiza cada mañana la agencia con el usuario robot de Search Console (sol
 
 ## Por qué no están las demás
 
-- Descubierta: actualmente sin indexar: 17
-- Google no reconoce esta URL: 5
+- Descubierta: actualmente sin indexar: 16
+- Google no reconoce esta URL: 6
 
 ### Faltan · Guías del blog (español) (1)
 
