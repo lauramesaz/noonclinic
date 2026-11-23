@@ -191,6 +191,7 @@ aside h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(
     <section class="paso">
       <h2><span>02</span>Cirugía y quirófano</h2>
       <p class="ayuda" id="ayuda-q"></p>
+      <div class="campo" style="margin-bottom:18px"><label for="cx-nombre">Nombre de la cirugía <small>(así sale en el PDF)</small></label><input id="cx-nombre" type="text" autocomplete="off" placeholder="Ej.: Lipo 360 + lipotransferencia glútea"></div>
       <div id="procs"></div>
       <div class="botones" style="margin-top:16px"><button type="button" class="btn-linea" id="add-proc">+ Agregar otro procedimiento</button></div>
     </section>
@@ -301,7 +302,7 @@ function agregarProc(){
   d.className = "proc-b";
   d.innerHTML = `<div class="tit"><span class="n"></span><button type="button" class="quitar-p">Quitar ×</button></div>
     <div class="fila">
-      <div class="campo"><label>Procedimiento</label><select class="proc"><option value="">Elige el procedimiento</option>${Object.keys(S().tarifas).map(p => `<option>${esc(p)}</option>`).join("")}</select></div>
+      <div class="campo"><label>Procedimiento del tarifario</label><select class="proc"><option value="">Elige el procedimiento</option>${Object.keys(S().tarifas).map(p => `<option>${esc(p)}</option>`).join("")}</select></div>
       <div class="campo"><label>Tiempo y anestesia</label><select class="tiempo" disabled><option value="">Primero elige el procedimiento</option></select></div>
     </div>
     <div class="auto vacio a-q"><span>Quirófano</span><b>—</b></div>
@@ -398,7 +399,7 @@ function leer(){
     nombre: $("#nombre").value.trim(), cedula: $("#cedula").value.trim(),
     doctor: $("#doctor").value === "otro" ? $("#doctor-otro").value.trim() : $("#doctor").value,
     comercial: $("#comercial").value.trim(),
-    procs, listos, proc: listos.map(x => x.nombre).join(" + "), quir, sede: S().nombre, quirofanoNombre: S().quirofano, instr, imp, doc, cli, extras,
+    procs, listos, tarifa: listos.map(x => x.nombre).join(" + "), proc: $("#cx-nombre").value.trim() || listos.map(x => x.nombre).join(" + "), propio: !!$("#cx-nombre").value.trim(), quir, sede: S().nombre, quirofanoNombre: S().quirofano, instr, imp, doc, cli, extras,
     costos, sugerida, comision, total,
   };
 }
@@ -433,6 +434,7 @@ function calcular(){
   if (s.comision) r += linea("Comisión del comercial", s.comision) + `<div class="linea-r sub"><span>En el PDF va dentro del quirófano</span><span></span></div>`;
   $("#resumen").innerHTML = r || `<p class="vacio-r">Elige el procedimiento para empezar.</p>`;
   $("#total").textContent = fmt(s.total);
+  $("#cx-nombre").placeholder = s.tarifa ? "Si lo dejas vacío sale: " + s.tarifa : "Ej.: Lipo 360 + lipotransferencia glútea";
   return s;
 }
 const linea = (a, b) => `<div class="linea-r"><span>${esc(a)}</span><span>${fmt(b)}</span></div>`;
@@ -469,7 +471,7 @@ const dos = n => String(n).padStart(2, "0");
 
 function armarPDF(s, numero, hoy, vence){
   const filas = [];
-  const varios = s.listos.length > 1;
+  const varios = s.listos.length > 1 && !s.propio;
   s.listos.forEach(x => {
     filas.push([`Quirófano · ${s.quirofanoNombre}`, [varios ? x.nombre : "", horasDe(x.q.h), x.q.a ? "anestesia " + x.q.a : ""].filter(Boolean).join(" · "), x.qPdf]);
     filas.push([`Instrumentador quirúrgico`, [varios ? x.nombre : "", horas(x.hi)].filter(Boolean).join(" · "), x.instr]);
@@ -478,7 +480,7 @@ function armarPDF(s, numero, hoy, vence){
   filas.push([`Honorarios del cirujano`, s.doctor, s.doc + s.cli]);
   filas.push(["Póliza", "", C.poliza]);
   s.extras.forEach(x => filas.push([x.d || "Otro", "", x.v]));
-  const incluye = S().incluye.concat(/abdominoplastia/i.test(s.proc) ? ["Exovac o reservorio (1 unidad)"] : []);
+  const incluye = S().incluye.concat(/abdominoplastia/i.test(s.tarifa + " " + s.proc) ? ["Exovac o reservorio (1 unidad)"] : []);
   $("#pdf").innerHTML = `
     <div class="p-cab"><img src="assets/logo-noon-claro.png" alt="noon Clinic">
       <div class="der"><b>Cotización</b><span class="p-sede">Sede ${esc(s.sede)}</span>N.º ${numero} · ${fecha(hoy)}</div></div>
