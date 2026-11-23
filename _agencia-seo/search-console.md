@@ -94,6 +94,62 @@ prensa) y con que las fichas en español empiecen a traer visitas.
 3. "mentoplastia y rinoplastia": que siga pasando a /rinoplastia-y-mentoplastia, y "mentoplastia en medellín" a /mentoplastia.
 4. Seguimiento de las 10 fichas: posición frente a la fila del 11-oct a 7-nov.
 
+## Foto del 23-nov-2026 (últimos 28 días: 25-oct al 21-nov)
+
+**Total:** 15 clics · 654 impresiones · CTR 2,3 % · posición media 46,6.
+De los 15 clics, 5 son de la búsqueda "noon clinic" (13 impr.), 8 llegan sin búsqueda visible y 2 por búsquedas sin la marca.
+
+**Sin la marca (búsquedas que no dicen "noon"):** 2 clics · 472 impresiones en 167 búsquedas distintas ·
+posición media 52,2. Por país: Colombia 1/216 · España 1/71 · Estados Unidos 0/110 · México 0/34 · Chile 0/8.
+**Búsquedas sin la marca en primera página** (posición media 10 o mejor, 3 o más impresiones): **6** ("melasma facial" 8,7,
+"liposuccion medellin" 6,6, "acido hialuronico labios precio colombia" 7,8, "causas del melasma" 10,0, "melasma dermico" 5,7,
+"que es melasma en la cara" 6,7).
+
+**Países (clics / impresiones, todo):** Colombia 14/317 · España 1/80 · EE. UU. 0/134 · México 0/38 · Brasil 0/12 ·
+Chile 0/8 · Venezuela 0/6 · Argentina 0/5 · Pakistán 0/5 · Reino Unido 0/4.
+
+**Búsquedas sin la marca (top 10, impresiones · posición):** melasma 52 · 30 (1 clic) · mentoplastia y rinoplastia 30 · 76 ·
+melasma que es 14 · 21 · mastopexia bogota 12 · 71 · melasma facial 12 · 9 · bioestimulador 11 · 66 ·
+otoplasty columbia sc 9 · 75 · liposuccion en medellin 8 · 59 · bioestimuladores 8 · 57 · mentoplastia medellin 4 · 76 (1 clic).
+
+**Páginas (top 10, clics / impresiones):** / 9/37 · /especialistas 5/22 · /melasma-por-que-aparece-y-como-se-trata 1/127 ·
+/mentoplastia 1/11 · /rinoplastia-y-mentoplastia 0/33 · /lipo-en-medellin-para-pacientes-de-estados-unidos 0/27 ·
+/bioestimuladores-de-colageno-que-son-y-para-quien 0/26 · /how-to-choose-a-plastic-surgeon-in-medellin 0/26 ·
+/labios-con-acido-hialuronico 0/20 · /ear-surgery-medellin 0/19.
+
+**Búsquedas que compiten** (2 o más páginas de noon, 3 o más impresiones): **19** (antes 14). Las principales:
+- "mentoplastia y rinoplastia" (32): /rinoplastia-y-mentoplastia 26 (la principal) · /mentoplastia 6.
+- "liposuccion en medellin" (16) y "liposucción medellín" (15): guía para EE. UU. · /liposuccion · /lipotransferencia-glutea-en-medellin · /liposuction-medellin.
+- "mastopexia bogota" (14): /mastopexia · /mastopexia-con-implantes.
+- "rhinoplasty medellin" (8), "plastic surgery in colombia medellin" (5), "plastic surgery in medellin" (4): /rhinoplasty-medellin o /plastic-surgery-medellin · /how-to-choose-a-plastic-surgeon-in-medellin · otras.
+- "mentoplastia medellin" (6) y "mentoplastia en medellín" (6): /mentoplastia · /rinoplastia-y-mentoplastia · /cirugia-plastica.
+- "aumento de senos medellin" (7): guía para EE. UU. · /mommy-makeover; "acido hialuronico medellin" (4); "bioestimuladores medellin" (3);
+  "lipotransferencia" (3 búsquedas): /lipotransferencia-glutea · /lipotransferencia-glutea-en-medellin; gynecomastia/gyno surgery colombia (2); "liposuction columbia" (3); mastopexia precio colombia (3).
+Ojo: las fusiones y los cambios de dueña del 13/16-nov (liposucción, lipotransferencia, mentoplastia) todavía no se notan: Google tarda semanas.
+
+**Cambió de página entre quincenas** (25 al 7-nov → 8 al 21-nov): "plastic surgery in colombia medellin" y "plastic surgery in medellin" pasaron
+a /how-to-choose-a-plastic-surgeon-in-medellin (1 impr. cada una); "rhinoplasty medellin" pasó en parte a esa misma guía (2 de 5);
+"cuanto cuesta una lipotransferencia en medellin" y "lipotransferencia precio colombia medellín" cambiaron entre /lipotransferencia-glutea y la guía para EE. UU. (1 impr. cada una; pocos datos).
+
+**Cerca de la primera página** (sin contar las que salen solo por "noon clinic"): /how-to-choose-a-plastic-surgeon-in-medellin (18,7; "top 5 plastic surgeons in medellin colombia" pos. 11),
+/bichectomia (11,1; "bichectomia medellin"), /aumento-de-senos-en-medellin-desde-estados-unidos (15,8), /lipo-360-medellin (10,3; "liposuction columbia" 14),
+/lipoabdominoplastia-con-transferencia-glutea (11,7). /cuantos-dias-quedarse... sale por "si": no cuenta. /especialistas, /tu-proceso, /otra-ciudad y /medicina-estetica solo por la marca: no cuentan.
+
+**Seguimiento de las 10 fichas** (posición · impresiones): mentoplastia 80 · 11 · lipotransferencia-glutea 72 · 14 ·
+rinoplastia-y-mentoplastia 81 · 33 · mastopexia-sin-implantes 86 · 16 · braquioplastia 84 · 4 · nutricion 49 · 17 ·
+otoplastia 66 · 7 · liposuccion 75 · 10 · abdominoplastia 82 · 1 · mamoplastia-de-aumento 84 · 3.
+La que más subió: nutricion (62 → 49). En el puesto 40 o mejor: 0 de 10 (meta al 7-feb-2027: 4).
+
+**Indexación:** 189 páginas en el sitemap, **166 en Google**, 23 todavía no (9 "Google no reconoce esta URL",
+14 "Descubierta: actualmente sin indexar"). Faltan sobre todo fichas en inglés para EE. UU. (facelift, hifu, prp, thigh-lift,
+thread-lift, chemical-peel, skin-boosters, breast-lift, guides, why-noon-clinic, nutrition…) y 2 en español
+(/cirugia-plastica-en-medellin-desde-atlanta, /rinomodelacion-con-acido-hialuronico-o-rinoplastia).
+
+**Lectura:** parecido a la semana pasada: 15 clics (antes 14), 654 impresiones (antes 452) y 2 clics sin la marca (antes 1). El aumento de apariciones
+viene de Colombia (317, antes 228) y también de EE. UU. (134, antes 91); los clics siguen casi todos de Colombia. Primera página sin la marca: 6 búsquedas (antes 1),
+sobre todo de melasma. Indexadas 166 (antes 164). Ninguna ficha de las 10 está aún en el puesto 40 o mejor.
+(Sección "Salen pero casi nadie abre": /how-to-choose-a-plastic-surgeon-in-medellin, puesto 19 con 26 impr. y 0 clics.)
+
 ## Foto del 16-nov-2026 (últimos 28 días: 18-oct al 14-nov)
 
 **Total:** 14 clics · 452 impresiones · CTR 3,1 % · posición media 59,0.
