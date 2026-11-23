@@ -113,7 +113,7 @@ comerciales como promesa; si se nombran productos, solo los que noon usa y está
 | H2 | toxina-botulinica + acido-hialuronico | bótox o ácido hialurónico: diferencias | colombia | publicado 2026-10-24 |
 | H3 | mini-abdominoplastia + abdominoplastia | mini abdominoplastia o abdominoplastia completa | colombia | publicado 2026-10-26 |
 | H4 | hilos-tensores + lifting-facial | hilos tensores o lifting facial | colombia | publicado 2026-11-02 |
-| H5 | acido-hialuronico + rinoplastia | rinomodelación con ácido hialurónico o rinoplastia | colombia | pendiente |
+| H5 | acido-hialuronico + rinoplastia | rinomodelación con ácido hialurónico o rinoplastia | colombia | publicado 2026-11-23 |
 | H6 | skinboosters + bioestimuladores | skinboosters o bioestimuladores: cuál necesita tu piel | colombia | publicado 2026-11-16 |
 
 H1: enlaza a la landing `criolipolisis.html` (no es del catálogo: va como enlace en el texto, no en `procedimientos`).
