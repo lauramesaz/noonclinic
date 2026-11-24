@@ -25,4 +25,10 @@ Formato: fecha · agente · vicio · ejemplo corto. Máximo 25 activas.
   64 en Google. Ahora máximo 46 (la web suma " · noon Clinic") y nunca empiezan por
   "<procedimiento> en Medellín".
 
+- 2026-11-24 · 2 Adaptador (EN) · **"actually" como muletilla equivalente a "de verdad".** Vuelve a
+  aparecer en casi todas las limpiezas de pares EN (ya iba 2 → 0, 4 → 1, 5 → 1 en guías anteriores).
+  Misma regla que "de verdad": máximo 1 por guía y nunca en title, h1, intro, entrada ni subtítulos ·
+  ej.: "once your surgeon knows what you actually need", "the specialty is actually registered to
+  them".
+
 ## Resueltas

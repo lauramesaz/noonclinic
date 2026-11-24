@@ -1,11 +1,11 @@
 {
- "fecha": "2026-11-22",
+ "fecha": "2026-11-24",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-21"
+   "rastreo": "2026-11-23"
   },
   "https://noon.clinic/abdominoplastia": {
    "en_google": true,
@@ -89,7 +89,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-06"
+   "rastreo": "2026-11-23"
   },
   "https://noon.clinic/blefaroplastia-en-colombia-en-un-viaje-corto": {
    "en_google": true,
@@ -131,7 +131,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-22"
+   "rastreo": "2026-11-23"
   },
   "https://noon.clinic/brazilian-butt-lift-medellin": {
    "en_google": true,
@@ -171,7 +171,7 @@
   },
   "https://noon.clinic/breast-lift-without-implants-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -189,7 +189,7 @@
   },
   "https://noon.clinic/chemical-peel-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -215,7 +215,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-11"
+   "rastreo": "2026-11-20"
   },
   "https://noon.clinic/cirugia-plastica-en-colombia-desde-boston": {
    "en_google": true,
@@ -545,7 +545,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-17"
+   "rastreo": "2026-11-23"
   },
   "https://noon.clinic/lipo-360-medellin": {
    "en_google": true,
@@ -689,7 +689,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-06"
+   "rastreo": "2026-11-24"
   },
   "https://noon.clinic/microneedling-medellin": {
    "en_google": true,
@@ -825,13 +825,13 @@
   },
   "https://noon.clinic/plastic-surgery-in-colombia-cost-what-the-price-depends-on": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/plastic-surgery-in-colombia-from-boston": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -945,7 +945,7 @@
   },
   "https://noon.clinic/rhinoplasty-and-chin-surgery-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -966,6 +966,12 @@
    "estado": "Enviada e indexada",
    "grupo": "paginas",
    "rastreo": "2026-11-03"
+  },
+  "https://noon.clinic/rinomodelacion-con-acido-hialuronico-o-rinoplastia": {
+   "en_google": true,
+   "estado": "Enviada e indexada",
+   "grupo": "guias",
+   "rastreo": "2026-11-24"
   },
   "https://noon.clinic/rinoplastia": {
    "en_google": true,
@@ -1055,13 +1061,13 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-01"
+   "rastreo": "2026-11-23"
   },
   "https://noon.clinic/tratamientos-corporales": {
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-01"
+   "rastreo": "2026-11-23"
   },
   "https://noon.clinic/traveling-with-a-companion-for-surgery-abroad": {
    "en_google": true,
@@ -1119,7 +1125,7 @@
   },
   "https://noon.clinic/where-to-stay-in-medellin-to-recover-after-surgery": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
