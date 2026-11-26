@@ -84,7 +84,7 @@ dueña: F6, G5, H5, H6, J3, J4, J5, J8 y J10.
 | F3 | lipotransferencia-glutea | recuperación de la lipotransferencia glútea semana a semana (cuándo sentarse) | colombia | publicado 2026-10-25 |
 | F4 | general | cómo prepararse para una cirugía plástica: exámenes, medicamentos y casa lista | colombia | publicado 2026-10-28 |
 | F5 | mamoplastia-de-aumento | recuperación del aumento de senos: qué esperar las primeras semanas | colombia | publicado 2026-11-09 |
-| F6 | liposuccion | cuándo se ve el resultado final de una liposucción | colombia | pendiente |
+| F6 | liposuccion | cuándo se ve el resultado final de una liposucción | colombia | publicado 2026-11-26 |
 
 F1 y F2: no afirmar que a toda paciente se le hacen juntas. Si se combinan o no, y en cuántos tiempos, lo
 decide el cirujano en la valoración presencial. Riesgos de combinar y de la lipotransferencia: solo con lo de

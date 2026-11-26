@@ -1,5 +1,5 @@
 {
- "fecha": "2026-11-25",
+ "fecha": "2026-11-26",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
@@ -189,7 +189,7 @@
   },
   "https://noon.clinic/chemical-peel-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -429,7 +429,7 @@
   },
   "https://noon.clinic/hifu-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -753,7 +753,7 @@
   },
   "https://noon.clinic/nutrition-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -831,7 +831,7 @@
   },
   "https://noon.clinic/plastic-surgery-in-colombia-from-boston": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -909,7 +909,7 @@
   },
   "https://noon.clinic/radiofrequency-skin-tightening-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -945,7 +945,7 @@
   },
   "https://noon.clinic/rhinoplasty-and-chin-surgery-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1005,7 +1005,7 @@
   },
   "https://noon.clinic/skin-boosters-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1047,13 +1047,13 @@
   },
   "https://noon.clinic/thigh-lift-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/thread-lift-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1131,7 +1131,7 @@
   },
   "https://noon.clinic/why-noon-clinic": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   }
