@@ -2,18 +2,18 @@
 
 Lo actualiza cada mañana la agencia con el usuario robot de Search Console (solo lectura). build.py usa indexacion.json para darles más enlaces internos a las que Google todavía no tiene.
 
-## Revisión del 2026-11-26
+## Revisión del 2026-11-27
 
-**Total:** 167 de 189 páginas en Google.
+**Total:** 168 de 190 páginas en Google.
 
 - Cirugías, tratamientos y páginas de la clínica: **64 de 64** en Google.
-- Guías del blog (español): **42 de 43** en Google.
+- Guías del blog (español): **43 de 44** en Google.
 - Páginas en inglés: **61 de 82** en Google.
 
 ## Por qué no están las demás
 
-- Descubierta: actualmente sin indexar: 14
-- Google no reconoce esta URL: 8
+- Descubierta: actualmente sin indexar: 18
+- Google no reconoce esta URL: 4
 
 ### Faltan · Guías del blog (español) (1)
 

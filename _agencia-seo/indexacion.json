@@ -1,5 +1,5 @@
 {
- "fecha": "2026-11-26",
+ "fecha": "2026-11-27",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
@@ -131,7 +131,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-23"
+   "rastreo": "2026-11-26"
   },
   "https://noon.clinic/brazilian-butt-lift-medellin": {
    "en_google": true,
@@ -165,7 +165,7 @@
   },
   "https://noon.clinic/breast-lift-with-implants-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -429,7 +429,7 @@
   },
   "https://noon.clinic/hifu-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -581,7 +581,13 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-20"
+   "rastreo": "2026-11-26"
+  },
+  "https://noon.clinic/liposuccion-cuando-se-ve-el-resultado-final": {
+   "en_google": true,
+   "estado": "Enviada e indexada",
+   "grupo": "guias",
+   "rastreo": "2026-11-26"
   },
   "https://noon.clinic/liposuction-in-medellin-colombia": {
    "en_google": true,
@@ -753,7 +759,7 @@
   },
   "https://noon.clinic/nutrition-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -965,7 +971,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-03"
+   "rastreo": "2026-11-26"
   },
   "https://noon.clinic/rinomodelacion-con-acido-hialuronico-o-rinoplastia": {
    "en_google": true,
@@ -1005,7 +1011,7 @@
   },
   "https://noon.clinic/skin-boosters-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1047,7 +1053,7 @@
   },
   "https://noon.clinic/thigh-lift-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1131,7 +1137,7 @@
   },
   "https://noon.clinic/why-noon-clinic": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   }
