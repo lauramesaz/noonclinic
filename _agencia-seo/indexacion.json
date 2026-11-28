@@ -1,11 +1,11 @@
 {
- "fecha": "2026-11-27",
+ "fecha": "2026-11-28",
  "urls": {
   "https://noon.clinic/": {
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-23"
+   "rastreo": "2026-11-28"
   },
   "https://noon.clinic/abdominoplastia": {
    "en_google": true,
@@ -189,7 +189,7 @@
   },
   "https://noon.clinic/chemical-peel-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -215,7 +215,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-20"
+   "rastreo": "2026-11-28"
   },
   "https://noon.clinic/cirugia-plastica-en-colombia-desde-boston": {
    "en_google": true,
@@ -545,7 +545,7 @@
    "en_google": true,
    "estado": "Enviada e indexada",
    "grupo": "paginas",
-   "rastreo": "2026-11-23"
+   "rastreo": "2026-11-28"
   },
   "https://noon.clinic/lipo-360-medellin": {
    "en_google": true,
@@ -759,7 +759,7 @@
   },
   "https://noon.clinic/nutrition-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -837,7 +837,7 @@
   },
   "https://noon.clinic/plastic-surgery-in-colombia-from-boston": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -951,7 +951,7 @@
   },
   "https://noon.clinic/rhinoplasty-and-chin-surgery-medellin": {
    "en_google": false,
-   "estado": "Google no reconoce esta URL",
+   "estado": "Descubierta: actualmente sin indexar",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1053,13 +1053,13 @@
   },
   "https://noon.clinic/thigh-lift-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/thread-lift-medellin": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1119,13 +1119,13 @@
   },
   "https://noon.clinic/what-to-pack-for-plastic-surgery-in-colombia": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
   "https://noon.clinic/when-can-i-fly-after-liposuction": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   },
@@ -1137,7 +1137,7 @@
   },
   "https://noon.clinic/why-noon-clinic": {
    "en_google": false,
-   "estado": "Descubierta: actualmente sin indexar",
+   "estado": "Google no reconoce esta URL",
    "grupo": "en",
    "rastreo": ""
   }
